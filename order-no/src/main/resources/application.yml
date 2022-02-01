@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+  spring:
+    application:
+      name: order-service
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public
