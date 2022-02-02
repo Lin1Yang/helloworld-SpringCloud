@@ -1,0 +1,19 @@
+#2022/02/02
+#Lin Yang
+
+For set up nacos in the server environment:
+1. Login to the dev server
+2. Go to the directory nacos/conf
+3. Modify the conf\application.properties with the database information
+    a. server.port
+    b. db.num
+    c. db.url
+    d. db.user
+    e. db.password
+4. Open the sql from server
+    a. New database same name as the name in the db.url from conf\application.properties
+    b. Import and run the conf\nacos-mysql.sql
+5. Modify the file conf\cluster.conf - add or modify the IP address for nacos
+    a. Edit the file with the IP address which is the server IP : nacos port such as 172.0.0.1:8848
+6. Modify the bin\start.sh(if we have the memory issue, Default is 2g)
+7.
