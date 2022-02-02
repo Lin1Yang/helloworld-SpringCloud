@@ -16,4 +16,20 @@ For set up nacos in the server environment:
 5. Modify the file conf\cluster.conf - add or modify the IP address for nacos
     a. Edit the file with the IP address which is the server IP : nacos port such as 172.0.0.1:8848
 6. Modify the bin\start.sh(if we have the memory issue, Default is 2g)
-7.
+7. We will need to modify the nginx(did not install in dev yet) - Once we edit nginx, the system will always call nginx and nginx
+to desided which IP server should call.
+    a. vim conf/nginx.conf
+    b. add the command under http:
+    upstream nacoscluster{
+        server 127.0.0.1:8848; //same as the IP in conf\cluster.conf
+        server 127.0.0.1:8848;
+        server 127.0.0.1:8848;
+    }
+    server{
+        listen 8847; // which port we will call for nginx
+        server_name  localhost;
+
+        local /nacos/{
+            proxy_pass http://nacoscluster/nacos/;
+        }
+    }
