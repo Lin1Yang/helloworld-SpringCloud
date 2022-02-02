@@ -33,3 +33,5 @@ to desided which IP server should call.
             proxy_pass http://nacoscluster/nacos/;
         }
     }
+
+8. Edit the application.yml file from project server-addr: to nginx address such as 127.0.0.1:8847
