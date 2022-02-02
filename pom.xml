@@ -8,7 +8,6 @@
     <modules>
         <module>order-nacos</module>
         <module>stock-nacos</module>
-        <module>stock-nacos2</module>
     </modules>
     <name>helloworld</name>
     <packaging>pom</packaging>
