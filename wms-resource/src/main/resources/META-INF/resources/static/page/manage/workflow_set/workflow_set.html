@@ -1,0 +1,223 @@
+<!doctype html>
+<html class="scorll">
+<head>
+	<meta charset="utf-8">
+	<title>审批流程设置</title>
+	<link href="../../../part/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../../../css/common.css" rel="stylesheet" />
+	<link href="../../../css/inossem.grid.css" rel="stylesheet"/>
+	<script src="../../../js/jquery-1.11.0.min.js"></script>
+	<script src="../../../js/common.js"></script>
+	<script src="../../../part/layer/layer.js"></script>
+	<script src="../../../part/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../../js/jquery.inossem.grid.js"></script>
+	<script>
+		loadcompleted=function(){
+			$("ol.breadcrumb").append("<span style='color: white;padding: 0px 12px;font-weight: 600;'>审批流程设置</span>");
+            $("div.search a.home").remove();
+            $("div.search a.search").remove();
+            $("div.search a.advanced").remove();
+            $("div.searchbox").remove();
+            $("div.baseinfo a.btnMenuSet").remove();
+            $("div.baseinfo a.btnToDo").remove();
+		}
+	</script>
+	<script>
+		var g=null;
+		var selectSubCategory = {}//选择的二级分类
+	    $(function(){
+			showloading();
+			query();
+			ajax("../../../../category/listCategoryTreeGrid",'get',null,
+					function(data){
+						data = JSON.parse(data);
+						layer.close(indexloading);
+						$(".ulcheckbox").empty();
+						$.each(data,function(i,item){
+							if(item.subProcGroup.length>0)
+								$(".ulcheckbox").append("<li class='lifirst'><div><span>▶</span><label data-id='"+item.groupId+"' data-createId='"+item.createId+"'>"+item.groupName+"</label></div></li>");
+							else
+								$(".ulcheckbox").append("<li class='lifirst'><div><span> </span><label data-id='"+item.groupId+"' data-createId='"+item.createId+"'>"+item.groupName+"</label></div></li>");
+							$(".ulcheckbox li:last").data("data",item.subProcGroup);
+						});
+						$.each($(".ulcheckbox .lifirst"),function(i,item){
+							var currli=$(this);
+							var subProcGroup=currli.data("data");
+							if(subProcGroup.length>0)
+								currli.append("<ul class='subProcGroup'></ul>")
+							$.each(subProcGroup,function(j,jitem){
+									currli.find("ul.subProcGroup").append("<li class='lisubProcGroup'><div><span> </span><label data-id='"+jitem.groupId+"' data-createId='"+jitem.createId+"'>"+jitem.groupName+"</label></div></li>");
+								$(".ulcheckbox li.lisubProcGroup:last").data("data",jitem.smallClassList);
+							});
+							currli.data("data",null);
+						});
+						$(".ulcheckbox span").click(function(){
+							var currspan=$(this);
+							var currul=currspan.parent().next();
+							if(currul.is(":visible")){
+								currul.hide();
+								currspan.html("▶");
+							}else{
+								currul.show();
+								currspan.html("▼");
+							}
+						});
+						$(".ulcheckbox label").click(function(){
+							var currlabel=$(this);
+							query(currlabel.data("id"));
+							$(".ulcheckbox label").removeClass("on");
+							currlabel.addClass("on");
+							if(currlabel.parents(".subProcGroup").length>0){
+								var index1 = currlabel.parents(".lifirst").index();
+								var index2 = currlabel.parents(".lisubProcGroup").index();
+								selectSubCategory = data[index1].subProcGroup[index2];
+							}
+						});
+
+					}, function (e) {
+
+					},1
+			);
+		});
+		function binddata(data){
+			g =$("#inossemgrid").iGrid({
+					columns: [
+						{ th: '流程名称', col: 'procName',width:200,type:'light',
+							light:{type:[{class:'blue'}]}
+						},
+						{ th: '创建人', col: 'userName',width:200 },
+						{ th: '创建时间', col: 'createTime',width:400 },
+						{ th: '操作', col: '',type:"imagebutton",list:[
+							{command:"del",width:20,url:"../../../img/u17849.svg",hoverurl:"../../img/u17849_mouseOver.svg",describe:"删除",visible:true}
+						],width:150}
+					],
+					data: data,
+					skin:"tablestyle4",
+					sortable:false,
+					checkbox:false,
+					imagebutton:function(a,b,c,d){
+						if(d=="del"){
+							console.log(a);
+							console.log(b);
+							console.log(c);
+							console.log(d);
+							layer.confirm('你确定要删除？', {
+								btn: ['确定','取消'] //按钮
+							}, function(){
+								ajax("../../../../process/deleteProcess?processId="+c.procId,'post',null,
+										function(data){
+											if(data.head.msg!="success"){
+												layer.msg(data.head.msg);
+											}
+											if($(".on").data("id")){
+												query($(".on").data("id"))
+											}else{
+												query();
+											}
+											layer.close(layer.index);
+										}
+								);
+							}, function(){
+
+							});
+
+						}
+					},
+				});
+				
+				$(".tablestyle4 tr td").click(function(){
+					//console.log($(this).index());
+					//console.log($(this).parents("tr").index());
+					var index = $(this).parents("tr").index();
+					if($(this).index()==1){
+						 location.href="./check.html?procId="+data[index].procId;
+					}
+				});
+		}
+		function query(procCategory){
+			ajax("../../../../process/processInfoByCategory?procCategory="+(procCategory==undefined?'':procCategory),'get',null,
+				function(data){
+				data = JSON.parse(data);
+					binddata(data.body);
+				}
+			);
+			//layer.close(indexloading);
+		}
+		//新建流程页
+	    function add(){
+			if(!!$(".on").data("createid")&&$(".on").parents(".subProcGroup").length>0){
+				layer.open({
+					type: 2,
+					title: '新建流程',
+					shadeClose: false,
+					shade: 0.8,
+					area: ['500px','260px'],
+					content: 'edit.html'
+				});
+			}else if(!!$(".on").data("createid")&&$(".on").parents(".subProcGroup").length==0){
+				layer.msg("请选择二级分类流程");
+			}else{
+				layer.msg("请选择分类流程");
+			}
+	    }
+		//获取二级分类数据
+		function getSubCategory(){
+			return selectSubCategory;
+		}
+	</script>
+	<style>
+		.rolelist{border:1px solid #eee;background: rgb(249,251,252);padding-top:20px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+		.rolelist>ul{margin-left:-30px;}
+		.rolelist li{padding-left:40px;}
+		.ulcheckbox li,.ulcheckbox li div{line-height: 30px;}.ulcheckbox li div{height:30px}
+		.ulcheckbox span{margin: -10px 0 0 0;width: 14px;height:30px;overflow:hidden;float: left;line-height: 45px;cursor:pointer;}
+		.ulcheckbox span:hover{color:#3BA6F4}
+		 ul.second,ul.third{display:none;}
+		/*.ulchkMaterial label{cursor:pointer;padding-left:15px;padding-right:15px;border-radius:2px;white-space: nowrap;overflow: hidden;text-overflow:ellipsis;}
+		.ulchkMaterial label.on{background-color:aquamarine;}*/
+		.ulcheckbox label.on{background-color:aquamarine;}
+		.blue .collight:hover{
+			color: #00A0F0;
+		}
+	</style>
+	<style>
+		.bgImg{
+			background: url(../../../img/u18318.svg) no-repeat left center;
+			padding-left: 22px;
+			background-size: 20px 20px;
+		}
+		.bgImg:hover{
+			background: url(../../../img/u18318_mouseOver.svg) no-repeat left center;
+			padding-left: 22px;
+			background-size: 20px 20px;
+		}
+	</style>
+</head>
+<body>
+<div i-template="head"></div>
+<div i-template="toolbar">
+	<a class="btn bgImg" id="sortName" href="javascript:void(0)" onclick="add()">新建流程</a>
+</div>
+<div class="container article">
+	<div class="col-xs-3 rolelist">
+		<p>选择分类流程</p>
+		<ul class="ulcheckbox ulClassFlow">
+			<li class="lifirst">
+				<div><span>▶</span><label>01 test1</label></div>
+				<ul class='second'>
+					<li class='lisecond'>
+						<div><span>▶</span><label>test11</label></div>
+						<ul class='third'>
+							<li class='lithird'><div><label>test111</label></div></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="col-xs-9 row">
+		<div id="inossemgrid"></div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html class="scorll">
+<head>
+	<meta charset="utf-8">
+	<title>工作流管理系统</title>
+	<link href="../part/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/common.css" rel="stylesheet" />
+	<script src="../js/jquery-1.11.0.min.js"></script>
+	<script src="../js/common.js"></script>
+	<script src="../part/bootstrap/js/bootstrap.min.js"></script>
+	<script>
+        $(function(){
+            loadcompleted=function(){
+                $("div.search").before("<div class='divh2'>&nbsp;</div><h2>&nbsp;工作流管理系统</h2>");
+                $("div.search a.home").remove();
+                $("div.search a.search").remove();
+                $("div.search a.advanced").remove();
+                $("div.searchbox").remove();
+                $("div.baseinfo a.btnMenuSet").remove();
+                $("div.baseinfo a.btnToDo").remove();
+            }
+        })
+
+        function manageClass(){
+            window.location.href="../page/manage/class_set/class_set.html";
+        }
+
+        function manageflow(){
+            window.location.href="../page/manage/workflow_set/workflow_set.html";
+        }
+	</script>
+	<style>
+		h2{text-align:center;}
+		.crumbs,.toolbar{display:none;}
+		div.divh2{height:35%;}
+		div.wrapper{background:#fff;height:45%;}
+		div.wrapperbottom{position:fixed;left:0px;top:45%;height:65%;width:100%;background: #fff url('/img/bg.jpg') repeat-x bottom center;}
+		div.tabletitle{background-color:#f2f9fc;height:40px;border:1px solid #ccc;line-height:37px;}
+		div.tablebody{border:1px solid #ccc;min-height:200px;border-top:0px none;padding-top:10px;background: #fff;}
+	</style>
+</head>
+
+<body>
+<div i-template="head"></div>
+<div class="wrapperbottom">
+	<div class="container">
+		<h2><a class="btn bgImg" id="sortName" href="javascript:void(0)" onclick="manageClass()">流程分类管理</a></h2>
+		<h2><a class="btn bgImg" id="sortName" href="javascript:void(0)" onclick="manageflow()">流程配置管理</a></h2>
+		<!--<div class="col-xs-10 col-xs-offset-1 tabletitle">-->
+		<!--<div class="col-xs-6"><img src='img/u53.png'/>&nbsp;系统公告</div>-->
+		<!--<div class="col-xs-6"><img src='img/u55.png'/>&nbsp;系统文档</div>-->
+		<!--</div>-->
+		<!--<div class="col-xs-10 col-xs-offset-1 tablebody">-->
+		<!--<div class="col-xs-6">-->
+		<!--以下内容为演示文字，如有雷同，实属巧合<br/><br/>-->
+		<!--问题修正：<br/>-->
+		<!--（1)修复大灾变模式异常的问题<br/>-->
+		<!--（2)修复造成伤害的问题<br/>-->
+		<!--（3)修复时间异常的问题<br/>-->
+		<!--（4)修复异常的问题<br/>-->
+		<!--</div>-->
+		<!--<div class="col-xs-3">-->
+		<!--<a href="javascript:void(0)">功能培训</a><br/>-->
+		<!--<a href="javascript:void(0)">主数据管理系统用户操作培训</a><br/>-->
+		<!--<a href="javascript:void(0)">物料数据申请审批用户列表</a><br/>-->
+		<!--</div>-->
+		<!--<div class="col-xs-3">-->
+		<!--<a href="javascript:void(0)">电线电缆规格型号代表的含义</a><br/>-->
+		<!--<a href="javascript:void(0)">电线电缆规格型号(全部)</a><br/>-->
+		<!--<a href="javascript:void(0)">电抗器型号说明</a><br/>-->
+		<!--<a href="javascript:void(0)">电机安装方式</a>-->
+		<!--</div>-->
+		<!--</div>-->
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.biz.BizReceiptItemImgMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.biz.BizReceiptItemImg">
+    <id column="biz_receipt_item_img_id" jdbcType="INTEGER" property="bizReceiptItemImgId" />
+    <result column="receipt_type" jdbcType="INTEGER" property="receiptType" />
+    <result column="receipt_code" jdbcType="VARCHAR" property="receiptCode" />
+    <result column="receipt_rid" jdbcType="VARCHAR" property="receiptRid" />
+    <result column="file_code" jdbcType="VARCHAR" property="fileCode" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="receipt_item_img_ext0" jdbcType="VARCHAR" property="receiptItemImgExt0" />
+    <result column="receipt_item_img_ext1" jdbcType="VARCHAR" property="receiptItemImgExt1" />
+    <result column="receipt_item_img_ext2" jdbcType="VARCHAR" property="receiptItemImgExt2" />
+    <result column="receipt_item_img_ext3" jdbcType="VARCHAR" property="receiptItemImgExt3" />
+    <result column="receipt_item_img_ext4" jdbcType="VARCHAR" property="receiptItemImgExt4" />
+    <result column="receipt_item_img_ext5" jdbcType="VARCHAR" property="receiptItemImgExt5" />
+    <result column="receipt_item_img_ext6" jdbcType="VARCHAR" property="receiptItemImgExt6" />
+    <result column="receipt_item_img_ext7" jdbcType="VARCHAR" property="receiptItemImgExt7" />
+    <result column="receipt_item_img_ext8" jdbcType="VARCHAR" property="receiptItemImgExt8" />
+    <result column="receipt_item_img_ext9" jdbcType="VARCHAR" property="receiptItemImgExt9" />
+  </resultMap>
+  <resultMap id="BaseResultMapVo" type="com.inossem.wms.model.biz.BizReceiptItemImgVo" extends="BaseResultMap">
+  	<result column="img_code" property="imgCode" jdbcType="VARCHAR" />
+  	<result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="img_name" property="imgName" jdbcType="VARCHAR" />
+    <result column="img_web_code" property="imgWebCode" jdbcType="VARCHAR" />
+    <result column="img_pad_code" property="imgPadCode" jdbcType="VARCHAR" />
+    <result column="img_ext" property="imgExt" jdbcType="VARCHAR" />
+    <result column="img_size" property="imgSize" jdbcType="INTEGER" />
+    <result column="img_md5" property="imgMd5" jdbcType="VARCHAR" />
+    <result column="img_ext0" property="imgExt0" jdbcType="VARCHAR" />
+    <result column="img_ext1" property="imgExt1" jdbcType="VARCHAR" />
+    <result column="img_ext2" property="imgExt2" jdbcType="VARCHAR" />
+    <result column="img_ext3" property="imgExt3" jdbcType="VARCHAR" />
+    <result column="img_ext4" property="imgExt4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    biz_receipt_item_img_id, receipt_type, receipt_code, receipt_rid, file_code, is_delete, 
+    create_time, modify_time, create_user_id, modify_user_id, receipt_item_img_ext0, 
+    receipt_item_img_ext1, receipt_item_img_ext2, receipt_item_img_ext3, receipt_item_img_ext4, 
+    receipt_item_img_ext5, receipt_item_img_ext6, receipt_item_img_ext7, receipt_item_img_ext8, 
+    receipt_item_img_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from biz_receipt_item_img
+    where biz_receipt_item_img_id = #{bizReceiptItemImgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from biz_receipt_item_img
+    where biz_receipt_item_img_id = #{bizReceiptItemImgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.biz.BizReceiptItemImg">
+    insert into biz_receipt_item_img (biz_receipt_item_img_id, receipt_type, 
+      receipt_code, receipt_rid, file_code, 
+      is_delete, create_time, modify_time, 
+      create_user_id, modify_user_id, receipt_item_img_ext0, 
+      receipt_item_img_ext1, receipt_item_img_ext2, 
+      receipt_item_img_ext3, receipt_item_img_ext4, 
+      receipt_item_img_ext5, receipt_item_img_ext6, 
+      receipt_item_img_ext7, receipt_item_img_ext8, 
+      receipt_item_img_ext9)
+    values (#{bizReceiptItemImgId,jdbcType=INTEGER}, #{receiptType,jdbcType=INTEGER}, 
+      #{receiptCode,jdbcType=VARCHAR}, #{receiptRid,jdbcType=VARCHAR}, #{fileCode,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, #{receiptItemImgExt0,jdbcType=VARCHAR}, 
+      #{receiptItemImgExt1,jdbcType=VARCHAR}, #{receiptItemImgExt2,jdbcType=VARCHAR}, 
+      #{receiptItemImgExt3,jdbcType=VARCHAR}, #{receiptItemImgExt4,jdbcType=VARCHAR}, 
+      #{receiptItemImgExt5,jdbcType=VARCHAR}, #{receiptItemImgExt6,jdbcType=VARCHAR}, 
+      #{receiptItemImgExt7,jdbcType=VARCHAR}, #{receiptItemImgExt8,jdbcType=VARCHAR}, 
+      #{receiptItemImgExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.biz.BizReceiptItemImg">
+    insert into biz_receipt_item_img
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bizReceiptItemImgId != null">
+        biz_receipt_item_img_id,
+      </if>
+      <if test="receiptType != null">
+        receipt_type,
+      </if>
+      <if test="receiptCode != null">
+        receipt_code,
+      </if>
+      <if test="receiptRid != null">
+        receipt_rid,
+      </if>
+      <if test="fileCode != null">
+        file_code,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="receiptItemImgExt0 != null">
+        receipt_item_img_ext0,
+      </if>
+      <if test="receiptItemImgExt1 != null">
+        receipt_item_img_ext1,
+      </if>
+      <if test="receiptItemImgExt2 != null">
+        receipt_item_img_ext2,
+      </if>
+      <if test="receiptItemImgExt3 != null">
+        receipt_item_img_ext3,
+      </if>
+      <if test="receiptItemImgExt4 != null">
+        receipt_item_img_ext4,
+      </if>
+      <if test="receiptItemImgExt5 != null">
+        receipt_item_img_ext5,
+      </if>
+      <if test="receiptItemImgExt6 != null">
+        receipt_item_img_ext6,
+      </if>
+      <if test="receiptItemImgExt7 != null">
+        receipt_item_img_ext7,
+      </if>
+      <if test="receiptItemImgExt8 != null">
+        receipt_item_img_ext8,
+      </if>
+      <if test="receiptItemImgExt9 != null">
+        receipt_item_img_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bizReceiptItemImgId != null">
+        #{bizReceiptItemImgId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptType != null">
+        #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null">
+        #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptRid != null">
+        #{receiptRid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCode != null">
+        #{fileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptItemImgExt0 != null">
+        #{receiptItemImgExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt1 != null">
+        #{receiptItemImgExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt2 != null">
+        #{receiptItemImgExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt3 != null">
+        #{receiptItemImgExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt4 != null">
+        #{receiptItemImgExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt5 != null">
+        #{receiptItemImgExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt6 != null">
+        #{receiptItemImgExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt7 != null">
+        #{receiptItemImgExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt8 != null">
+        #{receiptItemImgExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt9 != null">
+        #{receiptItemImgExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.biz.BizReceiptItemImg">
+    update biz_receipt_item_img
+    <set>
+      <if test="receiptType != null">
+        receipt_type = #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null">
+        receipt_code = #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptRid != null">
+        receipt_rid = #{receiptRid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCode != null">
+        file_code = #{fileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptItemImgExt0 != null">
+        receipt_item_img_ext0 = #{receiptItemImgExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt1 != null">
+        receipt_item_img_ext1 = #{receiptItemImgExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt2 != null">
+        receipt_item_img_ext2 = #{receiptItemImgExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt3 != null">
+        receipt_item_img_ext3 = #{receiptItemImgExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt4 != null">
+        receipt_item_img_ext4 = #{receiptItemImgExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt5 != null">
+        receipt_item_img_ext5 = #{receiptItemImgExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt6 != null">
+        receipt_item_img_ext6 = #{receiptItemImgExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt7 != null">
+        receipt_item_img_ext7 = #{receiptItemImgExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt8 != null">
+        receipt_item_img_ext8 = #{receiptItemImgExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptItemImgExt9 != null">
+        receipt_item_img_ext9 = #{receiptItemImgExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where biz_receipt_item_img_id = #{bizReceiptItemImgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.biz.BizReceiptItemImg">
+    update biz_receipt_item_img
+    set receipt_type = #{receiptType,jdbcType=INTEGER},
+      receipt_code = #{receiptCode,jdbcType=VARCHAR},
+      receipt_rid = #{receiptRid,jdbcType=VARCHAR},
+      file_code = #{fileCode,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      receipt_item_img_ext0 = #{receiptItemImgExt0,jdbcType=VARCHAR},
+      receipt_item_img_ext1 = #{receiptItemImgExt1,jdbcType=VARCHAR},
+      receipt_item_img_ext2 = #{receiptItemImgExt2,jdbcType=VARCHAR},
+      receipt_item_img_ext3 = #{receiptItemImgExt3,jdbcType=VARCHAR},
+      receipt_item_img_ext4 = #{receiptItemImgExt4,jdbcType=VARCHAR},
+      receipt_item_img_ext5 = #{receiptItemImgExt5,jdbcType=VARCHAR},
+      receipt_item_img_ext6 = #{receiptItemImgExt6,jdbcType=VARCHAR},
+      receipt_item_img_ext7 = #{receiptItemImgExt7,jdbcType=VARCHAR},
+      receipt_item_img_ext8 = #{receiptItemImgExt8,jdbcType=VARCHAR},
+      receipt_item_img_ext9 = #{receiptItemImgExt9,jdbcType=VARCHAR}
+    where biz_receipt_item_img_id = #{bizReceiptItemImgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByCondition" parameterType="com.inossem.wms.model.biz.BizReceiptItemImgVo">
+    update biz_receipt_item_img
+    set 
+      is_delete = 1
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+      and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+      and receipt_rid = #{receiptRid,jdbcType=VARCHAR}
+      and file_code !=#{fileCode,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByCondition" parameterType="com.inossem.wms.model.biz.BizReceiptItemImg" resultMap="BaseResultMapVo">
+    select 
+    t1.biz_receipt_item_img_id, t1.receipt_type, t1.receipt_code, t1.receipt_rid, t1.file_code, t1.is_delete, 
+    t1.create_time, t1.modify_time, t1.create_user_id, t1.modify_user_id, t1.receipt_item_img_ext0, 
+    t1.receipt_item_img_ext1, t1.receipt_item_img_ext2, t1.receipt_item_img_ext3, t1.receipt_item_img_ext4, 
+    t1.receipt_item_img_ext5, t1.receipt_item_img_ext6, t1.receipt_item_img_ext7, t1.receipt_item_img_ext8, 
+    t1.receipt_item_img_ext9,t2.img_code,t2.path,t2.img_name,t2.img_web_code,t2.img_pad_code,t2.img_ext,t2.img_size,
+    t2.img_md5
+	from biz_receipt_item_img t1 join log_img t2 on
+	t1.file_code=t2.img_code
+	where t1.is_delete=0 and t2.is_delete=0
+	<if test="receiptType!=null and receiptType!=''">
+		and t1.receipt_type = #{receiptType,jdbcType=INTEGER}
+	</if>
+	<if test="receiptCode!=null and receiptCode!=''">
+		and t1.receipt_code = #{receiptCode,jdbcType=VARCHAR}
+	</if>
+	<if test="receiptRid!=null and receiptRid!=''">
+		and t1.receipt_rid = #{receiptRid,jdbcType=VARCHAR}
+	</if>
+  </select>
+
+  <select id="selectByReceiptList" parameterType="java.util.List" resultMap="BaseResultMapVo">
+    select
+    t1.biz_receipt_item_img_id, t1.receipt_type, t1.receipt_code, t1.receipt_rid, t1.file_code, t1.is_delete,
+    t1.create_time, t1.modify_time, t1.create_user_id, t1.modify_user_id, t1.receipt_item_img_ext0,
+    t1.receipt_item_img_ext1, t1.receipt_item_img_ext2, t1.receipt_item_img_ext3, t1.receipt_item_img_ext4,
+    t1.receipt_item_img_ext5, t1.receipt_item_img_ext6, t1.receipt_item_img_ext7, t1.receipt_item_img_ext8,
+    t1.receipt_item_img_ext9,t2.img_code,t2.path,t2.img_name,t2.img_web_code,t2.img_pad_code,t2.img_ext,t2.img_size,
+    t2.img_md5
+    from biz_receipt_item_img t1 join log_img t2 on
+    t1.file_code=t2.img_code
+    where t1.is_delete=0 and t2.is_delete=0
+    <if test="list!=null and list.size()>0">
+      and (t1.receipt_type,t1.receipt_code,t1.receipt_rid) in
+      <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+        ( #{item.receiptType,jdbcType=INTEGER},#{item.receiptCode,jdbcType=VARCHAR},#{item.receiptRid,jdbcType=VARCHAR})
+      </foreach>
+    </if>
+  </select>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+	insert into biz_receipt_item_img ( 
+	receipt_type,
+	receipt_code, 
+	receipt_rid, 
+	file_code,
+	create_user_id,
+	 modify_user_id)
+	values
+	<foreach collection="list" item="item" index="index" separator=",">
+		( #{item.receiptType,jdbcType=INTEGER},
+		#{item.receiptCode,jdbcType=VARCHAR}, 
+		#{item.receiptRid,jdbcType=VARCHAR}, 
+		#{item.fileCode,jdbcType=VARCHAR},
+		#{item.createUserId,jdbcType=INTEGER}, 
+		#{item.modifyUserId,jdbcType=INTEGER})
+	</foreach>
+    ON  DUPLICATE  KEY  UPDATE
+    is_delete = values(is_delete),
+    create_time = values(create_time),
+    modify_time = values(modify_time),
+    create_user_id = values(create_user_id),
+    modify_user_id = values(modify_user_id),
+    receipt_item_img_ext0 = values(receipt_item_img_ext0),
+    receipt_item_img_ext1 = values(receipt_item_img_ext1),
+    receipt_item_img_ext2 = values(receipt_item_img_ext2),
+    receipt_item_img_ext3 = values(receipt_item_img_ext3),
+    receipt_item_img_ext4 = values(receipt_item_img_ext4),
+    receipt_item_img_ext5 = values(receipt_item_img_ext5),
+    receipt_item_img_ext6 = values(receipt_item_img_ext6),
+    receipt_item_img_ext7 = values(receipt_item_img_ext7),
+    receipt_item_img_ext8 = values(receipt_item_img_ext8),
+    receipt_item_img_ext9 = values(receipt_item_img_ext9)
+</insert>
+ <delete id="delByCondition" parameterType="com.inossem.wms.model.biz.BizReceiptItemImgVo">
+    delete from biz_receipt_item_img
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+      and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+      and receipt_rid = #{receiptRid,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByReceiptList" parameterType="java.util.List">
+    delete from biz_receipt_item_img
+    where (receipt_type,receipt_code,receipt_rid) in
+      <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+        ( #{item.receiptType,jdbcType=INTEGER},#{item.receiptCode,jdbcType=VARCHAR},#{item.receiptRid,jdbcType=VARCHAR})
+      </foreach>
+  </delete>
+</mapper>

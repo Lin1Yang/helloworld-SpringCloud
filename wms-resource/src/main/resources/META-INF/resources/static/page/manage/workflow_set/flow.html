@@ -1,0 +1,90 @@
+<!doctype html>
+<html class="scorll">
+<head>
+<meta charset="utf-8">
+<title>步骤列表</title>
+	<link href="../../../part/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../css/common.css" rel="stylesheet" />
+    <link href="../../../css/inossem.grid.css" rel="stylesheet"/>
+    <script src="../../../js/jquery-1.11.0.min.js"></script>
+    <script src="../../../js/common.js"></script>
+	<script src="../../../part/layer/layer.js"></script>
+    <script src="../../../part/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../../js/jquery.inossem.grid.js"></script>
+    <script>
+		loadcompleted=function(){
+			$("ol.breadcrumb").append("<span style='color: white;padding: 0px 12px;font-weight: 600;'>审批分类设置</span>");
+            $("div.search a.home").remove();
+            $("div.search a.search").remove();
+            $("div.search a.advanced").remove();
+            $("div.searchbox").remove();
+            $("div.baseinfo a.btnMenuSet").remove();
+            $("div.baseinfo a.btnToDo").remove();
+		}
+    	var g=null;
+		$(function(){
+			binddata();
+		});
+//		数据表格
+		function binddata(data){
+			if(g==null){
+				g =$("#inossemgrid").iGrid({
+					columns: [ 
+						{ th: '流程名称', col: '',width:200 },
+						{ th: '下一步骤', col: '',width:100 },
+						{ th: '编辑步骤属性', col: '',width:300},
+						{ th: '操作', col: '',type:"imagebutton",list:[
+							{command:"del",width:17,url:"../../../img/del.svg",hoverurl:"../../../img/del-hover.svg",describe:"删除",visible:true},
+						],width:100}
+					], 
+					data: null,
+					checkbox:false,
+					skin:"tablestyle4",
+					sortable:false,
+					imagebutton:function(a,b,c,d){
+						if(d=="edit"){}
+						if(d=="del"){}
+					}
+				});
+			}
+		}
+	//		跳转新建流程分类页
+	    function add(){
+	    	layer.open({
+					type: 2,
+					title: '新建步骤',
+					shadeClose: false,
+					shade: 0.8,
+					area: ['850px', '770px'],
+					content: 'step.html'
+				});
+	    }
+	    function paramSet(){
+	    	layer.open({
+					type: 2,
+					title: '参数设置',
+					shadeClose: false,
+					shade: 0.8,
+					area: ['470px', '300px'],
+					content: 'param.html'
+				});
+	    }
+	</script>
+</head>
+<body>
+	<div i-template="head"></div>
+	<div i-template="toolbar">
+		<a class="btn" onclick="add()">新建步骤</a>
+		<a class="btn" onclick="paramSet()">参数设置</a>
+	</div>
+	<div class="container article">
+		<div id="inossemgrid"></div>
+	</div>
+	<div class="bottom">
+		<div class="container">
+			<hr/>
+			<div class="text-center" id="J_ListPagination"></div>
+		</div>
+	</div>
+</body>
+</html>

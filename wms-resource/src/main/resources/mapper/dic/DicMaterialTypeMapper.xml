@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicMaterialTypeMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicMaterialType">
+    <id column="mat_type_code" jdbcType="VARCHAR" property="matTypeCode" />
+    <result column="mat_type_name" jdbcType="VARCHAR" property="matTypeName" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="mat_type_ext0" jdbcType="VARCHAR" property="matTypeExt0" />
+    <result column="mat_type_ext1" jdbcType="VARCHAR" property="matTypeExt1" />
+    <result column="mat_type_ext2" jdbcType="VARCHAR" property="matTypeExt2" />
+    <result column="mat_type_ext3" jdbcType="VARCHAR" property="matTypeExt3" />
+    <result column="mat_type_ext4" jdbcType="VARCHAR" property="matTypeExt4" />
+    <result column="mat_type_ext5" jdbcType="VARCHAR" property="matTypeExt5" />
+    <result column="mat_type_ext6" jdbcType="VARCHAR" property="matTypeExt6" />
+    <result column="mat_type_ext7" jdbcType="VARCHAR" property="matTypeExt7" />
+    <result column="mat_type_ext8" jdbcType="VARCHAR" property="matTypeExt8" />
+    <result column="mat_type_ext9" jdbcType="VARCHAR" property="matTypeExt9" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mat_type_code, mat_type_name, is_delete, create_time, modify_time, create_user_id, 
+    modify_user_id, mat_type_ext0, mat_type_ext1, mat_type_ext2, mat_type_ext3, mat_type_ext4, 
+    mat_type_ext5, mat_type_ext6, mat_type_ext7, mat_type_ext8, mat_type_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_material_type
+    where mat_type_code = #{matTypeCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dic_material_type
+    where mat_type_code = #{matTypeCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicMaterialType">
+    insert into dic_material_type (mat_type_code, mat_type_name, is_delete, 
+      create_time, modify_time, create_user_id, 
+      modify_user_id, mat_type_ext0, mat_type_ext1, 
+      mat_type_ext2, mat_type_ext3, mat_type_ext4, 
+      mat_type_ext5, mat_type_ext6, mat_type_ext7, 
+      mat_type_ext8, mat_type_ext9)
+    values (#{matTypeCode,jdbcType=VARCHAR}, #{matTypeName,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{matTypeExt0,jdbcType=VARCHAR}, #{matTypeExt1,jdbcType=VARCHAR}, 
+      #{matTypeExt2,jdbcType=VARCHAR}, #{matTypeExt3,jdbcType=VARCHAR}, #{matTypeExt4,jdbcType=VARCHAR}, 
+      #{matTypeExt5,jdbcType=VARCHAR}, #{matTypeExt6,jdbcType=VARCHAR}, #{matTypeExt7,jdbcType=VARCHAR}, 
+      #{matTypeExt8,jdbcType=VARCHAR}, #{matTypeExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicMaterialType">
+    insert into dic_material_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="matTypeCode != null">
+        mat_type_code,
+      </if>
+      <if test="matTypeName != null">
+        mat_type_name,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="matTypeExt0 != null">
+        mat_type_ext0,
+      </if>
+      <if test="matTypeExt1 != null">
+        mat_type_ext1,
+      </if>
+      <if test="matTypeExt2 != null">
+        mat_type_ext2,
+      </if>
+      <if test="matTypeExt3 != null">
+        mat_type_ext3,
+      </if>
+      <if test="matTypeExt4 != null">
+        mat_type_ext4,
+      </if>
+      <if test="matTypeExt5 != null">
+        mat_type_ext5,
+      </if>
+      <if test="matTypeExt6 != null">
+        mat_type_ext6,
+      </if>
+      <if test="matTypeExt7 != null">
+        mat_type_ext7,
+      </if>
+      <if test="matTypeExt8 != null">
+        mat_type_ext8,
+      </if>
+      <if test="matTypeExt9 != null">
+        mat_type_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="matTypeCode != null">
+        #{matTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeName != null">
+        #{matTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="matTypeExt0 != null">
+        #{matTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt1 != null">
+        #{matTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt2 != null">
+        #{matTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt3 != null">
+        #{matTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt4 != null">
+        #{matTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt5 != null">
+        #{matTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt6 != null">
+        #{matTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt7 != null">
+        #{matTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt8 != null">
+        #{matTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt9 != null">
+        #{matTypeExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+   <insert id="insertBatchDicMaterialType" parameterType="java.util.List">
+    insert into dic_material_type (mat_type_code, mat_type_name, is_delete, 
+      create_time, modify_time, create_user_id, 
+      modify_user_id, mat_type_ext0, mat_type_ext1, 
+      mat_type_ext2, mat_type_ext3, mat_type_ext4, 
+      mat_type_ext5, mat_type_ext6, mat_type_ext7, 
+      mat_type_ext8, mat_type_ext9)
+    values 
+    <foreach collection="list" item="item" index= "index" separator =",">
+    (
+      ifnull(#{item.matTypeCode,jdbcType=VARCHAR},""), 
+      ifnull(#{item.matTypeName,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.isDelete,jdbcType=TINYINT}, ""),
+      ifnull(#{item.createTime,jdbcType=TIMESTAMP}, ""),
+      ifnull(#{item.modifyTime,jdbcType=TIMESTAMP}, ""),
+      ifnull(#{item.createUserId,jdbcType=INTEGER}, ""),
+      ifnull(#{item.modifyUserId,jdbcType=INTEGER}, ""),
+      ifnull(#{item.matTypeExt0,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matTypeExt1,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matTypeExt2,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matTypeExt3,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matTypeExt4,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matTypeExt5,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matTypeExt6,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matTypeExt7,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matTypeExt8,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matTypeExt9,jdbcType=VARCHAR}, "")
+      )
+   </foreach>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicMaterialType">
+    update dic_material_type
+    <set>
+      <if test="matTypeName != null">
+        mat_type_name = #{matTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="matTypeExt0 != null">
+        mat_type_ext0 = #{matTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt1 != null">
+        mat_type_ext1 = #{matTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt2 != null">
+        mat_type_ext2 = #{matTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt3 != null">
+        mat_type_ext3 = #{matTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt4 != null">
+        mat_type_ext4 = #{matTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt5 != null">
+        mat_type_ext5 = #{matTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt6 != null">
+        mat_type_ext6 = #{matTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt7 != null">
+        mat_type_ext7 = #{matTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt8 != null">
+        mat_type_ext8 = #{matTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeExt9 != null">
+        mat_type_ext9 = #{matTypeExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mat_type_code = #{matTypeCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialType">
+    update dic_material_type
+    set mat_type_name = #{matTypeName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      mat_type_ext0 = #{matTypeExt0,jdbcType=VARCHAR},
+      mat_type_ext1 = #{matTypeExt1,jdbcType=VARCHAR},
+      mat_type_ext2 = #{matTypeExt2,jdbcType=VARCHAR},
+      mat_type_ext3 = #{matTypeExt3,jdbcType=VARCHAR},
+      mat_type_ext4 = #{matTypeExt4,jdbcType=VARCHAR},
+      mat_type_ext5 = #{matTypeExt5,jdbcType=VARCHAR},
+      mat_type_ext6 = #{matTypeExt6,jdbcType=VARCHAR},
+      mat_type_ext7 = #{matTypeExt7,jdbcType=VARCHAR},
+      mat_type_ext8 = #{matTypeExt8,jdbcType=VARCHAR},
+      mat_type_ext9 = #{matTypeExt9,jdbcType=VARCHAR}
+    where mat_type_code = #{matTypeCode,jdbcType=VARCHAR}
+  </update>
+  
+   <update id="updateBatchDicMaterialTypeByPrimaryKey" parameterType="java.util.List">
+   	 <foreach collection="list" item="item" index= "index" separator =";"> 
+	    update dic_material_type
+	    <set>
+	      <if test="item.matTypeName != null">
+	        mat_type_name = #{item.matTypeName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.isDelete != null">
+	        is_delete = #{item.isDelete,jdbcType=TINYINT},
+	      </if>
+	      <if test="item.createTime != null">
+	        create_time = #{item.createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="item.modifyTime != null">
+	        modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="item.createUserId != null">
+	        create_user_id = #{item.createUserId,jdbcType=INTEGER},
+	      </if>
+	      <if test="item.modifyUserId != null">
+	        modify_user_id = #{item.modifyUserId,jdbcType=INTEGER},
+	      </if>
+	      <if test="item.matTypeExt0 != null">
+	        mat_type_ext0 = #{item.matTypeExt0,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matTypeExt1 != null">
+	        mat_type_ext1 = #{item.matTypeExt1,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matTypeExt2 != null">
+	        mat_type_ext2 = #{item.matTypeExt2,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matTypeExt3 != null">
+	        mat_type_ext3 = #{item.matTypeExt3,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matTypeExt4 != null">
+	        mat_type_ext4 = #{item.matTypeExt4,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matTypeExt5 != null">
+	        mat_type_ext5 = #{item.matTypeExt5,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matTypeExt6 != null">
+	        mat_type_ext6 = #{item.matTypeExt6,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matTypeExt7 != null">
+	        mat_type_ext7 = #{item.matTypeExt7,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matTypeExt8 != null">
+	        mat_type_ext8 = #{item.matTypeExt8,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matTypeExt9 != null">
+	        mat_type_ext9 = #{item.matTypeExt9,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where mat_type_code = #{item.matTypeCode,jdbcType=VARCHAR}
+	 </foreach>
+  </update>
+  
+  <!-- 获取所有物料类型  -->
+  <select id="selectAllMatType"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_material_type
+    where is_delete = 0
+  </select>
+</mapper>

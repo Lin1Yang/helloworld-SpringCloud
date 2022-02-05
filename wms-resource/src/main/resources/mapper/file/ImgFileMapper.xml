@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inossem.wms.dao.file.ImgFileMapper" >
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.file.ImgFile" >
+    <id column="img_code" property="imgCode" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="img_name" property="imgName" jdbcType="VARCHAR" />
+    <result column="img_web_code" property="imgWebCode" jdbcType="VARCHAR" />
+    <result column="img_pad_code" property="imgPadCode" jdbcType="VARCHAR" />
+    <result column="img_ext" property="imgExt" jdbcType="VARCHAR" />
+    <result column="img_size" property="imgSize" jdbcType="INTEGER" />
+    <result column="img_md5" property="imgMd5" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+    <result column="modify_user_id" property="modifyUserId" jdbcType="INTEGER" />
+    <result column="img_ext0" property="imgExt0" jdbcType="VARCHAR" />
+    <result column="img_ext1" property="imgExt1" jdbcType="VARCHAR" />
+    <result column="img_ext2" property="imgExt2" jdbcType="VARCHAR" />
+    <result column="img_ext3" property="imgExt3" jdbcType="VARCHAR" />
+    <result column="img_ext4" property="imgExt4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    img_code, path, img_name, img_web_code,img_pad_code, img_ext, img_size, img_md5,
+    is_delete, create_time, modify_time, create_user_id, modify_user_id, img_ext0, img_ext1, 
+    img_ext2, img_ext3, img_ext4
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.inossem.wms.model.file.ImgFileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from log_img
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from log_img
+    where img_code = #{imgCode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByImgExt0" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from log_img
+    where img_ext0 = #{imgExt0,jdbcType=VARCHAR}
+    and is_delete = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from log_img
+    where img_code = #{imgCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.inossem.wms.model.file.ImgFileExample" >
+    delete from log_img
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.file.ImgFile" >
+    insert into log_img (img_code, path, img_name, 
+      img_web_code,img_pad_code, img_ext,
+      img_size, img_md5, is_delete, 
+      create_time, modify_time, create_user_id, 
+      modify_user_id, img_ext0, img_ext1, 
+      img_ext2, img_ext3, img_ext4
+      )
+    values (#{imgCode,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{imgName,jdbcType=VARCHAR}, 
+      #{imgWebCode,jdbcType=VARCHAR}, #{imgPadCode,jdbcType=VARCHAR},  #{imgExt,jdbcType=VARCHAR},
+      #{imgSize,jdbcType=INTEGER}, #{imgMd5,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{imgExt0,jdbcType=VARCHAR}, #{imgExt1,jdbcType=VARCHAR}, 
+      #{imgExt2,jdbcType=VARCHAR}, #{imgExt3,jdbcType=VARCHAR}, #{imgExt4,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.file.ImgFile" >
+    replace into log_img
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imgCode != null" >
+        img_code,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="imgName != null" >
+        img_name,
+      </if>
+      <if test="imgWebCode != null" >
+        img_web_code,
+      </if>
+      <if test="imgPadCode != null" >
+        img_pad_code,
+      </if>
+      <if test="imgExt != null" >
+        img_ext,
+      </if>
+      <if test="imgSize != null" >
+        img_size,
+      </if>
+      <if test="imgMd5 != null" >
+        img_md5,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null" >
+        modify_user_id,
+      </if>
+      <if test="imgExt0 != null" >
+        img_ext0,
+      </if>
+      <if test="imgExt1 != null" >
+        img_ext1,
+      </if>
+      <if test="imgExt2 != null" >
+        img_ext2,
+      </if>
+      <if test="imgExt3 != null" >
+        img_ext3,
+      </if>
+      <if test="imgExt4 != null" >
+        img_ext4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imgCode != null" >
+        #{imgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="imgName != null" >
+        #{imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgWebCode != null" >
+        #{imgWebCode,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPadCode != null" >
+        #{imgPadCode,jdbcType=VARCHAR},
+      </if>
+      <if test="imgExt != null" >
+        #{imgExt,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSize != null" >
+        #{imgSize,jdbcType=INTEGER},
+      </if>
+      <if test="imgMd5 != null" >
+        #{imgMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null" >
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="imgExt0 != null" >
+        #{imgExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="imgExt1 != null" >
+        #{imgExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="imgExt2 != null" >
+        #{imgExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="imgExt3 != null" >
+        #{imgExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="imgExt4 != null" >
+        #{imgExt4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.inossem.wms.model.file.ImgFileExample" resultType="java.lang.Integer" >
+    select count(*) from log_img
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update log_img
+    <set >
+      <if test="record.imgCode != null" >
+        img_code = #{record.imgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null" >
+        path = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgName != null" >
+        img_name = #{record.imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgWebCode != null" >
+        img_web_code = #{record.imgWebCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgPadCode != null" >
+        img_pad_code = #{record.imgPadCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgExt != null" >
+        img_ext = #{record.imgExt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgSize != null" >
+        img_size = #{record.imgSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgMd5 != null" >
+        img_md5 = #{record.imgMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUserId != null" >
+        create_user_id = #{record.createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifyUserId != null" >
+        modify_user_id = #{record.modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgExt0 != null" >
+        img_ext0 = #{record.imgExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgExt1 != null" >
+        img_ext1 = #{record.imgExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgExt2 != null" >
+        img_ext2 = #{record.imgExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgExt3 != null" >
+        img_ext3 = #{record.imgExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgExt4 != null" >
+        img_ext4 = #{record.imgExt4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update log_img
+    set img_code = #{record.imgCode,jdbcType=VARCHAR},
+      path = #{record.path,jdbcType=VARCHAR},
+      img_name = #{record.imgName,jdbcType=VARCHAR},
+      img_web_code = #{record.imgWebCode,jdbcType=VARCHAR},
+      img_pad_code = #{record.imgPadCode,jdbcType=VARCHAR},
+      img_ext = #{record.imgExt,jdbcType=VARCHAR},
+      img_size = #{record.imgSize,jdbcType=INTEGER},
+      img_md5 = #{record.imgMd5,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{record.createUserId,jdbcType=INTEGER},
+      modify_user_id = #{record.modifyUserId,jdbcType=INTEGER},
+      img_ext0 = #{record.imgExt0,jdbcType=VARCHAR},
+      img_ext1 = #{record.imgExt1,jdbcType=VARCHAR},
+      img_ext2 = #{record.imgExt2,jdbcType=VARCHAR},
+      img_ext3 = #{record.imgExt3,jdbcType=VARCHAR},
+      img_ext4 = #{record.imgExt4,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.file.ImgFile" >
+    update log_img
+    <set >
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="imgName != null" >
+        img_name = #{imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgWebCode != null" >
+        img_web_code = #{imgWebCode,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPadCode != null" >
+        img_pad_code = #{imgPadCode,jdbcType=VARCHAR},
+      </if>
+      <if test="imgExt != null" >
+        img_ext = #{imgExt,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSize != null" >
+        img_size = #{imgSize,jdbcType=INTEGER},
+      </if>
+      <if test="imgMd5 != null" >
+        img_md5 = #{imgMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null" >
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="imgExt0 != null" >
+        img_ext0 = #{imgExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="imgExt1 != null" >
+        img_ext1 = #{imgExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="imgExt2 != null" >
+        img_ext2 = #{imgExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="imgExt3 != null" >
+        img_ext3 = #{imgExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="imgExt4 != null" >
+        img_ext4 = #{imgExt4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where img_code = #{imgCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.file.ImgFile" >
+    update log_img
+    set path = #{path,jdbcType=VARCHAR},
+      img_name = #{imgName,jdbcType=VARCHAR},
+      img_web_code = #{imgWebCode,jdbcType=VARCHAR},
+      img_pad_code = #{imgPadCode,jdbcType=VARCHAR},
+      img_ext = #{imgExt,jdbcType=VARCHAR},
+      img_size = #{imgSize,jdbcType=INTEGER},
+      img_md5 = #{imgMd5,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      img_ext0 = #{imgExt0,jdbcType=VARCHAR},
+      img_ext1 = #{imgExt1,jdbcType=VARCHAR},
+      img_ext2 = #{imgExt2,jdbcType=VARCHAR},
+      img_ext3 = #{imgExt3,jdbcType=VARCHAR},
+      img_ext4 = #{imgExt4,jdbcType=VARCHAR}
+    where img_code = #{imgCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

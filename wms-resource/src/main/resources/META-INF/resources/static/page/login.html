@@ -1,0 +1,214 @@
+﻿﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>用户登录</title>
+	<meta charset="utf-8"/>
+	<link href="../part/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="../css/common.css" rel="stylesheet"/>
+	<script src="../js/jquery-1.11.0.min.js"></script>
+	<script src="../part/layer/layer.js"></script>
+	<style>
+		body {
+			margin: 0px;
+			padding: 0px;
+			/*background: #ebebeb;*/
+			background: #FFFFFF;
+			min-height: 610px;
+		}
+
+		div.bg {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			height: 50%;
+			width: 100%;
+			background-color: #FFFFFF;
+			/*background: url(img/loginbg.jpg) no-repeat center bottom;*/
+		}
+
+		div.box {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 380px;
+			height: 610px;
+			margin-left: -228px;
+			margin-top: -248px;
+		}
+
+		div.box h1 {
+			height: 80px;
+			text-align: center;
+			color: #fff;
+			font-size: 36px;
+		}
+
+		div.login {
+			height: 460px;
+			padding: 0px 50px;
+			background: #fff;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.349019607843137);
+			text-align: center;
+			border-radius: 10px;
+		}
+
+		div.login h2 {
+			height: 97px;
+			color: #0e374b;
+			font-size: 30px;
+			text-align: center;
+			line-height: 97px;
+		}
+
+		div.wel {
+			position: relative;
+			height: 66px;
+		}
+
+		div.wel div.line {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 12px;
+			overflow: hidden;
+			border-bottom: 1px solid #e3e3e3;
+		}
+
+		div.wel div.text {
+			position: relative;
+			height: 40px;
+			width: 237px;
+			background: #fff;
+			margin: 0px auto;
+			color: #0e374b;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		div.input {
+			height: 50px;
+			width: 100%;
+			/*background-color: #f1f1f1;*/
+			margin-bottom: 28px;
+			border-radius: 4px;
+			border: 1px solid #e3e3e3;
+		}
+
+		/*div.ico-user {
+            background-position: 0px -981px;
+        }*/
+
+		/*div.ico-pass {
+            background-position: 0px -1066px;
+        }*/
+
+		div.input input {
+			width: 235px;
+			height: 48px;
+			line-height: 48px;
+			float: right;
+			/*background-color: #f1f1f1;*/
+			/*border: 1px solid #e3e3e3;*/
+			border-left: none;
+			border: 0px;
+			/*padding-left: 11px;*/
+			font-size: 16px;
+			color: #666;
+			border-radius: 4px;
+		}
+
+		.btn-lay-blue {
+			/*margin-top: 25px;*/
+			height: 50px;
+			background-color: #08c;
+			width: 100%;
+			font-size: 18px;
+			color: #fff;
+		}
+
+		.bgImg{
+			background:url(../img/u19.png) no-repeat 10px center;
+		}
+		.bgImg2{
+			background:url(../img/u21.png) no-repeat 10px center;
+		}
+	</style>
+	<script type="text/javascript">
+        $(function () {
+            if (GetQueryString("msg") != null) {
+                if (GetQueryString("msg") == "1") {
+                    layer.alert("用户名不存在!");
+                } else if (GetQueryString("msg") == "2") {
+                    layer.alert("密码错误!");
+                }
+            }
+            if (GetQueryString("url") != null) {
+                $("form").attr("action", ("login.action?url=" + unescape(GetQueryString("url"))));
+            }
+
+            $("#submit_button").click(function () {
+                login();
+            })
+        });
+
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+
+        function login() {
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "../../userlogin",//url
+                data: $('#form1').serialize(),
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    localStorage.setItem("userdata",JSON.stringify(result));
+
+                    if (result.head.msg == "success") {
+                        window.location.href="./index";
+                    } else if (result.head.error_code == "9999") {
+                        alert(result.head.msg);
+                    }else if (result.body == "error") {
+                        alert("用户名或密码错误，请重新登录");
+                    }
+                },
+                error: function () {
+                    alert("用户名或密码错误，请重新登录");
+                }
+            })
+        }
+	</script>
+</head>
+<body>
+<div class="bg"></div>
+<div class="box">
+	<!--<h1>智能主数据管理系统</h1>-->
+	<div class="login" style="padding-top: 30px;">
+		<!--<h2>用户登录</h2>-->
+		<!--<div style="height: 80px; background: url(../img/u30.png) no-repeat center center; background-size: 55px 56px;"></div>-->
+		<div class="wel">
+			<!--<div class="line"></div>-->
+			<!--<div class="text">欢迎登录智能主数据管理系统</div>-->
+			<div style="color: #42485B; font-size: 20px; font-weight: 700;">工作流管理系统</div>
+			<!--<h4 style="color: #42485B;">伊泰集团智能主数据管理系统</h2>-->
+		</div>
+		<form id="form1" onsubmit="return false" action="#" method="post">
+			<!--<form action="/userlogin" method="post">-->
+			<div class="input bgImg ico ico-user"><input class="" type="text" placeholder="请输入账号" required maxlength="16"
+														 name="userAccount"/></div>
+			<div class="input bgImg2 ico ico-pass"><input class="" type="password" placeholder="请输入密码" required maxlength="16"
+														  name="userPsw"/></div>
+			<input class="btn btn-lay-blue" id="submit_button" type="button" value="进 入 系 统"/>
+			<!--<input class="btn btn-lay-blue" type="submit" value="进 入 系 统" />-->
+		</form>
+	</div>
+</div>
+</body>
+</html>

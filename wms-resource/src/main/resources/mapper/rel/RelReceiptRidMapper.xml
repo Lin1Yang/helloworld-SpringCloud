@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.rel.RelReceiptRidMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.rel.RelReceiptRidKey">
+    <id column="receipt_type" jdbcType="INTEGER" property="receiptType" />
+    <id column="receipt_code" jdbcType="VARCHAR" property="receiptCode" />
+    <id column="receipt_rid" jdbcType="VARCHAR" property="receiptRid" />
+    <id column="pre_receipt_type" jdbcType="INTEGER" property="preReceiptType" />
+    <id column="pre_receipt_code" jdbcType="VARCHAR" property="preReceiptCode" />
+    <id column="pre_receipt_rid" jdbcType="VARCHAR" property="preReceiptRid" />
+  </resultMap>
+  <resultMap id="BaseResultMapVo" type="com.inossem.wms.vo.rel.RelReceiptRidVo">
+    <id column="receipt_type" jdbcType="INTEGER" property="receiptType" />
+    <id column="receipt_code" jdbcType="VARCHAR" property="receiptCode" />
+    <id column="receipt_rid" jdbcType="VARCHAR" property="receiptRid" />
+    <id column="pre_receipt_type" jdbcType="INTEGER" property="preReceiptType" />
+    <id column="pre_receipt_code" jdbcType="VARCHAR" property="preReceiptCode" />
+    <id column="pre_receipt_rid" jdbcType="VARCHAR" property="preReceiptRid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    receipt_type, receipt_code, receipt_rid, pre_receipt_type, pre_receipt_code, pre_receipt_rid
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.rel.RelReceiptRidKey">
+    delete from rel_receipt_rid
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+      and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+      and receipt_rid = #{receiptRid,jdbcType=VARCHAR}
+      and pre_receipt_type = #{preReceiptType,jdbcType=INTEGER}
+      and pre_receipt_code = #{preReceiptCode,jdbcType=VARCHAR}
+      and pre_receipt_rid = #{preReceiptRid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.rel.RelReceiptRidKey">
+    insert into rel_receipt_rid (receipt_type, receipt_code, receipt_rid, 
+      pre_receipt_type, pre_receipt_code, pre_receipt_rid
+      )
+    values (#{receiptType,jdbcType=INTEGER}, #{receiptCode,jdbcType=VARCHAR}, #{receiptRid,jdbcType=VARCHAR}, 
+      #{preReceiptType,jdbcType=INTEGER}, #{preReceiptCode,jdbcType=VARCHAR}, #{preReceiptRid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.rel.RelReceiptRidKey">
+    insert into rel_receipt_rid
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="receiptType != null">
+        receipt_type,
+      </if>
+      <if test="receiptCode != null">
+        receipt_code,
+      </if>
+      <if test="receiptRid != null">
+        receipt_rid,
+      </if>
+      <if test="preReceiptType != null">
+        pre_receipt_type,
+      </if>
+      <if test="preReceiptCode != null">
+        pre_receipt_code,
+      </if>
+      <if test="preReceiptRid != null">
+        pre_receipt_rid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="receiptType != null">
+        #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null">
+        #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptRid != null">
+        #{receiptRid,jdbcType=VARCHAR},
+      </if>
+      <if test="preReceiptType != null">
+        #{preReceiptType,jdbcType=INTEGER},
+      </if>
+      <if test="preReceiptCode != null">
+        #{preReceiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="preReceiptRid != null">
+        #{preReceiptRid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 根据前续单据获取单据列表 -->
+  <select id="selectByPreReceipt" resultMap="BaseResultMap">
+    SELECT DISTINCT receipt_type, receipt_code
+	FROM rel_receipt_rid
+	WHERE pre_receipt_type = #{preReceiptType,jdbcType=INTEGER}
+	AND pre_receipt_code = #{preReceiptCode,jdbcType=VARCHAR}	
+	ORDER BY receipt_code
+  </select> 
+  <!-- 根据前续单据行获取单据行 -->
+  <select id="selectByPreReceiptRid" resultMap="BaseResultMapVo">
+    SELECT 
+   	<include refid="Base_Column_List" />
+	FROM rel_receipt_rid
+	WHERE pre_receipt_type = #{preReceiptType,jdbcType=INTEGER}
+	AND pre_receipt_code = #{preReceiptCode,jdbcType=VARCHAR}
+	AND	pre_receipt_rid IN
+	<foreach collection="preReceiptRidList" open="(" separator="," close=")" item="item">
+	    #{item}
+	</foreach>	
+	ORDER BY receipt_code,receipt_rid	
+  </select> 
+  <!-- 根据当前单据获取前续单据 -->
+  <select id="selectByReceipt" resultMap="BaseResultMap">
+    SELECT DISTINCT pre_receipt_type receipt_type, pre_receipt_code receipt_code
+	FROM rel_receipt_rid
+	WHERE receipt_type = #{receiptType,jdbcType=INTEGER}
+	AND receipt_code = #{receiptCode,jdbcType=VARCHAR}	
+	ORDER BY pre_receipt_code
+  </select> 
+  <!-- 根据当前当局行获取前续单据行 -->
+  <select id="selectByReceiptRid" resultMap="BaseResultMapVo">
+    SELECT 
+    	<include refid="Base_Column_List" />
+	FROM rel_receipt_rid
+	WHERE receipt_type = #{receiptType,jdbcType=INTEGER}
+	AND receipt_code = #{receiptCode,jdbcType=VARCHAR}
+	AND	receipt_rid IN
+	<foreach collection="receiptRidList" open="(" separator="," close=")" item="item">
+	    #{item}
+	</foreach>	
+	ORDER BY pre_receipt_code,pre_receipt_rid	
+  </select> 
+  <!-- 根据单据类型和单号删除单据流 -->
+  <delete id="deleteByTypeAndCode" >
+    DELETE FROM rel_receipt_rid
+    WHERE receipt_type = #{receiptType,jdbcType=INTEGER}
+      AND receipt_code = #{receiptCode,jdbcType=VARCHAR}
+  </delete>
+  <!-- 根据单据类型和单号和行号删除单据流 -->
+  <delete id="deleteByTypeAndCodeAndRidList" >
+    DELETE FROM rel_receipt_rid
+    WHERE receipt_type = #{receiptType,jdbcType=INTEGER}
+      AND receipt_code = #{receiptCode,jdbcType=VARCHAR}
+      AND receipt_rid IN
+	<foreach collection="receiptRidList" open="(" separator="," close=")" item="item">
+	    #{item}
+	</foreach>	
+  </delete>
+  <!-- 批量插入单据流 -->
+  <insert id="insertReceiptTree">  
+	  <if test="list!=null and list.size()>0">
+	  	insert ignore into rel_receipt_rid
+	    (receipt_type,receipt_code,receipt_rid,pre_receipt_type,pre_receipt_code,pre_receipt_rid)
+	    values
+	    <foreach collection="list" open="" separator="," close="" item="item">	      
+	        (#{item.receiptType,jdbcType=INTEGER},	      	      
+	        #{item.receiptCode,jdbcType=VARCHAR},	     
+	        #{item.receiptRid,jdbcType=VARCHAR},	     
+	        #{item.preReceiptType,jdbcType=INTEGER},	      
+	        #{item.preReceiptCode,jdbcType=VARCHAR},	      
+	        #{item.preReceiptRid,jdbcType=VARCHAR})     
+      	</foreach>			      
+	  </if>    	
+  </insert>
+</mapper>

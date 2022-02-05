@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicWhStorageBinTypeMapper">
+	<resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicWhStorageBinType">
+    <id column="dic_wh_storage_bin_type_code" jdbcType="VARCHAR" property="dicWhStorageBinTypeCode" />
+    <result column="dic_wh_storage_bin_type_name" jdbcType="VARCHAR" property="dicWhStorageBinTypeName" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="wh_storage_bin_type_ext0" jdbcType="VARCHAR" property="whStorageBinTypeExt0" />
+    <result column="wh_storage_bin_type_ext1" jdbcType="VARCHAR" property="whStorageBinTypeExt1" />
+    <result column="wh_storage_bin_type_ext2" jdbcType="VARCHAR" property="whStorageBinTypeExt2" />
+    <result column="wh_storage_bin_type_ext3" jdbcType="VARCHAR" property="whStorageBinTypeExt3" />
+    <result column="wh_storage_bin_type_ext4" jdbcType="VARCHAR" property="whStorageBinTypeExt4" />
+    <result column="wh_storage_bin_type_ext5" jdbcType="VARCHAR" property="whStorageBinTypeExt5" />
+    <result column="wh_storage_bin_type_ext6" jdbcType="VARCHAR" property="whStorageBinTypeExt6" />
+    <result column="wh_storage_bin_type_ext7" jdbcType="VARCHAR" property="whStorageBinTypeExt7" />
+    <result column="wh_storage_bin_type_ext8" jdbcType="VARCHAR" property="whStorageBinTypeExt8" />
+    <result column="wh_storage_bin_type_ext9" jdbcType="VARCHAR" property="whStorageBinTypeExt9" />
+  </resultMap>
+  <insert id="insertWhStorageBinType" parameterType="com.inossem.wms.model.dic.DicWhStorageBinType">
+    insert into dic_wh_storage_bin_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dicWhStorageBinTypeCode != null">
+        dic_wh_storage_bin_type_code,
+      </if>
+      <if test="dicWhStorageBinTypeName != null">
+        dic_wh_storage_bin_type_name,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="whStorageBinTypeExt0 != null">
+        wh_storage_bin_type_ext0,
+      </if>
+      <if test="whStorageBinTypeExt1 != null">
+        wh_storage_bin_type_ext1,
+      </if>
+      <if test="whStorageBinTypeExt2 != null">
+        wh_storage_bin_type_ext2,
+      </if>
+      <if test="whStorageBinTypeExt3 != null">
+        wh_storage_bin_type_ext3,
+      </if>
+      <if test="whStorageBinTypeExt4 != null">
+        wh_storage_bin_type_ext4,
+      </if>
+      <if test="whStorageBinTypeExt5 != null">
+        wh_storage_bin_type_ext5,
+      </if>
+      <if test="whStorageBinTypeExt6 != null">
+        wh_storage_bin_type_ext6,
+      </if>
+      <if test="whStorageBinTypeExt7 != null">
+        wh_storage_bin_type_ext7,
+      </if>
+      <if test="whStorageBinTypeExt8 != null">
+        wh_storage_bin_type_ext8,
+      </if>
+      <if test="whStorageBinTypeExt9 != null">
+        wh_storage_bin_type_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dicWhStorageBinTypeCode != null">
+        #{dicWhStorageBinTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dicWhStorageBinTypeName != null">
+        #{dicWhStorageBinTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageBinTypeExt0 != null">
+        #{whStorageBinTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt1 != null">
+        #{whStorageBinTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt2 != null">
+        #{whStorageBinTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt3 != null">
+        #{whStorageBinTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt4 != null">
+        #{whStorageBinTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt5 != null">
+        #{whStorageBinTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt6 != null">
+        #{whStorageBinTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt7 != null">
+        #{whStorageBinTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt8 != null">
+        #{whStorageBinTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt9 != null">
+        #{whStorageBinTypeExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    
+  </insert>
+  <update id="updateWhStorageBinType" parameterType="com.inossem.wms.model.dic.DicWhStorageBinType">
+    update dic_wh_storage_bin_type set
+      <if test="dicWhStorageBinTypeName != null">
+        dic_wh_storage_bin_type_name = #{dicWhStorageBinTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP}, 
+      </if>
+      <if test="createUserId != null">
+        create_user_id =  #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageBinTypeExt0 != null">
+        wh_storage_bin_type_ext0 = #{whStorageBinTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt1 != null">
+        wh_storage_bin_type_ext1 = #{whStorageBinTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt2 != null">
+        wh_storage_bin_type_ext2 = #{whStorageBinTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt3 != null">
+        wh_storage_bin_type_ext3 = #{whStorageBinTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt4 != null">
+        wh_storage_bin_type_ext4 = #{whStorageBinTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt5 != null">
+        wh_storage_bin_type_ext5 = #{whStorageBinTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt6 != null">
+        wh_storage_bin_type_ext6 = #{whStorageBinTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt7 != null">
+        wh_storage_bin_type_ext7 = #{whStorageBinTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt8 != null">
+        wh_storage_bin_type_ext8 = #{whStorageBinTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageBinTypeExt9 != null">
+        wh_storage_bin_type_ext9 = #{whStorageBinTypeExt9,jdbcType=VARCHAR},
+      </if>
+      is_delete = '0'
+      where dic_wh_storage_bin_type_code = #{dicWhStorageBinTypeCode,jdbcType=VARCHAR}
+  </update>
+  <!-- 仓位 查询仓位类型信息-->
+  <select id="selectWhStorageBinTypeIsExist" parameterType="com.inossem.wms.model.dic.DicWhStorageBinType" resultMap="BaseResultMap">
+    select 
+    dic_wh_storage_bin_type_code
+    from dic_wh_storage_bin_type
+    where dic_wh_storage_bin_type_code = #{dicWhStorageBinTypeCode,jdbcType=VARCHAR}
+  </select>
+   <select id="selectAllWhStorageBinTypeList" resultMap="BaseResultMap">
+    select 
+    dic_wh_storage_bin_type_code,
+    dic_wh_storage_bin_type_name
+    from dic_wh_storage_bin_type
+  </select>
+</mapper>

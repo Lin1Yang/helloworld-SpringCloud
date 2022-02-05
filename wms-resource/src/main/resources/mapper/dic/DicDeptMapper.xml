@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicDeptMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicDept">
+    <id column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="corp_code" jdbcType="VARCHAR" property="corpCode" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="dept_ext0" jdbcType="VARCHAR" property="deptExt0" />
+    <result column="dept_ext1" jdbcType="VARCHAR" property="deptExt1" />
+    <result column="dept_ext2" jdbcType="VARCHAR" property="deptExt2" />
+    <result column="dept_ext3" jdbcType="VARCHAR" property="deptExt3" />
+    <result column="dept_ext4" jdbcType="VARCHAR" property="deptExt4" />
+    <result column="dept_ext5" jdbcType="VARCHAR" property="deptExt5" />
+    <result column="dept_ext6" jdbcType="VARCHAR" property="deptExt6" />
+    <result column="dept_ext7" jdbcType="VARCHAR" property="deptExt7" />
+    <result column="dept_ext8" jdbcType="VARCHAR" property="deptExt8" />
+    <result column="dept_ext9" jdbcType="VARCHAR" property="deptExt9" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dept_code, corp_code, dept_name, is_delete, create_user_id, modify_user_id, create_time, 
+    modify_time, dept_ext0, dept_ext1, dept_ext2, dept_ext3, dept_ext4, dept_ext5, dept_ext6, 
+    dept_ext7, dept_ext8, dept_ext9
+  </sql>
+  
+  <resultMap id="VoBaseResultMap" type="com.inossem.wms.vo.dic.DicDeptVo">
+    <id column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="corp_code" jdbcType="VARCHAR" property="corpCode" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="dept_ext0" jdbcType="VARCHAR" property="deptExt0" />
+    <result column="dept_ext1" jdbcType="VARCHAR" property="deptExt1" />
+    <result column="dept_ext2" jdbcType="VARCHAR" property="deptExt2" />
+    <result column="dept_ext3" jdbcType="VARCHAR" property="deptExt3" />
+    <result column="dept_ext4" jdbcType="VARCHAR" property="deptExt4" />
+    <result column="dept_ext5" jdbcType="VARCHAR" property="deptExt5" />
+    <result column="dept_ext6" jdbcType="VARCHAR" property="deptExt6" />
+    <result column="dept_ext7" jdbcType="VARCHAR" property="deptExt7" />
+    <result column="dept_ext8" jdbcType="VARCHAR" property="deptExt8" />
+    <result column="dept_ext9" jdbcType="VARCHAR" property="deptExt9" />
+  </resultMap>
+  <sql id="Base_Column_List_Vo">
+    dept_code, corp_code, dept_name, is_delete, create_user_id, modify_user_id, create_time, 
+    modify_time, dept_ext0, dept_ext1, dept_ext2, dept_ext3, dept_ext4, dept_ext5, dept_ext6, 
+    dept_ext7, dept_ext8, dept_ext9
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_dept
+    where dept_code = #{deptCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dic_dept
+    where dept_code = #{deptCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicDept">
+    insert into dic_dept (dept_code, corp_code, dept_name, 
+      is_delete, create_user_id, modify_user_id, 
+      create_time, modify_time, dept_ext0, 
+      dept_ext1, dept_ext2, dept_ext3, 
+      dept_ext4, dept_ext5, dept_ext6, 
+      dept_ext7, dept_ext8, dept_ext9
+      )
+    values (#{deptCode,jdbcType=VARCHAR}, #{corpCode,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=TINYINT}, #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{deptExt0,jdbcType=VARCHAR}, 
+      #{deptExt1,jdbcType=VARCHAR}, #{deptExt2,jdbcType=VARCHAR}, #{deptExt3,jdbcType=VARCHAR}, 
+      #{deptExt4,jdbcType=VARCHAR}, #{deptExt5,jdbcType=VARCHAR}, #{deptExt6,jdbcType=VARCHAR}, 
+      #{deptExt7,jdbcType=VARCHAR}, #{deptExt8,jdbcType=VARCHAR}, #{deptExt9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicDept">
+    insert into dic_dept
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deptCode != null">
+        dept_code,
+      </if>
+      <if test="corpCode != null">
+        corp_code,
+      </if>
+      <if test="deptName != null">
+        dept_name,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="deptExt0 != null">
+        dept_ext0,
+      </if>
+      <if test="deptExt1 != null">
+        dept_ext1,
+      </if>
+      <if test="deptExt2 != null">
+        dept_ext2,
+      </if>
+      <if test="deptExt3 != null">
+        dept_ext3,
+      </if>
+      <if test="deptExt4 != null">
+        dept_ext4,
+      </if>
+      <if test="deptExt5 != null">
+        dept_ext5,
+      </if>
+      <if test="deptExt6 != null">
+        dept_ext6,
+      </if>
+      <if test="deptExt7 != null">
+        dept_ext7,
+      </if>
+      <if test="deptExt8 != null">
+        dept_ext8,
+      </if>
+      <if test="deptExt9 != null">
+        dept_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null">
+        #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deptExt0 != null">
+        #{deptExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt1 != null">
+        #{deptExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt2 != null">
+        #{deptExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt3 != null">
+        #{deptExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt4 != null">
+        #{deptExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt5 != null">
+        #{deptExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt6 != null">
+        #{deptExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt7 != null">
+        #{deptExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt8 != null">
+        #{deptExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt9 != null">
+        #{deptExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicDept">
+    update dic_dept
+    <set>
+      <if test="corpCode != null">
+        corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptName != null">
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deptExt0 != null">
+        dept_ext0 = #{deptExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt1 != null">
+        dept_ext1 = #{deptExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt2 != null">
+        dept_ext2 = #{deptExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt3 != null">
+        dept_ext3 = #{deptExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt4 != null">
+        dept_ext4 = #{deptExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt5 != null">
+        dept_ext5 = #{deptExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt6 != null">
+        dept_ext6 = #{deptExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt7 != null">
+        dept_ext7 = #{deptExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt8 != null">
+        dept_ext8 = #{deptExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="deptExt9 != null">
+        dept_ext9 = #{deptExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dept_code = #{deptCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicDept">
+    update dic_dept
+    set corp_code = #{corpCode,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      dept_ext0 = #{deptExt0,jdbcType=VARCHAR},
+      dept_ext1 = #{deptExt1,jdbcType=VARCHAR},
+      dept_ext2 = #{deptExt2,jdbcType=VARCHAR},
+      dept_ext3 = #{deptExt3,jdbcType=VARCHAR},
+      dept_ext4 = #{deptExt4,jdbcType=VARCHAR},
+      dept_ext5 = #{deptExt5,jdbcType=VARCHAR},
+      dept_ext6 = #{deptExt6,jdbcType=VARCHAR},
+      dept_ext7 = #{deptExt7,jdbcType=VARCHAR},
+      dept_ext8 = #{deptExt8,jdbcType=VARCHAR},
+      dept_ext9 = #{deptExt9,jdbcType=VARCHAR}
+    where dept_code = #{deptCode,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 查询所有部门拓展 -->
+   <select id="selectAllDeptVoList" resultMap="VoBaseResultMap">
+    select 
+    <include refid="Base_Column_List_Vo" />
+    from dic_dept
+    where is_delete = 0
+  </select>
+  
+  <!-- 主数据删除校验 是否存在未删除的部门 -->
+  <select id="selectByDicDeleteCheckCo" parameterType="com.inossem.wms.model.dic.DicDeleteCheckCo" resultMap="BaseResultMap">
+ 		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			dic_dept 
+		where
+		 	is_delete = 0	
+	        and corp_code = #{corpCode,jdbcType=VARCHAR}  	 
+	   limit 1 
+  </select>
+  
+</mapper>

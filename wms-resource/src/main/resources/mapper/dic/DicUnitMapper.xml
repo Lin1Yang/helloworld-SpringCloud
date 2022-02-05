@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicUnitMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicUnit">
+    <id column="unit_code" jdbcType="VARCHAR" property="unitCode" />
+    <result column="unit_name" jdbcType="VARCHAR" property="unitName" />
+    <result column="decimal_place" jdbcType="TINYINT" property="decimalPlace" />
+    <result column="external_unit_code" jdbcType="VARCHAR" property="externalUnitCode" />
+    <result column="external_unit_name" jdbcType="VARCHAR" property="externalUnitName" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="unit_ext0" jdbcType="VARCHAR" property="unitExt0" />
+    <result column="unit_ext1" jdbcType="VARCHAR" property="unitExt1" />
+    <result column="unit_ext2" jdbcType="VARCHAR" property="unitExt2" />
+    <result column="unit_ext3" jdbcType="VARCHAR" property="unitExt3" />
+    <result column="unit_ext4" jdbcType="VARCHAR" property="unitExt4" />
+    <result column="unit_ext5" jdbcType="VARCHAR" property="unitExt5" />
+    <result column="unit_ext6" jdbcType="VARCHAR" property="unitExt6" />
+    <result column="unit_ext7" jdbcType="VARCHAR" property="unitExt7" />
+    <result column="unit_ext8" jdbcType="VARCHAR" property="unitExt8" />
+    <result column="unit_ext9" jdbcType="VARCHAR" property="unitExt9" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    unit_code, unit_name, decimal_place, external_unit_code, external_unit_name, 
+    is_delete, create_time, modify_time, create_user_id, modify_user_id, unit_ext0, unit_ext1, 
+    unit_ext2, unit_ext3, unit_ext4, unit_ext5, unit_ext6, unit_ext7, unit_ext8, unit_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_unit
+    where unit_code = #{unitCode,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dic_unit
+    where unit_code = #{unitCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicUnit">
+    insert into dic_unit (unit_code, unit_name, decimal_place, 
+      external_unit_code, external_unit_name, create_user_id, 
+      modify_user_id, unit_ext0, unit_ext1, 
+      unit_ext2, unit_ext3, unit_ext4, 
+      unit_ext5, unit_ext6, unit_ext7, 
+      unit_ext8, unit_ext9)
+    values (#{unitCode,jdbcType=VARCHAR}, #{unitName,jdbcType=VARCHAR}, #{decimalPlace,jdbcType=TINYINT}, 
+      #{externalUnitCode,jdbcType=VARCHAR}, #{externalUnitName,jdbcType=VARCHAR}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{unitExt0,jdbcType=VARCHAR}, #{unitExt1,jdbcType=VARCHAR}, 
+      #{unitExt2,jdbcType=VARCHAR}, #{unitExt3,jdbcType=VARCHAR}, #{unitExt4,jdbcType=VARCHAR}, 
+      #{unitExt5,jdbcType=VARCHAR}, #{unitExt6,jdbcType=VARCHAR}, #{unitExt7,jdbcType=VARCHAR}, 
+      #{unitExt8,jdbcType=VARCHAR}, #{unitExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicUnit">
+    insert into dic_unit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitCode != null">
+        unit_code,
+      </if>
+      <if test="unitName != null">
+        unit_name,
+      </if>
+      <if test="decimalPlace != null">
+        decimal_place,
+      </if>
+      <if test="externalUnitCode != null">
+        external_unit_code,
+      </if>
+      <if test="externalUnitName != null">
+        external_unit_name,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="unitExt0 != null">
+        unit_ext0,
+      </if>
+      <if test="unitExt1 != null">
+        unit_ext1,
+      </if>
+      <if test="unitExt2 != null">
+        unit_ext2,
+      </if>
+      <if test="unitExt3 != null">
+        unit_ext3,
+      </if>
+      <if test="unitExt4 != null">
+        unit_ext4,
+      </if>
+      <if test="unitExt5 != null">
+        unit_ext5,
+      </if>
+      <if test="unitExt6 != null">
+        unit_ext6,
+      </if>
+      <if test="unitExt7 != null">
+        unit_ext7,
+      </if>
+      <if test="unitExt8 != null">
+        unit_ext8,
+      </if>
+      <if test="unitExt9 != null">
+        unit_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitCode != null">
+        upper(#{unitCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="unitName != null">
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="decimalPlace != null">
+        #{decimalPlace,jdbcType=TINYINT},
+      </if>
+      <if test="externalUnitCode != null">
+        #{externalUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="externalUnitName != null">
+        #{externalUnitName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="unitExt0 != null">
+        #{unitExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt1 != null">
+        #{unitExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt2 != null">
+        #{unitExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt3 != null">
+        #{unitExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt4 != null">
+        #{unitExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt5 != null">
+        #{unitExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt6 != null">
+        #{unitExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt7 != null">
+        #{unitExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt8 != null">
+        #{unitExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt9 != null">
+        #{unitExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicUnit">
+    update dic_unit
+    <set>
+      <if test="unitName != null">
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="decimalPlace != null">
+        decimal_place = #{decimalPlace,jdbcType=TINYINT},
+      </if>
+      <if test="externalUnitCode != null">
+        external_unit_code = #{externalUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="externalUnitName != null">
+        external_unit_name = #{externalUnitName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="unitExt0 != null">
+        unit_ext0 = #{unitExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt1 != null">
+        unit_ext1 = #{unitExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt2 != null">
+        unit_ext2 = #{unitExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt3 != null">
+        unit_ext3 = #{unitExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt4 != null">
+        unit_ext4 = #{unitExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt5 != null">
+        unit_ext5 = #{unitExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt6 != null">
+        unit_ext6 = #{unitExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt7 != null">
+        unit_ext7 = #{unitExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt8 != null">
+        unit_ext8 = #{unitExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt9 != null">
+        unit_ext9 = #{unitExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_code = #{unitCode,jdbcType=VARCHAR}
+  </update>
+  <!-- <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicUnit">
+    update dic_unit
+    set unit_name = #{unitName,jdbcType=VARCHAR},
+      decimal_place = #{decimalPlace,jdbcType=TINYINT},
+      external_unit_code = #{externalUnitCode,jdbcType=VARCHAR},
+      external_unit_name = #{externalUnitName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      unit_ext0 = #{unitExt0,jdbcType=VARCHAR},
+      unit_ext1 = #{unitExt1,jdbcType=VARCHAR},
+      unit_ext2 = #{unitExt2,jdbcType=VARCHAR},
+      unit_ext3 = #{unitExt3,jdbcType=VARCHAR},
+      unit_ext4 = #{unitExt4,jdbcType=VARCHAR},
+      unit_ext5 = #{unitExt5,jdbcType=VARCHAR},
+      unit_ext6 = #{unitExt6,jdbcType=VARCHAR},
+      unit_ext7 = #{unitExt7,jdbcType=VARCHAR},
+      unit_ext8 = #{unitExt8,jdbcType=VARCHAR},
+      unit_ext9 = #{unitExt9,jdbcType=VARCHAR}
+    where unit_code = #{unitCode,jdbcType=VARCHAR}
+  </update> -->
+  
+  <select id="selectAllUnitList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_unit
+    where is_delete = 0
+  </select>
+  
+ 	<!--  分页查询单位列表 -->
+  <select id="selectUnitListOnPaging" resultMap="BaseResultMap">
+    select 
+	    du.unit_code, du.unit_name, du.decimal_place, du.external_unit_code, du.external_unit_name, 
+	    du.is_delete, du.create_time, du.modify_time, du.create_user_id, du.modify_user_id, du.unit_ext0, du.unit_ext1, 
+	    du.unit_ext2, du.unit_ext3, du.unit_ext4, du.unit_ext5, du.unit_ext6, du.unit_ext7, du.unit_ext8, du.unit_ext9
+    from dic_unit du
+    left join dic_text dt ON du.unit_name = dt.tid and dt.lang_code = #{langCode,jdbcType=VARCHAR}
+    where du.is_delete = 0
+    <if test="unitCode != null and unitCode != '' ">
+      and du.unit_code = #{unitCode,jdbcType=VARCHAR}
+    </if>
+    <if test="unitName != null and unitName != '' ">
+      and dt.text LIKE CONCAT('%★',#{unitName},'%' ) ESCAPE '★'	
+    </if>
+    order by du.create_time desc   
+  </select>
+  
+  <select id="selectUnitView" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_unit
+    where unit_code = #{unitCode,jdbcType=VARCHAR} and is_delete = 0
+  </select>
+
+  
+  <select id="selectUnitViewList" parameterType="java.util.List" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_unit
+    where 
+    is_delete = 0 
+    and
+     unit_code  in 
+    <foreach collection="list" index="index" item="unitCode" open="("
+		separator="," close=")">
+   #{unitCode,jdbcType=VARCHAR} 
+    </foreach>
+  </select>
+  
+  
+  <update id="deleteUnit" >
+  	UPDATE dic_unit
+		SET is_delete = 1,		
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER}
+	WHERE
+		unit_code = #{unitCode,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectFixedUnitList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_unit
+    where is_delete = 0
+    and unit_code in ('KG','PC','TO','RMB')
+  </select>
+  
+  <insert id="insertOrUpdateSelective" parameterType="com.inossem.wms.model.dic.DicUnit">
+    insert into dic_unit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unitCode != null">
+        unit_code,
+      </if>
+      <if test="unitName != null">
+        unit_name,
+      </if>
+      <if test="decimalPlace != null">
+        decimal_place,
+      </if>
+      <if test="externalUnitCode != null">
+        external_unit_code,
+      </if>
+      <if test="externalUnitName != null">
+        external_unit_name,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="unitExt0 != null">
+        unit_ext0,
+      </if>
+      <if test="unitExt1 != null">
+        unit_ext1,
+      </if>
+      <if test="unitExt2 != null">
+        unit_ext2,
+      </if>
+      <if test="unitExt3 != null">
+        unit_ext3,
+      </if>
+      <if test="unitExt4 != null">
+        unit_ext4,
+      </if>
+      <if test="unitExt5 != null">
+        unit_ext5,
+      </if>
+      <if test="unitExt6 != null">
+        unit_ext6,
+      </if>
+      <if test="unitExt7 != null">
+        unit_ext7,
+      </if>
+      <if test="unitExt8 != null">
+        unit_ext8,
+      </if>
+      <if test="unitExt9 != null">
+        unit_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unitCode != null">
+        upper(#{unitCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="unitName != null">
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="decimalPlace != null">
+        #{decimalPlace,jdbcType=TINYINT},
+      </if>
+      <if test="externalUnitCode != null">
+        #{externalUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="externalUnitName != null">
+        #{externalUnitName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="unitExt0 != null">
+        #{unitExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt1 != null">
+        #{unitExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt2 != null">
+        #{unitExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt3 != null">
+        #{unitExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt4 != null">
+        #{unitExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt5 != null">
+        #{unitExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt6 != null">
+        #{unitExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt7 != null">
+        #{unitExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt8 != null">
+        #{unitExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt9 != null">
+        #{unitExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    ON DUPLICATE KEY UPDATE
+    <trim prefix=" " suffix=" " suffixOverrides=",">
+    <if test="unitName != null">
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="decimalPlace != null">
+        decimal_place = #{decimalPlace,jdbcType=TINYINT},
+      </if>
+      <if test="externalUnitCode != null">
+        external_unit_code = #{externalUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="externalUnitName != null">
+        external_unit_name = #{externalUnitName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <!-- <if test="isDelete != null"> -->
+        is_delete = 0,
+      <!-- </if> -->
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="unitExt0 != null">
+        unit_ext0 = #{unitExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt1 != null">
+        unit_ext1 = #{unitExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt2 != null">
+        unit_ext2 = #{unitExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt3 != null">
+        unit_ext3 = #{unitExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt4 != null">
+        unit_ext4 = #{unitExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt5 != null">
+        unit_ext5 = #{unitExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt6 != null">
+        unit_ext6 = #{unitExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt7 != null">
+        unit_ext7 = #{unitExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt8 != null">
+        unit_ext8 = #{unitExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="unitExt9 != null">
+        unit_ext9 = #{unitExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    
+  </insert>
+</mapper>

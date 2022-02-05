@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicMaterialFactoryMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicMaterialFactory">
+    <id column="mat_code" jdbcType="VARCHAR" property="matCode" />
+    <id column="fty_code" jdbcType="VARCHAR" property="ftyCode" />
+    <result column="batch_specific_classify_code" jdbcType="VARCHAR" property="batchSpecificClassifyCode" />
+    <result column="price_method" jdbcType="CHAR" property="priceMethod" />
+    <result column="move_avg_price" jdbcType="DECIMAL" property="moveAvgPrice" />
+    <result column="standard_price" jdbcType="DECIMAL" property="standardPrice" />
+    <result column="price_unit" jdbcType="INTEGER" property="priceUnit" />
+    <result column="shelf_life" jdbcType="INTEGER" property="shelfLife" />
+    <result column="remind_day" jdbcType="INTEGER" property="remindDay" />
+    <result column="security_qty" jdbcType="DECIMAL" property="securityQty" />
+    <result column="order_point_qty" jdbcType="DECIMAL" property="orderPointQty" />
+    <result column="serial_number_enabled" jdbcType="TINYINT" property="serialNumberEnabled" />
+    <result column="batch_erp_enabled" jdbcType="TINYINT" property="batchErpEnabled" />
+    <result column="batch_product_enabled" jdbcType="TINYINT" property="batchProductEnabled" />
+    <result column="package_enabled" jdbcType="TINYINT" property="packageEnabled" />
+    <result column="serial_is_enabled" jdbcType="TINYINT" property="serialIsEnabled" />
+    <result column="serial_check_rule" jdbcType="VARCHAR" property="serialCheckRule" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="mat_fty_ext0" jdbcType="VARCHAR" property="matFtyExt0" />
+    <result column="mat_fty_ext1" jdbcType="VARCHAR" property="matFtyExt1" />
+    <result column="mat_fty_ext2" jdbcType="VARCHAR" property="matFtyExt2" />
+    <result column="mat_fty_ext3" jdbcType="VARCHAR" property="matFtyExt3" />
+    <result column="mat_fty_ext4" jdbcType="VARCHAR" property="matFtyExt4" />
+    <result column="mat_fty_ext5" jdbcType="VARCHAR" property="matFtyExt5" />
+    <result column="mat_fty_ext6" jdbcType="VARCHAR" property="matFtyExt6" />
+    <result column="mat_fty_ext7" jdbcType="VARCHAR" property="matFtyExt7" />
+    <result column="mat_fty_ext8" jdbcType="VARCHAR" property="matFtyExt8" />
+    <result column="mat_fty_ext9" jdbcType="VARCHAR" property="matFtyExt9" />
+    <result column="label_count_enabled" jdbcType="TINYINT" property="labelCountEnabled" />
+    
+  </resultMap>
+  <sql id="Base_Column_List">
+    mat_code, fty_code, batch_specific_classify_code, price_method, move_avg_price, standard_price,
+    price_unit, shelf_life, remind_day, security_qty, order_point_qty, serial_number_enabled,
+    batch_erp_enabled, batch_product_enabled, package_enabled,serial_is_enabled,serial_check_rule,
+    create_user_id, modify_user_id, modify_time, create_time, mat_fty_ext0, mat_fty_ext1,
+    mat_fty_ext2, mat_fty_ext3, mat_fty_ext4, mat_fty_ext5, mat_fty_ext6, mat_fty_ext7,
+    mat_fty_ext8, mat_fty_ext9,label_count_enabled
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialFactoryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dic_material_factory
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and fty_code = #{ftyCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialFactoryKey">
+    delete from dic_material_factory
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and fty_code = #{ftyCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicMaterialFactory">
+    insert into dic_material_factory (mat_code, fty_code, batch_specific_classify_code,
+      price_method, move_avg_price, standard_price,
+      price_unit, shelf_life, remind_day,
+      security_qty, order_point_qty, serial_number_enabled,
+      batch_erp_enabled, batch_product_enabled, package_enabled,
+      create_user_id,
+      modify_user_id, modify_time, create_time,
+      mat_fty_ext0, mat_fty_ext1, mat_fty_ext2,
+      mat_fty_ext3, mat_fty_ext4, mat_fty_ext5,
+      mat_fty_ext6, mat_fty_ext7, mat_fty_ext8,
+      mat_fty_ext9,label_count_enabled)
+    values (#{matCode,jdbcType=VARCHAR}, #{ftyCode,jdbcType=VARCHAR}, #{batchSpecificClassifyCode,jdbcType=VARCHAR},
+      #{priceMethod,jdbcType=CHAR}, #{moveAvgPrice,jdbcType=DECIMAL}, #{standardPrice,jdbcType=DECIMAL},
+      #{priceUnit,jdbcType=INTEGER}, #{shelfLife,jdbcType=INTEGER}, #{remindDay,jdbcType=INTEGER},
+      #{securityQty,jdbcType=DECIMAL}, #{orderPointQty,jdbcType=DECIMAL}, #{serialNumberEnabled,jdbcType=TINYINT},
+      #{batchErpEnabled,jdbcType=TINYINT}, #{batchProductEnabled,jdbcType=TINYINT}, #{packageEnabled,jdbcType=TINYINT},
+      #{createUserId,jdbcType=INTEGER},
+      #{modifyUserId,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
+      #{matFtyExt0,jdbcType=VARCHAR}, #{matFtyExt1,jdbcType=VARCHAR}, #{matFtyExt2,jdbcType=VARCHAR},
+      #{matFtyExt3,jdbcType=VARCHAR}, #{matFtyExt4,jdbcType=VARCHAR}, #{matFtyExt5,jdbcType=VARCHAR},
+      #{matFtyExt6,jdbcType=VARCHAR}, #{matFtyExt7,jdbcType=VARCHAR}, #{matFtyExt8,jdbcType=VARCHAR},
+      #{matFtyExt9,jdbcType=VARCHAR},#{labelCountEnabled,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicMaterialFactory">
+    insert into dic_material_factory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="matCode != null">
+        mat_code,
+      </if>
+      <if test="ftyCode != null">
+        fty_code,
+      </if>
+      <if test="batchSpecificClassifyCode != null">
+        batch_specific_classify_code,
+      </if>
+      <if test="priceMethod != null">
+        price_method,
+      </if>
+      <if test="moveAvgPrice != null">
+        move_avg_price,
+      </if>
+      <if test="standardPrice != null">
+        standard_price,
+      </if>
+      <if test="priceUnit != null">
+        price_unit,
+      </if>
+      <if test="shelfLife != null">
+        shelf_life,
+      </if>
+      <if test="remindDay != null">
+        remind_day,
+      </if>
+      <if test="securityQty != null">
+        security_qty,
+      </if>
+      <if test="orderPointQty != null">
+        order_point_qty,
+      </if>
+      <if test="serialNumberEnabled != null">
+        serial_number_enabled,
+      </if>
+      <if test="batchErpEnabled != null">
+        batch_erp_enabled,
+      </if>
+      <if test="batchProductEnabled != null">
+        batch_product_enabled,
+      </if>
+      <if test="packageEnabled != null">
+        package_enabled,
+      </if>
+      <if test="serialIsEnabled != null">
+        serial_is_enabled,
+      </if>
+      <if test="serialCheckRule != null">
+        serial_check_rule,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="matFtyExt0 != null">
+        mat_fty_ext0,
+      </if>
+      <if test="matFtyExt1 != null">
+        mat_fty_ext1,
+      </if>
+      <if test="matFtyExt2 != null">
+        mat_fty_ext2,
+      </if>
+      <if test="matFtyExt3 != null">
+        mat_fty_ext3,
+      </if>
+      <if test="matFtyExt4 != null">
+        mat_fty_ext4,
+      </if>
+      <if test="matFtyExt5 != null">
+        mat_fty_ext5,
+      </if>
+      <if test="matFtyExt6 != null">
+        mat_fty_ext6,
+      </if>
+      <if test="matFtyExt7 != null">
+        mat_fty_ext7,
+      </if>
+      <if test="matFtyExt8 != null">
+        mat_fty_ext8,
+      </if>
+      <if test="matFtyExt9 != null">
+        mat_fty_ext9,
+      </if>
+        <if test="labelCountEnabled != null">
+        label_count_enabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="matCode != null">
+        #{matCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ftyCode != null">
+        #{ftyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="batchSpecificClassifyCode != null">
+        #{batchSpecificClassifyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="priceMethod != null">
+        #{priceMethod,jdbcType=CHAR},
+      </if>
+      <if test="moveAvgPrice != null">
+        #{moveAvgPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="standardPrice != null">
+        #{standardPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="priceUnit != null">
+        #{priceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="shelfLife != null">
+        #{shelfLife,jdbcType=INTEGER},
+      </if>
+      <if test="remindDay != null">
+        #{remindDay,jdbcType=INTEGER},
+      </if>
+      <if test="securityQty != null">
+        #{securityQty,jdbcType=DECIMAL},
+      </if>
+      <if test="orderPointQty != null">
+        #{orderPointQty,jdbcType=DECIMAL},
+      </if>
+      <if test="serialNumberEnabled != null">
+        #{serialNumberEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="batchErpEnabled != null">
+        #{batchErpEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="batchProductEnabled != null">
+        #{batchProductEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="packageEnabled != null">
+        #{packageEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="serialIsEnabled != null">
+        #{serialIsEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="serialCheckRule != null">
+        #{serialCheckRule,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="matFtyExt0 != null">
+        #{matFtyExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt1 != null">
+        #{matFtyExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt2 != null">
+        #{matFtyExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt3 != null">
+        #{matFtyExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt4 != null">
+        #{matFtyExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt5 != null">
+        #{matFtyExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt6 != null">
+        #{matFtyExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt7 != null">
+        #{matFtyExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt8 != null">
+        #{matFtyExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt9 != null">
+        #{matFtyExt9,jdbcType=VARCHAR},
+      </if>
+        <if test="labelCountEnabled != null"> 
+        #{labelCountEnabled,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicMaterialFactory">
+    update dic_material_factory
+    <set>
+      <if test="batchSpecificClassifyCode != null">
+        batch_specific_classify_code = #{batchSpecificClassifyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="priceMethod != null">
+        price_method = #{priceMethod,jdbcType=CHAR},
+      </if>
+      <if test="moveAvgPrice != null">
+        move_avg_price = #{moveAvgPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="standardPrice != null">
+        standard_price = #{standardPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="priceUnit != null">
+        price_unit = #{priceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="shelfLife != null">
+        shelf_life = #{shelfLife,jdbcType=INTEGER},
+      </if>
+      <if test="remindDay != null">
+        remind_day = #{remindDay,jdbcType=INTEGER},
+      </if>
+      <if test="securityQty != null">
+        security_qty = #{securityQty,jdbcType=DECIMAL},
+      </if>
+      <if test="orderPointQty != null">
+        order_point_qty = #{orderPointQty,jdbcType=DECIMAL},
+      </if>
+      <if test="serialNumberEnabled != null">
+        serial_number_enabled = #{serialNumberEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="batchErpEnabled != null">
+        batch_erp_enabled = #{batchErpEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="batchProductEnabled != null">
+        batch_product_enabled = #{batchProductEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="packageEnabled != null">
+          package_enabled = #{packageEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="serialIsEnabled != null">
+        serial_is_enabled = #{serialIsEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="serialCheckRule != null">
+        serial_check_rule = #{serialCheckRule,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="matFtyExt0 != null">
+        mat_fty_ext0 = #{matFtyExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt1 != null">
+        mat_fty_ext1 = #{matFtyExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt2 != null">
+        mat_fty_ext2 = #{matFtyExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt3 != null">
+        mat_fty_ext3 = #{matFtyExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt4 != null">
+        mat_fty_ext4 = #{matFtyExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt5 != null">
+        mat_fty_ext5 = #{matFtyExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt6 != null">
+        mat_fty_ext6 = #{matFtyExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt7 != null">
+        mat_fty_ext7 = #{matFtyExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt8 != null">
+        mat_fty_ext8 = #{matFtyExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="matFtyExt9 != null">  
+        mat_fty_ext9 = #{matFtyExt9,jdbcType=VARCHAR},
+      </if>
+       <if test="labelCountEnabled != null">  
+        label_count_enabled = #{labelCountEnabled,jdbcType=TINYINT},
+      </if>
+    </set>
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and fty_code = #{ftyCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialFactory">
+    update dic_material_factory
+    set batch_specific_classify_code = #{batchSpecificClassifyCode,jdbcType=VARCHAR},
+      price_method = #{priceMethod,jdbcType=CHAR},
+      move_avg_price = #{moveAvgPrice,jdbcType=DECIMAL},
+      standard_price = #{standardPrice,jdbcType=DECIMAL},
+      price_unit = #{priceUnit,jdbcType=INTEGER},
+      shelf_life = #{shelfLife,jdbcType=INTEGER},
+      remind_day = #{remindDay,jdbcType=INTEGER},
+      security_qty = #{securityQty,jdbcType=DECIMAL},
+      order_point_qty = #{orderPointQty,jdbcType=DECIMAL},
+      serial_number_enabled = #{serialNumberEnabled,jdbcType=TINYINT},
+      batch_erp_enabled = #{batchErpEnabled,jdbcType=TINYINT},
+      batch_product_enabled = #{batchProductEnabled,jdbcType=TINYINT},
+      package_enabled = #{packageEnabled,jdbcType=TINYINT},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      mat_fty_ext0 = #{matFtyExt0,jdbcType=VARCHAR},
+      mat_fty_ext1 = #{matFtyExt1,jdbcType=VARCHAR},
+      mat_fty_ext2 = #{matFtyExt2,jdbcType=VARCHAR},
+      mat_fty_ext3 = #{matFtyExt3,jdbcType=VARCHAR},
+      mat_fty_ext4 = #{matFtyExt4,jdbcType=VARCHAR},
+      mat_fty_ext5 = #{matFtyExt5,jdbcType=VARCHAR},
+      mat_fty_ext6 = #{matFtyExt6,jdbcType=VARCHAR},
+      mat_fty_ext7 = #{matFtyExt7,jdbcType=VARCHAR},
+      mat_fty_ext8 = #{matFtyExt8,jdbcType=VARCHAR},
+      mat_fty_ext9 = #{matFtyExt9,jdbcType=VARCHAR},
+      label_count_enabled = #{labelCountEnabled,jdbcType=TINYINT},
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and fty_code = #{ftyCode,jdbcType=VARCHAR}
+  </update>
+
+  <resultMap id="BaseResultMapVo" type="com.inossem.wms.vo.dic.DicMaterialFactoryVo" extends="BaseResultMap">
+    <result column="fty_name" jdbcType="VARCHAR" property="ftyName" />
+    <result column="batch_spec_classify_name" jdbcType="VARCHAR" property="matName" />
+    <result column="mat_name" jdbcType="VARCHAR" property="matName" />
+    <result column="mat_type_code" jdbcType="VARCHAR" property="matTypeCode" />
+    <result column="mat_type_name" jdbcType="VARCHAR" property="matTypeName" />
+    <result column="unit_code" jdbcType="VARCHAR" property="unitCode" />
+    <result column="unit_name" jdbcType="VARCHAR" property="unitName" />
+    <result column="mat_group_code" jdbcType="VARCHAR" property="matGroupCode" />
+    <result column="mat_group_name" jdbcType="VARCHAR" property="matGroupName" />
+    <result column="decimal_place" jdbcType="INTEGER" property="decimalPlace" />
+    <result column="mat_batch_erp_enabled" jdbcType="TINYINT" property="matBatchErpEnabled"/>
+    <result column="mat_batch_product_enabled" jdbcType="TINYINT" property="matBatchProductEnabled"/>
+    <result column="mat_package_enabled" jdbcType="TINYINT" property="matPackageEnabled"/>
+  </resultMap>
+
+  <select id="getDicMaterialFactoryListOnPaging" parameterType="com.inossem.wms.co.dic.DicMaterialFactoryCo" resultMap="BaseResultMapVo" >
+        SELECT
+            mat.mat_code,
+            matf.fty_code,
+            fty.fty_name,
+            matg.batch_specific_classify_code,
+            batch_spec.batch_spec_classify_name,
+            matf.price_method,
+            matf.move_avg_price,
+            matf.standard_price,
+            matf.price_unit,
+            matf.shelf_life,
+            matf.remind_day,
+            matf.security_qty,
+            matf.order_point_qty,
+            matf.serial_number_enabled,
+            matf.batch_erp_enabled,
+            matf.batch_product_enabled,
+            matf.package_enabled,
+	        matf.serial_is_enabled,
+	        matf.serial_check_rule,
+            matf.create_user_id,
+            matf.modify_user_id,
+            matf.create_time,
+            matf.modify_time,
+            matf.mat_fty_ext0,
+            matf.mat_fty_ext1,
+            matf.mat_fty_ext2,
+            matf.mat_fty_ext3,
+            matf.mat_fty_ext4,
+            matf.mat_fty_ext5,
+            matf.mat_fty_ext6,
+            matf.mat_fty_ext7,
+            matf.mat_fty_ext8,
+            matf.mat_fty_ext9,
+            matf.label_count_enabled,
+            mat.mat_name,
+            matt.mat_type_code,
+            matt.mat_type_name,
+            u.unit_code,
+            u.unit_name,
+            u.decimal_place,
+            matg.mat_group_code,
+            matg.mat_group_name,
+            mat.batch_erp_enabled mat_batch_erp_enabled,
+            mat.batch_product_enabled mat_batch_product_enabled,
+            mat.package_enabled mat_package_enabled
+        FROM dic_material_factory matf
+        INNER JOIN  dic_material mat ON matf.mat_code = mat.mat_code AND mat.is_delete = 0
+        INNER JOIN dic_material_group matg ON matg.mat_group_code = mat.mat_group_code
+        AND matg.is_delete = 0
+        INNER JOIN dic_batch_spec_classify batch_spec ON batch_spec.batch_spec_classify_code= matg.batch_specific_classify_code
+        AND batch_spec.is_delete = 0
+        INNER JOIN dic_material_type matt ON matt.mat_type_code = mat.mat_type_code
+        AND matt.is_delete = 0
+        INNER JOIN dic_unit u ON u.unit_code = mat.unit_code
+        AND u.is_delete = 0
+        INNER JOIN dic_factory fty ON fty.fty_code = matf.fty_code
+        AND fty.is_delete=0
+        <if test="matCode !=null and matCode != ''">
+          AND matf.mat_code = #{matCode}
+        </if>
+        <if test="ftyCode !=null and ftyCode !=''">
+          AND matf.fty_code=#{ftyCode}
+        </if>
+        ORDER BY matf.create_time DESC , matf.mat_code
+  </select>
+
+  <select id="getDicMaterialDetail" parameterType="string" resultMap="BaseResultMapVo">
+        SELECT
+            mat.mat_code,
+            "" fty_code,
+            "" fty_name,
+            matg.batch_specific_classify_code,
+            batch_spec.batch_spec_classify_name,
+            "" price_method,
+            "" move_avg_price,
+            "" standard_price,
+            "" price_unit,
+            "" shelf_life,
+            "" remind_day,
+            "" security_qty,
+            "" order_point_qty,
+            "" serial_number_enabled,
+            "" batch_erp_enabled,
+            "" batch_product_enabled,
+            "" package_type_enabled,
+            "" serial_is_enabled,
+	        "" serial_check_rule,
+            "" create_user_id,
+            "" modify_user_id,
+            NOW() create_time,
+            NOW() modify_time,
+            "" mat_fty_ext0,
+            "" mat_fty_ext1,
+            "" mat_fty_ext2,
+            "" mat_fty_ext3,
+            "" mat_fty_ext4,
+            "" mat_fty_ext5,
+            "" mat_fty_ext6,
+            "" mat_fty_ext7,
+            "" mat_fty_ext8,
+            "" mat_fty_ext9,
+            "" label_count_enabled,
+            mat.mat_name,
+            matt.mat_type_code,
+            matt.mat_type_name,
+            u.unit_code,
+            u.unit_name,
+            matg.mat_group_code,
+            matg.mat_group_name,
+            mat.batch_erp_enabled mat_batch_erp_enabled,
+            mat.batch_product_enabled mat_batch_product_enabled,
+            mat.package_enabled mat_package_enabled
+        FROM  dic_material mat
+        INNER JOIN dic_material_group matg ON matg.mat_group_code = mat.mat_group_code AND mat.is_delete = 0
+        AND matg.is_delete = 0
+        INNER JOIN dic_batch_spec_classify batch_spec ON batch_spec.batch_spec_classify_code= matg.batch_specific_classify_code
+        AND batch_spec.is_delete = 0
+        INNER JOIN dic_material_type matt ON matt.mat_type_code = mat.mat_type_code
+        AND matt.is_delete = 0
+        INNER JOIN dic_unit u ON u.unit_code = mat.unit_code
+        AND u.is_delete = 0
+        AND mat.mat_code = #{matCode}
+  </select>
+  
+  <!-- 工厂物料移动平均价相关信息批量保存 -->
+  <insert id="insertOrUpdate" parameterType="com.inossem.wms.model.dic.DicMaterialFactory">
+    insert into dic_material_factory
+        (fty_code,
+        mat_code,
+        move_avg_price,
+        standard_price,
+        price_unit)
+    values
+		<foreach collection="list" item="item" index="index" separator=","  >
+	        (#{item.ftyCode,jdbcType=VARCHAR},
+	        #{item.matCode,jdbcType=VARCHAR},
+	        #{item.moveAvgPrice,jdbcType=DECIMAL},
+	        #{item.standardPrice,jdbcType=DECIMAL},
+	        #{item.priceUnit,jdbcType=INTEGER})
+		</foreach>
+		on duplicate key update 
+		move_avg_price = values(move_avg_price),
+		standard_price = values(standard_price),
+		price_unit = values(price_unit)
+  </insert>
+  <select id="selectAllMaterialFactory"  resultMap="BaseResultMapVo">
+    select
+    <include refid="Base_Column_List" />
+    from dic_material_factory
+  </select>
+  
+  
+</mapper>

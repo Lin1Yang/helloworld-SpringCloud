@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.biz.BizStockInputMapper">
+  
+  
+  
+  
+  <!-- 根据单据获取单据信息 -->
+  <select id="selectRelReceiptRidVoByReceipt" parameterType="com.inossem.wms.vo.rel.RelReceiptRidVo" resultType="com.inossem.wms.vo.rel.RelReceiptRidVo">
+	SELECT a.receipt_type receiptType,a.stock_input_code receiptCode,
+		ANY_VALUE(a.create_user_id) createUserId,
+	    ANY_VALUE(b.user_code) createUserCode,
+	    ANY_VALUE(b.user_name) createUserName,
+	    ANY_VALUE(a.receipt_status) receiptStatus,
+	    ANY_VALUE(a.create_time) createTime
+	FROM biz_stock_input a
+	INNER JOIN sys_user b ON a.create_user_id = b.user_id 
+		AND a.receipt_type = #{receiptType,jdbcType=INTEGER}
+		AND a.stock_input_code = #{receiptCode,jdbcType=VARCHAR}
+		AND a.is_delete = 0
+	GROUP BY a.receipt_type,a.stock_input_code
+  </select>
+  <!-- 根据单据行获取单据行信息 -->
+  <select id="selectRelReceiptRidVoByReceiptRid" parameterType="com.inossem.wms.vo.rel.RelReceiptRidVo" resultType="com.inossem.wms.vo.rel.RelReceiptRidVo">
+	SELECT a.receipt_type receiptType,a.stock_input_code receiptCode,a.stock_input_rid receiptRid,
+		a.create_user_id createUserId,
+	    b.user_code createUserCode,
+	    b.user_name createUserName,
+	    a.item_status itemStatus,
+	    a.create_time createTime     
+	FROM biz_stock_input a
+	INNER JOIN sys_user b ON a.create_user_id = b.user_id 
+		AND a.receipt_type = #{receiptType,jdbcType=INTEGER}
+		AND a.stock_input_code = #{receiptCode,jdbcType=VARCHAR}
+		AND	a.stock_input_rid IN
+	<foreach collection="receiptRidList" open="(" separator="," close=")" item="item">
+	    #{item}
+	</foreach>	
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,2783 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.rel.ToDoListMapper">
+  
+ 
+  <resultMap id="todolistResultMap" type="com.inossem.wms.vo.index.TodolistCountVo">
+    <id column="resources_code" jdbcType="VARCHAR" property="resourcesCode" />
+    <result column="count_num" jdbcType="INTEGER" property="countNum" />
+    <result column="receipt_type" jdbcType="INTEGER" property="receiptType" />   
+  </resultMap>
+  
+  
+  <select id="selectTodolistCount" resultMap="todolistResultMap" parameterType="java.util.List">
+  	select 
+  		t.count_num,
+  		t.resources_code,
+  		t.receipt_type
+  	from 
+  	<foreach collection="list" open="(" close=")" index="index" item="item" separator=" union all ">
+  		<choose>
+  			<!-- pda验收入库  -->
+  			<when test="item.resourcesCode == 'pad_accepting'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_accepting' resources_code,
+					214 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						AND receipt_type = 214
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- pda仓库整理  -->
+  			<when test="item.resourcesCode == 'pad_arrangement'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_arrangement' resources_code,
+					650 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_task dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type in (650,651,652,653)
+						GROUP BY
+							dh.stock_task_code
+					) temp
+  			</when>
+  			<!-- pda盘点计数  根据盘点人统计待办 -->
+  			<when test="item.resourcesCode == 'pad_counting_count'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_counting_count' resources_code,
+					670 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_take dh
+						INNER JOIN sys_user su on dh.stock_take_user = su.user_code and su.is_delete = 0
+						WHERE
+							dh.is_delete = 0
+						<if test="item.currentUserId != null ">
+							AND su.user_id = #{item.currentUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 	
+						GROUP BY
+							dh.stock_take_code
+					) temp
+  			</when>
+  			<!-- pda组盘   -->
+  			<when test="item.resourcesCode == 'pad_group_plate'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_group_plate' resources_code,
+					102 receipt_type
+				FROM
+					(
+						SELECT
+							CASE ANY_VALUE (dh.receipt_status)
+								WHEN 10 THEN
+									10
+								ELSE
+									MIN(str.task_status)
+								END receipt_status
+						FROM
+							biz_stock_task dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						INNER JOIN biz_stock_task_req str ON str.stock_task_req_code = dh.stock_task_req_code
+						AND str.stock_task_req_rid = dh.stock_task_req_rid
+						AND str.is_delete = 0
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND dh.receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and dh.receipt_type = 102
+						GROUP BY
+							dh.stock_task_code
+						<if test="item.todolistReceiptStatus != null">
+						HAVING
+							receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+					) temp
+  			</when>
+  			<!-- pda领料出库   -->
+  			<when test="item.resourcesCode == 'pad_lead_out'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_lead_out' resources_code,
+					414 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 414
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			
+  			<!-- pda下架管理   -->
+  			<when test="item.resourcesCode == 'pad_lower_frame'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_lower_frame' resources_code,
+					620 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_task_req dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 620
+						GROUP BY
+							dh.stock_task_req_code
+					) temp
+  			</when>
+  			<!-- pda其他入库   -->
+  			<when test="item.resourcesCode == 'pad_other'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_other' resources_code,
+					213 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 213
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- pda其它出库   -->
+  			<when test="item.resourcesCode == 'pad_other_outbreaks'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_other_outbreaks' resources_code,
+					416 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 416
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- pda转储过账   -->
+  			<when test="item.resourcesCode == 'pad_pass_the_bill'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_pass_the_bill' resources_code,
+					511 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_transport dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.output_fty_code
+							AND rsl.location_code = dh.output_location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+							AND receipt_type = 511
+						GROUP BY
+							dh.stock_transport_code
+					) temp
+  			</when>
+  			
+  			<!-- pda生产入库   -->
+  			<when test="item.resourcesCode == 'pad_production'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_production' resources_code,
+					212 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 212
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- pda采购验收   -->
+  			<when test="item.resourcesCode == 'pad_purchase_acceptance'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_purchase_acceptance' resources_code,
+					230 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_inspect_notice dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						GROUP BY
+							dh.inspect_notice_code
+					) temp
+  			</when>
+  			<!-- pda采购退货   -->
+  			<when test="item.resourcesCode == 'pad_purchase_of_return'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_purchase_of_return' resources_code,
+					413 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 413
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- pda采购入库   -->
+  			<when test="item.resourcesCode == 'pad_purchasing'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_purchasing' resources_code,
+					211 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 211
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- pda销售退货   -->
+  			<when test="item.resourcesCode == 'pad_sales_return'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_sales_return' resources_code,
+					311 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_return dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 311
+						GROUP BY
+							dh.stock_return_code
+					) temp
+  			</when>
+  			<!-- pda报废出库   -->
+  			<when test="item.resourcesCode == 'pad_scrap_out'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_scrap_out' resources_code,
+					415 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 415
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- pda销售出库   -->
+  			<when test="item.resourcesCode == 'pad_selling_out'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_selling_out' resources_code,
+					411 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 411
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- pda上架管理   -->
+  			<when test="item.resourcesCode == 'pad_shelf'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_shelf' resources_code,
+					610 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_task_req dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 610
+						GROUP BY
+							dh.stock_task_req_code
+					) temp
+  			</when>
+  			<!-- pda领料退库   -->
+  			<when test="item.resourcesCode == 'pad_tie_back'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'pad_tie_back' resources_code,
+					312 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_return dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 312
+						GROUP BY
+							dh.stock_return_code
+					) temp
+  			</when>
+  			<!-- web验收入库   -->
+  			<when test="item.resourcesCode == 'web_accepting'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_accepting' resources_code,
+					214 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 214
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- web仓库整理   -->
+  			<when test="item.resourcesCode == 'web_arrangement'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_arrangement' resources_code,
+					650 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_task dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type in (650,651,652,653)
+						GROUP BY
+							dh.stock_task_code
+					) temp
+  			</when>
+  			<!-- web盘点计数   -->
+  			<when test="item.resourcesCode == 'web_counting_count'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_counting_count' resources_code,
+					670 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_take dh
+						INNER JOIN sys_user su on dh.stock_take_user = su.user_code and su.is_delete = 0
+						WHERE
+							dh.is_delete = 0
+						<if test="item.currentUserId != null ">
+							AND su.user_id = #{item.currentUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>	
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						GROUP BY
+							dh.stock_take_code
+					) temp
+  			</when>
+  			<!-- web送货管理   -->
+  			<when test="item.resourcesCode == 'web_delivery'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_delivery' resources_code,
+					220 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_delivery_notice dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>	
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						GROUP BY
+							dh.delivery_notice_code
+					) temp
+  			</when>
+  			<!-- web组盘   -->
+  			<when test="item.resourcesCode == 'web_group_plate'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_group_plate' resources_code,
+					102 receipt_type
+				FROM
+					(
+						SELECT
+							CASE ANY_VALUE (dh.receipt_status)
+								WHEN 10 THEN
+									10
+								ELSE
+									MIN(str.task_status)
+								END receipt_status
+						FROM
+							biz_stock_task dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						INNER JOIN biz_stock_task_req str ON str.stock_task_req_code = dh.stock_task_req_code
+						AND str.stock_task_req_rid = dh.stock_task_req_rid
+						AND str.is_delete = 0
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND dh.receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and dh.receipt_type = 102
+						GROUP BY
+							dh.stock_task_code
+						<if test="item.todolistReceiptStatus != null">
+						HAVING
+							receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+					) temp
+  			</when>
+  			<!-- web盘点差异查看   -->
+  			<when test="item.resourcesCode == 'web_inventory_difference_view'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_inventory_difference_view' resources_code,
+					670 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_take dh
+						
+						WHERE
+							dh.is_delete = 0
+						<if test="item.currentUserId != null ">
+							AND dh.create_user_id = #{item.currentUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						GROUP BY
+							dh.stock_take_code
+					) temp
+  			</when>
+  			<!-- web盘点表创建   -->
+  			<when test="item.resourcesCode == 'web_inventory_table_creation'.toString() ">
+  				SELECT
+				 	count(1) count_num,
+				 	'web_inventory_table_creation' resources_code,
+					670 receipt_type
+				FROM
+				 	(
+				 		SELECT
+				 			1
+				 		FROM
+				 			biz_stock_take dh
+				 		
+				 		WHERE
+				 			dh.is_delete = 0
+						<if test="item.currentUserId != null ">
+							AND dh.create_user_id = #{item.currentUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+				 		GROUP BY
+				 			dh.stock_take_code
+				 	) temp
+  			</when>
+  			<!-- web领料出库   -->
+  			<when test="item.resourcesCode == 'web_lead_out'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_lead_out' resources_code,
+					414 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 414
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- web下架管理   -->
+  			<when test="item.resourcesCode == 'web_lower_frame'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_lower_frame' resources_code,
+					620 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_task_req dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 620
+						GROUP BY
+							dh.stock_task_req_code
+					) temp
+  			</when>
+  			<!-- web我的经办   -->
+  			<when test="item.resourcesCode == 'web_my_agency_list'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_my_agency_list' resources_code,
+					null receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_receipt_actor dh
+						
+						WHERE
+							dh.is_delete = 0
+							AND process_status = 1
+						<if test="item.currentUserId != null ">
+							AND dh.operator_id = #{item.currentUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						
+					) temp
+  			</when>
+  			<!-- web我的审批   -->
+  			<when test="item.resourcesCode == 'web_my_approval'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_my_approval' resources_code,
+					null receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							wf_proc_task dh
+						
+						WHERE
+							1=1
+						<if test="item.currentUserId != null ">
+							AND dh.user_id = #{item.currentUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND task_status IN ${item.todolistReceiptStatus}
+						</if>
+						 
+					) temp
+  			</when>
+  			<!-- web其他入库   -->
+  			<when test="item.resourcesCode == 'web_other'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_other' resources_code,
+					213 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 213
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- web其它出库   -->
+  			<when test="item.resourcesCode == 'web_other_outbreaks'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_other_outbreaks' resources_code,
+					416 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 416
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- web转储过账   -->
+  			<when test="item.resourcesCode == 'web_pass_the_bill'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_pass_the_bill' resources_code,
+					511 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_transport dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.output_fty_code
+							AND rsl.location_code = dh.output_location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+							AND receipt_type = 511
+						GROUP BY
+							dh.stock_transport_code
+					) temp
+  			</when>
+  			<!-- web生产入库   -->
+  			<when test="item.resourcesCode == 'web_production'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_production' resources_code,
+					212 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 212
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- web采购验收   -->
+  			<when test="item.resourcesCode == 'web_purchase_acceptance'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_purchase_acceptance' resources_code,
+					230 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_inspect_notice dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						GROUP BY
+							dh.inspect_notice_code
+					) temp
+  			</when>
+  			<!-- web采购退货   -->
+  			<when test="item.resourcesCode == 'web_purchase_of_return'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_purchase_of_return' resources_code,
+					413 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 413
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- web采购入库   -->
+  			<when test="item.resourcesCode == 'web_purchasing'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_purchasing' resources_code,
+					211 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 211
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- web销售退货   -->
+  			<when test="item.resourcesCode == 'web_sales_return'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_sales_return' resources_code,
+					311 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_return dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 311
+						GROUP BY
+							dh.stock_return_code
+					) temp
+  			</when>
+  			<!-- web报废出库   -->
+  			<when test="item.resourcesCode == 'web_scrap_out'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_scrap_out' resources_code,
+					415 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 415
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- web销售出库  -->
+  			<when test="item.resourcesCode == 'web_selling_out'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_selling_out' resources_code,
+					411 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 411
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- web上架管理  -->
+  			<when test="item.resourcesCode == 'web_shelf'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_shelf' resources_code,
+					610 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_task_req dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 610
+						GROUP BY
+							dh.stock_task_req_code
+					) temp
+  			</when>
+  			<!-- web领料退库  -->
+  			<when test="item.resourcesCode == 'web_tie_back'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_tie_back' resources_code,
+					312 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_return dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 312
+						GROUP BY
+							dh.stock_return_code
+					) temp
+  			</when>
+  			<!-- web紧急验收入库  -->
+  			<when test="item.resourcesCode == 'web_e_accepting'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_e_accepting' resources_code,
+					7214 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						AND receipt_type = 7214
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- web紧急领料出库  -->
+  			<when test="item.resourcesCode == 'web_e_lead_out'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_e_lead_out' resources_code,
+					7414 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 7414
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- web紧急转储过账  -->
+  			<when test="item.resourcesCode == 'web_e_pass_the_bill'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_e_pass_the_bill' resources_code,
+					7511 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_transport dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.output_fty_code
+							AND rsl.location_code = dh.output_location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+							AND receipt_type = 7511
+						GROUP BY
+							dh.stock_transport_code
+					) temp
+  			</when>
+  			<!-- web紧急生产入库  -->
+  			<when test="item.resourcesCode == 'web_e_production'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_e_production' resources_code,
+					7212 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 7212
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- web紧急采购退货  -->
+  			<when test="item.resourcesCode == 'web_e_purchase_of_return'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_e_purchase_of_return' resources_code,
+					7413 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 7413
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- web紧急采购入库  -->
+  			<when test="item.resourcesCode == 'web_e_purchasing'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_e_purchasing' resources_code,
+					7211 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 7211
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- web紧急销售出库  -->
+  			<when test="item.resourcesCode == 'web_e_selling_out'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_e_selling_out' resources_code,
+					7411 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 7411
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- web临时验收入库  -->
+  			<when test="item.resourcesCode == 'web_t_accepting'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_t_accepting' resources_code,
+					8214 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						AND receipt_type = 8214
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- web临时领料出库  -->
+  			<when test="item.resourcesCode == 'web_t_lead_out'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_t_lead_out' resources_code,
+					8414 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 8414
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			
+  			<!-- web临时生产入库  -->
+  			<when test="item.resourcesCode == 'web_t_production'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_t_production' resources_code,
+					8212 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 8212
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- web临时采购退货  -->
+  			<when test="item.resourcesCode == 'web_t_purchase_of_return'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_t_purchase_of_return' resources_code,
+					8413 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 8413
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- web临时采购入库  -->
+  			<when test="item.resourcesCode == 'web_t_purchasing'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_t_purchasing' resources_code,
+					8211 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_input dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 8211
+						GROUP BY
+							dh.stock_input_code
+					) temp
+  			</when>
+  			<!-- web临时销售出库  -->
+  			<when test="item.resourcesCode == 'web_t_selling_out'.toString() ">
+  				SELECT
+					count(1) count_num,
+					'web_t_selling_out' resources_code,
+					8411 receipt_type
+				FROM
+					(
+						SELECT
+							1
+						FROM
+							biz_stock_output dh
+						<if test="item.locationAuthority != null and item.currentUserId != null">
+							INNER JOIN (
+								SELECT
+									fty_code,
+									location_code
+								FROM
+									rel_user_stock_location
+								WHERE
+									user_id = #{item.currentUserId}
+								AND is_delete = 0
+								UNION ALL
+									SELECT DISTINCT
+										fty_code,
+										''
+									FROM
+										rel_user_stock_location
+									WHERE
+										user_id = #{item.currentUserId}
+									AND is_delete = 0
+							) rsl ON rsl.fty_code = dh.fty_code
+							AND rsl.location_code = dh.location_code
+						</if>
+						WHERE
+							dh.is_delete = 0
+						<if test="item.createUserId != null ">
+							AND dh.create_user_id = #{item.createUserId}
+						</if>
+						<if test="item.todolistReceiptStatus != null">
+							AND receipt_status IN ${item.todolistReceiptStatus}
+						</if>
+						<if test="item.startTime !=null">
+   		 					and dh.create_time <![CDATA[>=]]> #{item.startTime,jdbcType=TIMESTAMP}
+   		 				</if>
+   		 				<if test="item.endTime !=null">
+   		 					and dh.create_time <![CDATA[<=]]> #{item.endTime,jdbcType=TIMESTAMP} 
+   		 				</if> 
+						and receipt_type = 8411
+						GROUP BY
+							dh.stock_output_code
+					) temp
+  			</when>
+  			<!-- 无匹配项  -->
+  			<otherwise>
+  				(select 
+					null count_num,
+					null resources_code,
+					null receipt_type
+				LIMIT 0 )
+  			</otherwise>
+  			
+  			
+  		</choose>
+  	
+  	</foreach>
+  	t order by t.receipt_type
+  </select>
+   <select id="selectTodoInfo" resultType="java.lang.Integer" parameterType="com.inossem.wms.co.index.TodolistCountCo">
+   		select * from sys_resource where FIND_IN_SET(#{receiptStatus,jdbcType=VARCHAR},todolist_receipt_status) and resources_code = #{resourcesCode,jdbcType=VARCHAR}
+   </select>
+</mapper>

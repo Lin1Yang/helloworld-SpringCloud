@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.actor.ActorGroupPostMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.actor.ActorGroupPost">
+    <id column="group_code" jdbcType="VARCHAR" property="groupCode" />
+    <id column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <result column="required" jdbcType="TINYINT" property="required" />
+    <result column="post_index" jdbcType="INTEGER" property="postIndex" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="gp_ext0" jdbcType="VARCHAR" property="gpExt0" />
+    <result column="gp_ext1" jdbcType="VARCHAR" property="gpExt1" />
+    <result column="gp_ext2" jdbcType="VARCHAR" property="gpExt2" />
+    <result column="gp_ext3" jdbcType="VARCHAR" property="gpExt3" />
+    <result column="gp_ext4" jdbcType="VARCHAR" property="gpExt4" />
+    <result column="gp_ext5" jdbcType="VARCHAR" property="gpExt5" />
+    <result column="gp_ext6" jdbcType="VARCHAR" property="gpExt6" />
+    <result column="gp_ext7" jdbcType="VARCHAR" property="gpExt7" />
+    <result column="gp_ext8" jdbcType="VARCHAR" property="gpExt8" />
+    <result column="gp_ext9" jdbcType="VARCHAR" property="gpExt9" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    group_code, post_code, required, post_index, is_delete, create_user_id, modify_user_id, 
+    create_time, modify_time, gp_ext0, gp_ext1, gp_ext2, gp_ext3, gp_ext4, gp_ext5, gp_ext6, 
+    gp_ext7, gp_ext8, gp_ext9
+  </sql>
+
+  <resultMap id="JoinedResultMap" type="com.inossem.wms.vo.actor.ActorGroupPostVo">
+    <id column="group_code" jdbcType="VARCHAR" property="groupCode" />
+    <id column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <result column="required" jdbcType="TINYINT" property="required" />
+    <result column="post_index" jdbcType="INTEGER" property="postIndex" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="gp_ext0" jdbcType="VARCHAR" property="gpExt0" />
+    <result column="gp_ext1" jdbcType="VARCHAR" property="gpExt1" />
+    <result column="gp_ext2" jdbcType="VARCHAR" property="gpExt2" />
+    <result column="gp_ext3" jdbcType="VARCHAR" property="gpExt3" />
+    <result column="gp_ext4" jdbcType="VARCHAR" property="gpExt4" />
+    <result column="gp_ext5" jdbcType="VARCHAR" property="gpExt5" />
+    <result column="gp_ext6" jdbcType="VARCHAR" property="gpExt6" />
+    <result column="gp_ext7" jdbcType="VARCHAR" property="gpExt7" />
+    <result column="gp_ext8" jdbcType="VARCHAR" property="gpExt8" />
+    <result column="gp_ext9" jdbcType="VARCHAR" property="gpExt9" />
+    <result column="corp_code" property="corpCode" jdbcType="VARCHAR" />
+    <result column="post_name" property="postName" jdbcType="VARCHAR" />
+    <result column="countersign" property="countersign" jdbcType="TINYINT" />
+    <result column="post_ext0" property="postExt0" jdbcType="VARCHAR" />
+    <result column="post_ext1" property="postExt1" jdbcType="VARCHAR" />
+    <result column="post_ext2" property="postExt2" jdbcType="VARCHAR" />
+    <result column="post_ext3" property="postExt3" jdbcType="VARCHAR" />
+    <result column="post_ext4" property="postExt4" jdbcType="VARCHAR" />
+    <result column="post_ext5" property="postExt5" jdbcType="VARCHAR" />
+    <result column="post_ext6" property="postExt6" jdbcType="VARCHAR" />
+    <result column="post_ext7" property="postExt7" jdbcType="VARCHAR" />
+    <result column="post_ext8" property="postExt8" jdbcType="VARCHAR" />
+    <result column="post_ext9" property="postExt9" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <resultMap id="JoinedGroupAndUser" type="com.inossem.wms.vo.actor.ActorGroupUserMo">
+    <result column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <result column="post_name" jdbcType="VARCHAR" property="postName" />
+    <result column="post_index" jdbcType="INTEGER" property="postIndex" />
+    <result column="required" jdbcType="TINYINT" property="required" />
+    <result column="countersign" jdbcType="INTEGER" property="countersign" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="TIMESTAMP" property="userName" />
+  </resultMap>
+
+  <resultMap id="GetReceiptListResultMap" type="com.inossem.wms.vo.actor.BizReceiptActorVo">
+    <result column="receipt_type" jdbcType="VARCHAR" property="receiptType" />
+    <result column="receipt_type_name" jdbcType="VARCHAR" property="receiptTypeName" />
+    <result column="receipt_code" jdbcType="INTEGER" property="receiptCode" />
+    <result column="arrive_time" jdbcType="TIMESTAMP" property="arriveTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="post_index" jdbcType="INTEGER" property="postIndex" />
+    <result column="receipt_status" jdbcType="INTEGER" property="receiptStatus" />
+    <result column="countersign" jdbcType="INTEGER" property="countersign" />
+    <result column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+  </resultMap>
+
+
+  <!--↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑-->
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.actor.ActorGroupPostKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from actor_group_post
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+      and post_code = #{postCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.actor.ActorGroupPostKey">
+    delete from actor_group_post
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+      and post_code = #{postCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.actor.ActorGroupPost">
+    insert into actor_group_post (group_code, post_code, required, 
+      post_index, is_delete, create_user_id, 
+      modify_user_id, create_time, modify_time, 
+      gp_ext0, gp_ext1, gp_ext2, 
+      gp_ext3, gp_ext4, gp_ext5, 
+      gp_ext6, gp_ext7, gp_ext8, 
+      gp_ext9)
+    values (#{groupCode,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, #{required,jdbcType=TINYINT}, 
+      #{postIndex,jdbcType=INTEGER}, #{isDelete,jdbcType=TINYINT}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{gpExt0,jdbcType=VARCHAR}, #{gpExt1,jdbcType=VARCHAR}, #{gpExt2,jdbcType=VARCHAR}, 
+      #{gpExt3,jdbcType=VARCHAR}, #{gpExt4,jdbcType=VARCHAR}, #{gpExt5,jdbcType=VARCHAR}, 
+      #{gpExt6,jdbcType=VARCHAR}, #{gpExt7,jdbcType=VARCHAR}, #{gpExt8,jdbcType=VARCHAR}, 
+      #{gpExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.actor.ActorGroupPost">
+    insert into actor_group_post
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="groupCode != null">
+        group_code,
+      </if>
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="required != null">
+        required,
+      </if>
+      <if test="postIndex != null">
+        post_index,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="gpExt0 != null">
+        gp_ext0,
+      </if>
+      <if test="gpExt1 != null">
+        gp_ext1,
+      </if>
+      <if test="gpExt2 != null">
+        gp_ext2,
+      </if>
+      <if test="gpExt3 != null">
+        gp_ext3,
+      </if>
+      <if test="gpExt4 != null">
+        gp_ext4,
+      </if>
+      <if test="gpExt5 != null">
+        gp_ext5,
+      </if>
+      <if test="gpExt6 != null">
+        gp_ext6,
+      </if>
+      <if test="gpExt7 != null">
+        gp_ext7,
+      </if>
+      <if test="gpExt8 != null">
+        gp_ext8,
+      </if>
+      <if test="gpExt9 != null">
+        gp_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="groupCode != null">
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="required != null">
+        #{required,jdbcType=TINYINT},
+      </if>
+      <if test="postIndex != null">
+        #{postIndex,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpExt0 != null">
+        #{gpExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt1 != null">
+        #{gpExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt2 != null">
+        #{gpExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt3 != null">
+        #{gpExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt4 != null">
+        #{gpExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt5 != null">
+        #{gpExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt6 != null">
+        #{gpExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt7 != null">
+        #{gpExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt8 != null">
+        #{gpExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt9 != null">
+        #{gpExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.actor.ActorGroupPost">
+    update actor_group_post
+    <set>
+      <if test="required != null">
+        required = #{required,jdbcType=TINYINT},
+      </if>
+      <if test="postIndex != null">
+        post_index = #{postIndex,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpExt0 != null">
+        gp_ext0 = #{gpExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt1 != null">
+        gp_ext1 = #{gpExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt2 != null">
+        gp_ext2 = #{gpExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt3 != null">
+        gp_ext3 = #{gpExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt4 != null">
+        gp_ext4 = #{gpExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt5 != null">
+        gp_ext5 = #{gpExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt6 != null">
+        gp_ext6 = #{gpExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt7 != null">
+        gp_ext7 = #{gpExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt8 != null">
+        gp_ext8 = #{gpExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt9 != null">
+        gp_ext9 = #{gpExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+      and post_code = #{postCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.actor.ActorGroupPost">
+    update actor_group_post
+    set required = #{required,jdbcType=TINYINT},
+      post_index = #{postIndex,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      gp_ext0 = #{gpExt0,jdbcType=VARCHAR},
+      gp_ext1 = #{gpExt1,jdbcType=VARCHAR},
+      gp_ext2 = #{gpExt2,jdbcType=VARCHAR},
+      gp_ext3 = #{gpExt3,jdbcType=VARCHAR},
+      gp_ext4 = #{gpExt4,jdbcType=VARCHAR},
+      gp_ext5 = #{gpExt5,jdbcType=VARCHAR},
+      gp_ext6 = #{gpExt6,jdbcType=VARCHAR},
+      gp_ext7 = #{gpExt7,jdbcType=VARCHAR},
+      gp_ext8 = #{gpExt8,jdbcType=VARCHAR},
+      gp_ext9 = #{gpExt9,jdbcType=VARCHAR}
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+      and post_code = #{postCode,jdbcType=VARCHAR}
+  </update>
+
+  <!--自定义方法-->
+  <!--添加或更新关联信息-->
+  <insert id="insertOrUpdate" parameterType="com.inossem.wms.model.actor.ActorGroupPost">
+    insert into actor_group_post
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="groupCode != null">
+        group_code,
+      </if>
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="required != null">
+        required,
+      </if>
+      <if test="postIndex != null">
+        post_index,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="gpExt0 != null">
+        gp_ext0,
+      </if>
+      <if test="gpExt1 != null">
+        gp_ext1,
+      </if>
+      <if test="gpExt2 != null">
+        gp_ext2,
+      </if>
+      <if test="gpExt3 != null">
+        gp_ext3,
+      </if>
+      <if test="gpExt4 != null">
+        gp_ext4,
+      </if>
+      <if test="gpExt5 != null">
+        gp_ext5,
+      </if>
+      <if test="gpExt6 != null">
+        gp_ext6,
+      </if>
+      <if test="gpExt7 != null">
+        gp_ext7,
+      </if>
+      <if test="gpExt8 != null">
+        gp_ext8,
+      </if>
+      <if test="gpExt9 != null">
+        gp_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="groupCode != null">
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="required != null">
+        #{required,jdbcType=TINYINT},
+      </if>
+      <if test="postIndex != null">
+        #{postIndex,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpExt0 != null">
+        #{gpExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt1 != null">
+        #{gpExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt2 != null">
+        #{gpExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt3 != null">
+        #{gpExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt4 != null">
+        #{gpExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt5 != null">
+        #{gpExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt6 != null">
+        #{gpExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt7 != null">
+        #{gpExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt8 != null">
+        #{gpExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt9 != null">
+        #{gpExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    ON DUPLICATE KEY UPDATE
+    <trim prefix=" " suffix=" " suffixOverrides=",">
+      <if test="required != null">
+        required = #{required,jdbcType=TINYINT},
+      </if>
+      <if test="postIndex != null">
+        post_index = #{postIndex,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="gpExt0 != null">
+        gp_ext0 = #{gpExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt1 != null">
+        gp_ext1 = #{gpExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt2 != null">
+        gp_ext2 = #{gpExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt3 != null">
+        gp_ext3 = #{gpExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt4 != null">
+        gp_ext4 = #{gpExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt5 != null">
+        gp_ext5 = #{gpExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt6 != null">
+        gp_ext6 = #{gpExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt7 != null">
+        gp_ext7 = #{gpExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt8 != null">
+        gp_ext8 = #{gpExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="gpExt9 != null">
+        gp_ext9 = #{gpExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+   <insert id="insertOrUpdateBatchActorGroupPostCo" parameterType="java.util.List">
+    insert into actor_group_post (
+      group_code, post_code, required, 
+      post_index, is_delete, create_user_id, 
+      modify_user_id, create_time, modify_time, 
+      gp_ext0, gp_ext1, gp_ext2, 
+      gp_ext3, gp_ext4, gp_ext5, 
+      gp_ext6, gp_ext7, gp_ext8, 
+      gp_ext9)
+    values 
+    <foreach collection="list" item="item" index= "index" separator =","> 
+     (
+      ifnull(#{item.groupCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.postCode,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.required,jdbcType=TINYINT},  ""),
+      ifnull(#{item.postIndex,jdbcType=INTEGER},  ""),
+      ifnull(#{item.isDelete,jdbcType=TINYINT},  ""),
+      ifnull(#{item.createUserId,jdbcType=INTEGER},  ""),
+      ifnull(#{item.modifyUserId,jdbcType=INTEGER},  ""),
+      #{item.createTime,jdbcType=TIMESTAMP}, 
+      #{item.modifyTime,jdbcType=TIMESTAMP}, 
+      ifnull(#{item.gpExt0,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.gpExt1,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.gpExt2,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.gpExt3,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.gpExt4,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.gpExt5,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.gpExt6,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.gpExt7,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.gpExt8,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.gpExt9,jdbcType=VARCHAR},  "")
+      )
+    </foreach>
+     ON DUPLICATE KEY UPDATE
+      group_code = values(group_code), 
+      post_code = values(post_code), 
+      required = values(required), 
+      post_index = values(post_index), 
+      is_delete = values(is_delete), 
+      create_user_id = values(create_user_id), 
+      modify_user_id = values(modify_user_id), 
+      create_time = values(create_time), 
+      modify_time = values(modify_time), 
+      gp_ext0 = values(gp_ext0), 
+      gp_ext1 = values(gp_ext1), 
+      gp_ext2 = values(gp_ext2), 
+      gp_ext3 = values(gp_ext3), 
+      gp_ext4 = values(gp_ext4), 
+      gp_ext5 = values(gp_ext5), 
+      gp_ext6 = values(gp_ext6), 
+      gp_ext7 = values(gp_ext7),
+      gp_ext8 = values(gp_ext8), 
+      gp_ext9 = values(gp_ext9)
+  </insert>
+  
+  <!--按照条件查询岗位信息(连表查询)-->
+  <select id="selectJoinedInfoByParamsSelective" parameterType="com.inossem.wms.co.actor.ActorGroupPostCo" resultMap="JoinedResultMap">
+    select
+	    gp.group_code, gp.post_code as post_code, gp.required, gp.post_index, gp.is_delete, gp.create_user_id, gp.modify_user_id,
+	    gp.create_time, gp.modify_time, gp.gp_ext0, gp.gp_ext1, gp.gp_ext2, gp.gp_ext3, gp.gp_ext4, gp.gp_ext5, gp.gp_ext6,
+	    gp.gp_ext7, gp.gp_ext8, gp.gp_ext9, p.corp_code, p.post_name, p.countersign, p.post_ext0, p.post_ext1, p.post_ext2, p.post_ext3, p.post_ext4,
+	    p.post_ext5, p.post_ext6, p.post_ext7, p.post_ext8, p.post_ext9
+    from actor_group_post gp join actor_post p on gp.post_code = p.post_code
+    where p.is_delete = 0 and gp.is_delete = 0
+      <if test="groupCode != null">
+        and gp.group_code = #{groupCode,jdbcType=TINYINT}
+      </if>
+      <if test="postCode != null">
+        and gp.post_code = #{postCode,jdbcType=TINYINT}
+      </if>
+      <if test="required != null">
+        and gp.required = #{required,jdbcType=TINYINT}
+      </if>
+      <if test="postIndex != null">
+        and gp.post_index = #{postIndex,jdbcType=INTEGER}
+      </if>
+      <if test="isDelete != null">
+        and gp.is_delete = #{isDelete,jdbcType=TINYINT}
+      </if>
+      <if test="createUserId != null">
+        and gp.create_user_id = #{createUserId,jdbcType=INTEGER}
+      </if>
+      <if test="modifyUserId != null">
+        and gp.modify_user_id = #{modifyUserId,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        and gp.create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null">
+        and gp.modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gpExt0 != null">
+        and gp.gp_ext0 = #{gpExt0,jdbcType=VARCHAR}
+      </if>
+      <if test="gpExt1 != null">
+        and gp.gp_ext1 = #{gpExt1,jdbcType=VARCHAR}
+      </if>
+      <if test="gpExt2 != null">
+        and gp.gp_ext2 = #{gpExt2,jdbcType=VARCHAR}
+      </if>
+      <if test="gpExt3 != null">
+        and gp.gp_ext3 = #{gpExt3,jdbcType=VARCHAR}
+      </if>
+      <if test="gpExt4 != null">
+        and gp.gp_ext4 = #{gpExt4,jdbcType=VARCHAR}
+      </if>
+      <if test="gpExt5 != null">
+        and gp.gp_ext5 = #{gpExt5,jdbcType=VARCHAR}
+      </if>
+      <if test="gpExt6 != null">
+        and gp.gp_ext6 = #{gpExt6,jdbcType=VARCHAR}
+      </if>
+      <if test="gpExt7 != null">
+        and gp.gp_ext7 = #{gpExt7,jdbcType=VARCHAR}
+      </if>
+      <if test="gpExt8 != null">
+        and gp_ext8 = #{gpExt8,jdbcType=VARCHAR}
+      </if>
+      <if test="gpExt9 != null">
+        and gp.gp_ext9 = #{gpExt9,jdbcType=VARCHAR}
+      </if>
+
+  </select>
+  <select id="selectJoinedGroupAndUserByGroupCode" parameterType="java.lang.String"  resultMap="JoinedGroupAndUser">
+      select distinct 
+        post.post_code as post_code,
+        actor_post.post_name as post_name,
+        post.required as required,
+        actor_post.countersign as countersign,
+        user.user_id as user_id,
+        user.user_name as user_name
+      from actor_group_post post
+        join actor_post on post.post_code = actor_post.post_code
+        join actor_rel_post_role role on  post.post_code = role.post_code and role.is_delete = 0
+        join sys_rel_user_role user_role on role.role_code = user_role.role_code
+        join sys_user user on user_role.user_id = user.user_id
+      where
+      post.is_delete = 0
+      and post.group_code =  #{groupCode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectJoinedGroupAndUserByOwnGroupCode" parameterType="java.lang.String" resultMap="JoinedGroupAndUser">
+    select 
+      agpu.post_code as post_code,
+      ap.post_name as post_name,
+      ap.countersign as countersign,
+      su.user_id as user_id,
+      su.user_name as user_name
+    from actor_group_post_user agpu
+      join actor_post ap on agpu.post_code = ap.post_code and ap.is_delete = 0
+      join sys_user su on agpu.user_id = su.user_id
+    where agpu.is_delete = 0 and agpu.group_code = #{groupCode,jdbcType=VARCHAR}
+    order by agpu.modify_time
+  </select>
+  
+  <select id="selectByGroupCodeList" parameterType="java.util.List"  resultMap="BaseResultMap">
+    select distinct
+    	group_code, post_code , required
+    from actor_group_post
+    where is_delete = 0 
+    <if test="list != null and list.size()>0 ">
+     	and group_code in 
+    	 <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+    	 	#{item}   	
+    	 </foreach>
+	</if>
+ </select>
+
+	<select id="selectRequiredByGroupCodeList"  resultMap="BaseResultMap">
+    select distinct
+    	group_code, post_code , required
+    from actor_group_post
+    where is_delete = 0 
+    <if test="required != null">
+        and required = #{required,jdbcType=TINYINT}
+    </if>   
+    <if test="list != null and list.size()>0 ">
+     	and group_code in 
+    	 <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+    	 	#{item}   	
+    	 </foreach>
+	</if>
+  </select>
+  
+  <select id="getReceiptListOnPaging" parameterType="com.inossem.wms.co.biz.BizReceiptActorCo" resultMap="GetReceiptListResultMap">
+    SELECT
+    	bra.receipt_type as receipt_type,
+    	bra.receipt_code as receipt_code,bra.arrive_time as arrive_time,
+    	bra.create_user_id as create_user_id,su.user_name as create_user_name,dd.dept_code as dept_code,dd.dept_name as dept_name, bra.create_time as create_time,
+     	bra.post_index as post_index, 
+     	(
+	     	SELECT countersign 
+	     	FROM actor_post ap 
+	     	WHERE ap.post_code = bra.post_code
+     	) as countersign, 
+     	bra.receipt_status as receipt_status, bra.post_code as post_code, bra.operator_id as operator_id
+    FROM biz_receipt_actor bra
+    INNER JOIN sys_user su ON bra.create_user_id = su.user_id
+    LEFT JOIN dic_dept dd ON su.dept_code = dd.dept_code
+    WHERE bra.is_delete = 0
+	  AND bra.process_status BETWEEN 1 AND 2
+	<if test="receiptTypeList != null and receiptTypeList.size()>0 ">
+     	AND bra.receipt_type IN 
+    	 <foreach collection="receiptTypeList" index="index" item="item" open="(" separator="," close=")">
+    	 	#{item}   	
+    	 </foreach>
+	</if>
+    <if test="receiptStatus != null">
+      AND bra.receipt_status = #{receiptStatus,jdbcType=INTEGER}
+    </if>
+    <if test="startSearchDate != null and endSearchDate != null">
+      AND bra.arrive_time >= #{startSearchDate,jdbcType=TIMESTAMP}
+      AND bra.arrive_time <![CDATA[<= ]]> #{endSearchDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="receiptType != null">
+      AND bra.receipt_type = #{receiptType,jdbcType=INTEGER}
+    </if>
+    <if test="receiptCode != null">
+      AND bra.receipt_code = #{receiptCode,jdbcType=VARCHAR}
+    </if>
+    <if test="postCode != null">
+      AND bra.post_code = #{postCode,jdbcType=VARCHAR}
+    </if>
+    <if test="operatorId != null">
+      AND bra.operator_id = #{operatorId,jdbcType=INTEGER}
+    </if>
+    <if test="isDelete != null">
+      AND bra.is_delete = #{isDelete,jdbcType=TINYINT}
+    </if>
+    <if test="createUserId != null">
+      AND bra.create_user_id = #{createUserId,jdbcType=INTEGER}
+    </if>
+    <if test="modifyUserId != null">
+      AND bra.modify_user_id = #{modifyUserId,jdbcType=INTEGER}
+    </if>
+    <if test="createTime != null">
+      AND bra.create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="modifyTime != null">
+      AND bra.modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="receiptActorExt0 != null">
+      AND receipt_actor_ext0 = #{receiptActorExt0,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt1 != null">
+      AND receipt_actor_ext1 = #{receiptActorExt1,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt2 != null">
+      AND receipt_actor_ext2 = #{receiptActorExt2,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt3 != null">
+      AND receipt_actor_ext3 = #{receiptActorExt3,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt4 != null">
+      AND receipt_actor_ext4 = #{receiptActorExt4,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt5 != null">
+      AND receipt_actor_ext5 = #{receiptActorExt5,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt6 != null">
+      AND receipt_actor_ext6 = #{receiptActorExt6,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt7 != null">
+      AND receipt_actor_ext7 = #{receiptActorExt7,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt8 != null">
+      AND receipt_actor_ext8 = #{receiptActorExt8,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt9 != null">
+      AND receipt_actor_ext9 = #{receiptActorExt9,jdbcType=VARCHAR}
+    </if>
+    order by bra.receipt_type asc, bra.receipt_code desc
+  </select>
+  <select id="getAllReceiptByDoneAndToBeDone" parameterType="com.inossem.wms.co.biz.BizReceiptActorCo" resultMap="GetReceiptListResultMap">
+    select
+    bra.receipt_type as receipt_type,drt.receipt_type_name as receipt_type_name,bra.receipt_code as receipt_code,bra.arrive_time as arrive_time,
+    bra.create_user_id as create_user_id,su.user_name as create_user_name,dd.dept_code as dept_code,dd.dept_name as dept_name, bra.create_time as create_time,
+    bra.post_index as post_index, (select countersign from actor_post ap where ap.post_code = bra.post_code) as countersign, bra.receipt_status as receipt_status, bra.post_code as post_code, bra.operator_id as operator_id
+    from
+    biz_receipt_actor bra
+    join dic_receipt_type drt on bra.receipt_type = drt.receipt_type
+    join sys_user su on bra.create_user_id = su.user_id
+    join dic_dept dd on su.dept_code = dd.dept_code
+    where bra.is_delete = 0
+    and bra.receipt_status between 1 and 2
+	and bra.process_status between 1 and 2
+    <if test="startSearchDate != null and endSearchDate != null">
+      and bra.arrive_time between #{startSearchDate,jdbcType=TIMESTAMP} and #{endSearchDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="receiptType != null">
+      and bra.receipt_type = #{receiptType,jdbcType=INTEGER}
+    </if>
+    <if test="receiptCode != null">
+      and bra.receipt_code = #{receiptCode,jdbcType=VARCHAR}
+    </if>
+    <if test="postCode != null">
+      and bra.post_code = #{postCode,jdbcType=VARCHAR}
+    </if>
+    <if test="operatorId != null">
+      and bra.operator_id = #{operatorId,jdbcType=INTEGER}
+    </if>
+    <if test="isDelete != null">
+      and bra.is_delete = #{isDelete,jdbcType=TINYINT}
+    </if>
+    <if test="createUserId != null">
+      and bra.create_user_id = #{createUserId,jdbcType=INTEGER}
+    </if>
+    <if test="modifyUserId != null">
+      and bra.modify_user_id = #{modifyUserId,jdbcType=INTEGER}
+    </if>
+    <if test="createTime != null">
+      and bra.create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="modifyTime != null">
+      and bra.modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="receiptActorExt0 != null">
+      and receipt_actor_ext0 = #{receiptActorExt0,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt1 != null">
+      and receipt_actor_ext1 = #{receiptActorExt1,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt2 != null">
+      and receipt_actor_ext2 = #{receiptActorExt2,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt3 != null">
+      and receipt_actor_ext3 = #{receiptActorExt3,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt4 != null">
+      and receipt_actor_ext4 = #{receiptActorExt4,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt5 != null">
+      and receipt_actor_ext5 = #{receiptActorExt5,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt6 != null">
+      and receipt_actor_ext6 = #{receiptActorExt6,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt7 != null">
+      and receipt_actor_ext7 = #{receiptActorExt7,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt8 != null">
+      and receipt_actor_ext8 = #{receiptActorExt8,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptActorExt9 != null">
+      and receipt_actor_ext9 = #{receiptActorExt9,jdbcType=VARCHAR}
+    </if>
+    order by bra.post_index asc
+  </select>
+  
+  <update id="logicDeleteByGroupCode" parameterType="java.lang.String">  
+  	update actor_group_post
+  		set is_delete = 1
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+  </update>
+	<!-- 查询代办用于缓存 -->
+	<select id="getAgencyList" parameterType="com.inossem.wms.co.biz.BizReceiptActorCo" resultMap="GetReceiptListResultMap">
+	    SELECT
+	      count(receipt_code) num,
+	      bra.operator_id
+	    FROM biz_receipt_actor bra
+	    INNER JOIN sys_user su ON bra.create_user_id = su.user_id
+	    WHERE bra.is_delete = 0
+	AND bra.receipt_status = '1'
+	AND bra.process_status = '1'
+	<if test="receiptCode != null and receiptCode != ''">
+      and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+    </if>
+    group by bra.operator_id
+	order by bra.operator_id asc
+  </select>
+</mapper>

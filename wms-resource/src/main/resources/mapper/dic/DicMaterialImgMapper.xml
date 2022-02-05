@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicMaterialImgMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicMaterialImg">
+    <id column="mat_code" jdbcType="VARCHAR" property="matCode" />
+    <id column="file_code" jdbcType="VARCHAR" property="fileCode" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="material_img_ext0" jdbcType="VARCHAR" property="materialImgExt0" />
+    <result column="material_img_ext1" jdbcType="VARCHAR" property="materialImgExt1" />
+    <result column="material_img_ext2" jdbcType="VARCHAR" property="materialImgExt2" />
+    <result column="material_img_ext3" jdbcType="VARCHAR" property="materialImgExt3" />
+    <result column="material_img_ext4" jdbcType="VARCHAR" property="materialImgExt4" />
+    <result column="material_img_ext5" jdbcType="VARCHAR" property="materialImgExt5" />
+    <result column="material_img_ext6" jdbcType="VARCHAR" property="materialImgExt6" />
+    <result column="material_img_ext7" jdbcType="VARCHAR" property="materialImgExt7" />
+    <result column="material_img_ext8" jdbcType="VARCHAR" property="materialImgExt8" />
+    <result column="material_img_ext9" jdbcType="VARCHAR" property="materialImgExt9" />
+  </resultMap>
+  
+  
+   <resultMap id="VoBaseResultMap" type="com.inossem.wms.model.dic.DicMaterialImgVo" extends="BaseResultMap">
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="img_name" jdbcType="VARCHAR" property="imgName" />
+    <result column="img_web_code" jdbcType="VARCHAR" property="imgName" />
+    <result column="img_pad_code" jdbcType="VARCHAR" property="imgName" />
+    <result column="img_ext" jdbcType="VARCHAR" property="imgExt" />
+    <result column="img_size" jdbcType="INTEGER" property="imgSize" />
+    <result column="create_user_code" jdbcType="VARCHAR" property="createUserCode" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="modify_user_code" jdbcType="VARCHAR" property="modifyUserCode" />
+    <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    mat_code, file_code, is_delete, create_time, modify_time, create_user_id, modify_user_id, 
+    material_img_ext0, material_img_ext1, material_img_ext2, material_img_ext3, material_img_ext4, 
+    material_img_ext5, material_img_ext6, material_img_ext7, material_img_ext8, material_img_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialImgKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_material_img
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and file_code = #{fileCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialImgKey">
+    delete from dic_material_img
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and file_code = #{fileCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicMaterialImg">
+    insert into dic_material_img (mat_code, file_code, is_delete, 
+      create_time, modify_time, create_user_id, 
+      modify_user_id, material_img_ext0, material_img_ext1, 
+      material_img_ext2, material_img_ext3, material_img_ext4, 
+      material_img_ext5, material_img_ext6, material_img_ext7, 
+      material_img_ext8, material_img_ext9)
+    values (#{matCode,jdbcType=VARCHAR}, #{fileCode,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{materialImgExt0,jdbcType=VARCHAR}, #{materialImgExt1,jdbcType=VARCHAR}, 
+      #{materialImgExt2,jdbcType=VARCHAR}, #{materialImgExt3,jdbcType=VARCHAR}, #{materialImgExt4,jdbcType=VARCHAR}, 
+      #{materialImgExt5,jdbcType=VARCHAR}, #{materialImgExt6,jdbcType=VARCHAR}, #{materialImgExt7,jdbcType=VARCHAR}, 
+      #{materialImgExt8,jdbcType=VARCHAR}, #{materialImgExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicMaterialImg">
+    insert into dic_material_img
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="matCode != null">
+        mat_code,
+      </if>
+      <if test="fileCode != null">
+        file_code,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="materialImgExt0 != null">
+        material_img_ext0,
+      </if>
+      <if test="materialImgExt1 != null">
+        material_img_ext1,
+      </if>
+      <if test="materialImgExt2 != null">
+        material_img_ext2,
+      </if>
+      <if test="materialImgExt3 != null">
+        material_img_ext3,
+      </if>
+      <if test="materialImgExt4 != null">
+        material_img_ext4,
+      </if>
+      <if test="materialImgExt5 != null">
+        material_img_ext5,
+      </if>
+      <if test="materialImgExt6 != null">
+        material_img_ext6,
+      </if>
+      <if test="materialImgExt7 != null">
+        material_img_ext7,
+      </if>
+      <if test="materialImgExt8 != null">
+        material_img_ext8,
+      </if>
+      <if test="materialImgExt9 != null">
+        material_img_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="matCode != null">
+        #{matCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCode != null">
+        #{fileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="materialImgExt0 != null">
+        #{materialImgExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt1 != null">
+        #{materialImgExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt2 != null">
+        #{materialImgExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt3 != null">
+        #{materialImgExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt4 != null">
+        #{materialImgExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt5 != null">
+        #{materialImgExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt6 != null">
+        #{materialImgExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt7 != null">
+        #{materialImgExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt8 != null">
+        #{materialImgExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt9 != null">
+        #{materialImgExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicMaterialImg">
+    update dic_material_img
+    <set>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="materialImgExt0 != null">
+        material_img_ext0 = #{materialImgExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt1 != null">
+        material_img_ext1 = #{materialImgExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt2 != null">
+        material_img_ext2 = #{materialImgExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt3 != null">
+        material_img_ext3 = #{materialImgExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt4 != null">
+        material_img_ext4 = #{materialImgExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt5 != null">
+        material_img_ext5 = #{materialImgExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt6 != null">
+        material_img_ext6 = #{materialImgExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt7 != null">
+        material_img_ext7 = #{materialImgExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt8 != null">
+        material_img_ext8 = #{materialImgExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="materialImgExt9 != null">
+        material_img_ext9 = #{materialImgExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and file_code = #{fileCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialImg">
+    update dic_material_img
+    set is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      material_img_ext0 = #{materialImgExt0,jdbcType=VARCHAR},
+      material_img_ext1 = #{materialImgExt1,jdbcType=VARCHAR},
+      material_img_ext2 = #{materialImgExt2,jdbcType=VARCHAR},
+      material_img_ext3 = #{materialImgExt3,jdbcType=VARCHAR},
+      material_img_ext4 = #{materialImgExt4,jdbcType=VARCHAR},
+      material_img_ext5 = #{materialImgExt5,jdbcType=VARCHAR},
+      material_img_ext6 = #{materialImgExt6,jdbcType=VARCHAR},
+      material_img_ext7 = #{materialImgExt7,jdbcType=VARCHAR},
+      material_img_ext8 = #{materialImgExt8,jdbcType=VARCHAR},
+      material_img_ext9 = #{materialImgExt9,jdbcType=VARCHAR}
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and file_code = #{fileCode,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByMatCode" parameterType="java.lang.String" resultMap="VoBaseResultMap" flushCache="true">
+		SELECT 
+			matimg.mat_code,
+			matimg.file_code,
+			matimg.is_delete,
+			matimg.create_time,
+			matimg.modify_time,
+			matimg.create_user_id,
+			matimg.modify_user_id,
+			matimg.material_img_ext0,
+			matimg.material_img_ext1,
+			matimg.material_img_ext2,
+			matimg.material_img_ext3,
+			matimg.material_img_ext4,
+			matimg.material_img_ext5,
+			matimg.material_img_ext6,
+			matimg.material_img_ext7,
+			matimg.material_img_ext8,
+			matimg.material_img_ext9,
+			img.path,
+			img.img_name,
+			img.img_web_code,
+			img.img_pad_code,
+			img.img_ext,
+			img.img_size,
+			createsu.user_code create_user_code,
+			createsu.user_name create_user_name,
+			modifysu.user_code modify_user_code,
+			modifysu.user_name modify_user_name
+		FROM dic_material_img matimg
+		INNER JOIN log_img img ON img.img_code = matimg.file_code 
+			AND mat_code = #{matCode}
+			AND matimg.is_delete = 0
+			AND img.is_delete = 0
+		LEFT JOIN sys_user createsu ON createsu.user_id = matimg.create_user_id
+			AND createsu.is_delete = 0
+		LEFT JOIN sys_user modifysu ON modifysu.user_id = matimg.modify_user_id
+			AND modifysu.is_delete = 0
+  </select>
+  
+  <!-- 批量添加单据附件 -->
+   <insert id="insertDicMaterialImgs" parameterType="java.util.List">  
+    insert into dic_material_img 
+    	(
+    		mat_code,file_code,create_user_id,modify_user_id
+    	)
+  	 values 
+		<foreach collection="list" item="item" index="index" separator="," >
+        	(
+        		#{item.matCode},#{item.fileCode},#{item.createUserId},#{item.modifyUserId}
+        	)
+   	 	</foreach>  
+  </insert>
+  
+   <!-- 批量修改单据附件删除状态-->
+   <update id="updateDicMaterialImgs" parameterType="java.util.List">  
+	   <foreach collection="list" item="item" index="index" separator=";" >
+		    update dic_material_img
+		    <set>
+				is_delete = #{item.isDelete},
+				modify_user_id = #{item.modifyUserId}
+		    </set>
+		   		where mat_code = #{item.matCode}
+      			  and file_code = #{item.fileCode}
+		</foreach>  
+  </update>
+  
+</mapper>

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.biz.BizReceiptActorMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.biz.BizReceiptActor">
+    <id column="receipt_type" jdbcType="INTEGER" property="receiptType" />
+    <id column="receipt_code" jdbcType="VARCHAR" property="receiptCode" />
+    <id column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <id column="operator_id" jdbcType="INTEGER" property="operatorId" />
+    <result column="file_code" jdbcType="VARCHAR" property="fileCode" />
+    <result column="receipt_status" jdbcType="TINYINT" property="receiptStatus" />    
+    <result column="approver_id" jdbcType="INTEGER" property="approverId" />
+    <result column="approve_time" jdbcType="TIMESTAMP" property="approveTime" />
+    <result column="process_status" jdbcType="TINYINT" property="processStatus" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="receipt_actor_ext0" jdbcType="VARCHAR" property="receiptActorExt0" />
+    <result column="receipt_actor_ext1" jdbcType="VARCHAR" property="receiptActorExt1" />
+    <result column="receipt_actor_ext2" jdbcType="VARCHAR" property="receiptActorExt2" />
+    <result column="receipt_actor_ext3" jdbcType="VARCHAR" property="receiptActorExt3" />
+    <result column="receipt_actor_ext4" jdbcType="VARCHAR" property="receiptActorExt4" />
+    <result column="receipt_actor_ext5" jdbcType="VARCHAR" property="receiptActorExt5" />
+    <result column="receipt_actor_ext6" jdbcType="VARCHAR" property="receiptActorExt6" />
+    <result column="receipt_actor_ext7" jdbcType="VARCHAR" property="receiptActorExt7" />
+    <result column="receipt_actor_ext8" jdbcType="VARCHAR" property="receiptActorExt8" />
+    <result column="receipt_actor_ext9" jdbcType="VARCHAR" property="receiptActorExt9" />
+  </resultMap>
+  
+  <resultMap id="VoBaseResultMap" type="com.inossem.wms.vo.actor.BizReceiptActorVo" extends="BaseResultMap">
+  	<id column="operator_name" jdbcType="VARCHAR" property="operatorName" />
+    <id column="post_name" jdbcType="VARCHAR" property="postName" />
+    <id column="approver_name" jdbcType="VARCHAR" property="approverName" />  
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    receipt_type, receipt_code, post_code, operator_id, file_code, receipt_status,approver_id,approve_time, 
+    process_status, is_delete, create_time, modify_time, 
+    create_user_id, modify_user_id, receipt_actor_ext0, receipt_actor_ext1, receipt_actor_ext2, 
+    receipt_actor_ext3, receipt_actor_ext4, receipt_actor_ext5, receipt_actor_ext6, receipt_actor_ext7, 
+    receipt_actor_ext8, receipt_actor_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.biz.BizReceiptActorKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from biz_receipt_actor
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+      and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+      and post_code = #{postCode,jdbcType=VARCHAR}
+      and operator_id = #{operatorId,jdbcType=INTEGER}
+  </select>
+ <!-- <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.biz.BizReceiptActorKey">
+    delete from biz_receipt_actor
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+      and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+      and post_code = #{postCode,jdbcType=VARCHAR}
+      and operator_id = #{operatorId,jdbcType=INTEGER}
+  </delete> -->
+  <!-- <insert id="insert" parameterType="com.inossem.wms.model.biz.BizReceiptActor">
+    insert into biz_receipt_actor (receipt_type, receipt_code, post_code, 
+      operator_id, is_delete, create_time, 
+      modify_time, create_user_id, modify_user_id, 
+      receipt_actor_ext0, receipt_actor_ext1, receipt_actor_ext2, 
+      receipt_actor_ext3, receipt_actor_ext4, receipt_actor_ext5, 
+      receipt_actor_ext6, receipt_actor_ext7, receipt_actor_ext8, 
+      receipt_actor_ext9)
+    values (#{receiptType,jdbcType=INTEGER}, #{receiptCode,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, 
+      #{operatorId,jdbcType=INTEGER}, #{isDelete,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, 
+      #{receiptActorExt0,jdbcType=VARCHAR}, #{receiptActorExt1,jdbcType=VARCHAR}, #{receiptActorExt2,jdbcType=VARCHAR}, 
+      #{receiptActorExt3,jdbcType=VARCHAR}, #{receiptActorExt4,jdbcType=VARCHAR}, #{receiptActorExt5,jdbcType=VARCHAR}, 
+      #{receiptActorExt6,jdbcType=VARCHAR}, #{receiptActorExt7,jdbcType=VARCHAR}, #{receiptActorExt8,jdbcType=VARCHAR}, 
+      #{receiptActorExt9,jdbcType=VARCHAR})
+  </insert> -->
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.biz.BizReceiptActor">
+    insert into biz_receipt_actor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="receiptStatus != null">
+        receipt_status,
+      </if>
+      <if test="receiptType != null">
+        receipt_type,
+      </if>
+      <if test="receiptCode != null">
+        receipt_code,
+      </if>
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+      <if test="fileCode != null">
+        file_code,
+      </if>
+      <if test="postIndex != null">
+        post_index,
+      </if>
+      
+      <if test="approverId != null">
+        approver_id,
+      </if>
+      <if test="approveTime != null">
+        approve_time,
+      </if>
+      
+      <if test="processStatus != null">
+        process_status,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="receiptActorExt0 != null">
+        receipt_actor_ext0,
+      </if>
+      <if test="receiptActorExt1 != null">
+        receipt_actor_ext1,
+      </if>
+      <if test="receiptActorExt2 != null">
+        receipt_actor_ext2,
+      </if>
+      <if test="receiptActorExt3 != null">
+        receipt_actor_ext3,
+      </if>
+      <if test="receiptActorExt4 != null">
+        receipt_actor_ext4,
+      </if>
+      <if test="receiptActorExt5 != null">
+        receipt_actor_ext5,
+      </if>
+      <if test="receiptActorExt6 != null">
+        receipt_actor_ext6,
+      </if>
+      <if test="receiptActorExt7 != null">
+        receipt_actor_ext7,
+      </if>
+      <if test="receiptActorExt8 != null">
+        receipt_actor_ext8,
+      </if>
+      <if test="receiptActorExt9 != null">
+        receipt_actor_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="receiptStatus != null">
+        #{receiptStatus,jdbcType=TINYINT},
+      </if>
+      <if test="receiptType != null">
+        #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null">
+        #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="fileCode != null">
+        #{fileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postIndex != null">
+        #{postIndex,jdbcType=INTEGER},
+      </if>
+      
+      <if test="approverId != null">
+        #{approverId,jdbcType=INTEGER},
+      </if>
+      <if test="approveTime != null">
+        #{approveTime,jdbcType=TIMESTAMP},
+      </if>      
+      
+      <if test="processStatus != null">
+        #{processStatus,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptActorExt0 != null">
+        #{receiptActorExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt1 != null">
+        #{receiptActorExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt2 != null">
+        #{receiptActorExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt3 != null">
+        #{receiptActorExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt4 != null">
+        #{receiptActorExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt5 != null">
+        #{receiptActorExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt6 != null">
+        #{receiptActorExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt7 != null">
+        #{receiptActorExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt8 != null">
+        #{receiptActorExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt9 != null">
+        #{receiptActorExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.biz.BizReceiptActor">
+    update biz_receipt_actor
+    <set>
+      <if test="fileCode != null">
+        file_code = #{fileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptStatus != null">
+        receipt_status = #{receiptStatus,jdbcType=TINYINT},
+      </if>
+      <if test="postIndex != null">
+        post_index = #{postIndex,jdbcType=INTEGER},
+      </if>
+      
+      <if test="approverId != null">
+        approver_id = #{approverId,jdbcType=INTEGER},
+      </if>
+      <if test="approveTime != null">
+        approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      </if>        
+      
+      <if test="processStatus != null">
+        process_status = #{processStatus,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptActorExt0 != null">
+        receipt_actor_ext0 = #{receiptActorExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt1 != null">
+        receipt_actor_ext1 = #{receiptActorExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt2 != null">
+        receipt_actor_ext2 = #{receiptActorExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt3 != null">
+        receipt_actor_ext3 = #{receiptActorExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt4 != null">
+        receipt_actor_ext4 = #{receiptActorExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt5 != null">
+        receipt_actor_ext5 = #{receiptActorExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt6 != null">
+        receipt_actor_ext6 = #{receiptActorExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt7 != null">
+        receipt_actor_ext7 = #{receiptActorExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt8 != null">
+        receipt_actor_ext8 = #{receiptActorExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptActorExt9 != null">
+        receipt_actor_ext9 = #{receiptActorExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+      and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+      and post_code = #{postCode,jdbcType=VARCHAR}
+      and operator_id = #{operatorId,jdbcType=INTEGER}
+  </update>
+  <!-- <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.biz.BizReceiptActor">
+    update biz_receipt_actor
+    set is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      receipt_actor_ext0 = #{receiptActorExt0,jdbcType=VARCHAR},
+      receipt_actor_ext1 = #{receiptActorExt1,jdbcType=VARCHAR},
+      receipt_actor_ext2 = #{receiptActorExt2,jdbcType=VARCHAR},
+      receipt_actor_ext3 = #{receiptActorExt3,jdbcType=VARCHAR},
+      receipt_actor_ext4 = #{receiptActorExt4,jdbcType=VARCHAR},
+      receipt_actor_ext5 = #{receiptActorExt5,jdbcType=VARCHAR},
+      receipt_actor_ext6 = #{receiptActorExt6,jdbcType=VARCHAR},
+      receipt_actor_ext7 = #{receiptActorExt7,jdbcType=VARCHAR},
+      receipt_actor_ext8 = #{receiptActorExt8,jdbcType=VARCHAR},
+      receipt_actor_ext9 = #{receiptActorExt9,jdbcType=VARCHAR}
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+      and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+      and post_code = #{postCode,jdbcType=VARCHAR}
+      and operator_id = #{operatorId,jdbcType=INTEGER}
+  </update> -->
+  
+  <!-- 根据单据类型、单据号物理删除经办人 -->
+  <delete id="deleteByReceiptTypeAndReceiptCodePhysically" >
+    delete from biz_receipt_actor
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+      and receipt_code = #{receiptCode,jdbcType=VARCHAR} 
+  </delete>
+  
+  <update id="deleteByReceiptTypeAndReceiptCode" parameterType="com.inossem.wms.model.biz.BizReceiptActor">
+    update biz_receipt_actor set is_delete = 1
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+      and receipt_code = #{receiptCode,jdbcType=VARCHAR} 
+  </update>
+  
+  <!-- 根据单据类型、单据号查询经办人 -->
+  <select id="selectByReceiptTypeAndReceiptCode" resultMap="VoBaseResultMap">
+	 SELECT
+		ra.receipt_type,
+		ra.receipt_code,
+		ra.post_code,
+		ra.operator_id,
+		ra.receipt_status,
+		ra.file_code,
+		ra.post_index,
+		ra.approver_id,
+		ra.approve_time,
+		ra.process_status,
+		ra.is_delete,
+		ra.create_time,
+		ra.modify_time,
+		ra.create_user_id,
+		ra.modify_user_id,
+		ra.receipt_actor_ext0,
+		ra.receipt_actor_ext1,
+		ra.receipt_actor_ext2,
+		ra.receipt_actor_ext3,
+		ra.receipt_actor_ext4,
+		ra.receipt_actor_ext5,
+		ra.receipt_actor_ext6,
+		ra.receipt_actor_ext7,
+		ra.receipt_actor_ext8,
+		ra.receipt_actor_ext9,
+		su.user_name operator_name,
+		ap.post_name post_name,
+		sur.user_name approver_name
+	FROM
+		biz_receipt_actor ra
+	INNER JOIN sys_user su ON ra.operator_id = su.user_id and ra.is_delete=0 and su.is_delete=0
+	INNER JOIN actor_post ap ON ra.post_code = ap.post_code and ap.is_delete=0
+	left JOIN sys_user sur ON ra.approver_id = sur.user_id 
+  	WHERE ra.is_delete = 0
+  	  AND ra.receipt_type = #{receiptType,jdbcType=INTEGER}
+      AND ra.receipt_code = #{receiptCode,jdbcType=VARCHAR} 
+    <!-- 不知道为什么要按    modify_time 排序    生成经办人后  要给经办人发推送  根据单据号更改  经办状态 所以 modify_time 一致  无法起到排序作用-->
+    <!-- order by ra.modify_time -->
+    order by ra.create_time
+  </select> 
+  
+  <!-- 根据单据类型和单据号修改processStatus -->
+  <update id="updateProcessStatusByReceiptTypeAndReceiptCode">
+    UPDATE biz_receipt_actor 
+      SET process_status = #{processStatus,jdbcType=TINYINT}
+    WHERE is_delete = 0
+      AND receipt_type = #{receiptType,jdbcType=INTEGER}
+      AND receipt_code = #{receiptCode,jdbcType=VARCHAR} 
+  </update>
+  
+  <!-- 根据主键修改receiptStatus -->
+  <update id="updateReceiptStatusByPrimaryKey">
+    UPDATE biz_receipt_actor 
+      SET receipt_status = #{receiptStatus,jdbcType=TINYINT}
+    WHERE is_delete = 0
+      AND receipt_type = #{primarykey.receiptType,jdbcType=INTEGER}
+      AND receipt_code = #{primarykey.receiptCode,jdbcType=VARCHAR}
+      AND post_code = #{primarykey.postCode,jdbcType=VARCHAR}
+      <if test="primarykey.operatorId != null">
+      AND operator_id = #{primarykey.operatorId,jdbcType=INTEGER}
+      </if>
+  </update>
+  
+  <!-- 根据主键修改processStatus -->
+  <update id="updateProcessStatusByPrimaryKey">
+    UPDATE biz_receipt_actor 
+      SET process_status = #{processStatus,jdbcType=TINYINT}
+    WHERE is_delete = 0
+      AND receipt_type = #{primarykey.receiptType,jdbcType=INTEGER}
+      AND receipt_code = #{primarykey.receiptCode,jdbcType=VARCHAR}
+      AND post_code = #{primarykey.postCode,jdbcType=VARCHAR}
+      AND operator_id = #{primarykey.operatorId,jdbcType=INTEGER}
+  </update>
+
+  <!-- 批量新增或修改 -->
+  <insert id="insertOrUpdateListSelective" parameterType="java.util.List">
+    insert into biz_receipt_actor (receipt_type, receipt_code, post_code, operator_id,
+    file_code, receipt_status,post_index,
+    approver_id,approve_time,process_status,arrive_time,
+    is_delete, create_time, modify_time,
+    create_user_id, modify_user_id, receipt_actor_ext0, receipt_actor_ext1, receipt_actor_ext2,
+    receipt_actor_ext3, receipt_actor_ext4, receipt_actor_ext5, receipt_actor_ext6, receipt_actor_ext7,
+    receipt_actor_ext8, receipt_actor_ext9)
+    values
+    <foreach collection="list" open="" close="" separator="," item="item">
+      (#{item.receiptType,jdbcType=INTEGER}, #{item.receiptCode,jdbcType=VARCHAR}, #{item.postCode,jdbcType=VARCHAR},#{item.operatorId,jdbcType=INTEGER},
+      ifnull(#{item.fileCode,jdbcType=VARCHAR},""), ifnull(#{item.receiptStatus,jdbcType=TINYINT},"0"), ifnull(#{item.postIndex,jdbcType=INTEGER},"0"),
+      ifnull(#{item.approverId,jdbcType=INTEGER},"0"),#{item.approveTime,jdbcType=TIMESTAMP},ifnull(#{item.processStatus,jdbcType=TINYINT},"0"),#{item.arriveTime,jdbcType=TIMESTAMP},
+      ifnull(#{item.isDelete,jdbcType=TINYINT},"0"), #{item.createTime,jdbcType=TIMESTAMP},#{item.modifyTime,jdbcType=TIMESTAMP},
+      ifnull(#{item.createUserId,jdbcType=INTEGER},"0"), ifnull(#{item.modifyUserId,jdbcType=INTEGER},"0"),
+      ifnull(#{item.receiptActorExt0,jdbcType=VARCHAR},""), ifnull(#{item.receiptActorExt1,jdbcType=VARCHAR},""), ifnull(#{item.receiptActorExt2,jdbcType=VARCHAR},""),
+      ifnull(#{item.receiptActorExt3,jdbcType=VARCHAR},""), ifnull(#{item.receiptActorExt4,jdbcType=VARCHAR},""), ifnull(#{item.receiptActorExt5,jdbcType=VARCHAR},""),
+      ifnull(#{item.receiptActorExt6,jdbcType=VARCHAR},""), ifnull(#{item.receiptActorExt7,jdbcType=VARCHAR},""), ifnull(#{item.receiptActorExt8,jdbcType=VARCHAR},""),
+      ifnull(#{item.receiptActorExt9,jdbcType=VARCHAR},""))
+    </foreach>
+    ON  DUPLICATE  KEY  UPDATE
+    file_code = values(file_code),
+    receipt_status = values(receipt_status),
+    post_index = values(post_index),
+    approver_id = values(approver_id),
+    approve_time = values(approve_time),
+    process_status = values(process_status),
+    arrive_time = values(arrive_time),
+    is_delete = values(is_delete),
+    create_time = values(create_time),
+    modify_time = values(modify_time),
+    create_user_id = values(create_user_id),
+    modify_user_id = values(modify_user_id),
+    receipt_actor_ext0 = values(receipt_actor_ext0),
+    receipt_actor_ext1 = values(receipt_actor_ext1),
+    receipt_actor_ext2 = values(receipt_actor_ext2),
+    receipt_actor_ext3 = values(receipt_actor_ext3),
+    receipt_actor_ext4 = values(receipt_actor_ext4),
+    receipt_actor_ext5 = values(receipt_actor_ext5),
+    receipt_actor_ext6 = values(receipt_actor_ext6),
+    receipt_actor_ext7 = values(receipt_actor_ext7),
+    receipt_actor_ext8 = values(receipt_actor_ext8),
+    receipt_actor_ext9 = values(receipt_actor_ext9)
+  </insert>
+
+
+
+</mapper>

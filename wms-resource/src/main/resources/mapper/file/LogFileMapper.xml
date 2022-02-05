@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.file.LogFileMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.file.LogFile">
+    <id column="file_code" jdbcType="VARCHAR" property="fileCode" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_ext" jdbcType="VARCHAR" property="fileExt" />
+    <result column="file_size" jdbcType="INTEGER" property="fileSize" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="file_ext0" jdbcType="VARCHAR" property="fileExt0" />
+    <result column="file_ext1" jdbcType="VARCHAR" property="fileExt1" />
+    <result column="file_ext2" jdbcType="VARCHAR" property="fileExt2" />
+    <result column="file_ext3" jdbcType="VARCHAR" property="fileExt3" />
+    <result column="file_ext4" jdbcType="VARCHAR" property="fileExt4" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    file_code, path, file_name, file_ext, file_size, is_delete, create_time, modify_time, 
+    create_user_id, modify_user_id, file_ext0, file_ext1, file_ext2, file_ext3, file_ext4
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from log_file
+    where file_code = #{fileCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from log_file
+    where file_code = #{fileCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.file.LogFile">
+    insert into log_file (file_code, path, file_name, 
+      file_ext, file_size, is_delete, 
+      create_time, modify_time, create_user_id, 
+      modify_user_id, file_ext0, file_ext1, 
+      file_ext2, file_ext3, file_ext4
+      )
+    values (#{fileCode,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{fileExt,jdbcType=VARCHAR}, #{fileSize,jdbcType=INTEGER}, #{isDelete,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{fileExt0,jdbcType=VARCHAR}, #{fileExt1,jdbcType=VARCHAR}, 
+      #{fileExt2,jdbcType=VARCHAR}, #{fileExt3,jdbcType=VARCHAR}, #{fileExt4,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.file.LogFile">
+    insert into log_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fileCode != null">
+        file_code,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="fileExt != null">
+        file_ext,
+      </if>
+      <if test="fileSize != null">
+        file_size,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="fileExt0 != null">
+        file_ext0,
+      </if>
+      <if test="fileExt1 != null">
+        file_ext1,
+      </if>
+      <if test="fileExt2 != null">
+        file_ext2,
+      </if>
+      <if test="fileExt3 != null">
+        file_ext3,
+      </if>
+      <if test="fileExt4 != null">
+        file_ext4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fileCode != null">
+        #{fileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt != null">
+        #{fileExt,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="fileExt0 != null">
+        #{fileExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt1 != null">
+        #{fileExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt2 != null">
+        #{fileExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt3 != null">
+        #{fileExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt4 != null">
+        #{fileExt4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.file.LogFile">
+    update log_file
+    <set>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt != null">
+        file_ext = #{fileExt,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        file_size = #{fileSize,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="fileExt0 != null">
+        file_ext0 = #{fileExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt1 != null">
+        file_ext1 = #{fileExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt2 != null">
+        file_ext2 = #{fileExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt3 != null">
+        file_ext3 = #{fileExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt4 != null">
+        file_ext4 = #{fileExt4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where file_code = #{fileCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.file.LogFile">
+    update log_file
+    set path = #{path,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_ext = #{fileExt,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      file_ext0 = #{fileExt0,jdbcType=VARCHAR},
+      file_ext1 = #{fileExt1,jdbcType=VARCHAR},
+      file_ext2 = #{fileExt2,jdbcType=VARCHAR},
+      file_ext3 = #{fileExt3,jdbcType=VARCHAR},
+      file_ext4 = #{fileExt4,jdbcType=VARCHAR}
+    where file_code = #{fileCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

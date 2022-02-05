@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inossem.wms.dao.sinobec.take.SinobecBizStockTakeMatMapper" >
+  <!-- 物理删除盘点单 -->
+  <delete id="delete" parameterType="com.inossem.wms.co.biz.BizStockTakeCo">
+    delete from sinobec_biz_stock_take_mat
+    where stock_take_code = #{stockTakeCode,jdbcType=VARCHAR}
+    <if test="stockTakeUser != null">
+      and stock_take_user = #{stockTakeUser}
+    </if>
+  </delete>
+
+  <insert id="insertBizStockTakeMat" parameterType="com.inossem.wms.model.sinobec.take.SinobecBizStockTakeMat">
+    insert into sinobec_biz_stock_take_mat(stock_take_mat_id, stock_take_code, stock_take_rid,
+    stock_take_bid, bundle_code, wh_code,
+    type_code, bin_code, mat_code,
+    unit_code, shipping_ref, heat_code,
+    skid_code, qty, stock_take_qty,
+    stock_take_user, move_date, status,weight_unit_code,weight_qty,stock_id,lot_numb,stock_status,receipt_qty,
+    create_time,
+    modify_time, create_user_id, modify_user_id,
+    ext0, ext1, ext2, ext3, ext4, ext5, ext6, ext7, ext8, ext9, ext10, ext11, ext12, ext13, ext14, ext15)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.stockTakeMatId,jdbcType=INTEGER}, #{item.stockTakeCode,jdbcType=VARCHAR}, #{item.stockTakeRid,jdbcType=VARCHAR},
+      #{item.stockTakeBid,jdbcType=INTEGER}, #{item.bundleCode,jdbcType=VARCHAR}, #{item.whCode,jdbcType=VARCHAR},
+      #{item.typeCode,jdbcType=VARCHAR}, #{item.binCode,jdbcType=VARCHAR}, #{item.matCode,jdbcType=VARCHAR},
+      #{item.unitCode,jdbcType=VARCHAR}, #{item.shippingRef,jdbcType=VARCHAR}, #{item.heatCode,jdbcType=VARCHAR},
+      #{item.skidCode,jdbcType=VARCHAR}, #{item.qty,jdbcType=DECIMAL}, #{item.stockTakeQty,jdbcType=DECIMAL},
+      #{item.stockTakeUser,jdbcType=VARCHAR}, #{item.moveDate,jdbcType=TIMESTAMP}, #{item.status,jdbcType=TINYINT},
+      #{item.weightUnitCode,jdbcType=VARCHAR},#{item.weightQty,jdbcType=DECIMAL},#{item.stockId,jdbcType=INTEGER},
+      #{item.lotNumb,jdbcType=VARCHAR},#{item.stockStatus,jdbcType=VARCHAR},#{item.receiptQty,jdbcType=DECIMAL},#{item.createTime,jdbcType=TIMESTAMP},
+      #{item.modifyTime,jdbcType=TIMESTAMP}, #{item.createUserId,jdbcType=INTEGER}, #{item.modifyUserId,jdbcType=INTEGER},
+      #{item.ext0,jdbcType=VARCHAR},
+      #{item.ext1,jdbcType=VARCHAR},
+      #{item.ext2,jdbcType=VARCHAR},
+        #{item.ext3,jdbcType=VARCHAR},
+        #{item.ext4,jdbcType=VARCHAR},
+        #{item.ext5,jdbcType=VARCHAR},
+        #{item.ext6,jdbcType=VARCHAR},
+        #{item.ext7,jdbcType=VARCHAR},
+       #{item.ext8,jdbcType=VARCHAR},
+        #{item.ext9,jdbcType=VARCHAR},
+        #{item.ext10,jdbcType=VARCHAR},
+        #{item.ext11,jdbcType=VARCHAR},
+        #{item.ext12,jdbcType=VARCHAR},
+        #{item.ext13,jdbcType=VARCHAR},
+        #{item.ext14,jdbcType=VARCHAR},
+        #{item.ext15,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+  <select id="getStockTakeMatInfo" parameterType="com.inossem.wms.co.biz.BizStockTakeCo" resultType="com.inossem.wms.vo.take.BizStockTakeMatItemVo">
+    SELECT distinct
+    mat.stock_take_code,
+    mat.stock_take_rid,
+    take.stock_take_id,
+    take.stock_take_type,
+    take.stock_take_mode,
+    mat.stock_take_user,
+    take.stock_take_date,
+    take.receipt_status,
+    take.doc_num,
+    take.item_status,
+    take.freeze_stock_take,
+    take.create_user_id,
+    take.is_recount,
+    mat.wh_code,
+    mat.stock_take_mat_id,
+    mat.stock_take_bid,
+    mat.type_code,
+    mat.bin_code,
+    mat.bundle_code,
+    mat.heat_code,
+    mat.skid_code,
+    mat.shipping_ref,
+    mat.stock_id,
+    mat.stock_status,
+    mat.mat_code,
+    mat.lot_numb,
+    mat.ext0,
+    mat.ext1,
+    mat.ext2,
+    mat.ext3,
+    mat.ext4,
+    mat.ext5,
+    mat.ext6,
+    mat.ext7,
+    mat.ext8,
+    mat.ext9,
+    mat.ext10,
+    mat.ext11,
+    mat.ext12,
+    mat.ext13,
+    mat.ext14,
+    mat.ext15,
+    mat.unit_code,
+    mat.weight_unit_code,
+    mat.weight_qty,
+    mat.receipt_qty,
+    mat.qty,
+    mat.stock_take_qty,
+    mat.status,
+    mat.modify_status,
+    mat.stock_take_user,
+    mat.move_date,
+    st.type_name,
+    wh.wh_name,
+    mater.mat_name,
+    sys.user_name,
+    user.user_name stock_take_user_name,
+    unit.unit_name,
+    unit.decimal_place,
+    unit_weight.decimal_place weight_decimal_place,
+    concat(
+    mat.bundle_code,
+    mat.shipping_ref,
+    mat.wh_code,
+    mat.type_code,
+    mat.bin_code
+    ) compositeKeys
+    FROM
+        sinobec_biz_stock_take_mat mat
+    INNER JOIN sinobec_biz_stock_take take ON take.stock_take_code = mat.stock_take_code AND take.stock_take_rid = mat.stock_take_rid
+    INNER JOIN dic_wh_storage_type st on mat.wh_code = st.wh_code AND mat.type_code = st.type_code
+    INNER JOIN dic_wh wh on mat.wh_code = wh.wh_code
+    INNER JOIN dic_unit unit on mat.unit_code = unit.unit_code
+    INNER JOIN dic_unit unit_weight on mat.weight_unit_code = unit_weight.unit_code
+    INNER JOIN sys_user user on user.user_code = mat.stock_take_user
+    INNER JOIN dic_material mater on mat.mat_code = mater.mat_code
+    LEFT JOIN sys_user sys on sys.user_id = take.create_user_id
+    WHERE mat.stock_take_code= #{stockTakeCode,jdbcType=VARCHAR}
+    <if test="stockTakeUser != null">
+      AND mat.stock_take_user = #{stockTakeUser}
+    </if>
+    <if test="whCode != null and whCode != ''">
+      AND mat.wh_code = #{whCode}
+    </if>
+    <if test="typeCode != null and typeCode != ''">
+      AND mat.type_code = #{typeCode}
+    </if>
+    <if test="binCode != null and binCode != ''">
+      AND mat.bin_code = #{binCode}
+    </if>
+    ORDER BY mat.bin_code,mat.stock_take_bid ASC
+  </select>
+  
+  <select id="getStockTakeMatInfoForReport" parameterType="com.inossem.wms.co.biz.BizStockTakeCo" resultType="com.inossem.wms.vo.take.BizStockTakeMatItemVo">
+    SELECT distinct
+    mat.stock_take_code,
+    mat.stock_take_rid,
+    take.stock_take_id,
+    take.stock_take_type,
+    take.stock_take_mode,
+    mat.stock_take_user,
+    take.stock_take_date,
+    take.receipt_status,
+    take.doc_num,
+    take.item_status,
+    take.freeze_stock_take,
+    take.create_user_id,
+    mat.wh_code,
+    mat.stock_take_mat_id,
+    mat.stock_take_bid,
+    mat.type_code,
+    mat.bin_code,
+    mat.bundle_code,
+    mat.heat_code,
+    mat.skid_code,
+    mat.shipping_ref,
+    mat.stock_id,
+    mat.stock_status,
+    mat.mat_code,
+    mat.lot_numb,
+    mat.ext0,
+    mat.ext1,
+    mat.ext2,
+    mat.unit_code,
+    mat.weight_unit_code,
+    mat.weight_qty,
+    mat.receipt_qty,
+    mat.qty,
+    mat.stock_take_qty,
+    mat.status,
+    mat.modify_status,
+    mat.stock_take_user,
+    mat.move_date,
+    st.type_name,
+    wh.wh_name,
+    mater.mat_name,
+    sys.user_name,
+    user.user_name stock_take_user_name,
+    unit.unit_name,
+    unit.decimal_place,
+    unit_weight.decimal_place weight_decimal_place,
+    concat(
+    mat.bundle_code,
+    mat.shipping_ref,
+    mat.wh_code,
+    mat.type_code,
+    mat.bin_code
+    ) compositeKeys
+    FROM
+        sinobec_biz_stock_take_mat mat
+    INNER JOIN sinobec_biz_stock_take take ON take.stock_take_code = mat.stock_take_code AND take.stock_take_rid = mat.stock_take_rid
+    INNER JOIN dic_wh_storage_type st on mat.wh_code = st.wh_code AND mat.type_code = st.type_code
+    INNER JOIN dic_wh wh on mat.wh_code = wh.wh_code
+    INNER JOIN dic_unit unit on mat.unit_code = unit.unit_code
+    INNER JOIN dic_unit unit_weight on mat.weight_unit_code = unit_weight.unit_code
+    INNER JOIN sys_user user on user.user_code = mat.stock_take_user
+    INNER JOIN dic_material mater on mat.mat_code = mater.mat_code
+    LEFT JOIN sys_user sys on sys.user_id = take.create_user_id
+    WHERE 1=1 
+    <if test=" stockTakeCode != null and stockTakeCode !='' ">
+    	<if test="stockTakeCode.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="stockTakeCode.split(',')" open="" separator="or" close="">
+				mat.stock_take_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="stockTakeCode.indexOf(',') == -1">
+				and ( mat.stock_take_code like CONCAT('%',#{stockTakeCode},'%'))
+		</if>
+    </if>
+    <if test=" sapDocNum != null and sapDocNum !='' ">
+    	<if test="sapDocNum.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="sapDocNum.split(',')" open="" separator="or" close="">
+				take.doc_num like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="sapDocNum.indexOf(',') == -1">
+				and ( take.doc_num like CONCAT('%',#{sapDocNum},'%'))
+		</if>
+    </if>
+    <if test=" typeCode != null and typeCode !='' ">
+    	<if test="typeCode.indexOf(',') != -1">
+		    <!-- and  type_code in -->
+		    and (
+			<foreach item="item" index="index" collection="typeCode.split(',')"  open="" separator="or" close="">
+				<!-- #{item} -->
+				mat.type_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="typeCode.indexOf(',') == -1">
+				and  (mat.type_code like CONCAT('%',#{typeCode},'%'))
+		</if>
+   	</if>
+   	<if test=" binCode != null and binCode !='' ">
+    	<if test="binCode.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="binCode.split(',')" open="" separator="or" close="">
+				mat.bin_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="binCode.indexOf(',') == -1">
+				and ( mat.bin_code like CONCAT('%',#{binCode},'%'))
+		</if>
+    </if>
+    <if test=" matCode != null and matCode !='' ">
+    	<if test="matCode.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="matCode.split(',')" open="" separator="or" close="">
+				mat.mat_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="matCode.indexOf(',') == -1">
+				and ( mat.mat_code like CONCAT('%',#{matCode},'%'))
+		</if>
+    </if> 
+    
+    <if test=" sDate != null and sDate !='' ">
+      and take.stock_take_date  >= #{sDate}
+    </if>
+
+    <if test=" eDate != null and eDate !='' ">
+      and take.stock_take_date <![CDATA[<=]]> #{eDate}
+    </if>
+    
+    <if test="stockTakeUser != null">
+      AND mat.stock_take_user = #{stockTakeUser}
+    </if>
+    ORDER BY mat.stock_take_code ASC
+  </select>
+
+  <select id="getStockTakeMatInfoFromWMSCountForReport" parameterType="com.inossem.wms.co.biz.BizStockTakeCo" resultType="com.inossem.wms.vo.take.BizStockTakeMatItemVo">
+    SELECT distinct
+    mat.stock_take_code,
+    mat.stock_take_rid,
+    take.stock_take_id,
+    take.stock_take_type,
+    take.stock_take_mode,
+    mat.stock_take_user,
+    take.stock_take_date,
+    take.receipt_status,
+    take.doc_num,
+    take.item_status,
+    take.freeze_stock_take,
+    take.create_user_id,
+    mat.wh_code,
+    mat.stock_take_mat_id,
+    mat.stock_take_bid,
+    mat.type_code,
+    mat.bin_code,
+    mat.bundle_code,
+    mat.heat_code,
+    mat.skid_code,
+    mat.shipping_ref,
+    mat.stock_id,
+    mat.stock_status,
+    mat.mat_code,
+    mat.lot_numb,
+    mat.ext0,
+    mat.ext1,
+    mat.ext2,
+    mat.unit_code,
+    mat.weight_unit_code,
+    mat.weight_qty,
+    mat.receipt_qty,
+    mat.qty,
+    mat.stock_take_qty,
+    mat.status,
+    mat.modify_status,
+    mat.stock_take_user,
+    mat.move_date,
+    st.type_name,
+    wh.wh_name,
+    mater.mat_name,
+    sys.user_name,
+    user.user_name stock_take_user_name,
+    unit.unit_name,
+    unit.decimal_place,
+    unit_weight.decimal_place weight_decimal_place,
+    concat(
+    mat.bundle_code,
+    mat.shipping_ref,
+    mat.wh_code,
+    mat.type_code,
+    mat.bin_code
+    ) compositeKeys
+    FROM
+        sinobec_biz_stock_take_mat mat
+    INNER JOIN sinobec_biz_stock_take take ON take.stock_take_code = mat.stock_take_code AND take.stock_take_rid = mat.stock_take_rid
+    INNER JOIN dic_wh_storage_type st on mat.wh_code = st.wh_code AND mat.type_code = st.type_code
+    INNER JOIN dic_wh wh on mat.wh_code = wh.wh_code
+    INNER JOIN dic_unit unit on mat.unit_code = unit.unit_code
+    INNER JOIN dic_unit unit_weight on mat.weight_unit_code = unit_weight.unit_code
+    INNER JOIN sys_user user on user.user_code = mat.stock_take_user
+    INNER JOIN dic_material mater on mat.mat_code = mater.mat_code
+    LEFT JOIN sys_user sys on sys.user_id = take.create_user_id
+    WHERE 1=1 and doc_num='' and weight_qty <![CDATA[ <> ]]> stock_take_qty
+    <if test=" stockTakeCode != null and stockTakeCode !='' ">
+    	<if test="stockTakeCode.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="stockTakeCode.split(',')" open="" separator="or" close="">
+				mat.stock_take_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="stockTakeCode.indexOf(',') == -1">
+				and ( mat.stock_take_code like CONCAT('%',#{stockTakeCode},'%'))
+		</if>
+    </if>
+    <if test=" sapDocNum != null and sapDocNum !='' ">
+    	<if test="sapDocNum.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="sapDocNum.split(',')" open="" separator="or" close="">
+				take.doc_num like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="sapDocNum.indexOf(',') == -1">
+				and ( take.doc_num like CONCAT('%',#{sapDocNum},'%'))
+		</if>
+    </if>
+    <if test=" typeCode != null and typeCode !='' ">
+    	<if test="typeCode.indexOf(',') != -1">
+		    <!-- and  type_code in -->
+		    and (
+			<foreach item="item" index="index" collection="typeCode.split(',')"  open="" separator="or" close="">
+				<!-- #{item} -->
+				mat.type_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="typeCode.indexOf(',') == -1">
+				and  (mat.type_code like CONCAT('%',#{typeCode},'%'))
+		</if>
+   	</if>
+   	<if test=" binCode != null and binCode !='' ">
+    	<if test="binCode.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="binCode.split(',')" open="" separator="or" close="">
+				mat.bin_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="binCode.indexOf(',') == -1">
+				and ( mat.bin_code like CONCAT('%',#{binCode},'%'))
+		</if>
+    </if>
+    <if test=" matCode != null and matCode !='' ">
+    	<if test="matCode.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="matCode.split(',')" open="" separator="or" close="">
+				mat.mat_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="matCode.indexOf(',') == -1">
+				and ( mat.mat_code like CONCAT('%',#{matCode},'%'))
+		</if>
+    </if> 
+    
+    <if test=" sDate != null and sDate !='' ">
+      and take.stock_take_date  >= #{sDate}
+    </if>
+
+    <if test=" eDate != null and eDate !='' ">
+      and take.stock_take_date <![CDATA[<=]]> #{eDate}
+    </if>
+    
+    <if test="stockTakeUser != null">
+      AND mat.stock_take_user = #{stockTakeUser}
+    </if>
+    ORDER BY mat.stock_take_code ASC
+  </select>
+
+  <!-- 查询当前仓位中最大的bid  -->
+  <select id="selectMaxBid" parameterType="com.inossem.wms.co.biz.BizStockTakeCo" resultType="com.inossem.wms.vo.take.BizStockTakeMatItemVo">
+	   SELECT max(LPAD(ifnull(mat.stock_take_bid,0),10,'0')) stock_take_bid,
+              take.bin_code
+       FROM sinobec_biz_stock_take take
+  left join sinobec_biz_stock_take_mat mat on take.stock_take_code = mat.stock_take_code and take.bin_code = mat.bin_code
+      WHERE take.stock_take_code= #{stockTakeCode,jdbcType=VARCHAR}
+         AND take.stock_take_user = #{stockTakeUser,jdbcType=VARCHAR}
+      GROUP BY
+          take.stock_take_code,
+          take.stock_take_user,
+          take.bin_code
+  </select>
+
+  <!-- 查询盘点单详情中是否有草稿状态的数据 -->
+  <select id="getStockTakeMatCountStatus" parameterType="java.lang.String" resultType="com.inossem.wms.vo.take.BizStockTakeMatItemVo">
+	   SELECT
+		mat.type_code,
+		mat.bin_code,
+		mat.bundle_code
+	FROM
+		sinobec_biz_stock_take_mat mat
+	WHERE mat.stock_take_code= #{stockTakeCode,jdbcType=VARCHAR}
+	AND mat.status != 50
+	LIMIT 1
+  </select>
+
+  <update id="updateBizStockTakeMat" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" separator=";">
+      update sinobec_biz_stock_take_mat
+      <set>
+        <if test="item.stockTakeQty != null">
+          stock_take_qty = #{item.stockTakeQty,jdbcType=DECIMAL},
+        </if>
+        <if test="item.qty != null">
+          qty = #{item.qty,jdbcType=DECIMAL},
+        </if>
+        <if test="item.modifyStatus != null">
+          modify_status = #{item.modifyStatus,jdbcType=TINYINT},
+        </if>
+        <if test="item.modifyTime != null">
+          modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.modifyUserId != null">
+          modify_user_id = #{item.modifyUserId,jdbcType=INTEGER},
+        </if>
+        status = #{item.status,jdbcType=VARCHAR},
+        is_delete = 0
+      </set>
+      where stock_take_mat_id = #{item.stockTakeMatId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+
+  <!-- 将未盘点数据改为提交  -->
+  <update id="updateSubmitStatus" parameterType="com.inossem.wms.co.biz.BizStockTakeCo">
+    update sinobec_biz_stock_take_mat set status = #{status}
+    where stock_take_code = #{stockTakeCode,jdbcType=VARCHAR}
+    <if test="list != null and list.size()>0 ">
+      AND stock_take_rid in
+      <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+        #{item.stockTakeRid,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+    and status = 10
+  </update>
+
+  <!-- 查询盘点单详情中是否有草稿状态的数据 -->
+  <select id="getStockTakeMatForDraftStatus" parameterType="java.lang.String" resultType="com.inossem.wms.vo.take.BizStockTakeMatItemVo">
+	   SELECT
+		mat.type_code,
+		mat.bin_code,
+		mat.bundle_code
+	FROM
+		sinobec_biz_stock_take_mat mat
+	WHERE mat.stock_take_code= #{stockTakeCode,jdbcType=VARCHAR}
+	AND mat.status = 10
+	ORDER BY mat.bin_code ASC
+	LIMIT 1
+  </select>
+
+  <!-- 更新盘点单中的行项目状态 -->
+  <update id="updateStatusByStockTakeCode" parameterType="com.inossem.wms.co.biz.BizStockTakeCo">
+    update sinobec_biz_stock_take_mat set status = #{status}
+    where stock_take_code = #{stockTakeCode,jdbcType=VARCHAR}
+    <if test="matIdList != null and matIdList.size()>0 ">
+      AND stock_take_mat_id in
+      <foreach collection="matIdList" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- 将提交状态的数据改为已计数  -->
+  <update id="updateCountStatus" parameterType="com.inossem.wms.co.biz.BizStockTakeCo">
+ 	 update sinobec_biz_stock_take_mat set status = #{status}
+ 	 where stock_take_code = #{stockTakeCode,jdbcType=VARCHAR}
+ 	 and status = 20
+  </update>
+
+  <!-- 查询盘点单中所选数据的行项目状态 -->
+  <select id="checkAllDataStatus" parameterType="com.inossem.wms.co.biz.BizStockTakeCo" resultType="com.inossem.wms.vo.take.BizStockTakeMatItemVo">
+    SELECT mat.type_code,
+            mat.bin_code,
+            mat.bundle_code
+    FROM sinobec_biz_stock_take_mat mat
+    INNER JOIN sinobec_biz_stock_take take ON take.stock_take_code = mat.stock_take_code
+    WHERE mat.stock_take_code = #{stockTakeCode,jdbcType=VARCHAR}
+    AND mat.status != #{status}
+    <if test="matIdList != null and matIdList.size()>0 ">
+      AND mat.stock_take_mat_id in
+      <foreach collection="matIdList" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+
+  <!-- 获取差异性列表 -->
+  <select id="getDifferenceList" parameterType="com.inossem.wms.co.biz.BizStockTakeCo" resultType="com.inossem.wms.vo.take.BizStockTakeMatItemVo">
+	   SELECT distinct
+            mat.stock_take_code,
+            mat.stock_take_rid,
+            take.stock_take_id,
+            take.stock_take_type,
+            take.stock_take_mode,
+            mat.stock_take_user,
+            take.stock_take_date,
+            take.receipt_status,
+            take.item_status,
+            take.freeze_stock_take,
+            take.create_user_id,
+            mat.wh_code,
+            mat.stock_take_mat_id,
+            mat.stock_take_bid,
+            mat.type_code,
+            mat.bin_code,
+            mat.bundle_code,
+            mat.heat_code,
+            mat.skid_code,
+            mat.shipping_ref,
+            mat.stock_id,
+            mat.stock_status,
+            mat.mat_code,
+            mat.lot_numb,
+            mat.weight_unit_code,
+            mat.weight_qty,
+            mat.receipt_qty,
+            mat.unit_code,
+            mat.qty,
+            mat.stock_take_qty,
+            mat.status,
+            mat.modify_status,
+            mat.stock_take_user,
+            mat.move_date,
+            mat.ext0,
+            mat.ext1,
+            mat.ext2,
+            mat.ext3,
+            mat.ext4,
+            mat.ext5,
+            mat.ext6,
+            mat.ext7,
+            mat.ext8,
+            mat.ext9,
+            mat.ext10,
+            mat.ext11,
+            mat.ext12,
+            mat.ext13,
+            mat.ext14,
+            mat.ext15,
+            st.type_name,
+            wh.wh_name,
+            mater.mat_name,
+            sys.user_name stock_take_user_name,
+            unit.unit_name,
+            unit.decimal_place,
+            weight_unit.decimal_place weight_decimal_place,
+            concat(
+            mat.bundle_code,
+            mat.shipping_ref,
+            mat.wh_code,
+            mat.type_code,
+            mat.bin_code
+            ) compositeKeys
+	FROM
+		sinobec_biz_stock_take_mat mat
+	INNER JOIN sinobec_biz_stock_take take ON take.stock_take_code = mat.stock_take_code AND take.stock_take_rid = mat.stock_take_rid
+	INNER JOIN dic_wh_storage_type st on mat.wh_code = st.wh_code AND mat.type_code = st.type_code
+	INNER JOIN dic_wh wh on mat.wh_code = wh.wh_code
+	INNER JOIN dic_material mater on mat.mat_code = mater.mat_code
+	INNER JOIN dic_unit unit on mat.unit_code = unit.unit_code
+	INNER JOIN dic_unit weight_unit on mat.weight_unit_code = weight_unit.unit_code
+	LEFT JOIN sys_user sys on sys.user_code = mat.stock_take_user
+	WHERE mat.stock_take_code= #{stockTakeCode,jdbcType=VARCHAR}
+	AND mat.weight_qty != mat.stock_take_qty
+	ORDER BY mat.bin_code,mat.stock_take_bid ASC
+  </select>
+
+</mapper>

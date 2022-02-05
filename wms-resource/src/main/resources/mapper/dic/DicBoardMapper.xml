@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inossem.wms.dao.dic.DicBoardMapper" >
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicBoard" >
+    <id column="board_code" property="boardCode" jdbcType="INTEGER" />
+    <result column="board_name" property="boardName" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+    <result column="modify_user_id" property="modifyUserId" jdbcType="INTEGER" />
+    <result column="board_ext0" property="boardExt0" jdbcType="VARCHAR" />
+    <result column="board_ext1" property="boardExt1" jdbcType="VARCHAR" />
+    <result column="board_ext2" property="boardExt2" jdbcType="VARCHAR" />
+    <result column="board_ext3" property="boardExt3" jdbcType="VARCHAR" />
+    <result column="board_ext4" property="boardExt4" jdbcType="VARCHAR" />
+    <result column="board_ext5" property="boardExt5" jdbcType="VARCHAR" />
+    <result column="board_ext6" property="boardExt6" jdbcType="VARCHAR" />
+    <result column="board_ext7" property="boardExt7" jdbcType="VARCHAR" />
+    <result column="board_ext8" property="boardExt8" jdbcType="VARCHAR" />
+    <result column="board_ext9" property="boardExt9" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    board_code, board_name, is_delete, create_time, modify_time, create_user_id, modify_user_id, 
+    board_ext0, board_ext1, board_ext2, board_ext3, board_ext4, board_ext5, board_ext6, 
+    board_ext7, board_ext8, board_ext9
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dic_board
+    where board_code = #{boardCode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dic_board
+    where board_code = #{boardCode,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicBoard" >
+    insert into dic_board (board_code, board_name, is_delete, 
+      create_time, modify_time, create_user_id, 
+      modify_user_id, board_ext0, board_ext1, 
+      board_ext2, board_ext3, board_ext4, 
+      board_ext5, board_ext6, board_ext7, 
+      board_ext8, board_ext9)
+    values (#{boardCode,jdbcType=INTEGER}, #{boardName,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{boardExt0,jdbcType=VARCHAR}, #{boardExt1,jdbcType=VARCHAR}, 
+      #{boardExt2,jdbcType=VARCHAR}, #{boardExt3,jdbcType=VARCHAR}, #{boardExt4,jdbcType=VARCHAR}, 
+      #{boardExt5,jdbcType=VARCHAR}, #{boardExt6,jdbcType=VARCHAR}, #{boardExt7,jdbcType=VARCHAR}, 
+      #{boardExt8,jdbcType=VARCHAR}, #{boardExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicBoard" >
+    insert into dic_board
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="boardCode != null" >
+        board_code,
+      </if>
+      <if test="boardName != null" >
+        board_name,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null" >
+        modify_user_id,
+      </if>
+      <if test="boardExt0 != null" >
+        board_ext0,
+      </if>
+      <if test="boardExt1 != null" >
+        board_ext1,
+      </if>
+      <if test="boardExt2 != null" >
+        board_ext2,
+      </if>
+      <if test="boardExt3 != null" >
+        board_ext3,
+      </if>
+      <if test="boardExt4 != null" >
+        board_ext4,
+      </if>
+      <if test="boardExt5 != null" >
+        board_ext5,
+      </if>
+      <if test="boardExt6 != null" >
+        board_ext6,
+      </if>
+      <if test="boardExt7 != null" >
+        board_ext7,
+      </if>
+      <if test="boardExt8 != null" >
+        board_ext8,
+      </if>
+      <if test="boardExt9 != null" >
+        board_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="boardCode != null" >
+        #{boardCode,jdbcType=INTEGER},
+      </if>
+      <if test="boardName != null" >
+        #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null" >
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="boardExt0 != null" >
+        #{boardExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt1 != null" >
+        #{boardExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt2 != null" >
+        #{boardExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt3 != null" >
+        #{boardExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt4 != null" >
+        #{boardExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt5 != null" >
+        #{boardExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt6 != null" >
+        #{boardExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt7 != null" >
+        #{boardExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt8 != null" >
+        #{boardExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt9 != null" >
+        #{boardExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicBoard" >
+    update dic_board
+    <set >
+      <if test="boardName != null" >
+        board_name = #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null" >
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="boardExt0 != null" >
+        board_ext0 = #{boardExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt1 != null" >
+        board_ext1 = #{boardExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt2 != null" >
+        board_ext2 = #{boardExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt3 != null" >
+        board_ext3 = #{boardExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt4 != null" >
+        board_ext4 = #{boardExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt5 != null" >
+        board_ext5 = #{boardExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt6 != null" >
+        board_ext6 = #{boardExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt7 != null" >
+        board_ext7 = #{boardExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt8 != null" >
+        board_ext8 = #{boardExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="boardExt9 != null" >
+        board_ext9 = #{boardExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where board_code = #{boardCode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicBoard" >
+    update dic_board
+    set board_name = #{boardName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      board_ext0 = #{boardExt0,jdbcType=VARCHAR},
+      board_ext1 = #{boardExt1,jdbcType=VARCHAR},
+      board_ext2 = #{boardExt2,jdbcType=VARCHAR},
+      board_ext3 = #{boardExt3,jdbcType=VARCHAR},
+      board_ext4 = #{boardExt4,jdbcType=VARCHAR},
+      board_ext5 = #{boardExt5,jdbcType=VARCHAR},
+      board_ext6 = #{boardExt6,jdbcType=VARCHAR},
+      board_ext7 = #{boardExt7,jdbcType=VARCHAR},
+      board_ext8 = #{boardExt8,jdbcType=VARCHAR},
+      board_ext9 = #{boardExt9,jdbcType=VARCHAR}
+    where board_code = #{boardCode,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from dic_board
+    where is_delete = 0
+  </select>
+
+</mapper>

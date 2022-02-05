@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html style="background-color: #FFFFFF;">
+	<head>
+		<meta charset="UTF-8">
+		<title>新建流程</title>
+		<link href="../../../part/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    	<link href="../../../css/common.css" rel="stylesheet" />
+		<link href="../../../css/inossem.grid.css" rel="stylesheet"/>
+		<script src="../../../js/jquery-1.11.0.min.js"></script>
+		<script src="../../../js/common.js"></script>
+		<script src="../../../part/layer/layer.js"></script>
+		<script src="../../../part/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../../../js/jquery.inossem.grid.js"></script>
+		<script>
+			$(function(){
+				$m("category").val(window.parent.getSubCategory().groupName);
+				//保存流程
+				$(".btn-lay-blue").click(function(){
+					//验证是否为空
+					var isChecked=true;
+					if($m("name").val()==""){layersMoretips("必填项",$m("name"));isChecked=false;}
+					if($m("category").val()==""){layersMoretips("必填项",$m("category"));isChecked=false;}
+					if(isChecked==false){
+						return false
+					}
+					var data ={};
+					data.procName = $m("name").val();
+					data.procCategory = window.parent.getSubCategory().groupId;
+					data.createrId=window.parent.getSubCategory().createId;
+					ajax("../../../../process/createProcess",'post',data,
+						function(data){
+						data = JSON.parse(data);
+							if(data.head.msg=="success"){
+								parent.layer.close(parseInt(parent.$(".layui-layer-iframe").attr("times")));
+								window.parent.query(data.procCategory);
+							}else{
+								layer.msg(data.head.msg);
+							}
+
+						}
+					);
+				});
+				//流程分类数据
+				/*ajax("/category/listCategory",'get',null,
+					function(data){
+						if(!!data&&data.length>0){
+							var option = [];
+							$.each(data,function(i,item){
+								option.push("<option value='"+item.groupId+"'>"+item.groupName+"</option>");
+							})
+							$m("category").empty("");
+							$m("category").append(option.join(""));
+						}
+					}
+				);*/
+			});
+			
+		</script>
+	</head>
+	<body style="overflow-x: hidden;padding-right:100px;">
+		<div class="col-xs-12">&nbsp;</div>
+		<div class="form-search">
+			<div class="form-con">
+				<div class="col-xs-12 row">
+					<div class="col-xs-4 div-group">
+						<div class="input-group">
+							<span class="input-group-addon"><span>*</span>&nbsp;流程名称</span>
+							<input type="text" class="form-control" c-model="name">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 row">
+					<div class="col-xs-4 div-group">
+						<div class="input-group">
+							<span class="input-group-addon"><span>*</span>&nbsp;流程分类</span>
+							<!--<select class="form-control" c-model="category">
+							</select>-->
+							<input type="text" class="form-control" c-model="category" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 row">
+					<div class="col-xs-6 div-group"><hr /></div>
+				</div>
+			</div>
+			<div class="form-sub">
+				<div class="col-xs-12 row">
+					<div class="col-lg-3 col-xs-4 div-group">
+						<div class="input-group">
+						    <span class="input-group-addon">&nbsp;</span>
+						    <a href="javascript:void(0)" class="btn-lay-blue">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						    <a href="javascript:void(0)" class="btn-lay-default btn_iframe_close_window">取消</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,1242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicWhStorageTypeMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicWhStorageType">
+    <id column="wh_code" jdbcType="VARCHAR" property="whCode" />
+    <id column="type_code" jdbcType="VARCHAR" property="typeCode" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="type_mark_code" jdbcType="VARCHAR" property="typeMarkCode" />
+    <result column="type_mark_name" jdbcType="VARCHAR" property="typeMarkName" />
+    <result column="cell_enabled" jdbcType="TINYINT" property="cellEnabled" />
+    <result column="storage_mix_enabled" jdbcType="TINYINT" property="storageMixEnabled" />
+    <result column="ability_input_enabled" jdbcType="TINYINT" property="abilityInputEnabled" />
+    <result column="ability_input_type" jdbcType="TINYINT" property="abilityInputType" />
+    <result column="strategy_input" jdbcType="VARCHAR" property="strategyInput" />
+    <result column="strategy_output" jdbcType="VARCHAR" property="strategyOutput" />
+    <result column="stock_unit_code" jdbcType="VARCHAR" property="stockUnitCode" />
+    <result column="stock_max" jdbcType="DECIMAL" property="stockMax" />
+    <result column="stock_max_warning" jdbcType="DECIMAL" property="stockMaxWarning" />
+    <result column="stock_min" jdbcType="DECIMAL" property="stockMin" />
+    <result column="stock_min_warning" jdbcType="DECIMAL" property="stockMinWarning" />
+    <result column="stock_fit" jdbcType="DECIMAL" property="stockFit" />
+    <result column="is_default" jdbcType="TINYINT" property="isDefault" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="wh_storage_type_ext0" jdbcType="VARCHAR" property="whStorageTypeExt0" />
+    <result column="wh_storage_type_ext1" jdbcType="VARCHAR" property="whStorageTypeExt1" />
+    <result column="wh_storage_type_ext2" jdbcType="VARCHAR" property="whStorageTypeExt2" />
+    <result column="wh_storage_type_ext3" jdbcType="VARCHAR" property="whStorageTypeExt3" />
+    <result column="wh_storage_type_ext4" jdbcType="VARCHAR" property="whStorageTypeExt4" />
+    <result column="wh_storage_type_ext5" jdbcType="VARCHAR" property="whStorageTypeExt5" />
+    <result column="wh_storage_type_ext6" jdbcType="VARCHAR" property="whStorageTypeExt6" />
+    <result column="wh_storage_type_ext7" jdbcType="VARCHAR" property="whStorageTypeExt7" />
+    <result column="wh_storage_type_ext8" jdbcType="VARCHAR" property="whStorageTypeExt8" />
+    <result column="wh_storage_type_ext9" jdbcType="VARCHAR" property="whStorageTypeExt9" />
+  </resultMap>
+  
+  <resultMap id="VoResultMap" type="com.inossem.wms.vo.dic.DicWhStorageTypeVo">
+    <id column="wh_code" jdbcType="VARCHAR" property="whCode" />
+    <id column="type_code" jdbcType="VARCHAR" property="typeCode" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="type_mark_code" jdbcType="VARCHAR" property="typeMarkCode" />
+    <result column="type_mark_name" jdbcType="VARCHAR" property="typeMarkName" />
+    <result column="cell_enabled" jdbcType="TINYINT" property="cellEnabled" />
+    <result column="storage_mix_enabled" jdbcType="TINYINT" property="storageMixEnabled" />
+    <result column="ability_input_enabled" jdbcType="TINYINT" property="abilityInputEnabled" />
+    <result column="ability_input_type" jdbcType="VARCHAR" property="abilityInputType" />
+    <result column="strategy_input" jdbcType="VARCHAR" property="strategyInput" />
+    <result column="strategy_output" jdbcType="VARCHAR" property="strategyOutput" />
+    <result column="stock_unit_code" jdbcType="VARCHAR" property="stockUnitCode" />
+    <result column="stock_max" jdbcType="DECIMAL" property="stockMax" />
+    <result column="stock_max_warning" jdbcType="DECIMAL" property="stockMaxWarning" />
+    <result column="stock_min" jdbcType="DECIMAL" property="stockMin" />
+    <result column="stock_min_warning" jdbcType="DECIMAL" property="stockMinWarning" />
+    <result column="stock_fit" jdbcType="DECIMAL" property="stockFit" />
+    <result column="is_default" jdbcType="TINYINT" property="isDefault" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="wh_storage_type_ext0" jdbcType="VARCHAR" property="whStorageTypeExt0" />
+    <result column="wh_storage_type_ext1" jdbcType="VARCHAR" property="whStorageTypeExt1" />
+    <result column="wh_storage_type_ext2" jdbcType="VARCHAR" property="whStorageTypeExt2" />
+    <result column="wh_storage_type_ext3" jdbcType="VARCHAR" property="whStorageTypeExt3" />
+    <result column="wh_storage_type_ext4" jdbcType="VARCHAR" property="whStorageTypeExt4" />
+    <result column="wh_storage_type_ext5" jdbcType="VARCHAR" property="whStorageTypeExt5" />
+    <result column="wh_storage_type_ext6" jdbcType="VARCHAR" property="whStorageTypeExt6" />
+    <result column="wh_storage_type_ext7" jdbcType="VARCHAR" property="whStorageTypeExt7" />
+    <result column="wh_storage_type_ext8" jdbcType="VARCHAR" property="whStorageTypeExt8" />
+    <result column="wh_storage_type_ext9" jdbcType="VARCHAR" property="whStorageTypeExt9" />
+  	<result column="wh_name" jdbcType="VARCHAR" property="whName" />
+  	<result column="lang_code" jdbcType="VARCHAR" property="langCode" />
+  	<result column="text" jdbcType="VARCHAR" property="text" />
+  </resultMap>
+  
+  <resultMap id="TreeVoBaseResultMap" type="com.inossem.wms.vo.auth.DicWhStorageTypeTreeVo">
+    <id column="wh_code" jdbcType="VARCHAR" property="whCode" />
+    <id column="wh_name" jdbcType="VARCHAR" property="whName" />
+    <id column="type_code" jdbcType="VARCHAR" property="typeCode" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="type_mark_code" jdbcType="VARCHAR" property="typeMarkCode" />
+    <result column="type_mark_name" jdbcType="VARCHAR" property="typeMarkName" />
+    <result column="cell_enabled" jdbcType="TINYINT" property="cellEnabled" />
+    <result column="storage_mix_enabled" jdbcType="TINYINT" property="storageMixEnabled" />
+    <result column="ability_input_enabled" jdbcType="TINYINT" property="abilityInputEnabled" />
+    <result column="ability_input_type" jdbcType="TINYINT" property="abilityInputType" />
+    <result column="strategy_input" jdbcType="VARCHAR" property="strategyInput" />
+    <result column="strategy_output" jdbcType="VARCHAR" property="strategyOutput" />
+    <result column="stock_unit_code" jdbcType="VARCHAR" property="stockUnitCode" />
+    <result column="stock_max" jdbcType="DECIMAL" property="stockMax" />
+    <result column="stock_max_warning" jdbcType="DECIMAL" property="stockMaxWarning" />
+    <result column="stock_min" jdbcType="DECIMAL" property="stockMin" />
+    <result column="stock_min_warning" jdbcType="DECIMAL" property="stockMinWarning" />
+    <result column="stock_fit" jdbcType="DECIMAL" property="stockFit" />
+    <result column="is_default" jdbcType="TINYINT" property="isDefault" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="wh_storage_type_ext0" jdbcType="VARCHAR" property="whStorageTypeExt0" />
+    <result column="wh_storage_type_ext1" jdbcType="VARCHAR" property="whStorageTypeExt1" />
+    <result column="wh_storage_type_ext2" jdbcType="VARCHAR" property="whStorageTypeExt2" />
+    <result column="wh_storage_type_ext3" jdbcType="VARCHAR" property="whStorageTypeExt3" />
+    <result column="wh_storage_type_ext4" jdbcType="VARCHAR" property="whStorageTypeExt4" />
+    <result column="wh_storage_type_ext5" jdbcType="VARCHAR" property="whStorageTypeExt5" />
+    <result column="wh_storage_type_ext6" jdbcType="VARCHAR" property="whStorageTypeExt6" />
+    <result column="wh_storage_type_ext7" jdbcType="VARCHAR" property="whStorageTypeExt7" />
+    <result column="wh_storage_type_ext8" jdbcType="VARCHAR" property="whStorageTypeExt8" />
+    <result column="wh_storage_type_ext9" jdbcType="VARCHAR" property="whStorageTypeExt9" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    wh_code, type_code, type_name, type_mark_code, type_mark_name, cell_enabled, storage_mix_enabled, 
+    ability_input_enabled, ability_input_type, strategy_input, strategy_output, stock_unit_code, 
+    stock_max, stock_max_warning, stock_min, stock_min_warning, stock_fit, is_delete, is_default,
+    create_time, modify_time, create_user_id, modify_user_id, wh_storage_type_ext0, wh_storage_type_ext1, 
+    wh_storage_type_ext2, wh_storage_type_ext3, wh_storage_type_ext4, wh_storage_type_ext5, 
+    wh_storage_type_ext6, wh_storage_type_ext7, wh_storage_type_ext8, wh_storage_type_ext9
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicWhStorageTypeKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_wh_storage_type
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+      and type_code = #{typeCode,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicWhStorageTypeKey">
+    delete from dic_wh_storage_type
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+      and type_code = #{typeCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicWhStorageType">
+    insert into dic_wh_storage_type (wh_code, type_code, type_name, 
+      type_mark_code, type_mark_name, cell_enabled, 
+      storage_mix_enabled, ability_input_enabled, 
+      ability_input_type, strategy_input, strategy_output, 
+      stock_unit_code, stock_max, stock_max_warning, 
+      stock_min, stock_min_warning, stock_fit, 
+      create_user_id, modify_user_id, wh_storage_type_ext0, 
+      wh_storage_type_ext1, wh_storage_type_ext2, wh_storage_type_ext3, 
+      wh_storage_type_ext4, wh_storage_type_ext5, wh_storage_type_ext6, 
+      wh_storage_type_ext7, wh_storage_type_ext8, wh_storage_type_ext9
+      )
+    values (#{whCode,jdbcType=VARCHAR}, #{typeCode,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, 
+      #{typeMarkCode,jdbcType=VARCHAR}, #{typeMarkName,jdbcType=VARCHAR}, #{cellEnabled,jdbcType=TINYINT}, 
+      #{storageMixEnabled,jdbcType=TINYINT}, #{abilityInputEnabled,jdbcType=TINYINT}, 
+      #{abilityInputType,jdbcType=TINYINT}, #{strategyInput,jdbcType=VARCHAR}, #{strategyOutput,jdbcType=VARCHAR}, 
+      #{stockUnitCode,jdbcType=VARCHAR}, #{stockMax,jdbcType=DECIMAL}, #{stockMaxWarning,jdbcType=DECIMAL}, 
+      #{stockMin,jdbcType=DECIMAL}, #{stockMinWarning,jdbcType=DECIMAL}, #{stockFit,jdbcType=DECIMAL}, 
+      #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, #{whStorageTypeExt0,jdbcType=VARCHAR}, 
+      #{whStorageTypeExt1,jdbcType=VARCHAR}, #{whStorageTypeExt2,jdbcType=VARCHAR}, #{whStorageTypeExt3,jdbcType=VARCHAR}, 
+      #{whStorageTypeExt4,jdbcType=VARCHAR}, #{whStorageTypeExt5,jdbcType=VARCHAR}, #{whStorageTypeExt6,jdbcType=VARCHAR}, 
+      #{whStorageTypeExt7,jdbcType=VARCHAR}, #{whStorageTypeExt8,jdbcType=VARCHAR}, #{whStorageTypeExt9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicWhStorageType">
+    insert into dic_wh_storage_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        wh_code,
+      </if>
+      <if test="typeCode != null">
+        type_code,
+      </if>
+      <if test="typeName != null">
+        type_name,
+      </if>
+      <if test="typeMarkCode != null">
+        type_mark_code,
+      </if>
+      <if test="typeMarkName != null">
+        type_mark_name,
+      </if>
+      <if test="cellEnabled != null">
+        cell_enabled,
+      </if>
+      <if test="storageMixEnabled != null">
+        storage_mix_enabled,
+      </if>
+      <if test="abilityInputEnabled != null">
+        ability_input_enabled,
+      </if>
+      <if test="abilityInputType != null">
+        ability_input_type,
+      </if>
+      <if test="strategyInput != null">
+        strategy_input,
+      </if>
+      <if test="strategyOutput != null">
+        strategy_output,
+      </if>
+      <if test="stockUnitCode != null">
+        stock_unit_code,
+      </if>
+      <if test="stockMax != null">
+        stock_max,
+      </if>
+      <if test="stockMaxWarning != null">
+        stock_max_warning,
+      </if>
+      <if test="stockMin != null">
+        stock_min,
+      </if>
+      <if test="stockMinWarning != null">
+        stock_min_warning,
+      </if>
+      <if test="stockFit != null">
+        stock_fit,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="whStorageTypeExt0 != null">
+        wh_storage_type_ext0,
+      </if>
+      <if test="whStorageTypeExt1 != null">
+        wh_storage_type_ext1,
+      </if>
+      <if test="whStorageTypeExt2 != null">
+        wh_storage_type_ext2,
+      </if>
+      <if test="whStorageTypeExt3 != null">
+        wh_storage_type_ext3,
+      </if>
+      <if test="whStorageTypeExt4 != null">
+        wh_storage_type_ext4,
+      </if>
+      <if test="whStorageTypeExt5 != null">
+        wh_storage_type_ext5,
+      </if>
+      <if test="whStorageTypeExt6 != null">
+        wh_storage_type_ext6,
+      </if>
+      <if test="whStorageTypeExt7 != null">
+        wh_storage_type_ext7,
+      </if>
+      <if test="whStorageTypeExt8 != null">
+        wh_storage_type_ext8,
+      </if>
+      <if test="whStorageTypeExt9 != null">
+        wh_storage_type_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        upper(#{whCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="typeCode != null">
+        upper(#{typeCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkCode != null">
+        #{typeMarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkName != null">
+        #{typeMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="cellEnabled != null">
+        #{cellEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="storageMixEnabled != null">
+        #{storageMixEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputEnabled != null">
+        #{abilityInputEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputType != null">
+        #{abilityInputType,jdbcType=TINYINT},
+      </if>
+      <if test="strategyInput != null">
+        #{strategyInput,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyOutput != null">
+        #{strategyOutput,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnitCode != null">
+        #{stockUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockMax != null">
+        #{stockMax,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMaxWarning != null">
+        #{stockMaxWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMin != null">
+        #{stockMin,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMinWarning != null">
+        #{stockMinWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockFit != null">
+        #{stockFit,jdbcType=DECIMAL},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageTypeExt0 != null">
+        #{whStorageTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt1 != null">
+        #{whStorageTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt2 != null">
+        #{whStorageTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt3 != null">
+        #{whStorageTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt4 != null">
+        #{whStorageTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt5 != null">
+        #{whStorageTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt6 != null">
+        #{whStorageTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt7 != null">
+        #{whStorageTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt8 != null">
+        #{whStorageTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt9 != null">
+        #{whStorageTypeExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicWhStorageType">
+    update dic_wh_storage_type
+    <set>
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkCode != null">
+        type_mark_code = #{typeMarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkName != null">
+        type_mark_name = #{typeMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="cellEnabled != null">
+        cell_enabled = #{cellEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="storageMixEnabled != null">
+        storage_mix_enabled = #{storageMixEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputEnabled != null">
+        ability_input_enabled = #{abilityInputEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputType != null">
+        ability_input_type = #{abilityInputType,jdbcType=TINYINT},
+      </if>
+      <if test="strategyInput != null">
+        strategy_input = #{strategyInput,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyOutput != null">
+        strategy_output = #{strategyOutput,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnitCode != null">
+        stock_unit_code = #{stockUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockMax != null">
+        stock_max = #{stockMax,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMaxWarning != null">
+        stock_max_warning = #{stockMaxWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMin != null">
+        stock_min = #{stockMin,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMinWarning != null">
+        stock_min_warning = #{stockMinWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockFit != null">
+        stock_fit = #{stockFit,jdbcType=DECIMAL},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageTypeExt0 != null">
+        wh_storage_type_ext0 = #{whStorageTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt1 != null">
+        wh_storage_type_ext1 = #{whStorageTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt2 != null">
+        wh_storage_type_ext2 = #{whStorageTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt3 != null">
+        wh_storage_type_ext3 = #{whStorageTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt4 != null">
+        wh_storage_type_ext4 = #{whStorageTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt5 != null">
+        wh_storage_type_ext5 = #{whStorageTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt6 != null">
+        wh_storage_type_ext6 = #{whStorageTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt7 != null">
+        wh_storage_type_ext7 = #{whStorageTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt8 != null">
+        wh_storage_type_ext8 = #{whStorageTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt9 != null">
+        wh_storage_type_ext9 = #{whStorageTypeExt9,jdbcType=VARCHAR},
+      </if>
+      is_delete = 0
+    </set>
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+      and type_code = #{typeCode,jdbcType=VARCHAR}
+  </update>
+  <!-- <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicWhStorageType">
+    update dic_wh_storage_type
+    set type_name = #{typeName,jdbcType=VARCHAR},
+      type_mark_code = #{typeMarkCode,jdbcType=VARCHAR},
+      type_mark_name = #{typeMarkName,jdbcType=VARCHAR},
+      cell_enabled = #{cellEnabled,jdbcType=TINYINT},
+      storage_mix_enabled = #{storageMixEnabled,jdbcType=TINYINT},
+      ability_input_enabled = #{abilityInputEnabled,jdbcType=TINYINT},
+      ability_input_type = #{abilityInputType,jdbcType=TINYINT},
+      strategy_input = #{strategyInput,jdbcType=VARCHAR},
+      strategy_output = #{strategyOutput,jdbcType=VARCHAR},
+      stock_unit_code = #{stockUnitCode,jdbcType=VARCHAR},
+      stock_max = #{stockMax,jdbcType=DECIMAL},
+      stock_max_warning = #{stockMaxWarning,jdbcType=DECIMAL},
+      stock_min = #{stockMin,jdbcType=DECIMAL},
+      stock_min_warning = #{stockMinWarning,jdbcType=DECIMAL},
+      stock_fit = #{stockFit,jdbcType=DECIMAL},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      wh_storage_type_ext0 = #{whStorageTypeExt0,jdbcType=VARCHAR},
+      wh_storage_type_ext1 = #{whStorageTypeExt1,jdbcType=VARCHAR},
+      wh_storage_type_ext2 = #{whStorageTypeExt2,jdbcType=VARCHAR},
+      wh_storage_type_ext3 = #{whStorageTypeExt3,jdbcType=VARCHAR},
+      wh_storage_type_ext4 = #{whStorageTypeExt4,jdbcType=VARCHAR},
+      wh_storage_type_ext5 = #{whStorageTypeExt5,jdbcType=VARCHAR},
+      wh_storage_type_ext6 = #{whStorageTypeExt6,jdbcType=VARCHAR},
+      wh_storage_type_ext7 = #{whStorageTypeExt7,jdbcType=VARCHAR},
+      wh_storage_type_ext8 = #{whStorageTypeExt8,jdbcType=VARCHAR},
+      wh_storage_type_ext9 = #{whStorageTypeExt9,jdbcType=VARCHAR}
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+      and type_code = #{typeCode,jdbcType=VARCHAR}
+  </update> -->
+  
+  <select id="selectAllTypeList" resultMap="VoResultMap">
+    select 
+    	type.wh_code, type.type_code, type.type_name, type.type_mark_code, type.type_mark_name, type.cell_enabled, type.storage_mix_enabled, 
+	    type.ability_input_enabled, type.ability_input_type, type.strategy_input, type.strategy_output, type.stock_unit_code, 
+	    type.stock_max, type.stock_max_warning, type.stock_min, type.stock_min_warning, type.stock_fit, type.is_delete, 
+	    type.create_time, type.modify_time, type.create_user_id, type.modify_user_id, type.wh_storage_type_ext0, type.wh_storage_type_ext1, 
+	    type.wh_storage_type_ext2, type.wh_storage_type_ext3, type.wh_storage_type_ext4, type.wh_storage_type_ext5, 
+	    type.wh_storage_type_ext6, type.wh_storage_type_ext7, type.wh_storage_type_ext8, type.wh_storage_type_ext9,
+	    wh.wh_name
+    from dic_wh_storage_type type
+    inner join dic_wh wh on type.wh_code = wh.wh_code
+    and wh.is_delete = 0 and type.is_delete = 0
+  </select>
+  <!-- 仓库号查询存储类型列表 -->
+  <select id="selectDicWhStorageTypeTreeVoByWhCode"  parameterType="java.lang.String" resultMap="TreeVoBaseResultMap">
+    SELECT
+    	type.wh_code,dic_wh.wh_name, type_code, type_name, type_mark_code, type_mark_name, type.cell_enabled, storage_mix_enabled,
+	    ability_input_enabled, ability_input_type, strategy_input, strategy_output, stock_unit_code,
+	    stock_max, stock_max_warning, stock_min, stock_min_warning, stock_fit, type.is_delete,
+	    type.create_time, type.modify_time, type.create_user_id, type.modify_user_id, wh_storage_type_ext0, wh_storage_type_ext1,
+	    wh_storage_type_ext2, wh_storage_type_ext3, wh_storage_type_ext4, wh_storage_type_ext5,
+	    wh_storage_type_ext6, wh_storage_type_ext7, wh_storage_type_ext8, wh_storage_type_ext9
+    FROM dic_wh_storage_type type
+    INNER JOIN dic_wh on dic_wh.wh_code=type.wh_code
+    WHERE type.is_delete = 0 AND type.wh_code = #{whCode,jdbcType=VARCHAR}
+  </select>
+  <!-- 仓库号列表查询存储类型列表 -->
+  <select id="selectDicWhStorageTypeTreeVoByWhCodeList" parameterType="java.util.List" resultMap="TreeVoBaseResultMap">
+    SELECT 
+    	wh_code, type_code, type_name, type_mark_code, type_mark_name, cell_enabled, storage_mix_enabled, 
+	    ability_input_enabled, ability_input_type, strategy_input, strategy_output, stock_unit_code, 
+	    stock_max, stock_max_warning, stock_min, stock_min_warning, stock_fit, is_delete, 
+	    create_time, modify_time, create_user_id, modify_user_id, wh_storage_type_ext0, wh_storage_type_ext1, 
+	    wh_storage_type_ext2, wh_storage_type_ext3, wh_storage_type_ext4, wh_storage_type_ext5, 
+	    wh_storage_type_ext6, wh_storage_type_ext7, wh_storage_type_ext8, wh_storage_type_ext9
+    FROM dic_wh_storage_type type
+    WHERE is_delete = 0 AND wh_code IN 
+	    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+		    #{item}  
+	    </foreach>
+  </select>
+  
+   <!-- 存储类型 查询存储类型-->
+  <select id="selectDicWhStorageTypeVoOnPaging" parameterType="java.lang.String" resultMap="VoResultMap">
+    select
+    	storage.wh_code, 
+    	storage.type_code, 
+    	storage.type_name, 
+    	storage.type_mark_code, 
+    	storage.type_mark_name, 
+    	storage.cell_enabled, 
+    	storage.storage_mix_enabled, 
+	    storage.ability_input_enabled, 
+	    storage.ability_input_type, 
+	    storage.strategy_input, 
+	    storage.strategy_output, 
+	    storage.stock_unit_code, 
+	    storage.stock_max, 
+	    storage.stock_max_warning, 
+	    storage.stock_min, 
+	    storage.stock_min_warning, 
+	    storage.stock_fit, 
+	    storage.is_delete, 
+	    storage.create_time, 
+	    storage.modify_time, 
+	    storage.create_user_id, 
+	    storage.modify_user_id, 
+	    storage.wh_storage_type_ext0, 
+	    storage.wh_storage_type_ext1, 
+	    storage.wh_storage_type_ext2, 
+	    storage.wh_storage_type_ext3, 
+	    storage.wh_storage_type_ext4, 
+	    storage.wh_storage_type_ext5, 
+	    storage.wh_storage_type_ext6, 
+	    storage.wh_storage_type_ext7, 
+	    storage.wh_storage_type_ext8, 
+	    storage.wh_storage_type_ext9,
+	    wh.wh_name
+	from dic_wh_storage_type storage
+	
+	inner join dic_wh wh
+	inner join dic_text dt on storage.type_name = dt.tid 
+  where storage.is_delete = 0
+	and wh.wh_code = storage.wh_code
+	<if test="typeCode != null">
+     	and (storage.type_code = #{typeCode,jdbcType=VARCHAR} or (dt.text like concat('%', #{typeCode,jdbcType=VARCHAR}, '%')and lang_code = #{langCode}))
+     </if>
+    <if test="whCode != null and whCode != ''">
+      and (storage.wh_code = #{whCode,jdbcType=VARCHAR})
+    </if>
+	order by storage.create_time desc, storage.wh_code,storage.type_code asc
+  </select>
+  
+   <!-- 存储类型 查询仓库号和存储类型是否存在-->
+  <select id="selectWhStorageTypeCodeIsExist" parameterType="com.inossem.wms.co.dic.DicWhStorageTypeListCo" resultMap="VoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_wh_storage_type
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+    and type_code = #{typeCode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 存储类型 查询仓库号和存储类型列表-->
+  <select id="getAllStorageTypeList" parameterType="com.inossem.wms.co.dic.DicWhStorageTypeListCo" resultMap="VoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_wh_storage_type
+    where is_delete = 0
+    <if test="whCode != null and whCode != ''">
+      and wh_code = #{whCode,jdbcType=VARCHAR}
+    </if>
+
+  </select>
+  
+  <!-- 存储类型 查询仓库号和存储类型等信息-->
+  <select id="getWhStorageTypeInfo" parameterType="com.inossem.wms.co.dic.DicWhStorageTypeListCo" resultMap="VoResultMap">
+    SELECT
+		type.wh_code,
+		type.type_code,
+		type.type_name,
+		type.type_mark_code,
+		type.type_mark_name,
+		type.cell_enabled,
+		type.storage_mix_enabled,
+		type.ability_input_enabled,
+		type.ability_input_type,
+		type.strategy_input,
+		type.strategy_output,
+		type.stock_unit_code,
+		type.stock_max,
+		type.stock_max_warning,
+		type.stock_min,
+		type.stock_min_warning,
+		type.stock_fit,
+		type.is_delete,
+		type.create_time,
+		type.modify_time,
+		type.create_user_id,
+		type.modify_user_id,
+		type.wh_storage_type_ext0,
+		type.wh_storage_type_ext1,
+		type.wh_storage_type_ext2,
+		type.wh_storage_type_ext3,
+		type.wh_storage_type_ext4,
+		type.wh_storage_type_ext5,
+		type.wh_storage_type_ext6,
+		type.wh_storage_type_ext7,
+		type.wh_storage_type_ext8,
+		type.wh_storage_type_ext9,
+	  wh.wh_name
+	FROM
+		dic_wh_storage_type type
+	INNER JOIN dic_wh wh ON wh.wh_code = type.wh_code
+	WHERE
+		type.wh_code = #{whCode,jdbcType=VARCHAR}
+	AND type.type_code = #{typeCode,jdbcType=VARCHAR}
+	AND type.is_delete = 0
+  </select>
+  
+  <insert id="insertWhStorageType" parameterType="com.inossem.wms.model.dic.DicWhStorageType">
+    insert into dic_wh_storage_type 
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        wh_code,
+      </if>
+      <if test="typeCode != null">
+        type_code,
+      </if>
+      <if test="typeName != null">
+         type_name, 
+      </if>
+      <if test="typeMarkCode != null">
+        type_mark_code,
+      </if>
+      <if test="typeMarkName != null">
+        type_mark_name,
+      </if>
+      <if test="cellEnabled != null">
+         cell_enabled, 
+      </if>
+      <if test="storageMixEnabled != null">
+         storage_mix_enabled, 
+      </if>
+      <if test="abilityInputEnabled != null">
+        ability_input_enabled,
+      </if>
+      <if test="abilityInputType != null">
+         ability_input_type,
+      </if>
+      <if test="strategyInput != null">
+         strategy_input, 
+      </if>
+      <if test="strategyOutput != null">
+      	strategy_output,
+      </if>
+      <if test="stockUnitCode != null">
+        stock_unit_code,
+      </if>
+      <if test="stockMax != null">
+        stock_max,
+      </if>
+      <if test="stockMaxWarning != null">
+        stock_max_warning,
+      </if>
+      <if test="stockMin != null">
+        stock_min,
+      </if>
+      <if test="stockMinWarning != null">
+        stock_min_warning,
+      </if>
+      <if test="stockFit != null">
+        stock_fit,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="whStorageTypeExt0 != null">
+        wh_storage_type_ext0,
+      </if>
+      <if test="whStorageTypeExt1 != null">
+        wh_storage_type_ext1,
+      </if>
+      <if test="whStorageTypeExt2 != null">
+        wh_storage_type_ext2,
+      </if>
+      <if test="whStorageTypeExt3 != null">
+        wh_storage_type_ext3,
+      </if>
+      <if test="whStorageTypeExt4 != null">
+        wh_storage_type_ext4,
+      </if>
+      <if test="whStorageTypeExt5 != null">
+        wh_storage_type_ext5,
+      </if>
+      <if test="whStorageTypeExt6 != null">
+        wh_storage_type_ext6,
+      </if>
+      <if test="whStorageTypeExt7 != null">
+        wh_storage_type_ext7,
+      </if>
+      <if test="whStorageTypeExt8 != null">
+        wh_storage_type_ext8,
+      </if>
+      <if test="whStorageTypeExt9 != null">
+        wh_storage_type_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        upper(#{whCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="typeCode != null">
+        upper(#{typeCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="typeName != null">
+         #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkCode != null">
+        #{typeMarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkName != null">
+        #{typeMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="cellEnabled != null">
+         #{cellEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="storageMixEnabled != null">
+        #{storageMixEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputEnabled != null">
+         #{abilityInputEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputType != null">
+         #{abilityInputType,jdbcType=TINYINT},
+      </if>
+      <if test="strategyInput != null">
+         #{strategyInput,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyOutput != null">
+      	#{strategyOutput,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnitCode != null">
+        #{stockUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockMax != null">
+        #{stockMax,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMaxWarning != null">
+        #{stockMaxWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMin != null">
+        #{stockMin,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMinWarning != null">
+        #{stockMinWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockFit != null">
+        #{stockFit,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageTypeExt0 != null">
+        #{whStorageTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt1 != null">
+        #{whStorageTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt2 != null">
+        #{whStorageTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt3 != null">
+        #{whStorageTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt4 != null">
+        #{whStorageTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt5 != null">
+        #{whStorageTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt6 != null">
+        #{whStorageTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt7 != null">
+        #{whStorageTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt8 != null">
+        #{whStorageTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt9 != null">
+        #{whStorageTypeExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateWhStorageType" parameterType="com.inossem.wms.model.dic.DicWhStorageType">
+    update dic_wh_storage_type set
+      <if test="whCode != null">
+        wh_code = #{whCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        type_code = #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null">
+         type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkCode != null">
+        type_mark_code = #{typeMarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkName != null">
+        type_mark_name = #{typeMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="cellEnabled != null">
+         cell_enabled = #{cellEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="storageMixEnabled != null">
+        storage_mix_enabled = #{storageMixEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputEnabled != null">
+         ability_input_enabled = #{abilityInputEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputType != null">
+         ability_input_type = #{abilityInputType,jdbcType=TINYINT},
+      </if>
+      <if test="strategyInput != null">
+         strategy_input = #{strategyInput,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyOutput != null">
+      	strategy_output = #{strategyOutput,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnitCode != null">
+        stock_unit_code = #{stockUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockMax != null">
+        stock_max = #{stockMax,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMaxWarning != null">
+        stock_max_warning = #{stockMaxWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMin != null">
+        stock_min = #{stockMin,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMinWarning != null">
+        stock_min_warning = #{stockMinWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockFit != null">
+        stock_fit = #{stockFit,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP}, 
+      </if>
+      <if test="createUserId != null">
+        create_user_id =  #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageTypeExt0 != null">
+        wh_storage_type_ext0 = #{whStorageTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt1 != null">
+        wh_storage_type_ext1 = #{whStorageTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt2 != null">
+        wh_storage_type_ext2 = #{whStorageTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt3 != null">
+        wh_storage_type_ext3 = #{whStorageTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt4 != null">
+        wh_storage_type_ext4 = #{whStorageTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt5 != null">
+        wh_storage_type_ext5 = #{whStorageTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt6 != null">
+        wh_storage_type_ext6 = #{whStorageTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt7 != null">
+        wh_storage_type_ext7 = #{whStorageTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt8 != null">
+        wh_storage_type_ext8 = #{whStorageTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt9 != null">
+        wh_storage_type_ext9 = #{whStorageTypeExt9,jdbcType=VARCHAR},
+      </if>
+      is_delete = '0'
+      where wh_code = #{whCode,jdbcType=VARCHAR}
+      and type_code = #{typeCode,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteWhStorageType" parameterType="com.inossem.wms.model.dic.DicWhStorageType">
+    update dic_wh_storage_type set is_delete = '1' where wh_code = #{whCode,jdbcType=VARCHAR} and type_code = #{typeCode,jdbcType=VARCHAR}
+  </update>
+  
+  <insert id="insertOrUpdateWhStorageType" parameterType="com.inossem.wms.model.dic.DicWhStorageType">
+    insert into dic_wh_storage_type 
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        wh_code,
+      </if>
+      <if test="typeCode != null">
+        type_code,
+      </if>
+      <if test="typeName != null">
+         type_name, 
+      </if>
+      <if test="typeMarkCode != null">
+        type_mark_code,
+      </if>
+      <if test="typeMarkName != null">
+        type_mark_name,
+      </if>
+      <if test="cellEnabled != null">
+         cell_enabled, 
+      </if>
+      <if test="storageMixEnabled != null">
+         storage_mix_enabled, 
+      </if>
+      <if test="abilityInputEnabled != null">
+        ability_input_enabled,
+      </if>
+      <if test="abilityInputType != null">
+         ability_input_type,
+      </if>
+      <if test="strategyInput != null">
+         strategy_input, 
+      </if>
+      <if test="strategyOutput != null">
+      	strategy_output,
+      </if>
+      <if test="stockUnitCode != null">
+        stock_unit_code,
+      </if>
+      <if test="stockMax != null">
+        stock_max,
+      </if>
+      <if test="stockMaxWarning != null">
+        stock_max_warning,
+      </if>
+      <if test="stockMin != null">
+        stock_min,
+      </if>
+      <if test="stockMinWarning != null">
+        stock_min_warning,
+      </if>
+      <if test="stockFit != null">
+        stock_fit,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="whStorageTypeExt0 != null">
+        wh_storage_type_ext0,
+      </if>
+      <if test="whStorageTypeExt1 != null">
+        wh_storage_type_ext1,
+      </if>
+      <if test="whStorageTypeExt2 != null">
+        wh_storage_type_ext2,
+      </if>
+      <if test="whStorageTypeExt3 != null">
+        wh_storage_type_ext3,
+      </if>
+      <if test="whStorageTypeExt4 != null">
+        wh_storage_type_ext4,
+      </if>
+      <if test="whStorageTypeExt5 != null">
+        wh_storage_type_ext5,
+      </if>
+      <if test="whStorageTypeExt6 != null">
+        wh_storage_type_ext6,
+      </if>
+      <if test="whStorageTypeExt7 != null">
+        wh_storage_type_ext7,
+      </if>
+      <if test="whStorageTypeExt8 != null">
+        wh_storage_type_ext8,
+      </if>
+      <if test="whStorageTypeExt9 != null">
+        wh_storage_type_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        #{whCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null">
+         #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkCode != null">
+        #{typeMarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkName != null">
+        #{typeMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="cellEnabled != null">
+         #{cellEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="storageMixEnabled != null">
+        #{storageMixEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputEnabled != null">
+         #{abilityInputEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputType != null">
+         #{abilityInputType,jdbcType=TINYINT},
+      </if>
+      <if test="strategyInput != null">
+         #{strategyInput,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyOutput != null">
+      	#{strategyOutput,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnitCode != null">
+        #{stockUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockMax != null">
+        #{stockMax,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMaxWarning != null">
+        #{stockMaxWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMin != null">
+        #{stockMin,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMinWarning != null">
+        #{stockMinWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockFit != null">
+        #{stockFit,jdbcType=DECIMAL},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageTypeExt0 != null">
+        #{whStorageTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt1 != null">
+        #{whStorageTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt2 != null">
+        #{whStorageTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt3 != null">
+        #{whStorageTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt4 != null">
+        #{whStorageTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt5 != null">
+        #{whStorageTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt6 != null">
+        #{whStorageTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt7 != null">
+        #{whStorageTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt8 != null">
+        #{whStorageTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt9 != null">
+        #{whStorageTypeExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    ON DUPLICATE KEY UPDATE
+      <if test="whCode != null">
+        wh_code = #{whCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        type_code = #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkCode != null">
+        type_mark_code = #{typeMarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeMarkName != null">
+        type_mark_name = #{typeMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="cellEnabled != null">
+         cell_enabled = #{cellEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="storageMixEnabled != null">
+        storage_mix_enabled = #{storageMixEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputEnabled != null">
+         ability_input_enabled = #{abilityInputEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="abilityInputType != null">
+         ability_input_type = #{abilityInputType,jdbcType=TINYINT},
+      </if>
+      <if test="strategyInput != null">
+         strategy_input = #{strategyInput,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyOutput != null">
+      	strategy_output = #{strategyOutput,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnitCode != null">
+        stock_unit_code = #{stockUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockMax != null">
+        stock_max = #{stockMax,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMaxWarning != null">
+        stock_max_warning = #{stockMaxWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMin != null">
+        stock_min = #{stockMin,jdbcType=DECIMAL},
+      </if>
+      <if test="stockMinWarning != null">
+        stock_min_warning = #{stockMinWarning,jdbcType=DECIMAL},
+      </if>
+      <if test="stockFit != null">
+        stock_fit = #{stockFit,jdbcType=DECIMAL},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP}, 
+      </if>
+      <if test="createUserId != null">
+        create_user_id =  #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageTypeExt0 != null">
+        wh_storage_type_ext0 = #{whStorageTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt1 != null">
+        wh_storage_type_ext1 = #{whStorageTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt2 != null">
+        wh_storage_type_ext2 = #{whStorageTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt3 != null">
+        wh_storage_type_ext3 = #{whStorageTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt4 != null">
+        wh_storage_type_ext4 = #{whStorageTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt5 != null">
+        wh_storage_type_ext5 = #{whStorageTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt6 != null">
+        wh_storage_type_ext6 = #{whStorageTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt7 != null">
+        wh_storage_type_ext7 = #{whStorageTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt8 != null">
+        wh_storage_type_ext8 = #{whStorageTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageTypeExt9 != null">
+        wh_storage_type_ext9 = #{whStorageTypeExt9,jdbcType=VARCHAR},
+      </if>
+      is_delete = '0'
+  </insert>
+</mapper>

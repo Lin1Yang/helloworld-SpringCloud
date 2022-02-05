@@ -1,0 +1,1869 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicWhStorageBinMapper">
+    <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicWhStorageBin">
+        <id column="wh_code" jdbcType="VARCHAR" property="whCode"/>
+        <id column="wh_name" jdbcType="VARCHAR" property="whName"/>
+        <id column="type_code" jdbcType="VARCHAR" property="typeCode"/>
+        <id column="bin_code" jdbcType="VARCHAR" property="binCode"/>
+        <result column="type_name" jdbcType="VARCHAR" property="typeName"/>
+        <result column="section_code" jdbcType="VARCHAR" property="sectionCode"/>
+        <result column="section_name" jdbcType="VARCHAR" property="sectionName"/>
+        <result column="picking_area_code" jdbcType="VARCHAR" property="pickingAreaCode"/>
+        <result column="picking_area_name" jdbcType="VARCHAR" property="pickingAreaName"/>
+        <result column="bin_type_code" jdbcType="VARCHAR" property="binTypeCode"/>
+        <result column="freeze_input" jdbcType="TINYINT" property="freezeInput"/>
+        <result column="freeze_output" jdbcType="TINYINT" property="freezeOutput"/>
+        <result column="freeze_reason_code" jdbcType="VARCHAR" property="freezeReasonCode"/>
+        <result column="virtual_bin" jdbcType="TINYINT" property="virtualBin"/>
+        <result column="storage_cell_type_code" jdbcType="VARCHAR" property="storageCellTypeCode"/>
+        <result column="storage_cell_max" jdbcType="INTEGER" property="storageCellMax"/>
+        <result column="weight_max" jdbcType="DECIMAL" property="weightMax"/>
+        <result column="current_weight" jdbcType="DECIMAL" property="currentWeight"/>
+        <result column="weight_unit_code" jdbcType="VARCHAR" property="weightUnitCode"/>
+        <result column="volume_max" jdbcType="DECIMAL" property="volumeMax"/>
+        <result column="volume_unit_code" jdbcType="VARCHAR" property="volumeUnitCode"/>
+        <result column="used" jdbcType="TINYINT" property="used"/>
+        <result column="x_coordinate" jdbcType="DECIMAL" property="xCoordinate"/>
+        <result column="y_coordinate" jdbcType="DECIMAL" property="yCoordinate"/>
+        <result column="z_coordinate" jdbcType="DECIMAL" property="zCoordinate"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId"/>
+        <result column="wh_storage_bin_ext0" jdbcType="VARCHAR" property="whStorageBinExt0"/>
+        <result column="wh_storage_bin_ext1" jdbcType="VARCHAR" property="whStorageBinExt1"/>
+        <result column="wh_storage_bin_ext2" jdbcType="VARCHAR" property="whStorageBinExt2"/>
+        <result column="wh_storage_bin_ext3" jdbcType="VARCHAR" property="whStorageBinExt3"/>
+        <result column="wh_storage_bin_ext4" jdbcType="VARCHAR" property="whStorageBinExt4"/>
+        <result column="wh_storage_bin_ext5" jdbcType="VARCHAR" property="whStorageBinExt5"/>
+        <result column="wh_storage_bin_ext6" jdbcType="VARCHAR" property="whStorageBinExt6"/>
+        <result column="wh_storage_bin_ext7" jdbcType="VARCHAR" property="whStorageBinExt7"/>
+        <result column="wh_storage_bin_ext8" jdbcType="VARCHAR" property="whStorageBinExt8"/>
+        <result column="wh_storage_bin_ext9" jdbcType="VARCHAR" property="whStorageBinExt9"/>
+    </resultMap>
+
+
+
+    <resultMap id="VoResultMap" type="com.inossem.wms.vo.dic.DicWhStorageBinVo">
+        <id column="wh_code" jdbcType="VARCHAR" property="whCode"/>
+        <id column="type_code" jdbcType="VARCHAR" property="typeCode"/>
+        <id column="bin_code" jdbcType="VARCHAR" property="binCode"/>
+        <result column="section_code" jdbcType="VARCHAR" property="sectionCode"/>
+        <result column="bin_type_code" jdbcType="VARCHAR" property="binTypeCode"/>
+        <result column="picking_area_code" jdbcType="VARCHAR" property="pickingAreaCode"/>
+        <result column="freeze_input" jdbcType="TINYINT" property="freezeInput"/>
+        <result column="freeze_output" jdbcType="TINYINT" property="freezeOutput"/>
+        <result column="freeze_reason_code" jdbcType="VARCHAR" property="freezeReasonCode"/>
+        <result column="virtual_bin" jdbcType="TINYINT" property="virtualBin"/>
+        <result column="storage_cell_type_code" jdbcType="VARCHAR" property="storageCellTypeCode"/>
+        <result column="storage_cell_max" jdbcType="INTEGER" property="storageCellMax"/>
+        <result column="weight_max" jdbcType="DECIMAL" property="weightMax"/>
+        <result column="weight_unit_code" jdbcType="VARCHAR" property="weightUnitCode"/>
+        <result column="volume_max" jdbcType="DECIMAL" property="volumeMax"/>
+        <result column="volume_unit_code" jdbcType="VARCHAR" property="volumeUnitCode"/>
+        <result column="used" jdbcType="TINYINT" property="used"/>
+        <result column="x_coordinate" jdbcType="DECIMAL" property="xCoordinate"/>
+        <result column="y_coordinate" jdbcType="DECIMAL" property="yCoordinate"/>
+        <result column="z_coordinate" jdbcType="DECIMAL" property="zCoordinate"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId"/>
+        <result column="wh_storage_bin_ext0" jdbcType="VARCHAR" property="whStorageBinExt0"/>
+        <result column="wh_storage_bin_ext1" jdbcType="VARCHAR" property="whStorageBinExt1"/>
+        <result column="wh_storage_bin_ext2" jdbcType="VARCHAR" property="whStorageBinExt2"/>
+        <result column="wh_storage_bin_ext3" jdbcType="VARCHAR" property="whStorageBinExt3"/>
+        <result column="wh_storage_bin_ext4" jdbcType="VARCHAR" property="whStorageBinExt4"/>
+        <result column="wh_storage_bin_ext5" jdbcType="VARCHAR" property="whStorageBinExt5"/>
+        <result column="wh_storage_bin_ext6" jdbcType="VARCHAR" property="whStorageBinExt6"/>
+        <result column="wh_storage_bin_ext7" jdbcType="VARCHAR" property="whStorageBinExt7"/>
+        <result column="wh_storage_bin_ext8" jdbcType="VARCHAR" property="whStorageBinExt8"/>
+        <result column="wh_storage_bin_ext9" jdbcType="VARCHAR" property="whStorageBinExt9"/>
+        <result column="wh_storage_bin_ext8" jdbcType="VARCHAR" property="whStorageBinExt8"/>
+        <result column="wh_storage_bin_ext9" jdbcType="VARCHAR" property="whStorageBinExt9"/>
+        <result column="wh_name" jdbcType="VARCHAR" property="whName"/>
+        <result column="type_name" jdbcType="VARCHAR" property="typeName"/>
+        <result column="lang_code" jdbcType="VARCHAR" property="langCode"/>
+        <result column="text" jdbcType="VARCHAR" property="text"/>
+        <result column="bin_type_name" jdbcType="VARCHAR" property="binTypeName"/>
+        <result column="picking_area_name" jdbcType="VARCHAR" property="pickingAreaName"/>
+        <result column="reason_name" jdbcType="VARCHAR" property="reasonName"/>
+        <result column="section_name" jdbcType="VARCHAR" property="sectionName"/>
+        <result column="wh_name" jdbcType="VARCHAR" property="whName"/>
+        <result column="stock_bin_modify_time" jdbcType="TIMESTAMP" property="stockBinModifyTime"/>
+        <result column="cell_enabled" jdbcType="VARCHAR" property="cellEnabled"/>
+    </resultMap>
+
+
+    <resultMap id="keyResultMap" type="com.inossem.wms.model.dic.DicWhStorageBinKey">
+        <id column="wh_code" jdbcType="VARCHAR" property="whCode"/>
+        <id column="type_code" jdbcType="VARCHAR" property="typeCode"/>
+        <id column="bin_code" jdbcType="VARCHAR" property="binCode"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    wh_code, type_code, bin_code, section_code, picking_area_code, bin_type_code, freeze_input,
+    freeze_output, freeze_reason_code, virtual_bin, storage_cell_type_code, storage_cell_max, weight_max,
+    weight_unit_code, volume_max, volume_unit_code, used, x_coordinate, y_coordinate, current_weight,
+    z_coordinate, is_delete, create_time, modify_time, create_user_id, modify_user_id,
+    wh_storage_bin_ext0, wh_storage_bin_ext1, wh_storage_bin_ext2, wh_storage_bin_ext3,
+    wh_storage_bin_ext4, wh_storage_bin_ext5, wh_storage_bin_ext6, wh_storage_bin_ext7,
+    wh_storage_bin_ext8, wh_storage_bin_ext9
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicWhStorageBinKey"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from dic_wh_storage_bin
+        where wh_code = #{whCode,jdbcType=VARCHAR}
+        and type_code = #{typeCode,jdbcType=VARCHAR}
+        and bin_code = #{binCode,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicWhStorageBinKey">
+    delete from dic_wh_storage_bin
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+      and type_code = #{typeCode,jdbcType=VARCHAR}
+      and bin_code = #{binCode,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.inossem.wms.model.dic.DicWhStorageBin">
+    insert into dic_wh_storage_bin (wh_code, type_code, bin_code,
+      section_code, picking_area, freeze_input,
+      freeze_output, freeze_reason_code,
+      storage_cell_type_code, storage_cell_max, weight_max,
+      weight_unit_code, volume_max, volume_unit_code,
+      used, x_coordinate, y_coordinate,
+      z_coordinate, create_user_id, modify_user_id,
+      wh_storage_bin_ext0, wh_storage_bin_ext1, wh_storage_bin_ext2,
+      wh_storage_bin_ext3, wh_storage_bin_ext4, wh_storage_bin_ext5,
+      wh_storage_bin_ext6, wh_storage_bin_ext7, wh_storage_bin_ext8,
+      wh_storage_bin_ext9)
+    values (#{whCode,jdbcType=VARCHAR}, #{typeCode,jdbcType=VARCHAR}, #{binCode,jdbcType=VARCHAR},
+      #{sectionCode,jdbcType=VARCHAR}, #{pickingArea,jdbcType=VARCHAR}, #{freezeInput,jdbcType=TINYINT},
+      #{freezeOutput,jdbcType=TINYINT}, #{freezeReasonCode,jdbcType=VARCHAR},
+      #{storageCellTypeCode,jdbcType=VARCHAR}, #{storageCellMax,jdbcType=INTEGER}, #{weightMax,jdbcType=DECIMAL},
+      #{weightUnitCode,jdbcType=VARCHAR}, #{volumeMax,jdbcType=DECIMAL}, #{volumeUnitCode,jdbcType=VARCHAR},
+      #{used,jdbcType=TINYINT}, #{xCoordinate,jdbcType=DECIMAL}, #{yCoordinate,jdbcType=DECIMAL},
+      #{zCoordinate,jdbcType=DECIMAL}, #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER},
+      #{whStorageBinExt0,jdbcType=VARCHAR}, #{whStorageBinExt1,jdbcType=VARCHAR}, #{whStorageBinExt2,jdbcType=VARCHAR},
+      #{whStorageBinExt3,jdbcType=VARCHAR}, #{whStorageBinExt4,jdbcType=VARCHAR}, #{whStorageBinExt5,jdbcType=VARCHAR},
+      #{whStorageBinExt6,jdbcType=VARCHAR}, #{whStorageBinExt7,jdbcType=VARCHAR}, #{whStorageBinExt8,jdbcType=VARCHAR},
+      #{whStorageBinExt9,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicWhStorageBin">
+        insert into dic_wh_storage_bin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="whCode != null">
+                wh_code,
+            </if>
+            <if test="typeCode != null">
+                type_code,
+            </if>
+            <if test="binCode != null">
+                bin_code,
+            </if>
+            <if test="sectionCode != null">
+                section_code,
+            </if>
+            <if test="pickingAreaCode != null">
+                picking_area_code,
+            </if>
+            <if test="freezeInput != null">
+                freeze_input,
+            </if>
+            <if test="freezeOutput != null">
+                freeze_output,
+            </if>
+            <if test="freezeReasonCode != null">
+                freeze_reason_code,
+            </if>
+            <if test="virtualBin != null">
+                virtual_bin,
+            </if>
+            <if test="storageCellTypeCode != null">
+                storage_cell_type_code,
+            </if>
+            <if test="storageCellMax != null">
+                storage_cell_max,
+            </if>
+            <if test="weightMax != null">
+                weight_max,
+            </if>
+            <if test="weightUnitCode != null">
+                weight_unit_code,
+            </if>
+            <if test="volumeMax != null">
+                volume_max,
+            </if>
+            <if test="volumeUnitCode != null">
+                volume_unit_code,
+            </if>
+            <if test="used != null">
+                used,
+            </if>
+            <if test="xCoordinate != null">
+                x_coordinate,
+            </if>
+            <if test="yCoordinate != null">
+                y_coordinate,
+            </if>
+            <if test="zCoordinate != null">
+                z_coordinate,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id,
+            </if>
+            <if test="stockBinModifyTime != null">
+                stock_bin_modify_time,
+            </if>
+            <if test="whStorageBinExt0 != null">
+                wh_storage_bin_ext0,
+            </if>
+            <if test="whStorageBinExt1 != null">
+                wh_storage_bin_ext1,
+            </if>
+            <if test="whStorageBinExt2 != null">
+                wh_storage_bin_ext2,
+            </if>
+            <if test="whStorageBinExt3 != null">
+                wh_storage_bin_ext3,
+            </if>
+            <if test="whStorageBinExt4 != null">
+                wh_storage_bin_ext4,
+            </if>
+            <if test="whStorageBinExt5 != null">
+                wh_storage_bin_ext5,
+            </if>
+            <if test="whStorageBinExt6 != null">
+                wh_storage_bin_ext6,
+            </if>
+            <if test="whStorageBinExt7 != null">
+                wh_storage_bin_ext7,
+            </if>
+            <if test="whStorageBinExt8 != null">
+                wh_storage_bin_ext8,
+            </if>
+            <if test="whStorageBinExt9 != null">
+                wh_storage_bin_ext9,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="whCode != null">
+                upper(#{whCode,jdbcType=VARCHAR}),
+            </if>
+            <if test="typeCode != null">
+                upper(#{typeCode,jdbcType=VARCHAR}),
+            </if>
+            <if test="binCode != null">
+                upper(#{binCode,jdbcType=VARCHAR}),
+            </if>
+            <if test="sectionCode != null">
+                upper(#{sectionCode,jdbcType=VARCHAR}),
+            </if>
+            <if test="pickingAreaCode != null">
+                #{pickingAreaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="freezeInput != null">
+                #{freezeInput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeOutput != null">
+                #{freezeOutput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeReasonCode != null">
+                #{freezeReasonCode,jdbcType=VARCHAR},
+            </if>
+            <if test="virtualBin != null">
+                #{virtualBin,jdbcType=TINYINT},
+            </if>
+            <if test="storageCellTypeCode != null">
+                #{storageCellTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageCellMax != null">
+                #{storageCellMax,jdbcType=INTEGER},
+            </if>
+            <if test="weightMax != null">
+                #{weightMax,jdbcType=DECIMAL},
+            </if>
+            <if test="weightUnitCode != null">
+                #{weightUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="volumeMax != null">
+                #{volumeMax,jdbcType=DECIMAL},
+            </if>
+            <if test="volumeUnitCode != null">
+                #{volumeUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="used != null">
+                #{used,jdbcType=TINYINT},
+            </if>
+            <if test="xCoordinate != null">
+                #{xCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="yCoordinate != null">
+                #{yCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="zCoordinate != null">
+                #{zCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyUserId != null">
+                #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="stockBinModifyTime != null">
+                #{stockBinModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="whStorageBinExt0 != null">
+                #{whStorageBinExt0,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt1 != null">
+                #{whStorageBinExt1,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt2 != null">
+                #{whStorageBinExt2,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt3 != null">
+                #{whStorageBinExt3,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt4 != null">
+                #{whStorageBinExt4,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt5 != null">
+                #{whStorageBinExt5,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt6 != null">
+                #{whStorageBinExt6,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt7 != null">
+                #{whStorageBinExt7,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt8 != null">
+                #{whStorageBinExt8,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt9 != null">
+                #{whStorageBinExt9,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicWhStorageBin">
+        update dic_wh_storage_bin
+        <set>
+            <if test="sectionCode != null">
+                section_code = #{sectionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pickingAreaCode != null">
+                picking_area_code = #{pickingAreaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="freezeInput != null">
+                freeze_input = #{freezeInput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeOutput != null">
+                freeze_output = #{freezeOutput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeReasonCode != null">
+                freeze_reason_code = #{freezeReasonCode,jdbcType=VARCHAR},
+            </if>
+            <if test="virtualBin != null">
+                virtual_bin = #{virtualBin,jdbcType=VARCHAR},
+            </if>
+            <if test="storageCellTypeCode != null">
+                storage_cell_type_code = #{storageCellTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageCellMax != null">
+                storage_cell_max = #{storageCellMax,jdbcType=INTEGER},
+            </if>
+            <if test="weightMax != null">
+                weight_max = #{weightMax,jdbcType=DECIMAL},
+            </if>
+            <if test="weightUnitCode != null">
+                weight_unit_code = #{weightUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="volumeMax != null">
+                volume_max = #{volumeMax,jdbcType=DECIMAL},
+            </if>
+            <if test="volumeUnitCode != null">
+                volume_unit_code = #{volumeUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="used != null">
+                used = #{used,jdbcType=TINYINT},
+            </if>
+            <if test="xCoordinate != null">
+                x_coordinate = #{xCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="yCoordinate != null">
+                y_coordinate = #{yCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="zCoordinate != null">
+                z_coordinate = #{zCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="whStorageBinExt0 != null">
+                wh_storage_bin_ext0 = #{whStorageBinExt0,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt1 != null">
+                wh_storage_bin_ext1 = #{whStorageBinExt1,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt2 != null">
+                wh_storage_bin_ext2 = #{whStorageBinExt2,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt3 != null">
+                wh_storage_bin_ext3 = #{whStorageBinExt3,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt4 != null">
+                wh_storage_bin_ext4 = #{whStorageBinExt4,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt5 != null">
+                wh_storage_bin_ext5 = #{whStorageBinExt5,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt6 != null">
+                wh_storage_bin_ext6 = #{whStorageBinExt6,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt7 != null">
+                wh_storage_bin_ext7 = #{whStorageBinExt7,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt8 != null">
+                wh_storage_bin_ext8 = #{whStorageBinExt8,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt9 != null">
+                wh_storage_bin_ext9 = #{whStorageBinExt9,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where wh_code = #{whCode,jdbcType=VARCHAR}
+        and type_code = #{typeCode,jdbcType=VARCHAR}
+        and bin_code = #{binCode,jdbcType=VARCHAR}
+    </update>
+    <!-- <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicWhStorageBin">
+      update dic_wh_storage_bin
+      set section_code = #{sectionCode,jdbcType=VARCHAR},
+        picking_area = #{pickingArea,jdbcType=VARCHAR},
+        freeze_input = #{freezeInput,jdbcType=TINYINT},
+        freeze_input_reason_id = #{freezeInputReasonId,jdbcType=INTEGER},
+        freeze_output = #{freezeOutput,jdbcType=TINYINT},
+        freeze_output_reason_id = #{freezeOutputReasonId,jdbcType=INTEGER},
+        storage_cell_type_code = #{storageCellTypeCode,jdbcType=VARCHAR},
+        storage_cell_max = #{storageCellMax,jdbcType=INTEGER},
+        weight_max = #{weightMax,jdbcType=DECIMAL},
+        weight_unit_code = #{weightUnitCode,jdbcType=VARCHAR},
+        volume_max = #{volumeMax,jdbcType=DECIMAL},
+        volume_unit_code = #{volumeUnitCode,jdbcType=VARCHAR},
+        used = #{used,jdbcType=TINYINT},
+        x_coordinate = #{xCoordinate,jdbcType=DECIMAL},
+        y_coordinate = #{yCoordinate,jdbcType=DECIMAL},
+        z_coordinate = #{zCoordinate,jdbcType=DECIMAL},
+        is_delete = #{isDelete,jdbcType=TINYINT},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+        wh_storage_bin_ext0 = #{whStorageBinExt0,jdbcType=VARCHAR},
+        wh_storage_bin_ext1 = #{whStorageBinExt1,jdbcType=VARCHAR},
+        wh_storage_bin_ext2 = #{whStorageBinExt2,jdbcType=VARCHAR},
+        wh_storage_bin_ext3 = #{whStorageBinExt3,jdbcType=VARCHAR},
+        wh_storage_bin_ext4 = #{whStorageBinExt4,jdbcType=VARCHAR},
+        wh_storage_bin_ext5 = #{whStorageBinExt5,jdbcType=VARCHAR},
+        wh_storage_bin_ext6 = #{whStorageBinExt6,jdbcType=VARCHAR},
+        wh_storage_bin_ext7 = #{whStorageBinExt7,jdbcType=VARCHAR},
+        wh_storage_bin_ext8 = #{whStorageBinExt8,jdbcType=VARCHAR},
+        wh_storage_bin_ext9 = #{whStorageBinExt9,jdbcType=VARCHAR}
+      where wh_code = #{whCode,jdbcType=VARCHAR}
+        and type_code = #{typeCode,jdbcType=VARCHAR}
+        and bin_code = #{binCode,jdbcType=VARCHAR}
+    </update> -->
+
+    <select id="selectAllBinList" resultMap="keyResultMap">
+    select
+    	bin.wh_code, bin.type_code, bin.bin_code
+    from dic_wh_storage_bin bin
+   	where bin.is_delete = 0
+  </select>
+    <!-- 仓库号查询仓位列表 -->
+    <select id="selectDicWhStorageBinByWhCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    	sb.wh_code,wh.wh_name, sb.type_code, sb.bin_code, sb.section_code, sb.picking_area_code, sb.freeze_input,
+	    sb.freeze_output, sb.freeze_reason_code, sb.virtual_bin, sb.storage_cell_type_code, sb.storage_cell_max, sb.weight_max,
+	    sb.weight_unit_code, sb.volume_max, sb.volume_unit_code, sb.used, sb.x_coordinate, sb.y_coordinate,
+	    sb.z_coordinate, sb.is_delete, sb.create_time, sb.modify_time, sb.create_user_id, sb.modify_user_id,
+	    sb.wh_storage_bin_ext0, sb.wh_storage_bin_ext1, sb.wh_storage_bin_ext2, sb.wh_storage_bin_ext3,
+	    sb.wh_storage_bin_ext4, sb.wh_storage_bin_ext5, sb.wh_storage_bin_ext6, sb.wh_storage_bin_ext7,
+	    sb.wh_storage_bin_ext8, sb.wh_storage_bin_ext9,	ss.section_name
+    FROM dic_wh_storage_bin sb
+    left join dic_wh_storage_section ss on sb.wh_code = ss.wh_code and sb.type_code = ss.type_code and sb.section_code = ss.section_code  and ss.is_delete = 0
+    inner join dic_wh wh on wh.wh_code = sb.wh_code
+    WHERE  sb.wh_code = #{whCode,jdbcType=VARCHAR} and sb.is_delete = 0
+  </select>
+    <!-- 仓库号列表查询仓位列表 -->
+    <select id="selectDicWhStorageBinByWhCodeList" parameterType="java.util.List" resultMap="BaseResultMap">
+        SELECT
+        dwsb.current_weight, dwsb.wh_code, dwsb.type_code, dwsb.bin_code, dwsb.section_code, dwsb.picking_area_code, dwsb.freeze_input,
+        dwsb.freeze_output, dwsb.freeze_reason_code, dwsb.virtual_bin, dwsb.storage_cell_type_code, dwsb.storage_cell_max,
+        dwsb.weight_max,
+        dwsb.weight_unit_code, dwsb.volume_max, dwsb.volume_unit_code, dwsb.used, dwsb.x_coordinate, dwsb.y_coordinate,
+        dwsb.z_coordinate, dwsb.is_delete, dwsb.create_time, dwsb.modify_time, dwsb.create_user_id, dwsb.modify_user_id,
+        dwsb.wh_storage_bin_ext0, dwsb.wh_storage_bin_ext1, dwsb.wh_storage_bin_ext2, dwsb.wh_storage_bin_ext3,
+        dwsb.wh_storage_bin_ext4, dwsb.wh_storage_bin_ext5, dwsb.wh_storage_bin_ext6, dwsb.wh_storage_bin_ext7,
+        dwsb.wh_storage_bin_ext8, dwsb.wh_storage_bin_ext9
+        FROM dic_wh_storage_bin dwsb
+        WHERE dwsb.is_delete = 0
+        <if test="list != null and list.size > 0">
+        AND dwsb.wh_code IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        </if>
+        AND dwsb.freeze_input = 0 AND dwsb.freeze_output = 0
+    </select>
+
+    <!-- 仓位 查询仓位列表-->
+    <select id="selectDicWhStorageBinListOnPaging" parameterType="java.lang.String" resultMap="VoResultMap">
+        select
+        bin.wh_code,
+        bin.type_code,
+        bin.bin_code,
+        bin.section_code,
+        bin.picking_area_code,
+        bin.freeze_input,
+        bin.freeze_output,
+        bin.freeze_reason_code,
+        bin.virtual_bin,
+        bin.storage_cell_type_code,
+        bin.storage_cell_max,
+        bin.weight_max,
+        bin.weight_unit_code,
+        bin.volume_max,
+        bin.volume_unit_code,
+        bin.used,
+        bin.x_coordinate,
+        bin.y_coordinate,
+        bin.z_coordinate,
+        bin.wh_storage_bin_ext0,
+        reason.reason_name,
+        <!--binType.dic_wh_storage_bin_type_name bin_type_name,
+        pick.picking_area_name picking_area_name,
+        section.section_name,-->
+        type.type_name,
+        wh.wh_name
+        from dic_wh_storage_bin bin
+        left join dic_freeze_reason reason on bin.freeze_reason_code = reason.reason_code
+        <!--left join dic_wh_storage_bin_type binType on bin.bin_type_code = binType.dic_wh_storage_bin_type_code
+        left join dic_wh_picking_area pick on bin.picking_area_code = pick.picking_area_code
+        and bin.wh_code = pick.wh_code and bin.type_code = pick.type_code
+        left join dic_wh_storage_section section on section.section_code = bin.section_code AND section.type_code =
+        bin.type_code AND section.wh_code = bin.wh_code-->
+        left join dic_wh_storage_type type on type.type_code = bin.type_code AND type.wh_code = bin.wh_code
+        left join dic_wh wh on bin.wh_code = wh.wh_code
+        WHERE bin.is_delete = 0
+        <if test="whCode != null and whCode != ''">
+            AND bin.wh_code = #{whCode,jdbcType=VARCHAR}
+        </if>
+        <!-- <if test="typeCode != null and typeCode != ''">
+            AND bin.type_code = #{typeCode,jdbcType=VARCHAR}
+        </if> -->
+
+    <if test=" typeCode != null and typeCode !='' ">
+      	<if test="typeCode.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="typeCode.split(',')" open="" separator="or" close="">
+				bin.type_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="typeCode.indexOf(',') == -1">
+				and  (bin.type_code like CONCAT('%',#{typeCode},'%'))
+		</if>
+    </if>
+
+        <!-- <if test="binCode != null and binCode != ''">
+            AND bin.bin_code like CONCAT('%',#{binCode,jdbcType=VARCHAR},'%')
+        </if> -->
+
+    <if test=" binCode != null and binCode !='' ">
+    	<if test="binCode.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="binCode.split(',')" open="" separator="or" close="">
+				bin.bin_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="binCode.indexOf(',') == -1">
+				and (bin.bin_code like CONCAT('%',#{binCode},'%'))
+		</if>
+    </if>
+
+        <if test="sectionCode != null and sectionCode != ''">
+            AND bin.section_code = #{sectionCode,jdbcType=VARCHAR}
+        </if>
+        ORDER BY bin.create_time desc,bin.wh_code,bin.type_code,bin.section_code,bin.bin_code asc
+    </select>
+    <!-- 仓位 查询仓库号、存储类型和仓位是否存在-->
+    <select id="selectWhStorageBinCodeIsExist" parameterType="com.inossem.wms.co.dic.DicWhStorageBinListCo"
+            resultMap="VoResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dic_wh_storage_bin
+        WHERE wh_code = #{whCode,jdbcType=VARCHAR}
+        AND type_code = #{typeCode,jdbcType=VARCHAR}
+        AND bin_code = #{binCode,jdbcType=VARCHAR}
+    </select>
+    <select id="selectIsFreeze" parameterType="java.util.List"
+            resultMap="VoResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM dic_wh_storage_bin
+        WHERE freeze_input != 0 and freeze_output != 0 and (
+        <foreach collection="list" index="index" item="item" separator="or" open="" close="">
+            (wh_code = #{item.whCode} and type_code = #{item.typeCode} and bin_code = #{item.binCode})
+        </foreach> )
+    </select>
+    <!-- 仓位 查询仓库号、存储类型和仓位信息-->
+    <select id="getWhStorageBinInfo" parameterType="com.inossem.wms.co.dic.DicWhStorageBinListCo"
+            resultMap="VoResultMap">
+    SELECT
+    bin.wh_code,
+    bin.type_code,
+    bin.bin_code,
+    bin.section_code,
+    bin.bin_type_code,
+    bin.picking_area_code,
+    bin.freeze_input,
+    bin.freeze_output,
+    bin.freeze_reason_code,
+    bin.virtual_bin,
+    bin.storage_cell_type_code,
+    bin.storage_cell_max,
+    bin.weight_max,
+    bin.weight_unit_code,
+    bin.volume_max,
+    bin.volume_unit_code,
+    bin.used,
+    bin.x_coordinate,
+    bin.y_coordinate,
+    bin.z_coordinate,
+    bin.wh_storage_bin_ext0,
+    reason.reason_name,
+        <!--binType.dic_wh_storage_bin_type_name bin_type_name,
+        pick.picking_area_name picking_area_name,
+        section.section_name,-->
+    type.type_name,
+    wh.wh_name
+    FROM dic_wh_storage_bin bin
+    left join dic_freeze_reason reason on bin.freeze_reason_code = reason.reason_code
+    <!--left join dic_wh_storage_bin_type binType on bin.bin_type_code = binType.dic_wh_storage_bin_type_code
+    left join dic_wh_picking_area pick on bin.picking_area_code = pick.picking_area_code AND pick.type_code = bin.type_code AND pick.wh_code = bin.wh_code
+    left join dic_wh_storage_section section on section.section_code = bin.section_code AND section.type_code = bin.type_code AND section.wh_code = bin.wh_code
+    -->
+	left join dic_wh_storage_type type on type.type_code = bin.type_code AND type.wh_code = bin.wh_code
+	left join dic_wh wh on bin.wh_code = wh.wh_code
+    WHERE bin.wh_code = #{whCode,jdbcType=VARCHAR}
+    AND bin.type_code = #{typeCode,jdbcType=VARCHAR}
+    AND bin.bin_code = #{binCode,jdbcType=VARCHAR}
+    AND bin.is_delete = 0
+  </select>
+    <insert id="insertWhStorageBin" parameterType="com.inossem.wms.model.dic.DicWhStorageBin">
+        insert into dic_wh_storage_bin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="whCode != null">
+                wh_code,
+            </if>
+            <if test="typeCode != null">
+                type_code,
+            </if>
+            <if test="binCode != null">
+                bin_code,
+            </if>
+            <if test="sectionCode != null">
+                section_code,
+            </if>
+            <if test="pickingAreaCode != null">
+                picking_area_code,
+            </if>
+            <if test="freezeInput != null">
+                freeze_input,
+            </if>
+            <if test="freezeOutput != null">
+                freeze_output,
+            </if>
+            <if test="freezeReasonCode != null">
+                freeze_reason_code,
+            </if>
+            <if test="virtualBin != null">
+                virtual_bin,
+            </if>
+            <if test="binTypeCode != null">
+                bin_type_code,
+            </if>
+            <if test="storageCellTypeCode != null">
+                storage_cell_type_code,
+            </if>
+            <if test="storageCellMax != null">
+                storage_cell_max,
+            </if>
+            <if test="weightMax != null">
+                weight_max,
+            </if>
+            <if test="weightUnitCode != null">
+                weight_unit_code,
+            </if>
+            <if test="volumeMax != null">
+                volume_max,
+            </if>
+            <if test="volumeUnitCode != null">
+                volume_unit_code,
+            </if>
+            <if test="used != null">
+                used,
+            </if>
+            <if test="xCoordinate != null">
+                x_coordinate,
+            </if>
+            <if test="yCoordinate != null">
+                y_coordinate,
+            </if>
+            <if test="zCoordinate != null">
+                z_coordinate,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id,
+            </if>
+            <if test="stockBinModifyTime != null">
+                stock_bin_modify_time,
+            </if>
+            <if test="whStorageBinExt0 != null">
+                wh_storage_bin_ext0,
+            </if>
+            <if test="whStorageBinExt1 != null">
+                wh_storage_bin_ext1,
+            </if>
+            <if test="whStorageBinExt2 != null">
+                wh_storage_bin_ext2,
+            </if>
+            <if test="whStorageBinExt3 != null">
+                wh_storage_bin_ext3,
+            </if>
+            <if test="whStorageBinExt4 != null">
+                wh_storage_bin_ext4,
+            </if>
+            <if test="whStorageBinExt5 != null">
+                wh_storage_bin_ext5,
+            </if>
+            <if test="whStorageBinExt6 != null">
+                wh_storage_bin_ext6,
+            </if>
+            <if test="whStorageBinExt7 != null">
+                wh_storage_bin_ext7,
+            </if>
+            <if test="whStorageBinExt8 != null">
+                wh_storage_bin_ext8,
+            </if>
+            <if test="whStorageBinExt9 != null">
+                wh_storage_bin_ext9,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="whCode != null">
+                upper(#{whCode,jdbcType=VARCHAR}),
+            </if>
+            <if test="typeCode != null">
+                upper(#{typeCode,jdbcType=VARCHAR}),
+            </if>
+            <if test="binCode != null">
+                upper(#{binCode,jdbcType=VARCHAR}),
+            </if>
+            <if test="sectionCode != null">
+                upper(#{sectionCode,jdbcType=VARCHAR}),
+            </if>
+            <if test="pickingAreaCode != null">
+                #{pickingAreaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="freezeInput != null">
+                #{freezeInput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeOutput != null">
+                #{freezeOutput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeReasonCode != null">
+                #{freezeReasonCode,jdbcType=VARCHAR},
+            </if>
+            <if test="virtualBin != null">
+                #{virtualBin,jdbcType=VARCHAR},
+            </if>
+            <if test="binTypeCode != null">
+                #{binTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageCellTypeCode != null">
+                #{storageCellTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageCellMax != null">
+                #{storageCellMax,jdbcType=INTEGER},
+            </if>
+            <if test="weightMax != null">
+                #{weightMax,jdbcType=DECIMAL},
+            </if>
+            <if test="weightUnitCode != null">
+                #{weightUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="volumeMax != null">
+                #{volumeMax,jdbcType=DECIMAL},
+            </if>
+            <if test="volumeUnitCode != null">
+                #{volumeUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="used != null">
+                #{used,jdbcType=TINYINT},
+            </if>
+            <if test="xCoordinate != null">
+                #{xCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="yCoordinate != null">
+                #{yCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="zCoordinate != null">
+                #{zCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyUserId != null">
+                #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="stockBinModifyTime != null">
+                #{stockBinModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="whStorageBinExt0 != null">
+                #{whStorageBinExt0,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt1 != null">
+                #{whStorageBinExt1,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt2 != null">
+                #{whStorageBinExt2,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt3 != null">
+                #{whStorageBinExt3,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt4 != null">
+                #{whStorageBinExt4,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt5 != null">
+                #{whStorageBinExt5,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt6 != null">
+                #{whStorageBinExt6,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt7 != null">
+                #{whStorageBinExt7,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt8 != null">
+                #{whStorageBinExt8,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt9 != null">
+                #{whStorageBinExt9,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateWhStorageBin" parameterType="com.inossem.wms.model.dic.DicWhStorageBin">
+        update dic_wh_storage_bin
+        <set>
+            <if test="typeName != null">
+                type_name = #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="sectionCode != null">
+                section_code = #{sectionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pickingAreaCode != null">
+                picking_area_code = #{pickingAreaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="freezeInput != null">
+                freeze_input = #{freezeInput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeOutput != null">
+                freeze_output = #{freezeOutput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeReasonCode != null">
+                freeze_reason_code = #{freezeReasonCode,jdbcType=VARCHAR},
+            </if>
+            <if test="virtualBin != null">
+                virtual_bin = #{virtualBin,jdbcType=VARCHAR},
+            </if>
+            <if test="binTypeCode != null">
+                bin_type_code = #{binTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageCellTypeCode != null">
+                storage_cell_type_code = #{storageCellTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageCellMax != null">
+                storage_cell_max = #{storageCellMax,jdbcType=INTEGER},
+            </if>
+            <if test="weightMax != null">
+                weight_max = #{weightMax,jdbcType=DECIMAL},
+            </if>
+            <if test="weightUnitCode != null">
+                weight_unit_code = #{weightUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="volumeMax != null">
+                volume_max = #{volumeMax,jdbcType=DECIMAL},
+            </if>
+            <if test="volumeUnitCode != null">
+                volume_unit_code = #{volumeUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="used != null">
+                used = #{used,jdbcType=TINYINT},
+            </if>
+            <if test="xCoordinate != null">
+                x_coordinate = #{xCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="yCoordinate != null">
+                y_coordinate = #{yCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="zCoordinate != null">
+                z_coordinate = #{zCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="whStorageBinExt0 != null">
+                wh_storage_bin_ext0 = #{whStorageBinExt0,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt1 != null">
+                wh_storage_bin_ext1 = #{whStorageBinExt1,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt2 != null">
+                wh_storage_bin_ext2 = #{whStorageBinExt2,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt3 != null">
+                wh_storage_bin_ext3 = #{whStorageBinExt3,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt4 != null">
+                wh_storage_bin_ext4 = #{whStorageBinExt4,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt5 != null">
+                wh_storage_bin_ext5 = #{whStorageBinExt5,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt6 != null">
+                wh_storage_bin_ext6 = #{whStorageBinExt6,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt7 != null">
+                wh_storage_bin_ext7 = #{whStorageBinExt7,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt8 != null">
+                wh_storage_bin_ext8 = #{whStorageBinExt8,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt9 != null">
+                wh_storage_bin_ext9 = #{whStorageBinExt9,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where wh_code = #{whCode,jdbcType=VARCHAR}
+        and type_code = #{typeCode,jdbcType=VARCHAR}
+        and bin_code = #{binCode,jdbcType=VARCHAR}
+    </update>
+    <update id="updateWhStorageBinByList" parameterType="java.util.List">
+    	<foreach collection="list" open="" separator=" ;" close="" index="index" item="item">
+			update dic_wh_storage_bin
+        <set>
+            <if test="item.freezeInput != null">
+                freeze_input = #{item.freezeInput,jdbcType=TINYINT},
+            </if>
+            <if test="item.freezeOutput != null">
+                freeze_output = #{item.freezeOutput,jdbcType=TINYINT},
+            </if>
+            <if test="item.used != null">
+                used = #{item.used,jdbcType=TINYINT},
+            </if>
+        </set>
+        where wh_code = #{item.whCode,jdbcType=VARCHAR}
+        and type_code = #{item.typeCode,jdbcType=VARCHAR}
+        and bin_code = #{item.binCode,jdbcType=VARCHAR}
+		</foreach>
+    </update>
+    <update id="updateWhStorageBinByMatList" parameterType="java.util.List">
+    	<foreach collection="list" open="" separator=" ;" close="" index="index" item="item">
+			update dic_wh_storage_bin
+        <set>
+            <!-- <if test="item.typeName != null and item.typeName != ''">
+                type_name = #{item.typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="item.sectionCode != null and item.sectionCode != ''">
+                section_code = #{item.sectionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="item.pickingAreaCode != null and item.pickingAreaCode != ''">
+                picking_area_code = #{item.pickingAreaCode,jdbcType=VARCHAR},
+            </if> -->
+            <if test="item.freezeInput != null">
+                freeze_input = #{item.freezeInput,jdbcType=TINYINT},
+            </if>
+            <if test="item.freezeOutput != null">
+                freeze_output = #{item.freezeOutput,jdbcType=TINYINT},
+            </if>
+            <!-- <if test="item.freezeReasonCode != null and item.freezeReasonCode != ''">
+                freeze_reason_code = #{item.freezeReasonCode,jdbcType=VARCHAR},
+            </if>
+            <if test="item.virtualBin != null and item.virtualBin != ''">
+                virtual_bin = #{item.virtualBin,jdbcType=VARCHAR},
+            </if>
+            <if test="item.binTypeCode != null and item.binTypeCode != ''">
+                bin_type_code = #{item.binTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="item.storageCellTypeCode != null">
+                storage_cell_type_code = #{item.storageCellTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="item.storageCellMax != null">
+                storage_cell_max = #{item.storageCellMax,jdbcType=INTEGER},
+            </if>
+            <if test="item.weightMax != null">
+                weight_max = #{item.weightMax,jdbcType=DECIMAL},
+            </if>
+            <if test="item.weightUnitCode != null and item.weightUnitCode != ''">
+                weight_unit_code = #{item.weightUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="item.volumeMax != null">
+                volume_max = #{item.volumeMax,jdbcType=DECIMAL},
+            </if>
+            <if test="item.volumeUnitCode != null and item.volumeUnitCode != ''">
+                volume_unit_code = #{item.volumeUnitCode,jdbcType=VARCHAR},
+            </if> -->
+            <!-- <if test="item.used != null">
+                used = #{item.used,jdbcType=TINYINT},
+            </if> -->
+            <!-- <if test="item.xCoordinate != null">
+                x_coordinate = #{item.xCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="item.yCoordinate != null">
+                y_coordinate = #{item.yCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="item.zCoordinate != null">
+                z_coordinate = #{item.zCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="item.isDelete != null">
+                is_delete = #{item.isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="item.createUserId != null">
+                create_user_id = #{item.createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="item.modifyUserId != null">
+                modify_user_id = #{item.modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="item.whStorageBinExt0 != null and item.whStorageBinExt0 != ''">
+                wh_storage_bin_ext0 = #{item.whStorageBinExt0,jdbcType=VARCHAR},
+            </if>
+            <if test="item.whStorageBinExt1 != null and item.whStorageBinExt1 != ''">
+                wh_storage_bin_ext1 = #{item.whStorageBinExt1,jdbcType=VARCHAR},
+            </if>
+            <if test="item.whStorageBinExt2 != null and item.whStorageBinExt2 != ''">
+                wh_storage_bin_ext2 = #{item.whStorageBinExt2,jdbcType=VARCHAR},
+            </if>
+            <if test="item.whStorageBinExt3 != null and item.whStorageBinExt3 != ''">
+                wh_storage_bin_ext3 = #{item.whStorageBinExt3,jdbcType=VARCHAR},
+            </if>
+            <if test="item.whStorageBinExt4 != null and item.whStorageBinExt4 != ''">
+                wh_storage_bin_ext4 = #{whStorageBinExt4,jdbcType=VARCHAR},
+            </if>
+            <if test="item.whStorageBinExt5 != null and item.whStorageBinExt5 != ''">
+                wh_storage_bin_ext5 = #{item.whStorageBinExt5,jdbcType=VARCHAR},
+            </if>
+            <if test="item.whStorageBinExt6 != null and item.whStorageBinExt6 != ''">
+                wh_storage_bin_ext6 = #{item.whStorageBinExt6,jdbcType=VARCHAR},
+            </if>
+            <if test="item.whStorageBinExt7 != null and item.whStorageBinExt7 != ''">
+                wh_storage_bin_ext7 = #{item.whStorageBinExt7,jdbcType=VARCHAR},
+            </if>
+            <if test="item.whStorageBinExt8 != null and item.whStorageBinExt8 != ''">
+                wh_storage_bin_ext8 = #{item.whStorageBinExt8,jdbcType=VARCHAR},
+            </if>
+            <if test="item.whStorageBinExt9 != null and item.whStorageBinExt9 != ''">
+                wh_storage_bin_ext9 = #{item.whStorageBinExt9,jdbcType=VARCHAR},
+            </if> -->
+        </set>
+        where wh_code = #{item.whCode,jdbcType=VARCHAR}
+        and type_code = #{item.typeCode,jdbcType=VARCHAR}
+        and bin_code = #{item.binCode,jdbcType=VARCHAR}
+		</foreach>
+    </update>
+    <update id="deleteWhStorageBin" parameterType="com.inossem.wms.model.dic.DicWhStorageBinKey">
+    update dic_wh_storage_bin set is_delete = '1' where wh_code = #{whCode,jdbcType=VARCHAR} and type_code = #{typeCode,jdbcType=VARCHAR} and bin_code = #{binCode,jdbcType=VARCHAR}
+  </update>
+    <!-- 修改仓位使用状态信息 -->
+    <update id="updateUsed" parameterType="com.inossem.wms.model.dic.DicWhStorageBinKey">
+    UPDATE dic_wh_storage_bin
+    SET used = CASE WHEN (
+		SELECT COUNT(*)
+		FROM stock_bin
+		WHERE wh_code = #{whCode,jdbcType=VARCHAR}
+		AND type_code = #{typeCode,jdbcType=VARCHAR}
+		AND bin_code = #{binCode,jdbcType=VARCHAR}
+		LIMIT 1
+    ) > 0 THEN 1 ELSE 0 END,stock_bin_modify_time = NOW(6)
+    WHERE wh_code = #{whCode,jdbcType=VARCHAR}
+    AND type_code = #{typeCode,jdbcType=VARCHAR}
+    AND bin_code = #{binCode,jdbcType=VARCHAR}
+  </update>
+    <select id="selectWhStorageBinListByZoneAndBin" parameterType="com.inossem.wms.co.dic.DicWhStorageBinListCo"
+            resultMap="VoResultMap">
+        SELECT distinct
+        bin.wh_code,
+        bin.type_code,
+        bin.bin_code,
+        bin.section_code,
+        bin.picking_area_code,
+        bin.stock_bin_modify_time,
+        bin.freeze_input,
+        bin.freeze_output,
+        bin.freeze_reason_code,
+        bin.virtual_bin,
+        bin.storage_cell_type_code,
+        bin.storage_cell_max,
+        bin.weight_max,
+        bin.weight_unit_code,
+        bin.volume_max,
+        bin.volume_unit_code,
+        case when stb.bin_code is null then 0 else 1 end used,
+        bin.create_time,
+        bin.modify_time,
+        bin.create_user_id,
+        bin.modify_user_id,
+        type.type_name,
+        wh.wh_name
+        FROM dic_wh_storage_bin bin
+        INNER JOIN dic_wh_storage_type type ON type.type_code = bin.type_code and type.wh_code = bin.wh_code
+        INNER JOIN dic_wh wh ON wh.wh_code = bin.wh_code
+        left join sinobec_stock stb on stb.type_code = bin.type_code and stb.wh_code = bin.wh_code and stb.bin_code = bin.bin_code
+        left join sinobec_dic_bundle_info sdbi on stb.bundle_code = sdbi.bundle_code
+        left join dic_material dm on sdbi.mat_code = dm.mat_code
+        WHERE 1 = 1 AND bin.freeze_input = 0 AND bin.freeze_output = 0 <!-- and bin.type_code not in ('IB','OB') -->
+        <if test="matGroupCode != null and matGroupCode != ''">
+            AND dm.mat_group_code = #{matGroupCode,jdbcType=VARCHAR}
+        </if>
+        <if test="whCode != null and whCode != ''">
+            AND bin.wh_code = #{whCode,jdbcType=VARCHAR}
+        </if>
+        <if test=" typeCode != null and typeCode !='' ">
+    	<if test="typeCode.indexOf(',') != -1">
+		    <!-- and  type_code in -->
+		    and (
+			<foreach item="item" index="index" collection="typeCode.split(',')"  open="" separator="or" close="">
+				<!-- #{item} -->
+				bin.type_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="typeCode.indexOf(',') == -1">
+				and  (bin.type_code like CONCAT('%',#{typeCode},'%'))
+		</if>
+   		</if>
+        <!-- <if test="typeCode != null and typeCode != ''">
+            AND bin.type_code = #{typeCode,jdbcType=VARCHAR}
+        </if> -->
+        <if test=" binCode != null and binCode !='' ">
+    	<if test="binCode.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="binCode.split(',')" open="" separator="or" close="">
+				bin.bin_code like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="binCode.indexOf(',') == -1">
+				and ( bin.bin_code like CONCAT('%',#{binCode},'%'))
+		</if>
+    	</if>
+        <!--  <if test="binCode != null and binCode != ''">-->
+            <!-- AND bin.bin_code = #{binCode,jdbcType=VARCHAR} -->
+         <!--   AND bin.bin_code like CONCAT('%',#{binCode,jdbcType=VARCHAR},'%')
+        </if>-->
+        <if test="beginDate != null and beginDate != ''">
+            AND bin.stock_bin_modify_time <![CDATA[ >= ]]> #{beginDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            AND bin.stock_bin_modify_time <![CDATA[ <= ]]> date_add(#{endDate},interval 1 day)
+        </if>
+        <if test="binEnableFlag !=null">
+	     	 AND wh.bin_enabled = #{binEnableFlag,jdbcType=VARCHAR}
+	  	</if>
+
+	  	<if test="matCode != null and matCode != ''">
+            AND sdbi.mat_code = #{matCode,	jdbcType=VARCHAR	}
+        </if>
+        <if test="lotNumb != null and lotNumb != ''">
+            AND sdbi.lot_numb = #{lotNumb,	jdbcType=VARCHAR	}
+        </if>
+	  	<if test="ext0 != null and ext0 != ''">
+            AND sdbi.ext0 = #{ext0,	jdbcType=VARCHAR	}
+        </if>
+	  	<if test="ext1 != null and ext1 != ''">
+            AND sdbi.ext1 = #{ext1,	jdbcType=VARCHAR	}
+        </if>
+	  	<if test="typeSet !=null and typeSet.size()>0">
+	  		AND bin.type_code NOT IN
+			<foreach collection="typeSet" open="(" separator="," close=")" index="index" item="item">
+				#{item}
+			</foreach>
+	  	</if>
+
+        order by bin.bin_code asc,bin.modify_time desc
+    </select>
+    <select id="selectWhStorageBinList" parameterType="com.inossem.wms.co.dic.DicWhStorageBinListCo"
+            resultMap="VoResultMap">
+        SELECT distinct
+        bin.wh_code,
+        bin.type_code,
+        bin.bin_code,
+        bin.section_code,
+        bin.picking_area_code,
+        bin.stock_bin_modify_time,
+        bin.freeze_input,
+        bin.freeze_output,
+        bin.freeze_reason_code,
+        bin.virtual_bin,
+        bin.storage_cell_type_code,
+        bin.storage_cell_max,
+        bin.weight_max,
+        bin.weight_unit_code,
+        bin.volume_max,
+        bin.volume_unit_code,
+        case when stb.bin_code is null then 0 else 1 end used,
+        bin.create_time,
+        bin.modify_time,
+        bin.create_user_id,
+        bin.modify_user_id,
+        type.type_name,
+        wh.wh_name
+        FROM dic_wh_storage_bin bin
+        INNER JOIN dic_wh_storage_type type ON type.type_code = bin.type_code and type.wh_code = bin.wh_code
+        INNER JOIN dic_wh wh ON wh.wh_code = bin.wh_code
+        left join sinobec_stock stb on stb.type_code = bin.type_code and stb.wh_code = bin.wh_code and stb.bin_code = bin.bin_code
+        left join sinobec_dic_bundle_info sdbi on stb.bundle_code = sdbi.bundle_code
+        left join dic_material dm on sdbi.mat_code = dm.mat_code
+        WHERE 1 = 1
+        <if test="matGroupCode != null and matGroupCode != ''">
+            AND dm.mat_group_code = #{matGroupCode,jdbcType=VARCHAR}
+        </if>
+        <if test="whCode != null and whCode != ''">
+            AND bin.wh_code = #{whCode,jdbcType=VARCHAR}
+        </if>
+        <if test="typeCode != null and typeCode != ''">
+            AND bin.type_code = #{typeCode,jdbcType=VARCHAR}
+        </if>
+        <if test="binCode != null and binCode != ''">
+            <!-- AND bin.bin_code = #{binCode,jdbcType=VARCHAR} -->
+            AND bin.bin_code like CONCAT('%',#{binCode,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="beginDate != null and beginDate != ''">
+            AND bin.stock_bin_modify_time <![CDATA[ >= ]]> #{beginDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            AND bin.stock_bin_modify_time <![CDATA[ <= ]]> date_add(#{endDate},interval 1 day)
+        </if>
+        <if test="binEnableFlag !=null">
+	     	 AND wh.bin_enabled = #{binEnableFlag,jdbcType=VARCHAR}
+	  	</if>
+
+	  	<if test="matCode != null and matCode != ''">
+            AND sdbi.mat_code = #{matCode,	jdbcType=VARCHAR	}
+        </if>
+	  	<if test="ext0 != null and ext0 != ''">
+            AND sdbi.ext0 = #{ext0,	jdbcType=VARCHAR	}
+        </if>
+	  	<if test="ext1 != null and ext1 != ''">
+            AND sdbi.ext1 = #{ext1,	jdbcType=VARCHAR	}
+        </if>
+	  	<if test="typeSet !=null and typeSet.size()>0">
+	  		AND bin.type_code NOT IN
+			<foreach collection="typeSet" open="(" separator="," close=")" index="index" item="item">
+				#{item}
+			</foreach>
+	  	</if>
+
+        order by bin.bin_code asc,bin.modify_time desc
+    </select>
+    <!-- 仓位 查询仓位列表-->
+    <select id="getAllWhStorageBinList" parameterType="java.lang.String" resultMap="VoResultMap">
+    select
+    	bin.wh_code,
+    	bin.type_code,
+    	bin.bin_code,
+    	bin.section_code,
+    	bin.picking_area_code,
+    	bin.freeze_input,
+    	bin.freeze_output,
+    	bin.freeze_reason_code,
+    	bin.virtual_bin,
+    	bin.storage_cell_type_code,
+    	bin.storage_cell_max,
+    	bin.weight_max,
+    	bin.weight_unit_code,
+    	bin.volume_max,
+    	bin.volume_unit_code,
+    	bin.used,
+    	bin.x_coordinate,
+    	bin.y_coordinate,
+    	bin.z_coordinate
+	from dic_wh_storage_bin bin
+	WHERE bin.is_delete = 0
+     	AND bin.wh_code = #{whCode,jdbcType=VARCHAR}
+     	AND bin.type_code = #{typeCode,jdbcType=VARCHAR}
+	ORDER BY bin.create_time desc,bin.wh_code,bin.type_code,bin.section_code,bin.bin_code asc
+  </select>
+    <!--批量维护数据-->
+    <update id="doBatchMaintenance" parameterType="com.inossem.wms.vo.dic.DicWhStorageBinVo">
+        UPDATE
+        dic_wh_storage_bin
+        SET
+        section_code = #{sectionCode,jdbcType=VARCHAR}
+        <if test="pickingAreaCode != null">
+            ,picking_area_code = #{pickingAreaCode,jdbcType=VARCHAR}
+        </if>
+        <if test="freezeInput != null">
+            ,freeze_input = #{freezeInput,jdbcType=TINYINT}
+        </if>
+        <if test="freezeOutput != null">
+            ,freeze_output = #{freezeOutput,jdbcType=TINYINT}
+        </if>
+        <if test="freezeReasonCode != null">
+            ,freeze_reason_code = #{freezeReasonCode,jdbcType=VARCHAR}
+        </if>
+        <if test="storageCellMax != null">
+            ,storage_cell_max = #{storageCellMax,jdbcType=INTEGER}
+        </if>
+        <if test="storageCellTypeCode != null">
+            ,storage_cell_type_code = #{storageCellTypeCode,jdbcType=VARCHAR}
+        </if>
+        <if test="weightMax != null">
+            ,weight_max = #{weightMax,jdbcType=DECIMAL}
+        </if>
+        <if test="volumeMax != null">
+            ,volume_max = #{volumeMax,jdbcType=DECIMAL}
+        </if>
+        WHERE
+        <foreach collection="keyList" index="index" item="item" separator="or" open="" close="">
+            (wh_code = #{item.whCode} and type_code = #{item.typeCode} and bin_code = #{item.binCode})
+        </foreach>
+    </update>
+    <!-- 修改仓位冻结状态 -->
+    <update id="updateFreezeStatus" parameterType="com.inossem.wms.model.dic.DicWhStorageBinKey">
+        UPDATE dic_wh_storage_bin
+        SET
+        <if test="freezeReason != null">
+            freeze_reason_code = #{freezeReason},
+        </if>
+        freeze_input = #{freezeStatus},
+        freeze_output = #{freezeStatus}
+        WHERE wh_code = #{whCode,jdbcType=VARCHAR}
+        AND type_code = #{typeCode,jdbcType=VARCHAR}
+        AND bin_code = #{binCode,jdbcType=VARCHAR}
+    </update>
+
+
+
+    <insert id="insertOrUpdateDicWhStorageBin" parameterType="com.inossem.wms.model.dic.DicWhStorageBin">
+        insert into dic_wh_storage_bin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="whCode != null">
+                wh_code,
+            </if>
+            <if test="typeCode != null">
+                type_code,
+            </if>
+            <if test="binCode != null">
+                bin_code,
+            </if>
+            <if test="sectionCode != null">
+                section_code,
+            </if>
+            <if test="pickingAreaCode != null">
+                picking_area_code,
+            </if>
+            <if test="freezeInput != null">
+                freeze_input,
+            </if>
+            <if test="freezeOutput != null">
+                freeze_output,
+            </if>
+            <if test="freezeReasonCode != null">
+                freeze_reason_code,
+            </if>
+            <if test="virtualBin != null">
+                virtual_bin,
+            </if>
+            <if test="storageCellTypeCode != null">
+                storage_cell_type_code,
+            </if>
+            <if test="storageCellMax != null">
+                storage_cell_max,
+            </if>
+            <if test="weightMax != null">
+                weight_max,
+            </if>
+            <if test="weightUnitCode != null">
+                weight_unit_code,
+            </if>
+            <if test="volumeMax != null">
+                volume_max,
+            </if>
+            <if test="volumeUnitCode != null">
+                volume_unit_code,
+            </if>
+            <if test="used != null">
+                used,
+            </if>
+            <if test="xCoordinate != null">
+                x_coordinate,
+            </if>
+            <if test="yCoordinate != null">
+                y_coordinate,
+            </if>
+            <if test="zCoordinate != null">
+                z_coordinate,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id,
+            </if>
+            <if test="stockBinModifyTime != null">
+                stock_bin_modify_time,
+            </if>
+            <if test="whStorageBinExt0 != null">
+                wh_storage_bin_ext0,
+            </if>
+            <if test="whStorageBinExt1 != null">
+                wh_storage_bin_ext1,
+            </if>
+            <if test="whStorageBinExt2 != null">
+                wh_storage_bin_ext2,
+            </if>
+            <if test="whStorageBinExt3 != null">
+                wh_storage_bin_ext3,
+            </if>
+            <if test="whStorageBinExt4 != null">
+                wh_storage_bin_ext4,
+            </if>
+            <if test="whStorageBinExt5 != null">
+                wh_storage_bin_ext5,
+            </if>
+            <if test="whStorageBinExt6 != null">
+                wh_storage_bin_ext6,
+            </if>
+            <if test="whStorageBinExt7 != null">
+                wh_storage_bin_ext7,
+            </if>
+            <if test="whStorageBinExt8 != null">
+                wh_storage_bin_ext8,
+            </if>
+            <if test="whStorageBinExt9 != null">
+                wh_storage_bin_ext9,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="whCode != null">
+                #{whCode,jdbcType=VARCHAR},
+            </if>
+            <if test="typeCode != null">
+                #{typeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="binCode != null">
+                #{binCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sectionCode != null">
+                #{sectionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pickingAreaCode != null">
+                #{pickingAreaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="freezeInput != null">
+                #{freezeInput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeOutput != null">
+                #{freezeOutput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeReasonCode != null">
+                #{freezeReasonCode,jdbcType=VARCHAR},
+            </if>
+            <if test="virtualBin != null">
+                #{virtualBin,jdbcType=TINYINT},
+            </if>
+            <if test="storageCellTypeCode != null">
+                #{storageCellTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageCellMax != null">
+                #{storageCellMax,jdbcType=INTEGER},
+            </if>
+            <if test="weightMax != null">
+                #{weightMax,jdbcType=DECIMAL},
+            </if>
+            <if test="weightUnitCode != null">
+                #{weightUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="volumeMax != null">
+                #{volumeMax,jdbcType=DECIMAL},
+            </if>
+            <if test="volumeUnitCode != null">
+                #{volumeUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="used != null">
+                #{used,jdbcType=TINYINT},
+            </if>
+            <if test="xCoordinate != null">
+                #{xCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="yCoordinate != null">
+                #{yCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="zCoordinate != null">
+                #{zCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyUserId != null">
+                #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="stockBinModifyTime != null">
+                #{stockBinModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="whStorageBinExt0 != null">
+                #{whStorageBinExt0,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt1 != null">
+                #{whStorageBinExt1,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt2 != null">
+                #{whStorageBinExt2,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt3 != null">
+                #{whStorageBinExt3,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt4 != null">
+                #{whStorageBinExt4,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt5 != null">
+                #{whStorageBinExt5,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt6 != null">
+                #{whStorageBinExt6,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt7 != null">
+                #{whStorageBinExt7,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt8 != null">
+                #{whStorageBinExt8,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt9 != null">
+                #{whStorageBinExt9,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        <trim prefix=" " suffix=" " suffixOverrides=",">
+            <if test="sectionCode != null">
+                section_code = #{sectionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pickingAreaCode != null">
+                picking_area_code = #{pickingAreaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="freezeInput != null">
+                freeze_input = #{freezeInput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeOutput != null">
+                freeze_output = #{freezeOutput,jdbcType=TINYINT},
+            </if>
+            <if test="freezeReasonCode != null">
+                freeze_reason_code = #{freezeReasonCode,jdbcType=VARCHAR},
+            </if>
+            <if test="virtualBin != null">
+                virtual_bin = #{virtualBin,jdbcType=VARCHAR},
+            </if>
+            <if test="binTypeCode != null">
+                bin_type_code = #{binTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageCellTypeCode != null">
+                storage_cell_type_code = #{storageCellTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageCellMax != null">
+                storage_cell_max = #{storageCellMax,jdbcType=INTEGER},
+            </if>
+            <if test="weightMax != null">
+                weight_max = #{weightMax,jdbcType=DECIMAL},
+            </if>
+            <if test="weightUnitCode != null">
+                weight_unit_code = #{weightUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="volumeMax != null">
+                volume_max = #{volumeMax,jdbcType=DECIMAL},
+            </if>
+            <if test="volumeUnitCode != null">
+                volume_unit_code = #{volumeUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="used != null">
+                used = #{used,jdbcType=TINYINT},
+            </if>
+            <if test="xCoordinate != null">
+                x_coordinate = #{xCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="yCoordinate != null">
+                y_coordinate = #{yCoordinate,jdbcType=DECIMAL},
+            </if>
+            <if test="zCoordinate != null">
+                z_coordinate = #{zCoordinate,jdbcType=DECIMAL},
+            </if>
+            <!-- <if test="isDelete != null"> -->
+            is_delete = 0,
+            <!-- </if> -->
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="whStorageBinExt0 != null">
+                wh_storage_bin_ext0 = #{whStorageBinExt0,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt1 != null">
+                wh_storage_bin_ext1 = #{whStorageBinExt1,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt2 != null">
+                wh_storage_bin_ext2 = #{whStorageBinExt2,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt3 != null">
+                wh_storage_bin_ext3 = #{whStorageBinExt3,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt4 != null">
+                wh_storage_bin_ext4 = #{whStorageBinExt4,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt5 != null">
+                wh_storage_bin_ext5 = #{whStorageBinExt5,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt6 != null">
+                wh_storage_bin_ext6 = #{whStorageBinExt6,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt7 != null">
+                wh_storage_bin_ext7 = #{whStorageBinExt7,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt8 != null">
+                wh_storage_bin_ext8 = #{whStorageBinExt8,jdbcType=VARCHAR},
+            </if>
+            <if test="whStorageBinExt9 != null">
+                wh_storage_bin_ext9 = #{whStorageBinExt9,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getWhStorageBinListByWhCode" parameterType="com.inossem.wms.co.dic.DicWhStorageBinListCo"
+            resultMap="VoResultMap">
+        select
+        bin.wh_code,
+        bin.type_code,
+        group_concat(bin.bin_code)bin_code,
+        type.type_name,
+        type.cell_enabled
+        from dic_wh_storage_bin bin
+        inner join dic_wh_storage_type type on type.wh_code = bin.wh_code and bin.type_code = type.type_code
+        WHERE bin.is_delete = 0
+        AND bin.wh_code = #{whCode,jdbcType=VARCHAR}
+        AND bin.type_code NOT IN
+        <foreach collection="allTypeSet" open="(" separator="," close=")" index="index" item="item">
+            #{item}
+        </foreach>
+        group by bin.wh_code,bin.type_code,type.type_name
+    </select>
+    <select id="selectWhStorageBinListOrderXYZ" resultMap="VoResultMap">
+        SELECT
+        bin.wh_code,
+        bin.type_code,
+        bin.bin_code,
+        bin.section_code,
+        bin.picking_area_code,
+        bin.stock_bin_modify_time,
+        bin.freeze_input,
+        bin.freeze_output,
+        bin.freeze_reason_code,
+        bin.virtual_bin,
+        bin.storage_cell_type_code,
+        bin.storage_cell_max,
+        bin.weight_max,
+        bin.weight_unit_code,
+        bin.volume_max,
+        bin.volume_unit_code,
+        bin.used,
+        bin.create_time,
+        bin.modify_time,
+        bin.create_user_id,
+        bin.modify_user_id,
+        type.type_name
+        FROM dic_wh_storage_bin bin
+        INNER JOIN dic_wh_storage_type type ON type.type_code = bin.type_code and type.wh_code = bin.wh_code
+        WHERE bin.wh_code = #{co.whCode,jdbcType=VARCHAR}
+        <if test="co.typeCode != null and co.typeCode != ''">
+            AND bin.type_code = #{co.typeCode,jdbcType=VARCHAR}
+        </if>
+        <if test="co.binCode != null and co.binCode != ''">
+            AND bin.bin_code = #{co.binCode,jdbcType=VARCHAR}
+        </if>
+        <if test="co.used != null">
+            AND bin.used = #{co.used,jdbcType=TINYINT}
+        </if>
+        ORDER BY
+        bin.${one},
+        bin.${two},
+        bin.${three} ASC
+    </select>
+    <select id="selectBinByInsDocBin" parameterType="java.util.List"
+            resultType="com.inossem.wms.model.dic.DicWhStorageBin">
+        SELECT
+        wh_code whCode,
+        type_code typeCode,
+        bin_code binCode,
+        weight_unit_code weightUnitCode
+        FROM dic_wh_storage_bin
+        WHERE
+        <choose>
+            <when test="list!=null and list.size()>0">
+            	(wh_code,type_code,bin_code) in
+                <foreach collection="list" open="(" separator="," close=")" index="index" item="item">
+
+                        ( #{item.whCode},
+                          #{item.typeCode},
+                          #{item.binCode}
+
+                        )
+
+                </foreach>
+            </when>
+            <otherwise>
+                1=0
+            </otherwise>
+        </choose>
+    </select>
+    <select id="getRecommendBin"
+            resultType="com.inossem.wms.vo.dic.DicWhStorageBinVo">
+     SELECT
+		sb.wh_code,
+		sb.type_code,
+		sb.bin_code,
+		(
+			sb.weight_max - (
+				sb.current_weight + IFNULL(temp.temp_qty, 0)
+			) - #{tempQty}
+		) can_use_weight,
+		sb.weight_unit_code
+	FROM
+		dic_wh_storage_bin sb
+	INNER JOIN dic_material dm ON sb.bin_type_code = dm.mat_type_code
+	AND mat_code = #{matCode}
+	LEFT JOIN (
+
+		SELECT
+			a.wh_code,
+			a.type_code,
+			a.bin_code,
+			SUM(temp_qty) temp_qty
+		FROM
+			(
+				SELECT
+					'' wh_code,
+					'' type_code,
+					'' bin_code,
+					0 temp_qty
+				<if test="tempTaskList != null and tempTaskList.size() > 0 ">
+					UNION ALL
+					<foreach collection="tempTaskList" item="item" index="index" separator="UNION ALL">
+						SELECT
+						#{item.whCode} wh_code,
+						#{item.targetTypeCode} type_code,
+						#{item.targetBinCode} bin_code,
+						#{item.binWeightQty} temp_qty
+					</foreach>
+				</if>
+			) a
+		GROUP BY
+			a.wh_code,
+			a.type_code,
+			a.bin_code
+	) temp ON sb.wh_code = temp.wh_code
+	AND sb.type_code = temp.type_code
+	AND sb.bin_code = temp.bin_code
+	HAVING
+		can_use_weight >= 0
+	ORDER BY
+		can_use_weight,
+		sb.wh_code,
+		sb.type_code,
+		sb.bin_code
+	LIMIT 1
+    </select>
+
+    <select id="checkBinWeight" resultType="com.inossem.wms.vo.dic.DicWhStorageBinVo">
+     SELECT
+		sb.wh_code,
+		sb.type_code,
+		sb.bin_code,
+		(
+			sb.weight_max - (
+				sb.current_weight + IFNULL(temp.temp_qty, 0)
+			)
+		) can_use_weight,
+		sb.weight_unit_code
+	FROM
+		dic_wh_storage_bin sb
+	INNER JOIN (
+
+		SELECT
+			a.wh_code,
+			a.type_code,
+			a.bin_code,
+			SUM(temp_qty) temp_qty
+		FROM
+			(
+				SELECT
+					'' wh_code,
+					'' type_code,
+					'' bin_code,
+					0 temp_qty
+				<if test="taskList != null and taskList.size() > 0 ">
+					UNION ALL
+					<foreach collection="taskList" item="item" index="index" separator="UNION ALL">
+						SELECT
+						#{item.whCode} wh_code,
+						#{item.targetTypeCode} type_code,
+						#{item.targetBinCode} bin_code,
+						#{item.binWeightQty} temp_qty
+					</foreach>
+				</if>
+			) a
+		GROUP BY
+			a.wh_code,
+			a.type_code,
+			a.bin_code
+	) temp ON sb.wh_code = temp.wh_code
+	AND sb.type_code = temp.type_code
+	AND sb.bin_code = temp.bin_code
+	HAVING
+		can_use_weight <![CDATA[<]]> 0
+    </select>
+
+
+</mapper>

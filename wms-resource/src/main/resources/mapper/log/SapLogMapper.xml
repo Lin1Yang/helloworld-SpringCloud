@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.log.SapLogMapper">
+	<resultMap id="BaseResultMap"
+		type="com.inossem.wms.model.log.SapLogModel">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="result" jdbcType="VARCHAR" property="result" />
+		<result column="return_msg" jdbcType="VARCHAR"
+			property="returnMsg" />
+		<result column="request_source" jdbcType="VARCHAR"
+			property="requestSource" />
+		<result column="interface_type" jdbcType="VARCHAR"
+			property="interfaceType" />
+		<result column="equipment_number" jdbcType="VARCHAR"
+			property="equipmentNumber" />
+		<result column="receipt_code" jdbcType="VARCHAR"
+			property="receiptCode" />
+		<result column="data_flow_direction" jdbcType="VARCHAR"
+			property="dataFlowDirection" />
+		<result column="url" jdbcType="VARCHAR" property="url" />
+		<result column="in_param" jdbcType="VARCHAR" property="inParam" />
+		<result column="out_param" jdbcType="VARCHAR"
+			property="outParam" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="request_type" jdbcType="VARCHAR"
+			property="requestType" />
+		<result column="create_Date" jdbcType="DATE"
+			property="createDate" />
+		<result column="create_Time" jdbcType="TIME"
+			property="createTime" />
+		<result column="exec_status" jdbcType="VARCHAR"
+			property="execStatus" />
+		<result column="exec_code" jdbcType="VARCHAR"
+			property="execCode" />
+		<result column="exec_description" jdbcType="VARCHAR"
+			property="execDescription" />
+	</resultMap>
+
+	<select id="SapLogOnListing"
+		parameterType="com.inossem.wms.model.log.LogSearchConditionModel"
+		resultMap="BaseResultMap">
+		select *
+		from log_saplog
+		WHERE 1 = 1
+		<if test="createDate != null and endDate != null">
+			AND DATE(create_Date) BETWEEN #{createDate,
+			jdbcType=TIMESTAMP} AND #{endDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="interfaceType != null and interfaceType !=''">
+			AND interface_Type = #{interfaceType}
+		</if>
+		<if test="receiptCode != null and receiptCode !=''">
+			AND receipt_code = #{receiptCode}
+		</if>
+		LIMIT #{totalCount,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<select id="SapLogPages" parameterType="com.inossem.wms.model.log.LogSearchConditionModel" resultType="java.lang.Integer">
+		select
+		count(*)
+		from log_saplog
+		WHERE 1 = 1
+		<if test="createDate != null and endDate != null">
+			AND DATE(create_Date) BETWEEN #{createDate,
+			jdbcType=TIMESTAMP} AND #{endDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="receiptCode != null and receiptCode !=''">
+			AND receipt_code = #{receiptCode}
+		</if>
+	</select>
+</mapper>

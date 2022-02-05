@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html style="background-color: #FFFFFF;">
+<head>
+	<meta charset="UTF-8">
+	<title>新建步骤</title>
+	<link href="../../../part/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../../../css/common.css" rel="stylesheet" />
+	<link href="../../../css/inossem.grid.css" rel="stylesheet"/>
+	<link href="../../../css/jquery-autocomplete.min.css" rel="stylesheet"/>
+	<script src="../../../js/jquery-1.11.0.min.js"></script>
+	<script src="../../../js/common.js"></script>
+	<script src="../../../part/layer/layer.js"></script>
+	<script src="../../../part/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../../js/jquery.inossem.grid.js"></script>
+	<script src="../../../js/jquery-autocomplete.min.js"></script>
+	<style>
+		a.btnmove{width: 30px;height: 30px;border: 1px solid #ccc;display: block;font-size: 40px;line-height: 18px;text-align: center;background-color: #eee;color: #666;overflow: hidden;margin: 30px auto;}
+		a.btnmove:hover,a.btnmove:visited{background-color: #fff;text-decoration: none;}
+		.box{border: #eee solid 1px; clear: both;}
+		.box .title{font-size: 15px;height: 50px;line-height: 50px; cursor: pointer;padding: 0 10px;
+			background: url(../../../img/u39048.png) no-repeat 700px center #F2F9FC;}
+		.box .title:hover{background-color: #E4EEF6;color: #00A0F0;}
+		/*.box_1, .box_2,.box_3{display: none;}*/
+		.lis{height: 50px;line-height: 50px;text-align: center;font-size: 14px;width: 150px;}
+		.li{height: 50px;line-height: 50px;text-align: center;font-size: 14px;width: 150px;border-top: solid 1px #E4E4E4;
+			border-bottom: solid 1px #E4E4E4;border-left:solid 5px #27A9E3;font-weight: 600;color: #222222;}
+	</style>
+	<script>
+        var g=null,g2=null,g3=null,g4=null,g5=null,g6=null,gParam=null;
+        //基本设置变量
+        var basicLeft = [],basicRight = [],selectBasicLeft = [],selectBasicRight = [];
+        //用户组
+        var sourUserGroup = [],tarUserGroup = [],selectSourUserGroup = [],selectTarUserGroup = [];
+        //用户
+        var sourUser = [],tarUser = [],selectSourUser = [],selectTarUser = [];
+        //条件参数
+        var parameters = [];
+        var data1 = null, data2 = null, data3 = null;
+        //基本设置 选择
+        $(document).on("click","#basicRToL",function(){
+            if(selectBasicRight.length == 0){
+                layer.msg("请选择备选数据");
+                return false;
+            }
+            $.each(selectBasicRight,function(i,item){
+                basicLeft.push(item);
+                $.each(basicRight,function(j,jitem){
+                    if(item.nodeId==jitem.nodeId){
+                        basicRight=basicRight.delete(j);
+                    }
+                })
+            })
+            g6.showdata(basicLeft);
+            g5.showdata(basicRight);
+        })
+        $(document).on("click","#basicLToR",function(){
+            if(selectBasicLeft.length == 0){
+                layer.msg("请选择已选数据");
+                return false;
+            }
+            $.each(selectBasicLeft,function(i,item){
+                basicRight.push(item);
+                $.each(basicLeft,function(j,jitem){
+                    if(item.nodeId==jitem.nodeId){
+                        basicLeft=basicLeft.delete(j);
+                    }
+                })
+            })
+            g6.showdata(basicLeft);
+            g5.showdata(basicRight);
+        })
+        //保存
+        $(document).on("click","#save",function(){
+            //基本设置保存
+            if($(".li").index() == 0){
+                var isChecked=true;
+                if($m("nodeName").val()==""){layersMoretips("必填项",$m("nodeName"));isChecked=false;}
+                if(isChecked==false){
+                    return false
+                }
+                var data = {};
+                delete window.parent.selectDate.routes;
+                delete window.parent.selectDate.unsigned;
+                delete window.parent.selectDate.privatefixedcode;
+                window.parent.selectDate.nodeName = $m("nodeName").val();
+                $("#nodeModel").prop("checked")?window.parent.selectDate.nodeModel="S":window.parent.selectDate.nodeModel="M";
+                $("#nodeConcurrency").prop("checked")?window.parent.selectDate.nodeConcurrency="T":window.parent.selectDate.nodeConcurrency="F";
+                $("#nodeOrgCheck").prop("checked")?window.parent.selectDate.nodeOrgCheck="T":window.parent.selectDate.nodeOrgCheck="F";
+                $("#nodePageCheck").prop("checked")?window.parent.selectDate.nodePageCheck="T":window.parent.selectDate.nodePageCheck="F";
+                data.nodeInfo = [window.parent.selectDate];
+                data.toNode = basicLeft;
+                data.notToNode = basicRight;
+                ajax("../../../../node/updateNodeInfo",'post',data,
+                    function(data){
+                		data = JSON.parse(data);
+                        if(data.head.msg=="success"){
+                            layer.msg("保存成功");
+                            initConditionOption(false);
+                        }else{
+                            layer.msg(data.head.msg);
+                        }
+
+                    }
+                );
+            }else if($(".li").index() == 1){
+                //经办权限
+                //alert($("#myTab").find(".active").index());
+                var privCategory = $("#myTab").find(".active").index();
+                var data = {};
+                var privIds = "";
+                data.nodedefId = window.parent.selectDate.nodeId;
+                data.privCategory = privCategory==0?"group":"user";
+                if(privCategory==0){
+                    $.each(tarUserGroup,function(i,item){
+                        tarUserGroup.length==i+1?privIds+=item.groupId:privIds+=item.groupId+"#";
+                    })
+                }else{
+                    $.each(tarUser,function(i,item){
+                        tarUser.length==i+1?privIds+=item.userId:privIds+=item.userId+"#";
+                    })
+                }
+                if(privIds===""){
+                    privCategory==0?layer.msg("请至少添加一个用户组"):layer.msg("请至少添加一个用户");
+                    return false;
+                }else{
+                    data.privIds=privIds;
+                }
+                ajax("../../../../privilege/saveNodePrivilege",'post',data,
+                    function(data){
+						data = JSON.parse(data);
+                        if(data.head.msg=="success"){
+                            layer.msg("保存成功");
+                        }else{
+                            layer.msg(data.head.msg);
+                        }
+                    }
+                );
+            }else if($(".li").index() == 2){
+                var data = [];
+                $.each(data1,function(i,item){
+                    data.push({
+                        procDefId: item.procdefId,
+                        routeDefId: item.routeId,
+                        paramKey: item.paramKey,
+                        paramValue: item.paramValue,
+                        condition: item.routeCondition
+                    })
+                })
+                ajax("../../../../param/saveAll",'post',data,
+                    function(data){
+						data = JSON.parse(data);
+                        if(data.head.msg=="success"){
+                            layer.msg("保存成功");
+                        }else{
+                            layer.msg(data.head.msg);
+                        }
+                    }
+                );
+            }
+        })
+        //关闭
+        $(document).on("click","#close",function(){
+            window.parent.query("", "#00A0F0","setUp(this)");
+        })
+        //用户组搜索
+        function usergroupSearch(){
+            var text = $("#usergroupSearchText").val();
+            ajax("../../../../userGroup/configurableUserGroups?nodeId="+window.parent.selectDate.nodeId+"&userGroupName="+text,'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    sourUserGroup = data.body;
+                    $.each(tarUserGroup,function(i,item){
+                        var idInfo=item.groupId;
+                        $.each(sourUserGroup, function(j,jItem) {
+                            var idSour=jItem.groupId;
+                            if(idSour==idInfo){
+                                sourUserGroup=sourUserGroup.delete(j);
+                            }
+                        });
+                    })
+                    g.showdata(sourUserGroup);
+                }
+            );
+        }
+        //用户组 选择
+        $(document).on("click","#GroupLToR",function(){
+            if(selectTarUserGroup.length == 0){
+                layer.msg("请选择已选数据");
+                return false;
+            }
+            $.each(selectTarUserGroup,function(i,item){
+                sourUserGroup.push(item);
+                $.each(tarUserGroup,function(j,jitem){
+                    if(item.groupId==jitem.groupId){
+                        tarUserGroup=tarUserGroup.delete(j);
+                    }
+                })
+            })
+            g.showdata(sourUserGroup);
+            g2.showdata(tarUserGroup);
+        })
+        $(document).on("click","#GroupRToL",function(){
+            if(selectSourUserGroup.length == 0){
+                layer.msg("请选择备选数据");
+                return false;
+            }
+            $.each(selectSourUserGroup,function(i,item){
+                tarUserGroup.push(item);
+                $.each(sourUserGroup,function(j,jitem){
+                    if(item.groupId==jitem.groupId){
+                        sourUserGroup=sourUserGroup.delete(j);
+                    }
+                })
+            })
+            g.showdata(sourUserGroup);
+            g2.showdata(tarUserGroup);
+        })
+        //用户备选模糊搜索
+        function userSearch(){
+            var text = $("#userSearchText").val();
+            ajax("../../../../user/configurableUsers?nodeId="+window.parent.selectDate.nodeId+"&userName="+text,'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    sourUser = data.body;
+                    $.each(tarUser,function(i,item){
+                        var idInfo=item.userId;
+                        $.each(sourUser, function(j,jItem) {
+                            var idSour=jItem.userId;
+                            if(idSour==idInfo){
+                                sourUser=sourUser.delete(j);
+                            }
+                        });
+                    })
+                    g3.showdata(sourUser);
+                }
+            );
+        }
+        //用户选择
+        $(document).on("click","#userLToR",function(){
+            if(selectTarUser.length == 0){
+                layer.msg("请选择已选用户数据");
+                return false;
+            }
+            $.each(selectTarUser,function(i,item){
+                sourUser.push(item);
+                $.each(tarUser,function(j,jitem){
+                    if(item.userId==jitem.userId){
+                        tarUser=tarUser.delete(j);
+                    }
+                })
+            })
+            g3.showdata(sourUser);
+            g4.showdata(tarUser);
+        })
+        $(document).on("click","#userRToL",function(){
+            if(selectSourUser.length == 0){
+                layer.msg("请选择备选用户数据");
+                return false;
+            }
+            $.each(selectSourUser,function(i,item){
+                tarUser.push(item);
+                $.each(sourUser,function(j,jitem){
+                    if(item.userId==jitem.userId){
+                        sourUser=sourUser.delete(j);
+                    }
+                })
+            })
+            g3.showdata(sourUser);
+            g4.showdata(tarUser);
+        })
+
+        $(function(){
+            $(".lis").eq(window.parent.setUpNum).addClass("li");
+            $(".item").eq(window.parent.setUpNum).show();
+            //-------------------------基本设置初始化开始---------------------------------
+            $m("nodeName").val(window.parent.selectDate.nodeName);
+            if(window.parent.selectDate.nodeModel=="S"){
+                $("#nodeModel").prop("checked",true);
+            }
+            if(window.parent.selectDate.nodeConcurrency=="T" ||
+                window.parent.selectDate.nodeConcurrency== null ||
+                window.parent.selectDate.nodeConcurrency==""){
+                $("#nodeConcurrency").prop("checked",true);
+            }
+            if(window.parent.selectDate.nodeOrgCheck=="T"){
+                $("#nodeOrgCheck").prop("checked",true);
+            }
+            if(window.parent.selectDate.nodePageCheck=="T"){
+                $("#nodePageCheck").prop("checked",true);
+            }
+            //备选
+            ajax("../../../../node/getNotToNodeInfo?fromNodeId="+window.parent.selectDate.nodeId+"&processId="+window.parent.selectDate.procdefId,'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    basicRight = data.body?data.body:[];
+                    g5.showdata(basicRight);
+                    /*$.each(data,function(i,item){
+                        $("#alternative").append("<p>"+item.nodeName+"</p>");
+                    })*/
+                }
+            );
+            //已选
+            ajax("../../../../node/getToNoteInfo?fromNodeId="+window.parent.selectDate.nodeId,'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    basicLeft = data.body?data.body:[];
+                    g6.showdata(basicLeft);
+                    /*$.each(data,function(i,item){
+                        $("#selected").append("<p>"+item.nodeName+"</p>");
+                    })*/
+                }
+            );
+            //-------------------------------基本设置初始化结束------------------------------------------
+
+            //-------------------------------经办权限初始化开始------------------------------------------
+            //用户组备选
+            ajax("../../../../userGroup/configurableUserGroups?nodeId="+window.parent.selectDate.nodeId,'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    sourUserGroup = data.body?data.body:[];
+                    g.showdata(sourUserGroup);
+                }
+            );
+            //用户组已选
+            ajax("../../../../userGroup/configuredUserGroups?nodeId="+window.parent.selectDate.nodeId,'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    tarUserGroup = data.body?data.body:[];
+                    g2.showdata(tarUserGroup);
+                }
+            );
+            //用户备选
+            ajax("../../../../user/configurableUsers?nodeId="+window.parent.selectDate.nodeId,'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    sourUser = data.body?data.body:[];
+                    g3.showdata(sourUser);
+                }
+            );
+            //用户已选
+            ajax("../../../../user/configuredUsers?nodeId="+window.parent.selectDate.nodeId,'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    tarUser = data.body?data.body:[];
+                    g4.showdata(tarUser);
+                }
+            );
+            //-------------------------------经办权限初始化结束------------------------------------------
+
+            //-------------------------------条件参数初始化开始------------------------------------------
+            initConditionOption(true);
+            //-------------------------------条件参数初始化结束------------------------------------------
+            $(".lis").on('click',function(){
+                $(".lis").removeClass("li");
+                $(".item").hide();
+                var curIndex=$(this).index();
+                $(".lis").eq(curIndex).addClass("li");
+                $(".item").eq(curIndex).show();
+            });
+            //上一步
+            $("#backStep").on('click',function(){
+                var index = $(".li").index()==0?2:$(".li").index()-1;
+                $(".lis").removeClass("li");
+                $(".item").hide();
+                $(".lis").eq(index).addClass("li");
+                $(".item").eq(index).show();
+            })
+            //下一步
+            $("#nextStep").on('click',function(){
+                var index = $(".li").index()==2?0:$(".li").index()+1;
+                $(".lis").removeClass("li");
+                $(".item").hide();
+                $(".lis").eq(index).addClass("li");
+                $(".item").eq(index).show();
+            })
+            /*$(".tit1").on('click',function(){
+                $(".box_1").toggle();
+                $(".box_2").hide();
+                $(".box_3").hide();
+            })
+            $(".tit2").on('click',function(){
+                $(".box_2").toggle();
+                $(".box_1").hide();
+                $(".box_3").hide();
+            })
+            $(".tit3").on('click',function(){
+                $(".box_3").toggle();
+                $(".box_1").hide();
+                $(".box_2").hide();
+            })*/
+
+            //备选用户组数据表
+            g =$(".sourGroup").iGrid({
+                columns: [
+                    { th: '分组编号', col: 'groupId'},
+                    { th: '分组名称', col: 'groupName'},
+                ],
+                data: null,
+                skin:"tablestyle4",
+                sortable:false,
+                resizehead:true,
+                checkbox:true,
+                isHideCheckbox:true,
+                GetSelectedData:function(a){
+                    selectSourUserGroup = a;
+                }
+            });
+            //已选择用户组数据表
+            g2 =$(".tarGroup").iGrid({
+                columns: [
+                    { th: '分组编号', col: 'groupId'},
+                    { th: '分组名称', col: 'groupName'},
+                ],
+                data: null,
+                skin:"tablestyle4",
+                sortable:false,
+                resizehead:true,
+                checkbox:true,
+                isHideCheckbox:true,
+                GetSelectedData:function(a){
+                    selectTarUserGroup = a;
+                }
+            });
+            //源用户数据表
+            g3 =$(".sourUser").iGrid({
+                columns: [
+                    { th: '用户账号', col: 'userAccount' },
+                    { th: '用户姓名', col: 'userName'},
+                    { th: '状态', col: 'userStatus',type:"light",
+                        light:{
+                            coldisplay:"status",
+                            type:[{value:0,class:"green"},{value:1,class:"red"}]
+                        }
+                    }
+                ],
+                data: null,
+                skin:"tablestyle4",
+                sortable:false,
+                resizehead:true,
+                checkbox:true,
+                isHideCheckbox:true,
+                GetSelectedData:function(a){
+                    selectSourUser = a;
+                }
+            });
+            //目标用户数据表
+            g4 =$(".tarUser").iGrid({
+                columns: [
+                    { th: '用户账号', col: 'userAccount' },
+                    { th: '用户姓名', col: 'userName' },
+                    { th: '状态', col: 'userStatus',type:"light",
+                        light:{
+                            coldisplay:"status",
+                            type:[{value:0,class:"green"},{value:1,class:"red"}]
+                        }
+                    }
+                ],
+                data: null,
+                skin:"tablestyle4",
+                sortable:false,
+                resizehead:true,
+                checkbox:true,
+                isHideCheckbox:true,
+                GetSelectedData:function(a){
+                    selectTarUser = a;
+                }
+            });
+            //备选步骤
+            g5 =$("#alternative").iGrid({
+                columns: [
+                    { th: '步骤名称', col: 'nodeName',width:200},
+                ],
+                data: null,
+                skin:"tablestyle4",
+                sortable:false,
+                resizehead:true,
+                checkbox:true,
+                isHideCheckbox:true,
+                GetSelectedData:function(a){
+                    console.log(a);
+                    selectBasicRight = a;
+                }
+            });
+            //已选步骤
+            g6 =$("#selected").iGrid({
+                columns: [
+                    { th: '步骤名称', col: 'nodeName',width:200},
+                ],
+                data: null,
+                skin:"tablestyle4",
+                sortable:false,
+                resizehead:true,
+                checkbox:true,
+                isHideCheckbox:true,
+                GetSelectedData:function(a){
+                    console.log(a);
+                    selectBasicLeft = a;
+                }
+            });
+        });
+        function drawtable(){
+            //条件参数数据表
+            var aa = [{conditionId: "CID0001", conditionSymbol: "="}]
+            gParam =$(".paramGrid").iGrid({
+                columns: [
+                    { th: '步骤名称', col: 'routeName',width:150},
+                    { th: '参数名称', col: 'paramKey',width:100,type:"text"},
+                    { th: '条件', col: 'routeCondition',width:150,type:"select",text:"conditionSymbol",value:"conditionId",data:data3},
+                    { th: '值', col: 'paramValue',width:50,type:"text"},
+                ],
+                data: null,
+                skin:"tablestyle4",
+                sortable:false,
+                resizehead:true,
+                checkbox:true,
+                isHideCheckbox:true,
+                GetSelectedData:function(a){
+                    console.log(a);
+                },
+                loadcomplete(a){
+                    //var sources=[["abcd","defadf"],["1111","22222"]];
+                    //var parameters = ["sss","dd"];
+                    $("input.txtparamKey").each(function(i,item){
+                        $(this).autocomplete({source:parameters})
+                    })
+                    //console.log(a);
+                },
+            });
+        }
+        function initConditionOption(init){
+            var cnt = 0;
+            ajax("../../../../route/getRouteAndParamInfoByFromNodeId?nodedefId="+window.parent.selectDate.nodeId,'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    data1 = data.body;
+                    cnt++;
+                }
+            );
+            ajax("../../../../param/paramNames?procId="+window.parent.selectDate.procdefId,'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    cnt++;
+                    data2 = data.body;
+                }
+            );
+            ajax("../../../../condition/listCondition",'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    cnt++;
+                    data3 = data.body;
+                    console.log(data3);
+                }
+            );
+            var interval = setInterval(function(){
+                if(cnt>=3){
+                    console.log('已执行完成');
+                    parameters = data2;
+                    //parametersArry = [];
+                    /* $.each(parameters,function(i,item){
+                     parametersArry.push({text:item});
+                     })*/
+                    $.each(data1,function(i,item){
+                        if(!!item.parameter){
+                            item.paramKey = item.parameter.paramKey;
+                            item.paramValue = item.parameter.paramValue;
+                        }
+                    })
+                    if(init){
+                        drawtable();
+                    }
+                    gParam.showdata(data1);
+                    clearInterval(interval)
+                }
+            },5);
+        }
+	</script>
+</head>
+<body style="background: #fff;min-width: auto;">
+<div class="col-xs-12">&nbsp;</div>
+<div class="form-search">
+	<div class="form-con">
+		<div class="col-xs-12 row" style="padding: 20px 50px;">
+			<div class="col-xs-2 row" style=" height:600px;border-right: solid 1px #E4E4E4;margin-right: 20px;padding-right: 0;">
+				<div class="lis">
+					基本设置
+				</div>
+				<div class="lis">
+					经办权限
+				</div>
+				<div class="lis">
+					条件参数
+				</div>
+			</div>
+			<div class="col-xs-10 row item" style="display: none;">
+				<div class="col-xs-8 div-group">
+					<div class="input-group">
+						<span class="input-group-addon"><span>*</span>&nbsp;步骤名称</span>
+						<input type="text" class="form-control" c-model="nodeName">
+					</div>
+				</div>
+				<div class="col-xs-12 div-group" style="margin-top: 30px;">
+					<div class="col-xs-1"></div>
+					<div class="col-xs-1">
+						<!--<a href="javascript:void(0)" class="btnmove groupLeftMoveRight">
+                            <img src="../../../img/up.svg"/>
+                        </a>
+                        <a href="javascript:void(0)" class="btnmove groupRightMoveLeft">
+                            <img src="../../../img/down.svg"/>
+                        </a>-->
+					</div>
+					<div class="col-xs-4" style="padding-left: 10px;">
+						<p>下一步骤</p>
+						<div class="" id="selected" style="height: 300px;border: solid 1px #E4E4E4;overflow-y:auto;overflow-x:auto;">
+
+						</div>
+					</div>
+					<div class="col-xs-1">
+						<a href="javascript:void(0)" class="btnmove groupLeftMoveRight" id="basicLToR">
+							<!--›-->
+							<img src="../../../img/right.svg"/>
+						</a>
+						<a href="javascript:void(0)" class="btnmove groupRightMoveLeft" id="basicRToL">
+							<!--‹-->
+							<img src="../../../img/left.svg"/>
+						</a>
+					</div>
+					<div class="col-xs-4">
+						<p>备选步骤</p>
+						<div class="" id="alternative" style="height: 300px;border: solid 1px #E4E4E4;overflow-y:auto;overflow-x:auto;">
+
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-8 div-group"style="margin-top: 30px;">
+					<div class="input-group">
+						<span class="input-group-addon">&nbsp;</span>
+						<input type="checkbox" id="nodeModel"/><span>是否会签</span>
+					</div>
+				</div>
+				<div class="col-xs-8 div-group"style="margin-top: 30px;">
+					<div class="input-group">
+						<span class="input-group-addon">&nbsp;</span>
+						<input type="checkbox" id="nodeOrgCheck"/><span>是否按组织机构过滤</span>
+					</div>
+				</div>
+				<div class="col-xs-8 div-group"style="margin-top: 30px;">
+					<div class="input-group">
+						<span class="input-group-addon">&nbsp;</span>
+						<input type="checkbox" id="nodeConcurrency"/><span>是否并发</span>
+					</div>
+				</div>
+				<div class="col-xs-8 div-group"style="margin-top: 30px;">
+					<div class="input-group">
+						<span class="input-group-addon">&nbsp;</span>
+						<input type="checkbox" id="nodePageCheck"/><span>是否强制验证</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-8 row item" style="display: none;">
+				<ul id="myTab" class="nav nav-tabs">
+					<li class="active">
+						<a href="#box_1" data-toggle="tab">添加用户组</a>
+					</li>
+					<li>
+						<a href="#box_2" data-toggle="tab">添加用户</a>
+					</li>
+					<!--<li>
+                        <a href="" data-toggle="tab">添加组织结构</a>
+                    </li>-->
+				</ul>
+				<div id="myTabContent" class="tab-content">
+					<!--<div class="title tit1" >添加用户组</div>-->
+					<div class="tab-pane fade in active" id="box_1" style="padding: 0;margin-top: 20px;">
+						<div class="col-xs-5">
+							<div style="height: 40px;clear: both; border:#eee solid 1px; border-bottom: none;">
+								<p style="float: left;padding-left: 10px; line-height: 40px; margin: 0;">已选择</p>
+								<div class="tarGroup" style="height: 330px;overflow-y:auto;overflow-x:auto;"></div>
+							</div>
+						</div>
+						<div class="col-xs-2">
+							<a href="javascript:void(0)" class="btnmove groupLeftMoveRight" id="GroupLToR">
+								<!--›-->
+								<img src="../../../img/right.svg"/>
+							</a>
+							<a href="javascript:void(0)" class="btnmove groupRightMoveLeft" id="GroupRToL">
+								<!--‹-->
+								<img src="../../../img/left.svg"/>
+							</a>
+						</div>
+						<div class="col-xs-5">
+							<div style="height: 40px;clear: both; border:#eee solid 1px; border-bottom: none;">
+								<p style="float: left;padding:0 0 0 10px; line-height: 40px;  margin: 0;">分组</p>
+								<div class="div-search" style="float: right; position: relative;">
+									<input id="usergroupSearchText" class="searVal" type="text" style="height: 26px;width:150px;margin-top: 7px;margin-right: 10px;"/>
+									<img class="btn-img" src="../../../img/u12335.png" onclick="usergroupSearch()" style="position: absolute; right: 20px; top: 12px;"/>
+								</div>
+							</div>
+							<div class="sourGroup"style="height: 330px;overflow-y:auto;overflow-x:auto;"></div>
+						</div>
+					</div>
+
+
+					<!--<div class="title tit2">添加用户</div>-->
+					<div class="tab-pane fade" id="box_2" style="padding: 0;margin-top: 20px;">
+						<div class="col-xs-5">
+							<div style="height: 40px;clear: both; border:#eee solid 1px; border-bottom: none;">
+								<p style="float: left;padding-left: 10px; line-height: 40px; margin: 0;">已选择</p>
+								<div class="tarUser" style="height: 330px;overflow-y:auto;overflow-x:auto;"></div>
+							</div>
+						</div>
+						<div class="col-xs-2">
+							<a href="javascript:void(0)" class="btnmove groupLeftMoveRight2" id="userLToR">
+								<img src="../../../img/right.svg"/>
+							</a>
+							<a href="javascript:void(0)" class="btnmove groupRightMoveLeft2" id="userRToL">
+								<img src="../../../img/left.svg"/>
+							</a>
+						</div>
+						<div class="col-xs-5">
+							<div style="height: 40px;clear: both; border:#eee solid 1px; border-bottom: none;">
+								<p style="float: left;padding:0 0 0 10px; line-height: 40px;  margin: 0;">源用户</p>
+								<div class="div-search" style="float: right; position: relative;">
+									<input class="searVal2" type="text" style="height: 26px;width:150px;margin-top: 7px;margin-right: 10px;" id="userSearchText"/>
+									<img class="btn-img" src="../../../img/u12335.png" onclick="userSearch()" style="position: absolute; right: 20px; top: 12px;"/>
+								</div>
+							</div>
+							<div class="sourUser"style="height: 330px;overflow-y:auto;overflow-x:auto;"></div>
+						</div>
+					</div>
+				</div>
+				<!--<div class="box">
+                    &lt;!&ndash;<div class="title tit3">添加组织结构</div>&ndash;&gt;
+                    <div class="col-xs-12 boxH box_3" style="padding: 0;margin-top: 20px;">
+                        <div class="col-xs-5">
+                            <div style="height: 40px;clear: both; border:#eee solid 1px; border-bottom: none;">
+                                <p style="float: left;padding:0 0 0 10px; line-height: 40px;  margin: 0;">公司部门</p>
+                                <div class="div-search" style="float: right; position: relative;">
+                            </div>
+                            </div>
+                            <div class="sourOrgan"style="height: 330px;overflow-y:auto;overflow-x:hidden;"></div>
+                        </div>
+                        <div class="col-xs-2">
+                            <a href="javascript:void(0)" class="btnmove groupLeftMoveRight3">›</a>
+                            <a href="javascript:void(0)" class="btnmove groupRightMoveLeft3">‹</a>
+                        </div>
+                        <div class="col-xs-5">
+                            <div style="height: 40px;clear: both; border:#eee solid 1px; border-bottom: none;">
+                                <p style="float: left;padding-left: 10px; line-height: 40px; margin: 0;">已选择</p>
+                                <div class="tarOrgan" style="height: 330px;overflow-y:auto;overflow-x:hidden;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+			</div>
+			<div class="col-xs-8 row item" style="display: none;">
+				<div class="paramGrid" style="height: 330px;overflow-y:auto;overflow-x:hidden;"></div>
+			</div>
+
+		</div>
+		<div class="col-xs-12 row">
+			<div class="col-xs-12 div-group"><hr /></div>
+		</div>
+	</div>
+	<div class="form-sub">
+		<div class="col-xs-12 row">
+			<div class="col-lg-8 col-xs-8 div-group">
+				<div class="input-group" style="text-align: center;">
+					<span class="input-group-addon">&nbsp;</span>
+					<a href="javascript:void(0)" class="btn-lay-default" id="backStep">上一步</a>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					<a href="javascript:void(0)" class="btn-lay-default" id="nextStep">下一步</a>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					<a href="javascript:void(0)" class="btn-lay-blue" style="width: 80px;" id="save">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					<a href="javascript:void(0)" class="btn-lay-default btn_iframe_close_window"style="width: 80px;" id="close">关闭</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

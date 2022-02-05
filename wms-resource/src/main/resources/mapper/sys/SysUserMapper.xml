@@ -1,0 +1,1162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.sys.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.sys.SysUser">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="is_locked" jdbcType="TINYINT" property="isLocked" />
+    <result column="freeze" jdbcType="TINYINT" property="freeze" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="last_login" jdbcType="TIMESTAMP" property="lastLogin" />
+    <result column="fail_attempts" jdbcType="INTEGER" property="failAttempts" />
+    <result column="last_fail_attempt" jdbcType="TIMESTAMP" property="lastFailAttempt" />
+    <result column="validity_begin_date" jdbcType="TIMESTAMP" property="validityBeginDate" />
+    <result column="validity_end_date" jdbcType="TIMESTAMP" property="validityEndDate" />
+    <result column="employee_code" jdbcType="VARCHAR" property="employeeCode" />
+    <result column="user_post" jdbcType="VARCHAR" property="userPost" />
+    <result column="corp_code" jdbcType="VARCHAR" property="corpCode" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="is_syn" jdbcType="TINYINT" property="isSyn" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="user_ext0" jdbcType="VARCHAR" property="userExt0" />
+    <result column="user_ext1" jdbcType="VARCHAR" property="userExt1" />
+    <result column="user_ext2" jdbcType="VARCHAR" property="userExt2" />
+    <result column="user_ext3" jdbcType="VARCHAR" property="userExt3" />
+    <result column="user_ext4" jdbcType="VARCHAR" property="userExt4" />
+    <result column="user_ext5" jdbcType="VARCHAR" property="userExt5" />
+    <result column="user_ext6" jdbcType="VARCHAR" property="userExt6" />
+    <result column="user_ext7" jdbcType="VARCHAR" property="userExt7" />
+    <result column="user_ext8" jdbcType="VARCHAR" property="userExt8" />
+    <result column="user_ext9" jdbcType="VARCHAR" property="userExt9" />    
+  </resultMap>
+  
+  <resultMap id="VoBaseResultMap" type="com.inossem.wms.vo.sys.SysUserVo">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="is_locked" jdbcType="TINYINT" property="isLocked" />
+    <result column="freeze" jdbcType="TINYINT" property="freeze" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="last_login" jdbcType="TIMESTAMP" property="lastLogin" />
+    <result column="fail_attempts" jdbcType="INTEGER" property="failAttempts" />
+    <result column="last_fail_attempt" jdbcType="TIMESTAMP" property="lastFailAttempt" />
+    <result column="validity_begin_date" jdbcType="TIMESTAMP" property="validityBeginDate" />
+    <result column="validity_end_date" jdbcType="TIMESTAMP" property="validityEndDate" />
+    <result column="employee_code" jdbcType="VARCHAR" property="employeeCode" />
+    <result column="user_post" jdbcType="VARCHAR" property="userPost" />
+    <result column="corp_code" jdbcType="VARCHAR" property="corpCode" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="is_syn" jdbcType="TINYINT" property="isSyn" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="user_ext0" jdbcType="VARCHAR" property="userExt0" />
+    <result column="user_ext1" jdbcType="VARCHAR" property="userExt1" />
+    <result column="user_ext2" jdbcType="VARCHAR" property="userExt2" />
+    <result column="user_ext3" jdbcType="VARCHAR" property="userExt3" />
+    <result column="user_ext4" jdbcType="VARCHAR" property="userExt4" />
+    <result column="user_ext5" jdbcType="VARCHAR" property="userExt5" />
+    <result column="user_ext6" jdbcType="VARCHAR" property="userExt6" />
+    <result column="user_ext7" jdbcType="VARCHAR" property="userExt7" />
+    <result column="user_ext8" jdbcType="VARCHAR" property="userExt8" />
+    <result column="user_ext9" jdbcType="VARCHAR" property="userExt9" />
+    
+    <result column="user_type_name" jdbcType="VARCHAR" property="userTypeName" />
+    <result column="org_code_name" jdbcType="VARCHAR" property="orgCodeName" />
+    <result column="is_locked_name" jdbcType="VARCHAR" property="isLockedName" />
+    <result column="freeze_name" jdbcType="VARCHAR" property="freezeName" />
+    <result column="corp_name" jdbcType="VARCHAR" property="corpName" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="is_syn_name" jdbcType="VARCHAR" property="isSynName" />
+    <result column="create_user_code" jdbcType="VARCHAR" property="createUserCode" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="modify_user_code" jdbcType="VARCHAR" property="modifyUserCode" />
+    <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
+    <result column="outside_code" jdbcType="VARCHAR" property="outsideCode" />
+    <result column="outside_name" jdbcType="VARCHAR" property="outsideName" />
+  </resultMap>
+  
+  <resultMap id="InfoVoBaseResultMap" type="com.inossem.wms.vo.sys.SysUserInfoVo" extends="VoBaseResultMap">
+    
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    user_id, user_code, user_name, password, user_type, org_code, is_delete, is_locked, freeze, 
+    create_time, modify_time, create_user_id, modify_user_id, last_login, fail_attempts, 
+    last_fail_attempt, validity_begin_date, validity_end_date, employee_code, user_post, corp_code,
+    dept_code, is_syn, phone_number, email, user_ext0, user_ext1, user_ext2, user_ext3, user_ext4, user_ext5, 
+    user_ext6, user_ext7, user_ext8, user_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.sys.SysUser">
+    insert into sys_user (user_id, user_code, user_name, 
+      password, user_type, org_code, is_delete, 
+      is_locked, freeze, create_time, modify_time, 
+      create_user_id, modify_user_id, last_login, 
+      fail_attempts, last_fail_attempt, validity_begin_date, validity_end_date,  
+      employee_code, user_post, corp_code,dept_code, is_syn, user_ext0,
+      user_ext1, user_ext2, user_ext3, 
+      user_ext4, user_ext5, user_ext6, 
+      user_ext7, user_ext8, user_ext9
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{userType,jdbcType=TINYINT}, #{orgCode,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}, 
+      #{isLocked,jdbcType=TINYINT}, #{freeze,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, #{lastLogin,jdbcType=TIMESTAMP}, 
+      #{failAttempts,jdbcType=INTEGER}, #{lastFailAttempt,jdbcType=TIMESTAMP}, #{validityBegiDate,jdbcType=TIMESTAMP}, #{validityEndDate,jdbcType=TIMESTAMP},
+      #{employeeCode,jdbcType=VARCHAR}, #{userPost,jdbcType=VARCHAR}, #{corpCode,jdbcType=VARCHAR},#{deptCode,jdbcType=VARCHAR}, #{isSyn,jdbcType=TINYINT},  #{userExt0,jdbcType=VARCHAR}, 
+      #{userExt1,jdbcType=VARCHAR}, #{userExt2,jdbcType=VARCHAR}, #{userExt3,jdbcType=VARCHAR}, 
+      #{userExt4,jdbcType=VARCHAR}, #{userExt5,jdbcType=VARCHAR}, #{userExt6,jdbcType=VARCHAR}, 
+      #{userExt7,jdbcType=VARCHAR}, #{userExt8,jdbcType=VARCHAR}, #{userExt9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.sys.SysUser">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userCode != null">
+        user_code,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="orgCode != null">
+        org_code,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="isLocked != null">
+        is_locked,
+      </if>
+      <if test="freeze != null">
+        freeze,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="lastLogin != null">
+        last_login,
+      </if>
+      <if test="failAttempts != null">
+        fail_attempts,
+      </if>
+      <if test="lastFailAttempt != null">
+        last_fail_attempt,
+      </if>
+      <if test="validityBeginDate != null">
+        validity_begin_date,
+      </if>
+      <if test="validityEndDate != null">
+        validity_end_date,
+      </if>
+      <if test="employeeCode != null">
+        employee_code,
+      </if>
+      <if test="userPost != null">
+        user_post,
+      </if>
+      <if test="corpCode != null">
+        corp_code,
+      </if>
+      <if test="deptCode != null">
+        dept_code,
+      </if>
+      <if test="isSyn != null">
+        is_syn,
+      </if>          
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="userExt0 != null">
+        user_ext0,
+      </if>
+      <if test="userExt1 != null">
+        user_ext1,
+      </if>
+      <if test="userExt2 != null">
+        user_ext2,
+      </if>
+      <if test="userExt3 != null">
+        user_ext3,
+      </if>
+      <if test="userExt4 != null">
+        user_ext4,
+      </if>
+      <if test="userExt5 != null">
+        user_ext5,
+      </if>
+      <if test="userExt6 != null">
+        user_ext6,
+      </if>
+      <if test="userExt7 != null">
+        user_ext7,
+      </if>
+      <if test="userExt8 != null">
+        user_ext8,
+      </if>
+      <if test="userExt9 != null">
+        user_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null">
+        upper(#{userCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=TINYINT},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="isLocked != null">
+        #{isLocked,jdbcType=TINYINT},
+      </if>
+      <if test="freeze != null">
+        #{freeze,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="lastLogin != null">
+        #{lastLogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="failAttempts != null">
+        #{failAttempts,jdbcType=INTEGER},
+      </if>
+      <if test="lastFailAttempt != null">
+        #{lastFailAttempt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validityBeginDate != null">
+     	#{validityBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validityEndDate != null">
+      	#{validityEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="employeeCode != null">
+       	#{employeeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userPost != null">
+      	#{userPost,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null">
+       	#{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null">
+       	#{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isSyn != null">
+        #{isSyn,jdbcType=TINYINT},
+      </if> 
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt0 != null">
+        #{userExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt1 != null">
+        #{userExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt2 != null">
+        #{userExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt3 != null">
+        #{userExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt4 != null">
+        #{userExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt5 != null">
+        #{userExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt6 != null">
+        #{userExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt7 != null">
+        #{userExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt8 != null">
+        #{userExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt9 != null">
+        #{userExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.sys.SysUser">
+    update sys_user
+    <set>
+      <if test="userCode != null">
+        user_code = upper(#{userCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=TINYINT},
+      </if>
+      <if test="orgCode != null">
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="isLocked != null">
+        is_locked = #{isLocked,jdbcType=TINYINT},
+      </if>
+      <if test="freeze != null">
+        freeze = #{freeze,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="lastLogin != null">
+        last_login = #{lastLogin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="failAttempts != null">
+        fail_attempts = #{failAttempts,jdbcType=INTEGER},
+      </if>
+      <if test="lastFailAttempt != null">
+        last_fail_attempt = #{lastFailAttempt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validityBeginDate != null">
+        validity_begin_date = #{validityBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validityEndDate != null">
+        validity_end_date = #{validityEndDate,jdbcType=TIMESTAMP},
+      </if>      
+      <if test="employeeCode != null">
+        employee_code = #{employeeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userPost != null">
+        user_post = #{userPost,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null">
+        corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null">
+        dept_code = #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isSyn != null">
+        is_syn = #{isSyn,jdbcType=TINYINT},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt0 != null">
+        user_ext0 = #{userExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt1 != null">
+        user_ext1 = #{userExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt2 != null">
+        user_ext2 = #{userExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt3 != null">
+        user_ext3 = #{userExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt4 != null">
+        user_ext4 = #{userExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt5 != null">
+        user_ext5 = #{userExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt6 != null">
+        user_ext6 = #{userExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt7 != null">
+        user_ext7 = #{userExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt8 != null">
+        user_ext8 = #{userExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="userExt9 != null">
+        user_ext9 = #{userExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.sys.SysUser">
+    update sys_user
+    set user_code = #{userCode,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=TINYINT},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      is_locked = #{isLocked,jdbcType=TINYINT},
+      freeze = #{freeze,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      last_login = #{lastLogin,jdbcType=TIMESTAMP},
+      fail_attempts = #{failAttempts,jdbcType=INTEGER},
+      last_fail_attempt = #{lastFailAttempt,jdbcType=TIMESTAMP},
+      validity_begin_date = #{validityBeginDate,jdbcType=TIMESTAMP},
+      validity_end_date = #{validityEndDate,jdbcType=TIMESTAMP},
+      employee_code = #{employeeCode,jdbcType=VARCHAR},
+      user_post = #{userPost,jdbcType=VARCHAR},
+      corp_code = #{corpCode,jdbcType=VARCHAR},
+      dept_code = #{deptCode,jdbcType=VARCHAR},
+      is_syn = #{isSyn,jdbcType=TINYINT},
+      user_ext0 = #{userExt0,jdbcType=VARCHAR},
+      user_ext1 = #{userExt1,jdbcType=VARCHAR},
+      user_ext2 = #{userExt2,jdbcType=VARCHAR},
+      user_ext3 = #{userExt3,jdbcType=VARCHAR},
+      user_ext4 = #{userExt4,jdbcType=VARCHAR},
+      user_ext5 = #{userExt5,jdbcType=VARCHAR},
+      user_ext6 = #{userExt6,jdbcType=VARCHAR},
+      user_ext7 = #{userExt7,jdbcType=VARCHAR},
+      user_ext8 = #{userExt8,jdbcType=VARCHAR},
+      user_ext9 = #{userExt9,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+   <select id="selectByUserCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where user_code = #{userCode,jdbcType=VARCHAR} and is_delete=0
+  </select>
+  
+  <!--分页查询用户信息，根据用户名user_code正序排列，如果传参数condition，根据用户名user_code或者用户描述user_name模糊查询  -->
+  <select id="selectByUserCodeAndUserNameOnPaging" parameterType="com.inossem.wms.co.sys.SysUserCo" resultMap="VoBaseResultMap">
+	SELECT 
+	    su.user_id,
+	    su.user_code,
+	    su.user_name,
+	    su.password,
+	    su.user_type,
+	    su.org_code,
+	    su.is_locked,
+	    su.freeze,
+	    su.last_login,
+	    su.fail_attempts,
+	    su.last_fail_attempt,
+	    su.validity_begin_date,
+	    su.validity_end_date,
+	    su.employee_code,
+	    su.user_post,
+	    su.corp_code,
+	    su.dept_code,
+	    su.is_syn,
+	    su.is_delete,
+	    su.create_time,
+	    su.modify_time,
+	    su.create_user_id,
+	    su.modify_user_id,
+	    su.phone_number,
+	    su.email,
+	    su.user_ext0,
+	    su.user_ext1,
+	    su.user_ext2,
+	    su.user_ext3,
+	    su.user_ext4,
+	    su.user_ext5,
+	    su.user_ext6,
+	    su.user_ext7,
+	    su.user_ext8,
+	    su.user_ext9,
+	    corp.corp_name,
+	    dept.dept_name,
+	    createsu.user_code create_user_code,
+	    createsu.user_name create_user_name,
+	    modifysu.user_code modify_user_code,
+	    modifysu.user_name modify_user_code
+	FROM
+	    sys_user su
+	        LEFT JOIN
+	    dic_corp corp ON corp.corp_code = su.corp_code
+	        AND corp.is_delete = 0
+	        LEFT JOIN
+	    sys_user createsu ON createsu.user_id = su.create_user_id
+	    	AND createsu.is_delete = 0
+	        LEFT JOIN
+	    sys_user modifysu ON modifysu.user_id = su.modify_user_id
+	    	AND modifysu.is_delete = 0
+	        LEFT JOIN
+	    dic_dept dept ON dept.dept_code = su.dept_code
+	        AND dept.corp_code = corp.corp_code
+	        AND dept.is_delete = 0
+	WHERE su.is_delete = 0 and su.user_code != 'ipasadmininstock123'
+	    <if test="condition != null and condition != '' ">  
+	        AND (su.user_code LIKE CONCAT('%',#{condition},'%' )
+	        OR su.user_name LIKE  CONCAT('%',#{condition},'%' ))
+	    </if>
+	    <if test="corpCode != null and corpCode != '' ">  
+	        AND su.corp_code = #{corpCode}
+	    </if>
+	ORDER BY su.user_code;
+  </select>
+  
+  
+   <!--用户详情信息查询 根据用户id查询  -->
+  <select id="selectUserVoInfoByUserId" parameterType="java.lang.Integer" resultMap="InfoVoBaseResultMap">
+		SELECT 
+		    su.user_id,
+		    su.user_code,
+		    su.user_name,
+		    su.password,
+		    su.user_type,
+		    su.org_code,
+		    su.is_locked,
+		    su.freeze,
+		    su.last_login,
+		    su.fail_attempts,
+		    su.last_fail_attempt,
+		    su.validity_begin_date,
+		    su.validity_end_date,
+		    su.employee_code,
+		    su.user_post,
+		    su.corp_code,
+		    su.dept_code,
+		    su.is_syn,
+		    su.is_delete,
+		    su.create_time,
+		    su.modify_time,
+		    su.create_user_id,
+		    su.modify_user_id,
+		    su.phone_number,
+	    	su.email,
+		    su.user_ext0,
+		    su.user_ext1,
+		    su.user_ext2,
+		    su.user_ext3,
+		    su.user_ext4,
+		    su.user_ext5,
+		    su.user_ext6,
+		    su.user_ext7,
+		    su.user_ext8,
+		    su.user_ext9,
+		    createsu.user_code create_user_code,
+		    createsu.user_name create_user_name,
+		    modifysu.user_code modify_user_code,
+		    modifysu.user_name modify_user_code
+		FROM
+		    sys_user su
+		        LEFT JOIN
+		    sys_user createsu ON createsu.user_id = su.create_user_id
+		    	AND createsu.is_delete = 0    
+		        LEFT JOIN
+		    sys_user modifysu ON modifysu.user_id = su.modify_user_id
+		    	AND modifysu.is_delete = 0
+		WHERE su.user_id = #{userId}
+		        AND su.is_delete = 0
+  </select>
+  
+   <!-- 查询统一用户编码的用户数量 user_code -->  
+   <select id="selectSysUserCountByUserCode" parameterType="java.lang.String" resultMap="BaseResultMap" >
+		SELECT 
+		    user_id
+		FROM
+		    sys_user
+		WHERE
+		    user_code = #{userCode}
+		LIMIT 1;
+  </select>
+  
+  <!-- 批量修改用户冻结状态 -->
+   <update id="updateFreezeStatusByUserId" parameterType="java.util.List">  
+	   <foreach collection="list" item="item" index="index" separator=";" >
+		    update sys_user
+		    <set>
+				freeze = #{item.freeze},
+				modify_user_id = #{item.modifyUserId}
+		    </set>
+		   		where user_id = #{item.userId}
+		</foreach>  
+  </update> 
+  
+   <!-- 批量修改用户锁定状态 -->
+   <update id="updateIsLockedStatusByUserId" parameterType="java.util.List">  
+	   <foreach collection="list" item="item" index="index" separator=";" >
+		    update sys_user
+		    <set>
+				is_locked = 0,
+				modify_user_id = #{item.modifyUserId}
+		    </set>
+		   		where user_id = #{item.userId}
+		</foreach>  
+  </update>
+  
+     <!-- 批量修改用户删除状态 -->
+   <update id="updateIsDeleteStatusByUserId" parameterType="java.util.List">  
+	   <foreach collection="list" item="item" index="index" separator=";" >
+		    update sys_user
+		    <set>
+				is_delete = 1,
+				modify_user_id = #{item.userId}
+		    </set>
+		   		where user_id = #{item.userId}
+		</foreach>  
+  </update> 
+  
+   <!-- 批量修改用户密码状-->
+   <update id="updatePasswordByUserIds" parameterType="java.util.List">  
+	   <foreach collection="list" item="item" index="index" separator=";" >
+		    update sys_user
+		    <set>
+				password = #{item.password},
+				modify_user_id = #{item.modifyUserId}
+		    </set>
+		   		where user_id = #{item.userId}
+		</foreach>  
+  </update> 
+  
+     <!-- 修改用户密码 -->
+   <update id="updatePasswordByUserId" parameterType="com.inossem.wms.co.sys.SysUserNewPassWordCo">  
+	    update sys_user
+	    <set>
+			password = #{newPassWord},
+			modify_user_id = #{modifyUserId}
+	    </set>
+	   		where user_id = #{userId}
+  </update>
+  
+     <!-- 查询角色已经分配的用户信息   roleCode-->  
+   <select id="selectSysUserOfRoleHave" parameterType="java.lang.String" resultMap="VoBaseResultMap" >
+		SELECT 
+		    su.user_id,
+		    su.user_code,
+		    su.user_name,
+		    su.password,
+		    su.user_type,
+		    su.org_code,
+		    su.is_locked,
+		    su.freeze,
+		    su.last_login,
+		    su.fail_attempts,
+		    su.last_fail_attempt,
+		    su.validity_begin_date,
+		    su.validity_end_date,
+		    su.employee_code,
+		    su.user_post,
+		    su.corp_code,
+		    su.dept_code,
+		    su.is_syn,
+		    su.is_delete,
+		    su.create_time,
+		    su.modify_time,
+		    su.create_user_id,
+		    su.modify_user_id,
+		    su.phone_number,
+	    	su.email,
+		    su.user_ext0,
+		    su.user_ext1,
+		    su.user_ext2,
+		    su.user_ext3,
+		    su.user_ext4,
+		    su.user_ext5,
+		    su.user_ext6,
+		    su.user_ext7,
+		    su.user_ext8,
+		    su.user_ext9,
+		    createsu.user_code create_user_code,
+		    createsu.user_name create_user_name,
+		    modifysu.user_code modify_user_code,
+		    modifysu.user_name modify_user_code
+		FROM
+		    sys_user su
+	        INNER JOIN sys_rel_user_role role on role.user_id = su.user_id
+			AND su.is_delete = 0 and su.user_code != 'ipasadmininstock123'
+	        AND role.role_code =  #{roleCode}
+		        LEFT JOIN
+		    sys_user createsu ON createsu.user_id = su.create_user_id
+		    	AND createsu.is_delete = 0
+		        LEFT JOIN
+		    sys_user modifysu ON modifysu.user_id = su.modify_user_id
+		    	AND modifysu.is_delete = 0
+		ORDER BY su.user_code;
+  </select>
+  
+   <!-- 查询角色还没有分配的用户信息   roleCode-->  
+   <select id="selectSysUserOfRoleNotHave" parameterType="java.lang.String" resultMap="VoBaseResultMap" >
+		SELECT 
+		    su.user_id,
+		    su.user_code,
+		    su.user_name,
+		    su.password,
+		    su.user_type,
+		    su.org_code,
+		    su.is_locked,
+		    su.freeze,
+		    su.last_login,
+		    su.fail_attempts,
+		    su.last_fail_attempt,
+		    su.validity_begin_date,
+		    su.validity_end_date,
+		    su.employee_code,
+		    su.user_post,
+		    su.corp_code,		   
+		    su.dept_code,
+		    su.is_syn,
+		    su.is_delete,
+		    su.create_time,
+		    su.modify_time,
+		    su.create_user_id,
+		    su.modify_user_id,
+		    su.phone_number,
+	    	su.email,
+		    su.user_ext0,
+		    su.user_ext1,
+		    su.user_ext2,
+		    su.user_ext3,
+		    su.user_ext4,
+		    su.user_ext5,
+		    su.user_ext6,
+		    su.user_ext7,
+		    su.user_ext8,
+		    su.user_ext9,
+		    createsu.user_code create_user_code,
+		    createsu.user_name create_user_name,
+		    modifysu.user_code modify_user_code,
+		    modifysu.user_name modify_user_code
+		FROM
+		    sys_user su
+		        LEFT JOIN
+		    sys_user createsu ON createsu.user_id = su.create_user_id
+		    	AND createsu.is_delete = 0
+		        LEFT JOIN
+		    sys_user modifysu ON modifysu.user_id = su.modify_user_id
+		   		AND modifysu.is_delete = 0
+		WHERE
+		    su.user_id NOT IN (SELECT 
+		            su.user_id
+		        FROM
+		            sys_user su
+		                INNER JOIN
+		            sys_rel_user_role role ON role.user_id = su.user_id
+		                AND su.is_delete = 0
+		                AND role.role_code = #{roleCode})
+		     AND su.is_delete = 0
+		ORDER BY su.user_code;
+    
+    
+  </select>
+  
+     <!-- 查询所有用户-->  
+   <select id="selectAllUser" parameterType="java.lang.String" resultMap="VoBaseResultMap" >
+		SELECT 
+		    su.user_id,
+		    su.user_code,
+		    su.user_name,
+		    su.password,
+		    su.user_type,
+		    su.org_code,
+		    su.is_locked,
+		    su.freeze,
+		    su.last_login,
+		    su.fail_attempts,
+		    su.last_fail_attempt,
+		    su.validity_begin_date,
+		    su.validity_end_date,
+		    su.employee_code,
+		    su.user_post,
+		    su.corp_code,
+		    su.dept_code,
+		    su.is_syn,
+		    su.is_delete,
+		    su.create_time,
+		    su.modify_time,
+		    su.create_user_id,
+		    su.modify_user_id,
+		    su.phone_number,
+	    	su.email,
+		    su.user_ext0,
+		    su.user_ext1,
+		    su.user_ext2,
+		    su.user_ext3,
+		    su.user_ext4,
+		    su.user_ext5,
+		    su.user_ext6,
+		    su.user_ext7,
+		    su.user_ext8,
+		    su.user_ext9,
+		    corp.corp_name,
+		    dept.dept_name,
+		    createsu.user_code create_user_code,
+		    createsu.user_name create_user_name,
+		    modifysu.user_code modify_user_code,
+		    modifysu.user_name modify_user_code,
+		    outside.outside_code,
+		    outside.outside_name
+		FROM
+		    sys_user su
+		        INNER JOIN
+		    dic_corp corp ON corp.corp_code = su.corp_code
+		        AND su.is_delete = 0	        
+		        AND corp.is_delete = 0
+		    <if test="_parameter != null and _parameter != '' ">  
+	        	AND (su.user_code LIKE CONCAT('%',#{condition},'%' )
+	        	OR su.user_name LIKE  CONCAT('%',#{condition},'%' ))
+	    	</if>    
+		        LEFT JOIN
+		    sys_user createsu ON createsu.user_id = su.create_user_id
+		    	AND createsu.is_delete = 0
+		        LEFT JOIN
+		    sys_user modifysu ON modifysu.user_id = su.modify_user_id
+		    	AND modifysu.is_delete = 0
+		        LEFT JOIN
+		    dic_dept dept ON dept.dept_code = su.dept_code	    	
+		        AND dept.corp_code = corp.corp_code
+		        AND dept.is_delete = 0
+		        LEFT JOIN
+		    dic_outside outside ON outside.user_id = su.user_id
+		    	AND outside.is_delete = 0
+  </select>
+  
+     <!-- 按用户编号或者姓名模糊搜索用户  最多50条-->  
+   <select id="selectUserByConditionLimit" parameterType="java.lang.String" resultMap="VoBaseResultMap" >
+		SELECT 
+		    su.user_id,
+		    su.user_code,
+		    su.user_name,
+		    su.password,
+		    su.user_type,
+		    su.org_code,
+		    su.is_locked,
+		    su.freeze,
+		    su.last_login,
+		    su.fail_attempts,
+		    su.last_fail_attempt,
+		    su.validity_begin_date,
+		    su.validity_end_date,
+		    su.employee_code,
+		    su.user_post,
+		    su.corp_code,
+		    su.dept_code,
+		    su.is_syn,
+		    su.is_delete,
+		    su.create_time,
+		    su.modify_time,
+		    su.create_user_id,
+		    su.modify_user_id,
+		    su.phone_number,
+	    	su.email,
+		    su.user_ext0,
+		    su.user_ext1,
+		    su.user_ext2,
+		    su.user_ext3,
+		    su.user_ext4,
+		    su.user_ext5,
+		    su.user_ext6,
+		    su.user_ext7,
+		    su.user_ext8,
+		    su.user_ext9,
+		    corp.corp_name,
+		    dept.dept_name,
+		    createsu.user_code create_user_code,
+		    createsu.user_name create_user_name,
+		    modifysu.user_code modify_user_code,
+		    modifysu.user_name modify_user_code,
+		    outside.outside_code,
+		    outside.outside_name
+		FROM
+		    sys_user su
+		        INNER JOIN
+		    dic_corp corp ON corp.corp_code = su.corp_code
+		        AND su.is_delete = 0	        
+		        AND corp.is_delete = 0
+		    <if test="_parameter != null and _parameter != '' ">  
+	        	AND (su.user_code LIKE CONCAT('%',#{condition},'%' )
+	        	OR su.user_name LIKE  CONCAT('%',#{condition},'%' ))
+	    	</if>    
+		        LEFT JOIN
+		    sys_user createsu ON createsu.user_id = su.create_user_id
+		    	AND createsu.is_delete = 0
+		        LEFT JOIN
+		    sys_user modifysu ON modifysu.user_id = su.modify_user_id
+		    	AND modifysu.is_delete = 0
+		        LEFT JOIN
+		    dic_dept dept ON dept.dept_code = su.dept_code	    	
+		        AND dept.corp_code = corp.corp_code
+		        AND dept.is_delete = 0
+		        LEFT JOIN
+		    dic_outside outside ON outside.user_id = su.user_id
+		    	AND outside.is_delete = 0
+		    	limit 50
+  </select>
+  
+  <!-- 查询所有用户-->  
+   <select id="selectAllUserList" resultMap="VoBaseResultMap" >
+		SELECT 
+		    su.user_id,
+		    su.user_code,
+		    su.user_name,
+		    su.password,
+		    su.user_type,
+		    su.org_code,
+		    su.is_locked,
+		    su.freeze,
+		    su.last_login,
+		    su.fail_attempts,
+		    su.last_fail_attempt,
+		    su.validity_begin_date,
+		    su.validity_end_date,
+		    su.employee_code,
+		    su.user_post,
+		    su.corp_code,
+		    su.dept_code,
+		    su.is_syn,
+		    su.is_delete,
+		    su.create_time,
+		    su.modify_time,
+		    su.create_user_id,
+		    su.modify_user_id,
+		    su.phone_number,
+	    	su.email,
+		    su.user_ext0,
+		    su.user_ext1,
+		    su.user_ext2,
+		    su.user_ext3,
+		    su.user_ext4,
+		    su.user_ext5,
+		    su.user_ext6,
+		    su.user_ext7,
+		    su.user_ext8,
+		    su.user_ext9,
+		    createsu.user_code create_user_code,
+		    createsu.user_name create_user_name,
+		    modifysu.user_code modify_user_code,
+		    modifysu.user_name modify_user_code
+		FROM
+		    sys_user su
+		        LEFT JOIN
+		    sys_user createsu ON createsu.user_id = su.create_user_id
+		    	AND createsu.is_delete = 0
+		        LEFT JOIN
+		    sys_user modifysu ON modifysu.user_id = su.modify_user_id
+		    	AND modifysu.is_delete = 0
+	    WHERE su.is_delete = 0 and su.user_code != 'ipasadmininstock123'
+  </select>
+  <!-- 查询角色还没有分配的用户信息   -->  
+   <select id="selectSysUserOfRoleNotHaveByUser" parameterType="com.inossem.wms.co.sys.SysUserRoleCo" resultMap="VoBaseResultMap" >
+		SELECT 
+		    su.user_id,
+		    su.user_code,
+		    su.user_name,
+		    su.password,
+		    su.user_type,
+		    su.org_code,
+		    su.is_locked,
+		    su.freeze,
+		    su.last_login,
+		    su.fail_attempts,
+		    su.last_fail_attempt,
+		    su.validity_begin_date,
+		    su.validity_end_date,
+		    su.employee_code,
+		    su.user_post,
+		    su.corp_code,
+		    su.dept_code,
+		    su.is_syn,
+		    su.is_delete,
+		    su.create_time,
+		    su.modify_time,
+		    su.create_user_id,
+		    su.modify_user_id,
+		    su.phone_number,
+	    	su.email,
+		    su.user_ext0,
+		    su.user_ext1,
+		    su.user_ext2,
+		    su.user_ext3,
+		    su.user_ext4,
+		    su.user_ext5,
+		    su.user_ext6,
+		    su.user_ext7,
+		    su.user_ext8,
+		    su.user_ext9,
+		    createsu.user_code create_user_code,
+		    createsu.user_name create_user_name,
+		    modifysu.user_code modify_user_code,
+		    modifysu.user_name modify_user_code
+		FROM
+		    sys_user su
+		        LEFT JOIN
+		    sys_user createsu ON createsu.user_id = su.create_user_id
+		    	 AND createsu.is_delete = 0
+		        LEFT JOIN
+		    sys_user modifysu ON modifysu.user_id = su.modify_user_id
+		    	AND modifysu.is_delete = 0
+		WHERE su.is_delete = 0
+		  and  su.user_id NOT IN (SELECT 
+		            su.user_id
+		        FROM
+		            sys_user su
+		                INNER JOIN
+		            sys_rel_user_role role ON role.user_id = su.user_id
+		                AND su.is_delete = 0
+		                AND role.role_code = #{roleCode})
+         <if test="condition != null and condition != '' ">
+           AND (su.user_code LIKE CONCAT('%',#{condition},'%' )
+           OR su.user_name LIKE  CONCAT('%',#{condition},'%' ))
+         </if>
+     ORDER BY su.user_code;
+    
+    
+  </select>
+  
+  <select id="selectSysUserByCorpCode" parameterType="java.lang.String" resultMap="BaseResultMap"> 
+		select
+	    <include refid="Base_Column_List" />
+	    from sys_user
+	    where is_delete = 0
+	    and corp_code = #{corpCode,jdbcType=VARCHAR} 
+  </select>
+  <!-- 按仓库号下的工厂和库存地点查询符合权限的用户-->  
+   <select id="selectUserByWhCode" parameterType="java.lang.String" resultMap="VoBaseResultMap" >
+		SELECT distinct
+		    su.user_id,
+		    su.user_code,
+		    su.user_name,
+		    su.password,
+		    su.user_type,
+		    su.org_code,
+		    su.is_locked,
+		    su.freeze,
+		    su.last_login,
+		    su.fail_attempts,
+		    su.last_fail_attempt,
+		    su.validity_begin_date,
+		    su.validity_end_date,
+		    su.employee_code,
+		    su.user_post,
+		    su.corp_code,
+		    su.dept_code,
+		    su.is_syn,
+		    su.is_delete,
+		    su.create_time,
+		    su.modify_time,
+		    su.create_user_id,
+		    su.modify_user_id,
+		    su.phone_number,
+	    	su.email,
+		    su.user_ext0,
+		    su.user_ext1,
+		    su.user_ext2,
+		    su.user_ext3,
+		    su.user_ext4,
+		    su.user_ext5,
+		    su.user_ext6,
+		    su.user_ext7,
+		    su.user_ext8,
+		    su.user_ext9,
+		    corp.corp_name,
+		    dept.dept_name,
+		    createsu.user_code create_user_code,
+		    createsu.user_name create_user_name,
+		    modifysu.user_code modify_user_code,
+		    modifysu.user_name modify_user_code,
+		    outside.outside_code,
+		    outside.outside_name
+		FROM
+		    sys_user su
+		    	INNER JOIN
+			rel_user_stock_location rel ON su.user_id = rel.user_id
+				INNER JOIN
+			dic_stock_location loc ON rel.fty_code = loc.fty_code
+				AND rel.location_code = loc.location_code
+				AND loc.wh_code = #{whCode}
+		        INNER JOIN
+		    dic_corp corp ON corp.corp_code = su.corp_code
+		        AND su.is_delete = 0	        
+		        AND corp.is_delete = 0
+		        LEFT JOIN
+		    sys_user createsu ON createsu.user_id = su.create_user_id
+		    	AND createsu.is_delete = 0
+		        LEFT JOIN
+		    sys_user modifysu ON modifysu.user_id = su.modify_user_id
+		    	AND modifysu.is_delete = 0
+		        LEFT JOIN
+		    dic_dept dept ON dept.dept_code = su.dept_code	    	
+		        AND dept.corp_code = corp.corp_code
+		        AND dept.is_delete = 0
+		        LEFT JOIN
+		    dic_outside outside ON outside.user_id = su.user_id
+		    	AND outside.is_delete = 0
+  </select>
+</mapper>

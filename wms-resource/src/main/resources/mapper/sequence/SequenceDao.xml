@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.sequence.SequenceDAO">
+  
+ 
+  <select id="selectNextValue" parameterType="java.lang.String" resultType="java.lang.String" flushCache="true">
+    SELECT next_value(#{sequenceCode,jdbcType=VARCHAR})
+  </select>
+  
+  <select id="selectNextValueDaily" parameterType="java.lang.String" resultType="java.lang.String" flushCache="true">
+    SELECT next_value_daily(#{sequenceCode,jdbcType=VARCHAR})
+  </select>
+  
+   <select id="selectNextValueByCode" parameterType="java.lang.String" resultType="java.lang.String" flushCache="true">
+    SELECT next_value_code(#{sequenceCode,jdbcType=VARCHAR})
+  </select>
+  
+   <select id="selectNextValueDailyByCode" parameterType="java.lang.String" resultType="java.lang.String" flushCache="true">
+    SELECT next_value_code_daily(#{sequenceCode,jdbcType=VARCHAR})
+  </select>
+</mapper>

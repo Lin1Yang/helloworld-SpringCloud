@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.sys.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.sys.SysRole">
+    <id column="role_code" jdbcType="CHAR" property="roleCode" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="role_ext0" jdbcType="VARCHAR" property="roleExt0" />
+    <result column="role_ext1" jdbcType="VARCHAR" property="roleExt1" />
+    <result column="role_ext2" jdbcType="VARCHAR" property="roleExt2" />
+    <result column="role_ext3" jdbcType="VARCHAR" property="roleExt3" />
+    <result column="role_ext4" jdbcType="VARCHAR" property="roleExt4" />
+  </resultMap>
+  
+  <resultMap id="VoBaseResultMap" type="com.inossem.wms.vo.sys.SysRoleVo">
+    <id column="role_code" jdbcType="CHAR" property="roleCode" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="role_ext0" jdbcType="VARCHAR" property="roleExt0" />
+    <result column="role_ext1" jdbcType="VARCHAR" property="roleExt1" />
+    <result column="role_ext2" jdbcType="VARCHAR" property="roleExt2" />
+    <result column="role_ext3" jdbcType="VARCHAR" property="roleExt3" />
+    <result column="role_ext4" jdbcType="VARCHAR" property="roleExt4" />
+    <result column="create_user_code" jdbcType="VARCHAR" property="createUserCode" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="modify_user_code" jdbcType="VARCHAR" property="modifyUserCode" />
+    <result column="modify_user_name" jdbcType="VARCHAR" property="modifyUserName" />
+  </resultMap> 
+  
+   <resultMap id="InfoVoBaseResultMap" type="com.inossem.wms.vo.sys.SysRoleInfoVo"  extends="VoBaseResultMap">
+ 
+  </resultMap> 
+  <sql id="Base_Column_List">
+    role_code, role_name, create_time, modify_time, create_user_id, modify_user_id, role_ext0, 
+    role_ext1, role_ext2, role_ext3, role_ext4
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where role_code = #{roleCode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_role
+    where role_code = #{roleCode,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.sys.SysRole">
+    insert into sys_role (role_code, role_name, create_time, 
+      modify_time, create_user_id, modify_user_id, 
+      role_ext0, role_ext1, role_ext2, 
+      role_ext3, role_ext4)
+    values (#{roleCode,jdbcType=CHAR}, #{roleName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, 
+      #{roleExt0,jdbcType=VARCHAR}, #{roleExt1,jdbcType=VARCHAR}, #{roleExt2,jdbcType=VARCHAR}, 
+      #{roleExt3,jdbcType=VARCHAR}, #{roleExt4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.sys.SysRole">
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleCode != null">
+        role_code,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="roleExt0 != null">
+        role_ext0,
+      </if>
+      <if test="roleExt1 != null">
+        role_ext1,
+      </if>
+      <if test="roleExt2 != null">
+        role_ext2,
+      </if>
+      <if test="roleExt3 != null">
+        role_ext3,
+      </if>
+      <if test="roleExt4 != null">
+        role_ext4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleCode != null">
+        upper(#{roleCode,jdbcType=CHAR}),
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="roleExt0 != null">
+        #{roleExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="roleExt1 != null">
+        #{roleExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="roleExt2 != null">
+        #{roleExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="roleExt3 != null">
+        #{roleExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="roleExt4 != null">
+        #{roleExt4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.sys.SysRole">
+    update sys_role
+    <set>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="roleExt0 != null">
+        role_ext0 = #{roleExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="roleExt1 != null">
+        role_ext1 = #{roleExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="roleExt2 != null">
+        role_ext2 = #{roleExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="roleExt3 != null">
+        role_ext3 = #{roleExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="roleExt4 != null">
+        role_ext4 = #{roleExt4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_code = #{roleCode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.sys.SysRole">
+    update sys_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      role_ext0 = #{roleExt0,jdbcType=VARCHAR},
+      role_ext1 = #{roleExt1,jdbcType=VARCHAR},
+      role_ext2 = #{roleExt2,jdbcType=VARCHAR},
+      role_ext3 = #{roleExt3,jdbcType=VARCHAR},
+      role_ext4 = #{roleExt4,jdbcType=VARCHAR}
+    where role_code = #{roleCode,jdbcType=CHAR}
+  </update>
+  
+  
+   <!--用户已没有被分配的角色  根据 user_id查询-->
+  <select id="selectRoleNotYetOfUserByUserId" parameterType="java.lang.Integer" resultMap="VoBaseResultMap">
+		SELECT 
+		    role.role_code,
+		    role.role_name,
+		    role.create_time,
+		    role.modify_time,
+		    role.create_user_id,
+		    cuser.user_code create_user_code,
+		    cuser.user_name create_user_name,
+		    role.modify_user_id,
+		    muser.user_code modify_user_code,
+		    muser.user_name modify_user_name,
+		    role.role_ext0,
+		    role.role_ext1,
+		    role.role_ext2,
+		    role.role_ext3,
+		    role.role_ext4
+		FROM
+		    sys_role role
+		        LEFT JOIN
+		    sys_user cuser ON cuser.user_id = role.create_user_id
+		        LEFT JOIN
+		    sys_user muser ON muser.user_id = role.modify_user_id
+		WHERE
+		    role.role_code NOT IN (
+				SELECT 
+					role.role_code
+				FROM
+					sys_rel_user_role urole
+				INNER JOIN
+					sys_role role ON role.role_code = urole.role_code
+				AND urole.user_id = #{userId}
+		);    
+  </select>
+  
+  <!--所有角色 -->
+  <select id="selectAllRoleList"  resultMap="VoBaseResultMap">
+		SELECT 
+		    role.role_code,
+		    role.role_name,
+		    role.create_time,
+		    role.modify_time,
+		    role.create_user_id,
+		    cuser.user_code create_user_code,
+		    cuser.user_name create_user_name,
+		    role.modify_user_id,
+		    muser.user_code modify_user_code,
+		    muser.user_name modify_user_name,
+		    role.role_ext0,
+		    role.role_ext1,
+		    role.role_ext2,
+		    role.role_ext3,
+		    role.role_ext4
+		FROM
+		    sys_role role
+		        LEFT JOIN
+		    sys_user cuser ON cuser.user_id = role.create_user_id
+		        LEFT JOIN
+		    sys_user muser ON muser.user_id = role.modify_user_id 
+  </select>
+  
+  
+   <!--分页查询角色信息，根据角色创建时间create_time降序排列，如果传参数condition，根据角色编码role_code或者角色描述role_name模糊查询  -->
+  <select id="selectByRoleCodeAndRoleNameOnPaging" parameterType="com.inossem.wms.co.sys.SysRoleCo" resultMap="VoBaseResultMap">
+		SELECT 
+		    role.role_code,
+		    role.role_name,
+		    role.create_time,
+		    role.modify_time,
+		    role.create_user_id,
+		    role.modify_user_id,
+		    role.role_ext0,
+		    role.role_ext1,
+		    role.role_ext2,
+		    role.role_ext3,
+		    role.role_ext4,
+		    createsu.user_code create_user_code,
+		    createsu.user_name create_user_name,
+		    modifysu.user_code modify_user_code,
+		    modifysu.user_name modify_user_code
+		FROM
+		    sys_role role
+		        LEFT JOIN
+		    sys_user createsu ON createsu.user_id = role.create_user_id
+		        LEFT JOIN
+		    sys_user modifysu ON modifysu.user_id = role.modify_user_id		
+		WHERE 1 = 1 
+	    <if test="condition != null and condition != '' ">  
+	        AND (role.role_code LIKE CONCAT('%',#{condition},'%' )
+	        OR role.role_name LIKE  CONCAT('%',#{condition},'%' ))
+   	    </if>    
+		
+		ORDER BY role.create_time DESC;        
+  </select>
+  
+  
+  <!--查询角色信息   角色编码roleCode  -->
+  <select id="selectByRoleCode" parameterType="java.lang.String" resultMap="InfoVoBaseResultMap">
+		SELECT 
+		    role.role_code,
+		    role.role_name,
+		    role.create_time,
+		    role.modify_time,
+		    role.create_user_id,
+		    role.modify_user_id,
+		    role.role_ext0,
+		    role.role_ext1,
+		    role.role_ext2,
+		    role.role_ext3,
+		    role.role_ext4,
+		    createsu.user_code create_user_code,
+		    createsu.user_name create_user_name,
+		    modifysu.user_code modify_user_code,
+		    modifysu.user_name modify_user_code
+		FROM
+		    sys_role role
+		        LEFT JOIN
+		    sys_user createsu ON createsu.user_id = role.create_user_id
+		        LEFT JOIN
+		    sys_user modifysu ON modifysu.user_id = role.modify_user_id
+		    
+		WHERE role.role_code = #{roleCode}
+  </select>
+  
+  <!--查询是否存在该角色信息   角色编码roleCode  -->
+  <select id="selectExistedSysRoleByRoleCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM
+		    sys_role 		    
+		WHERE role_code = #{roleCode}
+		LIMIT 1
+  </select>
+  
+    <!--查询是否存在该角色信息   角色编码roleCode  -->
+  <select id="selectExistedSysRoleByRoleName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" />
+		FROM
+		    sys_role 		    
+		WHERE role_name = #{roleName}
+		LIMIT 1
+  </select>
+</mapper>

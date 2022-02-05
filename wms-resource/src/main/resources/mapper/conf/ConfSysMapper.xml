@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.conf.ConfSysMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.conf.ConfSys">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+    <result column="img_path" jdbcType="VARCHAR" property="imgPath" />
+    <result column="app_upgrade_file_path" jdbcType="VARCHAR" property="appUpgradeFilePath" />
+    <result column="inspect_ins_batch" jdbcType="TINYINT" property="inspectInsBatch" />
+    <result column="erp_url" jdbcType="VARCHAR" property="erpUrl" />
+    <result column="other_input_post" jdbcType="TINYINT" property="otherInputPost" />
+    <result column="other_output_post" jdbcType="TINYINT" property="otherOutputPost" />
+    <result column="erp_sync_mode" jdbcType="TINYINT" property="erpSyncMode" />
+    <result column="timeout" jdbcType="INTEGER" property="timeout" />
+    <result column="interface_type" jdbcType="TINYINT" property="interfaceType" />
+    <result column="strategy_shelf_load" jdbcType="TINYINT" property="strategyShelfLoad" />
+    <result column="strategy_shelf_un_load" jdbcType="TINYINT" property="strategyShelfUnLoad" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="conf_sys_ext0" jdbcType="VARCHAR" property="confSysExt0" />
+    <result column="conf_sys_ext1" jdbcType="VARCHAR" property="confSysExt1" />
+    <result column="conf_sys_ext2" jdbcType="VARCHAR" property="confSysExt2" />
+    <result column="conf_sys_ext3" jdbcType="VARCHAR" property="confSysExt3" />
+    <result column="conf_sys_ext4" jdbcType="VARCHAR" property="confSysExt4" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, file_path,img_path, app_upgrade_file_path, inspect_ins_batch, erp_url, 
+    other_input_post, other_output_post, erp_sync_mode, timeout, interface_type,strategy_shelf_load,strategy_shelf_un_load, create_time,
+    create_user_id, modify_time, modify_user_id, 
+    conf_sys_ext0, conf_sys_ext1, conf_sys_ext2, conf_sys_ext3, conf_sys_ext4
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from conf_sys
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from conf_sys
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.conf.ConfSys">
+    insert into conf_sys (id, file_path, img_path, app_upgrade_file_path,
+      inspect_ins_batch, erp_url, 
+      other_input_post, other_output_post, 
+      erp_sync_mode, timeout, interface_type,
+      create_time, create_user_id, modify_time, 
+      modify_user_id, conf_sys_ext0, conf_sys_ext1, 
+      conf_sys_ext2, conf_sys_ext3, conf_sys_ext4
+      )
+    values (#{id,jdbcType=INTEGER}, #{filePath,jdbcType=VARCHAR}, #{imgPath,jdbcType=VARCHAR}, 
+      #{appUpgradeFilePath,jdbcType=VARCHAR}, 
+      #{inspectInsBatch,jdbcType=TINYINT}, #{erpUrl,jdbcType=VARCHAR},
+      #{otherInputPost,jdbcType=TINYINT}, #{otherOutputPost,jdbcType=TINYINT}, 
+      #{erpSyncMode,jdbcType=TINYINT}, #{timeout,jdbcType=INTEGER}, #{interfaceType,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{confSysExt0,jdbcType=VARCHAR}, #{confSysExt1,jdbcType=VARCHAR}, 
+      #{confSysExt2,jdbcType=VARCHAR}, #{confSysExt3,jdbcType=VARCHAR}, #{confSysExt4,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.conf.ConfSys">
+    insert into conf_sys
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="filePath != null">
+        file_path,
+      </if>
+      <if test="imgPath != null">
+        img_path,
+      </if>
+      <if test="appUpgradeFilePath != null">
+        app_upgrade_file_path,
+      </if>
+      <if test="inspectInsBatch != null">
+        inspect_ins_batch,
+      </if>
+      <if test="erpUrl != null">
+        erp_url,
+      </if>
+      <if test="otherInputPost != null">
+        other_input_post,
+      </if>
+      <if test="otherOutputPost != null">
+        other_output_post,
+      </if>
+      <if test="erpSyncMode != null">
+        erp_sync_mode,
+      </if>
+      <if test="timeout != null">
+        timeout,
+      </if>
+      <if test="interfaceType != null">
+        interface_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="confSysExt0 != null">
+        conf_sys_ext0,
+      </if>
+      <if test="confSysExt1 != null">
+        conf_sys_ext1,
+      </if>
+      <if test="confSysExt2 != null">
+        conf_sys_ext2,
+      </if>
+      <if test="confSysExt3 != null">
+        conf_sys_ext3,
+      </if>
+      <if test="confSysExt4 != null">
+        conf_sys_ext4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="filePath != null">
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPath != null">
+        #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="appUpgradeFilePath != null">
+        #{appUpgradeFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectInsBatch != null">
+        #{inspectInsBatch,jdbcType=TINYINT},
+      </if>
+      <if test="erpUrl != null">
+        #{erpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="otherInputPost != null">
+        #{otherInputPost,jdbcType=TINYINT},
+      </if>
+      <if test="otherOutputPost != null">
+        #{otherOutputPost,jdbcType=TINYINT},
+      </if>
+      <if test="erpSyncMode != null">
+        #{erpSyncMode,jdbcType=TINYINT},
+      </if>
+      <if test="timeout != null">
+        #{timeout,jdbcType=INTEGER},
+      </if>
+      <if test="interfaceType != null">
+        #{interfaceType,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="confSysExt0 != null">
+        #{confSysExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="confSysExt1 != null">
+        #{confSysExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="confSysExt2 != null">
+        #{confSysExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="confSysExt3 != null">
+        #{confSysExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="confSysExt4 != null">
+        #{confSysExt4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.conf.ConfSys">
+    update conf_sys
+    <set>
+      <if test="filePath != null">
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPath != null">
+        img_path = #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="appUpgradeFilePath != null">
+        app_upgrade_file_path = #{appUpgradeFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectInsBatch != null">
+        inspect_ins_batch = #{inspectInsBatch,jdbcType=TINYINT},
+      </if>
+      <if test="erpUrl != null">
+        erp_url = #{erpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="otherInputPost != null">
+        other_input_post = #{otherInputPost,jdbcType=TINYINT},
+      </if>
+      <if test="otherOutputPost != null">
+        other_output_post = #{otherOutputPost,jdbcType=TINYINT},
+      </if>
+      <if test="erpSyncMode != null">
+        erp_sync_mode = #{erpSyncMode,jdbcType=TINYINT},
+      </if>
+      <if test="timeout != null">
+        timeout = #{timeout,jdbcType=INTEGER},
+      </if>
+      <if test="interfaceType != null">
+        interface_type = #{interfaceType,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="confSysExt0 != null">
+        conf_sys_ext0 = #{confSysExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="confSysExt1 != null">
+        conf_sys_ext1 = #{confSysExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="confSysExt2 != null">
+        conf_sys_ext2 = #{confSysExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="confSysExt3 != null">
+        conf_sys_ext3 = #{confSysExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="confSysExt4 != null">
+        conf_sys_ext4 = #{confSysExt4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.conf.ConfSys">
+    update conf_sys
+    set file_path = #{filePath,jdbcType=VARCHAR},
+	  img_path = #{imgPath,jdbcType=VARCHAR},
+	  app_upgrade_file_path = #{appUpgradeFilePath,jdbcType=VARCHAR},
+      inspect_ins_batch = #{inspectInsBatch,jdbcType=TINYINT},
+      erp_url = #{erpUrl,jdbcType=VARCHAR},
+      other_input_post = #{otherInputPost,jdbcType=TINYINT},
+      other_output_post = #{otherOutputPost,jdbcType=TINYINT},
+      erp_sync_mode = #{erpSyncMode,jdbcType=TINYINT},
+      timeout = #{timeout,jdbcType=INTEGER},
+      interface_type = #{interfaceType,jdbcType=TINYINT},
+      strategy_shelf_load = #{strategyShelfLoad,jdbcType=TINYINT},
+      strategy_shelf_un_load = #{strategyShelfUnLoad,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      conf_sys_ext0 = #{confSysExt0,jdbcType=VARCHAR},
+      conf_sys_ext1 = #{confSysExt1,jdbcType=VARCHAR},
+      conf_sys_ext2 = #{confSysExt2,jdbcType=VARCHAR},
+      conf_sys_ext3 = #{confSysExt3,jdbcType=VARCHAR},
+      conf_sys_ext4 = #{confSysExt4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectLimit1" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM conf_sys
+    ORDER BY id 
+	LIMIT 1;
+  </select>
+  <select id="selectMaxCorp" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    conf_sys_ext1
+    FROM conf_sys
+    where conf_sys_ext0 = 'maxcorp';
+  </select>
+  <select id="selectMaxWh" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    conf_sys_ext1
+    FROM conf_sys
+    where conf_sys_ext0 = 'maxwh';
+  </select>
+</mapper>

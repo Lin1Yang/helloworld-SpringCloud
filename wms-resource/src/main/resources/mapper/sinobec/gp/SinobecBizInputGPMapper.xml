@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inossem.wms.dao.sinobec.gp.SinobecBizInputGPMapper" >
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.sinobec.gp.SinobecBizInputGP" >
+    <id column="po_code" property="poCode" jdbcType="VARCHAR" />
+    <id column="shipping_ref" property="shippingRef" jdbcType="VARCHAR" />
+    <id column="po_rid" property="poRid" jdbcType="VARCHAR" />
+    <result column="mat_code" property="matCode" jdbcType="VARCHAR" />
+    <result column="heat_code" property="heatCode" jdbcType="VARCHAR" />
+    <result column="skid_code" property="skidCode" jdbcType="VARCHAR" />
+    <result column="unit_code" property="unitCode" jdbcType="VARCHAR" />
+    <result column="bundle_code" property="bundleCode" jdbcType="VARCHAR" />
+    <result column="corp_code" property="corpCode" jdbcType="VARCHAR" />
+    <result column="wh_code" property="whCode" jdbcType="VARCHAR" />
+    <result column="stock_status" property="stockStatus" jdbcType="VARCHAR" />
+    <result column="item_numb" property="itemNumb" jdbcType="VARCHAR" />
+    <result column="lot_numb" property="lotNumb" jdbcType="VARCHAR" />
+    <result column="po_type" property="poType" jdbcType="INTEGER" />
+    <result column="receipt_unit_code" property="receiptUnitCode" jdbcType="VARCHAR"/>
+    <result column="receipt_qty" property="receiptQty" jdbcType="DECIMAL"/>
+    <result column="weight_unit_code" property="weightUnitCode" jdbcType="VARCHAR"/>
+    <result column="weight_qty" property="weightQty" jdbcType="DECIMAL"/>
+    <result column="vendor_code" property="vendorCode" jdbcType="VARCHAR"/>
+	<result column="vendor_name" property="vendorName" jdbcType="VARCHAR"/>
+    <result column="receipt_status" property="receiptStatus" jdbcType="TINYINT"/>
+    <result column="note" property="note" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    po_code, shipping_ref, po_rid, mat_code, heat_code, skid_code, unit_code, bundle_code,
+    corp_code, wh_code, stock_status,item_numb, lot_numb, po_type,receipt_unit_code,
+    receipt_qty,weight_unit_code,weight_qty,vendor_code,vendor_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from sinobec_biz_input_gp
+    where po_code = #{poCode,jdbcType=VARCHAR}
+      and shipping_ref = #{shippingRef,jdbcType=VARCHAR}
+      and po_rid = #{poRid,jdbcType=VARCHAR}
+      and wh_code = #{whCode,jdbcType=VARCHAR}
+  </select>
+    <select id="selectList" resultType="com.inossem.wms.model.sinobec.gp.SinobecBizInputGP">
+        SELECT
+            gp.po_code,
+            gp.shipping_ref,
+            gp.po_rid,
+            gp.receipt_type,
+            gp.mat_code,
+            gp.heat_code,
+            gp.skid_code,
+            gp.unit_code,
+            gp.bundle_code,
+            gp.corp_code,
+            gp.wh_code,
+            gp.stock_status,
+            gp.item_numb,
+            gp.lot_numb,
+            gp.po_type,
+            gp.receipt_unit_code,
+            gp.receipt_qty,
+            gp.weight_unit_code,
+            gp.weight_qty,
+            gp.vendor_code,
+            gp.vendor_name,
+            gp.ext0,
+            gp.ext1,
+            gp.ext2,
+            gp.ext3,
+            gp.ext4,
+            gp.ext5,
+            gp.ext6,
+            gp.ext7,
+            gp.ext8,
+            gp.ext9,
+            gp.ext10,
+            gp.ext11,
+            gp.ext12,
+            gp.ext13,
+            gp.ext14,
+            gp.ext15,
+            m.mat_name,
+            m.mat_ext1
+        FROM sinobec_biz_input_gp gp inner join dic_material m  on gp.mat_code = m.mat_code
+        where 1=1 and gp.receipt_status = 0
+        	<if test="receiptType != null and receiptType != ''">
+        		and gp.receipt_type = #{receiptType,jdbcType=INTEGER}
+        	</if>
+
+        	<if test="poCode != null and poCode != '' ">
+        		and gp.po_code = #{poCode,jdbcType=VARCHAR}
+        	</if>
+            <if test="shippingRef != null and shippingRef != '' ">
+        		and gp.ext0 = #{shippingRef,jdbcType=VARCHAR}
+        	</if>
+
+            <if test="corpCode != null and corpCode != '' ">
+               	and gp.corp_code = #{corpCode,jdbcType=VARCHAR}
+            </if>
+
+            <if test="whCode != null and whCode != '' ">
+                and gp.wh_code = #{whCode,jdbcType=VARCHAR}
+            </if>
+
+
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from sinobec_biz_input_gp
+    where po_code = #{poCode,jdbcType=VARCHAR}
+      and shipping_ref = #{shippingRef,jdbcType=VARCHAR}
+      and po_rid = #{poRid,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByRid" parameterType="map" >
+    delete from sinobec_biz_input_gp
+    where po_rid = #{poRid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.inossem.wms.model.sinobec.gp.SinobecBizInputGP" >
+    insert into sinobec_biz_input_gp (po_code, shipping_ref, po_rid,
+      mat_code, heat_code, skid_code,
+      unit_code, bundle_code,
+      corp_code, wh_code, item_numb,
+      lot_numb, po_type)
+    values (#{poCode,jdbcType=VARCHAR}, #{shippingRef,jdbcType=VARCHAR}, #{poRid,jdbcType=VARCHAR},
+      #{matCode,jdbcType=VARCHAR}, #{heatCode,jdbcType=VARCHAR}, #{skidCode,jdbcType=VARCHAR},
+      #{unitCode,jdbcType=VARCHAR}, #{bundleCode,jdbcType=VARCHAR},
+      #{corpCode,jdbcType=VARCHAR}, #{whCode,jdbcType=VARCHAR}, #{itemNumb,jdbcType=VARCHAR},
+      #{lotNumb,jdbcType=VARCHAR}, #{poType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.sinobec.gp.SinobecBizInputGP" >
+    insert into sinobec_biz_input_gp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="poCode != null" >
+        po_code,
+      </if>
+      <if test="shippingRef != null" >
+        shipping_ref,
+      </if>
+      <if test="poRid != null" >
+        po_rid,
+      </if>
+      <if test="matCode != null" >
+        mat_code,
+      </if>
+      <if test="heatCode != null" >
+        heat_code,
+      </if>
+      <if test="skidCode != null" >
+        skid_code,
+      </if>
+      <if test="unitCode != null" >
+        unit_code,
+      </if>
+      <if test="bundleCode != null" >
+        bundle_code,
+      </if>
+      <if test="corpCode != null" >
+        corp_code,
+      </if>
+      <if test="whCode != null" >
+        wh_code,
+      </if>
+      <if test="itemNumb != null" >
+        item_numb,
+      </if>
+      <if test="lotNumb != null" >
+        lot_numb,
+      </if>
+      <if test="poType != null" >
+        po_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="poCode != null" >
+        #{poCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingRef != null" >
+        #{shippingRef,jdbcType=VARCHAR},
+      </if>
+      <if test="poRid != null" >
+        #{poRid,jdbcType=VARCHAR},
+      </if>
+      <if test="matCode != null" >
+        #{matCode,jdbcType=VARCHAR},
+      </if>
+      <if test="heatCode != null" >
+        #{heatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="skidCode != null" >
+        #{skidCode,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCode != null" >
+        #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bundleCode != null" >
+        #{bundleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null" >
+        #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="whCode != null" >
+        #{whCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNumb != null" >
+        #{itemNumb,jdbcType=VARCHAR},
+      </if>
+      <if test="lotNumb != null" >
+        #{lotNumb,jdbcType=VARCHAR},
+      </if>
+      <if test="poType != null" >
+        #{poType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.sinobec.gp.SinobecBizInputGP" >
+    update sinobec_biz_input_gp
+    <set >
+      <if test="matCode != null" >
+        mat_code = #{matCode,jdbcType=VARCHAR},
+      </if>
+      <if test="heatCode != null" >
+        heat_code = #{heatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="skidCode != null" >
+        skid_code = #{skidCode,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCode != null" >
+        unit_code = #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bundleCode != null" >
+        bundle_code = #{bundleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null" >
+        corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="whCode != null" >
+        wh_code = #{whCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNumb != null" >
+        item_numb = #{itemNumb,jdbcType=VARCHAR},
+      </if>
+      <if test="lotNumb != null" >
+        lot_numb = #{lotNumb,jdbcType=VARCHAR},
+      </if>
+      <if test="poType != null" >
+        po_type = #{poType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where po_code = #{poCode,jdbcType=VARCHAR}
+      and shipping_ref = #{shippingRef,jdbcType=VARCHAR}
+      and po_rid = #{poRid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.sinobec.gp.SinobecBizInputGP" >
+    update sinobec_biz_input_gp
+    set mat_code = #{matCode,jdbcType=VARCHAR},
+      heat_code = #{heatCode,jdbcType=VARCHAR},
+      skid_code = #{skidCode,jdbcType=VARCHAR},
+      unit_code = #{unitCode,jdbcType=VARCHAR},
+      bundle_code = #{bundleCode,jdbcType=VARCHAR},
+      corp_code = #{corpCode,jdbcType=VARCHAR},
+      wh_code = #{whCode,jdbcType=VARCHAR},
+      item_numb = #{itemNumb,jdbcType=VARCHAR},
+      lot_numb = #{lotNumb,jdbcType=VARCHAR},
+      po_type = #{poType,jdbcType=INTEGER}
+    where po_code = #{poCode,jdbcType=VARCHAR}
+      and shipping_ref = #{shippingRef,jdbcType=VARCHAR}
+      and po_rid = #{poRid,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertList" parameterType="java.util.List" >
+
+	  insert into sinobec_biz_input_gp (po_code, shipping_ref, po_rid,
+	      receipt_type, mat_code, heat_code,
+	      skid_code, bundle_code,
+	      corp_code, wh_code, stock_status,
+	      item_numb, lot_numb, po_type,
+	      receipt_unit_code, receipt_qty, weight_unit_code,
+	      weight_qty,vendor_code,vendor_name ,unit_code, note, ext0, ext1, ext2, ext3, ext4,ext7,ext8,
+	      ext10,ext11,ext12,ext13,ext14,ext15)
+	    values
+	    <foreach collection="list" item="item" index= "index" separator =",">
+
+	    (#{item.poCode,jdbcType=VARCHAR},
+	      ifnull(#{item.shippingRef,jdbcType=VARCHAR}, ''),
+	      #{item.poRid,jdbcType=VARCHAR},
+	      #{item.receiptType,jdbcType=INTEGER},
+	      #{item.matCode,jdbcType=VARCHAR},
+	      ifnull(#{item.heatCode,jdbcType=VARCHAR}, ''),
+	      ifnull(#{item.skidCode,jdbcType=VARCHAR}, ''),
+	      #{item.bundleCode,jdbcType=VARCHAR},
+	      ifnull(#{item.corpCode,jdbcType=VARCHAR}, ''),
+	      #{item.whCode,jdbcType=VARCHAR},
+	      ifnull(#{item.stockStatus,jdbcType=VARCHAR}, ''),
+	      #{item.itemNumb,jdbcType=VARCHAR},
+	      #{item.lotNumb,jdbcType=VARCHAR},
+	      #{item.poType,jdbcType=INTEGER},
+	      #{item.receiptUnitCode,jdbcType=VARCHAR},
+	      ifnull(#{item.receiptQty,jdbcType=DECIMAL},0), #{item.weightUnitCode,jdbcType=VARCHAR},
+	      #{item.weightQty,jdbcType=DECIMAL},
+	      ifnull(#{item.vendorCode,jdbcType=VARCHAR},''),
+	      ifnull(#{item.vendorName,jdbcType=VARCHAR},''),
+	      ifnull(#{item.unitCode,jdbcType=VARCHAR},''),
+	      ifnull(#{item.note,jdbcType=VARCHAR},''),
+	      #{item.ext0,jdbcType=VARCHAR},
+	      #{item.ext1,jdbcType=VARCHAR},
+	      #{item.ext2,jdbcType=VARCHAR},
+	      #{item.ext3,jdbcType=VARCHAR},
+	      #{item.ext4,jdbcType=VARCHAR},
+          #{item.ext7,jdbcType=VARCHAR},
+          #{item.ext8,jdbcType=VARCHAR},
+          #{item.ext10,jdbcType=VARCHAR},
+          #{item.ext11,jdbcType=VARCHAR},
+          #{item.ext12,jdbcType=VARCHAR},
+          #{item.ext13,jdbcType=VARCHAR},
+          #{item.ext14,jdbcType=VARCHAR},
+          #{item.ext15,jdbcType=VARCHAR}
+	      )
+	     </foreach>
+	     ON  DUPLICATE  KEY  UPDATE
+	      corp_code = if( receipt_status = 0, values(corp_code), corp_code),
+	      wh_code = if( receipt_status = 0, values(wh_code), wh_code),
+	      stock_status = if( receipt_status = 0, values(stock_status), stock_status),
+	      item_numb = if( receipt_status = 0, values(item_numb), item_numb),
+	      lot_numb = if( receipt_status = 0, values(lot_numb), lot_numb),
+	      po_type = if( receipt_status = 0, values(po_type), po_type),
+	      receipt_unit_code = if( receipt_status = 0, values(receipt_unit_code), receipt_unit_code),
+	      receipt_qty = if( receipt_status = 0, values(receipt_qty), receipt_qty),
+	      weight_unit_code = if( receipt_status = 0, values(weight_unit_code), weight_unit_code),
+	      weight_qty = if( receipt_status = 0, values(weight_qty), weight_qty),
+	      vendor_code = if( receipt_status = 0, values(vendor_code), vendor_code),
+	      vendor_name = if( receipt_status = 0, values(vendor_name),vendor_name),
+	      note = if( receipt_status = 0, values(note),note),
+	      ext0 = if( receipt_status = 0, values(ext0),ext0),
+	      ext1 = if( receipt_status = 0, values(ext1),ext1),
+	      ext2 = if( receipt_status = 0, values(ext2),ext2),
+	      ext3 = if( receipt_status = 0, values(ext3),ext3),
+	      ext4 = if( receipt_status = 0, values(ext4),ext4),
+          ext7 = if( receipt_status = 0, values(ext7),ext7),
+          ext8 = if( receipt_status = 0, values(ext8),ext8),
+          ext10 = if( receipt_status = 0, values(ext10),ext10)
+  </insert>
+
+  <delete id="deleteByPoAndShipping" parameterType="java.util.List" >
+
+	  delete from sinobec_biz_input_gp where receipt_status = 0 and (po_code,shipping_ref) in(
+	    <foreach collection="list" item="item" index= "index" separator =",">
+		    (
+		    	#{item.poCode,jdbcType=VARCHAR},
+		    	#{item.shippingRef,jdbcType=VARCHAR}
+		    )
+	    </foreach>
+	    )
+  </delete>
+
+  <select id="selectIncomingListOnPaging" resultType="com.inossem.wms.model.sinobec.gp.SinobecBizInputGP">
+        SELECT
+        	  gp.receipt_status,
+              gp.po_code,
+              gp.shipping_ref,
+              gp.po_rid,
+              gp.receipt_type,
+              gp.mat_code,
+              gp.heat_code,
+              gp.skid_code,
+              gp.unit_code,
+              gp.bundle_code,
+              gp.corp_code,
+              gp.wh_code,
+              gp.stock_status,
+              gp.item_numb,
+              gp.lot_numb,
+              gp.po_type,
+              gp.receipt_unit_code,
+              gp.receipt_qty,
+              gp.weight_unit_code,
+              gp.weight_qty,
+              gp.vendor_code,
+              gp.vendor_name,
+              gp.ext0,
+              i.receipt_status "i_receipt_status",
+              m.mat_name
+        FROM sinobec_biz_input_gp gp
+        inner join dic_material m  on gp.mat_code = m.mat_code
+        left join sinobec_biz_input i on i.bundle_code = gp.bundle_code
+        where gp.receipt_status = 0
+        <if test="receiptType != null and receiptType != '' ">
+           and gp.receipt_type = #{receiptType,jdbcType=INTEGER}
+        </if>
+        <if test="receiptCode != null and receiptCode != '' ">
+          and gp.po_code = #{receiptCode,jdbcType=VARCHAR}
+        </if>
+        <if test="shippingRef != null and shippingRef != '' ">
+          and gp.shipping_ref = #{shippingRef,jdbcType=VARCHAR}
+        </if>
+        <if test="whCode != null and whCode != '' ">
+          and gp.wh_code = #{whCode,jdbcType=VARCHAR}
+        </if>
+      <!--<if test="corpCode != null and corpCode != '' ">
+          and gp.corp_code = #{corpCode,jdbcType=VARCHAR}
+      </if>-->
+        <if test="@com.inossem.wms.page.PageInterceptor@isNotEmpty(condition)">
+            and (gp.po_code   like CONCAT('%',#{condition},'%')
+            or gp.shipping_ref  like CONCAT('%',#{condition},'%')
+            or gp.corp_code  like  CONCAT('%',#{condition},'%')
+            or gp.skid_code  like CONCAT('%',#{condition},'%')
+            or gp.mat_code like CONCAT('%',#{condition},'%')
+            or gp.heat_code like CONCAT('%',#{condition},'%')
+            or gp.bundle_code like CONCAT('%',#{condition},'%')
+            )
+          </if>
+  </select>
+
+  <update id="updateReceiptStatusByKey" parameterType="com.inossem.wms.model.sinobec.gp.SinobecBizInputGP" >
+    update sinobec_biz_input_gp
+    set receipt_status = #{receiptStatus,jdbcType=TINYINT}
+    where 1=1
+
+    	<if test="poCode != null and poCode != '' ">
+    		and po_code = #{poCode,jdbcType=VARCHAR}
+    	</if>
+    	<if test="receiptType != null and receiptType != '' ">
+    		and receipt_type = #{receiptType,jdbcType=INTEGER}
+    	</if>
+    	<!-- <if test="shippingRef != null  and shippingRef != '' ">
+    	   and shipping_ref = #{shippingRef,jdbcType=VARCHAR}
+    	</if> -->
+    	<if test="poRid != null and poRid != '' ">
+    		and po_rid = #{poRid,jdbcType=VARCHAR}
+    	</if>
+  </update>
+  <insert id="updateReceiptStatusAndRidByKey" parameterType="com.inossem.wms.model.sinobec.gp.SinobecBizInputGP" >
+    insert into sinobec_biz_input_gp (po_code, shipping_ref, po_rid,
+	      receipt_type, mat_code, heat_code,
+	      skid_code, bundle_code,
+	      corp_code, wh_code, stock_status,
+	      item_numb, lot_numb, po_type,
+	      receipt_unit_code, receipt_qty, weight_unit_code,
+	      weight_qty,vendor_code,vendor_name ,
+	      receipt_status, unit_code, note, ext0, ext1, ext2, ext3, ext4, ext5, ext6, ext7, ext8, ext9,ext10,ext11,ext12,ext13,ext14,ext15)
+	    values
+	    (#{poCode,jdbcType=VARCHAR},
+	      ifnull(#{shippingRef,jdbcType=VARCHAR}, ''),
+	      #{poRid,jdbcType=VARCHAR},
+	      #{receiptType,jdbcType=INTEGER},
+	      #{matCode,jdbcType=VARCHAR},
+	      ifnull(#{heatCode,jdbcType=VARCHAR}, ''),
+	      ifnull(#{skidCode,jdbcType=VARCHAR}, ''),
+	      #{bundleCode,jdbcType=VARCHAR},
+	      ifnull(#{corpCode,jdbcType=VARCHAR}, ''),
+	      #{whCode,jdbcType=VARCHAR},
+	      ifnull(#{stockStatus,jdbcType=VARCHAR}, ''),
+	      #{itemNumb,jdbcType=VARCHAR},
+	      #{lotNumb,jdbcType=VARCHAR},
+	      #{poType,jdbcType=INTEGER},
+	      #{receiptUnitCode,jdbcType=VARCHAR},
+	      ifnull(#{receiptQty,jdbcType=DECIMAL},0),
+	      #{weightUnitCode,jdbcType=VARCHAR},
+	      #{weightQty,jdbcType=DECIMAL},
+	      ifnull(#{vendorCode,jdbcType=VARCHAR},''),
+	      ifnull(#{vendorName,jdbcType=VARCHAR},''),
+	      ifnull(#{receiptStatus,jdbcType=TINYINT},1),
+	      ifnull(#{unitCode,jdbcType=VARCHAR},''),
+	      ifnull(#{note,jdbcType=VARCHAR},''),
+	      #{ext0,jdbcType=VARCHAR},
+	      #{ext1,jdbcType=VARCHAR},
+	      #{ext2,jdbcType=VARCHAR},
+	      #{ext3,jdbcType=VARCHAR},
+	      #{ext4,jdbcType=VARCHAR},
+	      #{ext5,jdbcType=VARCHAR},
+	      #{ext6,jdbcType=VARCHAR},
+	      #{ext7,jdbcType=VARCHAR},
+	      #{ext8,jdbcType=VARCHAR},
+	      #{ext9,jdbcType=VARCHAR},
+	      #{ext10,jdbcType=VARCHAR},
+      	  #{ext11,jdbcType=VARCHAR},
+          #{ext12,jdbcType=VARCHAR},
+      	  #{ext13,jdbcType=VARCHAR},
+      	  #{ext14,jdbcType=VARCHAR},
+      	  #{ext15,jdbcType=VARCHAR}
+	      )
+
+  </insert>
+
+  <update id="updateRId">
+ 	update sinobec_biz_input_gp
+  	set po_rid=id
+  </update>
+
+  <delete id="deleteInputDocuments" parameterType="java.util.List">
+	    DELETE FROM sinobec_biz_input_gp
+	    	WHERE po_code
+	          In (
+	            SELECT i.po from (
+	                SELECT po_code as po from sinobec_biz_input_gp
+	              		WHERE po_code
+	                    IN
+	                    <foreach collection = "list" index = "index" item = "item" open="(" close = ")" separator =",">
+	                        #{item}
+	                    </foreach>
+	              		group by po_code
+	              		having sum(receipt_status) = 0
+	            ) As i
+	         )
+  </delete>
+
+  <select id = "selectRejectableByPoCodeAndStatus" resultType = "String" parameterType="java.util.List">
+
+  	    SELECT po_code from sinobec_biz_input_gp
+	    WHERE po_code
+	    IN
+	    <foreach collection = "list" index = "index" item = "item" open="(" close = ")" separator =",">
+	       #{item}
+	    </foreach>
+	    AND receipt_status > 0
+
+  </select>
+
+</mapper>

@@ -1,0 +1,916 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicMaterialMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicMaterial">
+    <id column="mat_code" jdbcType="VARCHAR" property="matCode" />
+    <result column="mat_name" jdbcType="VARCHAR" property="matName" />
+    <result column="freeze" jdbcType="TINYINT" property="freeze" />
+    <result column="unit_code" jdbcType="VARCHAR" property="unitCode" />
+    <result column="mat_group_code" jdbcType="VARCHAR" property="matGroupCode" />
+    <result column="mat_type_code" jdbcType="VARCHAR" property="matTypeCode" />
+    <result column="length" jdbcType="DECIMAL" property="length" />
+    <result column="width" jdbcType="DECIMAL" property="width" />
+    <result column="height" jdbcType="DECIMAL" property="height" />
+    <result column="unit_length" jdbcType="VARCHAR" property="unitLength" />
+    <result column="gross_weight" jdbcType="DECIMAL" property="grossWeight" />
+    <result column="net_weight" jdbcType="DECIMAL" property="netWeight" />
+    <result column="unit_weight" jdbcType="VARCHAR" property="unitWeight" />
+    <result column="volume" jdbcType="DECIMAL" property="volume" />
+    <result column="unit_volume" jdbcType="VARCHAR" property="unitVolume" />
+    <result column="shelf_life" jdbcType="INTEGER" property="shelfLife" />
+    <result column="unit_shelf_life" jdbcType="VARCHAR" property="unitShelfLife" />
+    <result column="dangerous" jdbcType="TINYINT" property="dangerous" />
+    <result column="batch_erp_enabled" jdbcType="TINYINT" property="batchErpEnabled" />
+    <result column="batch_product_enabled" jdbcType="TINYINT" property="batchProductEnabled" />
+    <result column="package_enabled" jdbcType="TINYINT" property="packageEnabled" />
+    <result column="fid" jdbcType="VARCHAR" property="fid" />
+    <result column="cost_check" jdbcType="TINYINT" property="costCheck" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="mat_ext0" jdbcType="VARCHAR" property="matExt0" />
+    <result column="mat_ext1" jdbcType="VARCHAR" property="matExt1" />
+    <result column="mat_ext2" jdbcType="VARCHAR" property="matExt2" />
+    <result column="mat_ext3" jdbcType="VARCHAR" property="matExt3" />
+    <result column="mat_ext4" jdbcType="VARCHAR" property="matExt4" />
+    <result column="mat_ext5" jdbcType="VARCHAR" property="matExt5" />
+    <result column="mat_ext6" jdbcType="VARCHAR" property="matExt6" />
+    <result column="mat_ext7" jdbcType="VARCHAR" property="matExt7" />
+    <result column="mat_ext8" jdbcType="VARCHAR" property="matExt8" />
+    <result column="mat_ext9" jdbcType="VARCHAR" property="matExt9" />
+  </resultMap>
+
+  <resultMap id="ManageVoBaseResultMap" type="com.inossem.wms.vo.dic.DicMaterialManageVo" extends="BaseResultMap">
+    <result column="mat_group_name" jdbcType="VARCHAR" property="matGroupName" />
+    <result column="mat_type_name" jdbcType="VARCHAR" property="matTypeName" />
+    <result column="lang_code" jdbcType="VARCHAR" property="langCode" />
+    <result column="tid" jdbcType="VARCHAR" property="tid" />
+    <result column="unit_name" jdbcType="VARCHAR" property="unitName" />
+    <result column="decimal_place" jdbcType="TINYINT" property="decimalPlace" />
+    <result column="unit_length_name" jdbcType="VARCHAR" property="unitLengthName" />
+    <result column="decimal_place_length" jdbcType="TINYINT" property="decimalPlaceLength" />
+    <result column="unit_weight_name" jdbcType="VARCHAR" property="unitWeightName" />
+    <result column="decimal_place_weight" jdbcType="TINYINT" property="decimalPlaceWeight" />
+    <result column="unit_volume_name" jdbcType="VARCHAR" property="unitVolumeName" />
+    <result column="decimal_place_volume" jdbcType="TINYINT" property="decimalPlaceVolume" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mat_code, mat_name, freeze, unit_code, mat_group_code, mat_type_code, length, width,
+    height, unit_length, gross_weight, net_weight, unit_weight, volume, unit_volume,
+    shelf_life, unit_shelf_life, dangerous, batch_erp_enabled, batch_product_enabled,
+    package_enabled, fid, cost_check, is_delete, create_time, modify_time, create_user_id,
+    modify_user_id, mat_ext0, mat_ext1, mat_ext2, mat_ext3, mat_ext4, mat_ext5, mat_ext6,
+    mat_ext7, mat_ext8, mat_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dic_material
+    where mat_code = #{matCode,jdbcType=VARCHAR} and is_delete = 0
+  </select>
+  <select id="selectByExt1" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dic_material
+    where mat_ext1 = #{matExt1,jdbcType=VARCHAR} and is_delete = 0  limit 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dic_material
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicMaterial">
+    insert into dic_material (mat_code, mat_name, freeze,
+      unit_code, mat_group_code, mat_type_code,
+      length, width, height,
+      unit_length, gross_weight, net_weight,
+      unit_weight, volume, unit_volume,
+      shelf_life, unit_shelf_life, dangerous,
+      batch_erp_enabled, batch_product_enabled, package_enabled,
+      fid, cost_check, is_delete,
+      create_time, modify_time, create_user_id,
+      modify_user_id, mat_ext0, mat_ext1,
+      mat_ext2, mat_ext3, mat_ext4,
+      mat_ext5, mat_ext6, mat_ext7,
+      mat_ext8, mat_ext9)
+    values (#{matCode,jdbcType=VARCHAR}, #{matName,jdbcType=VARCHAR}, #{freeze,jdbcType=TINYINT},
+      #{unitCode,jdbcType=VARCHAR}, #{matGroupCode,jdbcType=VARCHAR}, #{matTypeCode,jdbcType=VARCHAR},
+      #{length,jdbcType=DECIMAL}, #{width,jdbcType=DECIMAL}, #{height,jdbcType=DECIMAL},
+      #{unitLength,jdbcType=VARCHAR}, #{grossWeight,jdbcType=DECIMAL}, #{netWeight,jdbcType=DECIMAL},
+      #{unitWeight,jdbcType=VARCHAR}, #{volume,jdbcType=DECIMAL}, #{unitVolume,jdbcType=VARCHAR},
+      #{shelfLife,jdbcType=INTEGER}, #{unitShelfLife,jdbcType=VARCHAR}, #{dangerous,jdbcType=TINYINT},
+      #{batchErpEnabled,jdbcType=TINYINT}, #{batchProductEnabled,jdbcType=TINYINT}, #{packageEnabled,jdbcType=TINYINT},
+      #{fid,jdbcType=VARCHAR}, #{costCheck,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT},
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER},
+      #{modifyUserId,jdbcType=INTEGER}, #{matExt0,jdbcType=VARCHAR}, #{matExt1,jdbcType=VARCHAR},
+      #{matExt2,jdbcType=VARCHAR}, #{matExt3,jdbcType=VARCHAR}, #{matExt4,jdbcType=VARCHAR},
+      #{matExt5,jdbcType=VARCHAR}, #{matExt6,jdbcType=VARCHAR}, #{matExt7,jdbcType=VARCHAR},
+      #{matExt8,jdbcType=VARCHAR}, #{matExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicMaterial">
+    insert into dic_material
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="matCode != null">
+        mat_code,
+      </if>
+      <if test="matName != null">
+        mat_name,
+      </if>
+      <if test="freeze != null">
+        freeze,
+      </if>
+      <if test="unitCode != null">
+        unit_code,
+      </if>
+      <if test="matGroupCode != null">
+        mat_group_code,
+      </if>
+      <if test="matTypeCode != null">
+        mat_type_code,
+      </if>
+      <if test="length != null">
+        length,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="unitLength != null">
+        unit_length,
+      </if>
+      <if test="grossWeight != null">
+        gross_weight,
+      </if>
+      <if test="netWeight != null">
+        net_weight,
+      </if>
+      <if test="unitWeight != null">
+        unit_weight,
+      </if>
+      <if test="volume != null">
+        volume,
+      </if>
+      <if test="unitVolume != null">
+        unit_volume,
+      </if>
+      <if test="shelfLife != null">
+        shelf_life,
+      </if>
+      <if test="unitShelfLife != null">
+        unit_shelf_life,
+      </if>
+      <if test="dangerous != null">
+        dangerous,
+      </if>
+      <if test="batchErpEnabled != null">
+        batch_erp_enabled,
+      </if>
+      <if test="batchProductEnabled != null">
+        batch_product_enabled,
+      </if>
+      <if test="packageEnabled != null">
+        package_enabled,
+      </if>
+      <if test="fid != null">
+        fid,
+      </if>
+      <if test="costCheck != null">
+        cost_check,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="matExt0 != null">
+        mat_ext0,
+      </if>
+      <if test="matExt1 != null">
+        mat_ext1,
+      </if>
+      <if test="matExt2 != null">
+        mat_ext2,
+      </if>
+      <if test="matExt3 != null">
+        mat_ext3,
+      </if>
+      <if test="matExt4 != null">
+        mat_ext4,
+      </if>
+      <if test="matExt5 != null">
+        mat_ext5,
+      </if>
+      <if test="matExt6 != null">
+        mat_ext6,
+      </if>
+      <if test="matExt7 != null">
+        mat_ext7,
+      </if>
+      <if test="matExt8 != null">
+        mat_ext8,
+      </if>
+      <if test="matExt9 != null">
+        mat_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="matCode != null">
+        #{matCode,jdbcType=VARCHAR},
+      </if>
+      <if test="matName != null">
+        #{matName,jdbcType=VARCHAR},
+      </if>
+      <if test="freeze != null">
+        #{freeze,jdbcType=TINYINT},
+      </if>
+      <if test="unitCode != null">
+        #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="matGroupCode != null">
+        #{matGroupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeCode != null">
+        #{matTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        #{length,jdbcType=DECIMAL},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=DECIMAL},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=DECIMAL},
+      </if>
+      <if test="unitLength != null">
+        #{unitLength,jdbcType=VARCHAR},
+      </if>
+      <if test="grossWeight != null">
+        #{grossWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="netWeight != null">
+        #{netWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="unitWeight != null">
+        #{unitWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="volume != null">
+        #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="unitVolume != null">
+        #{unitVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="shelfLife != null">
+        #{shelfLife,jdbcType=INTEGER},
+      </if>
+      <if test="unitShelfLife != null">
+        #{unitShelfLife,jdbcType=VARCHAR},
+      </if>
+      <if test="dangerous != null">
+        #{dangerous,jdbcType=TINYINT},
+      </if>
+      <if test="batchErpEnabled != null">
+        #{batchErpEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="batchProductEnabled != null">
+        #{batchProductEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="packageEnabled != null">
+        #{packageEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="fid != null">
+        #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="costCheck != null">
+        #{costCheck,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="matExt0 != null">
+        #{matExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt1 != null">
+        #{matExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt2 != null">
+        #{matExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt3 != null">
+        #{matExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt4 != null">
+        #{matExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt5 != null">
+        #{matExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt6 != null">
+        #{matExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt7 != null">
+        #{matExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt8 != null">
+        #{matExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt9 != null">
+        #{matExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+   <insert id="insertBatchDicMaterialInfoCo" parameterType="java.util.List">
+    insert into dic_material (mat_code, mat_name, freeze,
+      unit_code, mat_group_code, mat_type_code,
+      length, width, height,
+      unit_length, gross_weight, net_weight,
+      unit_weight, volume, unit_volume,
+      shelf_life, unit_shelf_life, dangerous,
+      batch_erp_enabled, batch_product_enabled, package_enabled,
+      fid, cost_check, is_delete,
+      create_user_id,
+      modify_user_id, mat_ext0, mat_ext1,
+      mat_ext2, mat_ext3, mat_ext4,
+      mat_ext5, mat_ext6, mat_ext7,
+      mat_ext8, mat_ext9)
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+    (
+      ifnull(#{item.matCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matName,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.freeze,jdbcType=TINYINT}, "0"),
+      ifnull(#{item.unitCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matGroupCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matTypeCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.length,jdbcType=DECIMAL}, "0.000"),
+      ifnull(#{item.width,jdbcType=DECIMAL}, "0.000"),
+      ifnull(#{item.height,jdbcType=DECIMAL}, "0.000"),
+      ifnull(#{item.unitLength,jdbcType=VARCHAR}, "M"),
+      ifnull(#{item.grossWeight,jdbcType=DECIMAL}, "0.000"),
+      ifnull(#{item.netWeight,jdbcType=DECIMAL}, "0.000"),
+      ifnull(#{item.unitWeight,jdbcType=VARCHAR}, "KG"),
+      ifnull(#{item.volume,jdbcType=DECIMAL}, "0.000"),
+      ifnull(#{item.unitVolume,jdbcType=VARCHAR}, "M3"),
+      ifnull(#{item.shelfLife,jdbcType=INTEGER}, "0"),
+      ifnull(#{item.unitShelfLife,jdbcType=VARCHAR}, "D"),
+      ifnull(#{item.dangerous,jdbcType=TINYINT}, "0"),
+      ifnull(#{item.batchErpEnabled,jdbcType=TINYINT}, "0"),
+      ifnull(#{item.batchProductEnabled,jdbcType=TINYINT}, "0"),
+      ifnull(#{item.packageEnabled,jdbcType=TINYINT}, "0"),
+      ifnull(#{item.fid,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.costCheck,jdbcType=TINYINT}, "0"),
+      ifnull(#{item.isDelete,jdbcType=TINYINT}, "0"),
+      ifnull(#{item.createUserId,jdbcType=INTEGER}, "0"),
+      ifnull(#{item.modifyUserId,jdbcType=INTEGER}, "0"),
+      ifnull(#{item.matExt0,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matExt1,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matExt2,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matExt3,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matExt4,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matExt5,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matExt6,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matExt7,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matExt8,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matExt9,jdbcType=VARCHAR}, "")
+     )
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+      mat_code = values(mat_code),
+      mat_name = values(mat_name),
+      freeze = values(freeze),
+      unit_code = values(unit_code),
+      mat_group_code = values(mat_group_code),
+      mat_type_code = values(mat_type_code),
+      length = values(length),
+      width = values(width),
+      height = values(height),
+      unit_length = values(unit_length),
+      gross_weight = values(gross_weight),
+      net_weight = values(net_weight),
+      unit_weight = values(unit_weight),
+      volume = values(volume),
+      unit_volume = values(unit_volume),
+      shelf_life = values(shelf_life),
+      unit_shelf_life = values(unit_shelf_life),
+      dangerous = values(dangerous),
+      batch_erp_enabled = values(batch_erp_enabled),
+      batch_product_enabled = values(batch_product_enabled),
+      package_enabled = values(package_enabled),
+      fid = values(fid),
+      cost_check = values(cost_check),
+      is_delete = values(is_delete),
+      create_user_id = values(create_user_id),
+      modify_user_id = values(modify_user_id),
+      mat_ext0 = values(mat_ext0),
+      mat_ext1 = values(mat_ext1),
+      mat_ext2 = values(mat_ext2),
+      mat_ext3 = values(mat_ext3),
+      mat_ext4 = values(mat_ext4),
+      mat_ext5 = values(mat_ext5),
+      mat_ext6 = values(mat_ext6),
+      mat_ext7 = values(mat_ext7),
+      mat_ext8 = values(mat_ext8),
+      mat_ext9 = values(mat_ext9)
+    </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicMaterial">
+    update dic_material
+    <set>
+      <if test="matName != null">
+        mat_name = #{matName,jdbcType=VARCHAR},
+      </if>
+      <if test="freeze != null">
+        freeze = #{freeze,jdbcType=TINYINT},
+      </if>
+      <if test="unitCode != null">
+        unit_code = #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="matGroupCode != null">
+        mat_group_code = #{matGroupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="matTypeCode != null">
+        mat_type_code = #{matTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="length != null">
+        length = #{length,jdbcType=DECIMAL},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=DECIMAL},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=DECIMAL},
+      </if>
+      <if test="unitLength != null">
+        unit_length = #{unitLength,jdbcType=VARCHAR},
+      </if>
+      <if test="grossWeight != null">
+        gross_weight = #{grossWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="netWeight != null">
+        net_weight = #{netWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="unitWeight != null">
+        unit_weight = #{unitWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="volume != null">
+        volume = #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="unitVolume != null">
+        unit_volume = #{unitVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="shelfLife != null">
+        shelf_life = #{shelfLife,jdbcType=INTEGER},
+      </if>
+      <if test="unitShelfLife != null">
+        unit_shelf_life = #{unitShelfLife,jdbcType=VARCHAR},
+      </if>
+      <if test="dangerous != null">
+        dangerous = #{dangerous,jdbcType=TINYINT},
+      </if>
+      <if test="batchErpEnabled != null">
+        batch_erp_enabled = #{batchErpEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="batchProductEnabled != null">
+        batch_product_enabled = #{batchProductEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="packageEnabled != null">
+        package_enabled = #{packageEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="fid != null">
+        fid = #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="costCheck != null">
+        cost_check = #{costCheck,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="matExt0 != null">
+        mat_ext0 = #{matExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt1 != null">
+        mat_ext1 = #{matExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt2 != null">
+        mat_ext2 = #{matExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt3 != null">
+        mat_ext3 = #{matExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt4 != null">
+        mat_ext4 = #{matExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt5 != null">
+        mat_ext5 = #{matExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt6 != null">
+        mat_ext6 = #{matExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt7 != null">
+        mat_ext7 = #{matExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt8 != null">
+        mat_ext8 = #{matExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="matExt9 != null">
+        mat_ext9 = #{matExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterial">
+    update dic_material
+    set mat_name = #{matName,jdbcType=VARCHAR},
+      freeze = #{freeze,jdbcType=TINYINT},
+      unit_code = #{unitCode,jdbcType=VARCHAR},
+      mat_group_code = #{matGroupCode,jdbcType=VARCHAR},
+      mat_type_code = #{matTypeCode,jdbcType=VARCHAR},
+      length = #{length,jdbcType=DECIMAL},
+      width = #{width,jdbcType=DECIMAL},
+      height = #{height,jdbcType=DECIMAL},
+      unit_length = #{unitLength,jdbcType=VARCHAR},
+      gross_weight = #{grossWeight,jdbcType=DECIMAL},
+      net_weight = #{netWeight,jdbcType=DECIMAL},
+      unit_weight = #{unitWeight,jdbcType=VARCHAR},
+      volume = #{volume,jdbcType=DECIMAL},
+      unit_volume = #{unitVolume,jdbcType=VARCHAR},
+      shelf_life = #{shelfLife,jdbcType=INTEGER},
+      unit_shelf_life = #{unitShelfLife,jdbcType=VARCHAR},
+      dangerous = #{dangerous,jdbcType=TINYINT},
+      batch_erp_enabled = #{batchErpEnabled,jdbcType=TINYINT},
+      batch_product_enabled = #{batchProductEnabled,jdbcType=TINYINT},
+      package_enabled = #{packageEnabled,jdbcType=TINYINT},
+      fid = #{fid,jdbcType=VARCHAR},
+      cost_check = #{costCheck,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      mat_ext0 = #{matExt0,jdbcType=VARCHAR},
+      mat_ext1 = #{matExt1,jdbcType=VARCHAR},
+      mat_ext2 = #{matExt2,jdbcType=VARCHAR},
+      mat_ext3 = #{matExt3,jdbcType=VARCHAR},
+      mat_ext4 = #{matExt4,jdbcType=VARCHAR},
+      mat_ext5 = #{matExt5,jdbcType=VARCHAR},
+      mat_ext6 = #{matExt6,jdbcType=VARCHAR},
+      mat_ext7 = #{matExt7,jdbcType=VARCHAR},
+      mat_ext8 = #{matExt8,jdbcType=VARCHAR},
+      mat_ext9 = #{matExt9,jdbcType=VARCHAR}
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+   <foreach collection="list" item="item" index= "index" separator =";">
+	    update dic_material
+	    <set>
+	      <if test="item.matName != null">
+	        mat_name = #{item.matName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.freeze != null">
+	        freeze = #{item.freeze,jdbcType=TINYINT},
+	      </if>
+	      <if test="item.unitCode != null">
+	        unit_code = #{item.unitCode,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matGroupCode != null">
+	        mat_group_code = #{item.matGroupCode,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matTypeCode != null">
+	        mat_type_code = #{item.matTypeCode,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.length != null">
+	        length = #{item.length,jdbcType=DECIMAL},
+	      </if>
+	      <if test="item.width != null">
+	        width = #{item.width,jdbcType=DECIMAL},
+	      </if>
+	      <if test="item.height != null">
+	        height = #{item.height,jdbcType=DECIMAL},
+	      </if>
+	      <if test="item.unitLength != null">
+	        unit_length = #{item.unitLength,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.grossWeight != null">
+	        gross_weight = #{item.grossWeight,jdbcType=DECIMAL},
+	      </if>
+	      <if test="item.netWeight != null">
+	        net_weight = #{item.netWeight,jdbcType=DECIMAL},
+	      </if>
+	      <if test="item.unitWeight != null">
+	        unit_weight = #{item.unitWeight,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.volume != null">
+	        volume = #{item.volume,jdbcType=DECIMAL},
+	      </if>
+	      <if test="item.unitVolume != null">
+	        unit_volume = #{item.unitVolume,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.shelfLife != null">
+	        shelf_life = #{item.shelfLife,jdbcType=INTEGER},
+	      </if>
+	      <if test="item.unitShelfLife != null">
+	        unit_shelf_life = #{item.unitShelfLife,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.dangerous != null">
+	        dangerous = #{item.dangerous,jdbcType=TINYINT},
+	      </if>
+	      <if test="item.batchErpEnabled != null">
+	        batch_erp_enabled = #{item.batchErpEnabled,jdbcType=TINYINT},
+	      </if>
+	      <if test="item.batchProductEnabled != null">
+	        batch_product_enabled = #{item.batchProductEnabled,jdbcType=TINYINT},
+	      </if>
+	      <if test="item.packageEnabled != null">
+	        package_enabled = #{item.packageEnabled,jdbcType=TINYINT},
+	      </if>
+	      <if test="item.fid != null">
+	        fid = #{item.fid,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.costCheck != null">
+	        cost_check = #{item.costCheck,jdbcType=TINYINT},
+	      </if>
+	      <if test="item.isDelete != null">
+	        is_delete = #{item.isDelete,jdbcType=TINYINT},
+	      </if>
+	      <if test="item.createTime != null">
+	        create_time = #{item.createTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="item.modifyTime != null">
+	        modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="item.createUserId != null">
+	        create_user_id = #{item.createUserId,jdbcType=INTEGER},
+	      </if>
+	      <if test="item.modifyUserId != null">
+	        modify_user_id = #{item.modifyUserId,jdbcType=INTEGER},
+	      </if>
+	      <if test="item.matExt0 != null">
+	        mat_ext0 = #{item.matExt0,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matExt1 != null">
+	        mat_ext1 = #{item.matExt1,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matExt2 != null">
+	        mat_ext2 = #{item.matExt2,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matExt3 != null">
+	        mat_ext3 = #{item.matExt3,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matExt4 != null">
+	        mat_ext4 = #{item.matExt4,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matExt5 != null">
+	        mat_ext5 = #{item.matExt5,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matExt6 != null">
+	        mat_ext6 = #{item.matExt6,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matExt7 != null">
+	        mat_ext7 = #{item.matExt7,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matExt8 != null">
+	        mat_ext8 = #{item.matExt8,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.matExt9 != null">
+	        mat_ext9 = #{item.matExt9,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where mat_code = #{item.matCode,jdbcType=VARCHAR}
+  	</foreach>
+  </update>
+
+  <!-- 物料code列表查询物料 -->
+  <select id="selectByPrimaryKeyList" parameterType="java.util.List" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM dic_material
+    WHERE is_delete = 0 AND mat_code IN
+	    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+		    #{item}
+	    </foreach>
+  </select>
+
+   <!-- 物料主数据列表查询  -->
+  <select id="selectDicMaterialManageOnPaging" parameterType="com.inossem.wms.co.dic.DicMaterialCo" resultMap="ManageVoBaseResultMap">
+		SELECT
+		    mat.mat_code,
+		    mat.mat_name,
+		    mat.freeze,
+		    mat.unit_code,
+		    mat.mat_group_code,
+		    mat.mat_type_code,
+		    mat.length,
+		    mat.width,
+		    mat.height,
+		    mat.unit_length,
+		    mat.gross_weight,
+		    mat.net_weight,
+		    mat.unit_weight,
+		    mat.volume,
+		    mat.unit_volume,
+		    mat.shelf_life,
+		    mat.unit_shelf_life,
+		    mat.dangerous,
+		    mat.batch_erp_enabled,
+		    mat.batch_product_enabled,
+		    mat.package_enabled,
+		    mat.fid,
+		    mat.cost_check,
+		    mat.is_delete,
+		    mat.create_time,
+		    mat.modify_time,
+		    mat.create_user_id,
+		    mat.modify_user_id,
+		    mat.mat_ext0,
+		    mat.mat_ext1,
+		    mat.mat_ext2,
+		    mat.mat_ext3,
+		    mat.mat_ext4,
+		    mat.mat_ext5,
+		    mat.mat_ext6,
+		    mat.mat_ext7,
+		    mat.mat_ext8,
+		    mat.mat_ext9,
+		    <!--matg.mat_group_name,-->
+		    matt.mat_type_name,
+		    u.unit_name,
+		    u.decimal_place,
+		    wu.unit_name unit_weight_name,
+            wu.decimal_place decimal_place_weight
+		    <!--ul.unit_name unit_length_name,
+		    ul.decimal_place decimal_place_length,
+		    uw.unit_name unit_weight_name,
+		    uw.decimal_place decimal_place_weight,
+		    uv.unit_name unit_volume_name,
+		    uv.decimal_place decimal_place_volume-->
+		FROM dic_material mat
+        <!--INNER JOIN dic_material_group matg ON matg.mat_group_code = mat.mat_group_code
+        	AND matg.is_delete = 0  AND mat.is_delete = 0   -->
+        INNER JOIN dic_material_type matt ON matt.mat_type_code = mat.mat_type_code
+       	 	AND matt.is_delete = 0 AND mat.is_delete = 0
+        INNER JOIN dic_unit u ON u.unit_code = mat.unit_code
+        	AND u.is_delete = 0
+        INNER JOIN dic_unit wu ON wu.unit_code = mat.unit_weight
+        AND wu.is_delete = 0
+        <!--INNER JOIN dic_unit ul ON ul.unit_code = mat.unit_length
+        	AND ul.is_delete = 0
+        INNER JOIN dic_unit uw ON uw.unit_code = mat.unit_weight
+        	AND uw.is_delete = 0
+        INNER JOIN dic_unit uv ON uv.unit_code = mat.unit_volume
+        	AND uv.is_delete = 0-->
+        <!--LEFT JOIN dic_material_name matn ON matn.tid = mat.mat_name
+			AND matn.is_delete = 0
+			And matn.lang_code = #{langCode}-->
+		where 1 = 1
+		<if test="condition != null and condition != '' ">
+        	AND (
+        			mat.mat_code LIKE CONCAT('%',#{condition},'%' )
+		        	OR mat.mat_name LIKE  CONCAT('%',#{condition},'%' )
+		        )
+    	</if>
+		ORDER BY mat.create_time DESC , mat.mat_code
+  </select>
+
+  <!-- 物料主数据详情  -->
+  <select id="selectDicMaterialManage" parameterType="java.lang.String" resultMap="ManageVoBaseResultMap">
+		SELECT
+		    mat.mat_code,
+		    mat.mat_name,
+		    mat.freeze,
+		    mat.unit_code,
+		    mat.mat_group_code,
+		    mat.mat_type_code,
+		    mat.length,
+		    mat.width,
+		    mat.height,
+		    mat.unit_length,
+		    mat.gross_weight,
+		    mat.net_weight,
+		    mat.unit_weight,
+		    mat.volume,
+		    mat.unit_volume,
+		    mat.shelf_life,
+		    mat.unit_shelf_life,
+		    mat.dangerous,
+		    mat.batch_erp_enabled,
+		    mat.batch_product_enabled,
+		    mat.package_enabled,
+		    mat.fid,
+		    mat.cost_check,
+		    mat.is_delete,
+		    mat.create_time,
+		    mat.modify_time,
+		    mat.create_user_id,
+		    mat.modify_user_id,
+		    mat.mat_ext0,
+		    mat.mat_ext1,
+		    mat.mat_ext2,
+		    mat.mat_ext3,
+		    mat.mat_ext4,
+		    mat.mat_ext5,
+		    mat.mat_ext6,
+		    mat.mat_ext7,
+		    mat.mat_ext8,
+		    mat.mat_ext9,
+		    matt.mat_type_name,
+		    u.unit_name,
+		    u.decimal_place,
+		    uw.unit_name unit_weight_name,
+		    uw.decimal_place decimal_place_weight
+		FROM dic_material mat
+		<!--INNER JOIN dic_material_name matn ON matn.tid = mat.mat_name
+        	AND mat.mat_code = #{matCode}
+	    	AND mat.is_delete = 0
+	    	AND matn.is_delete = 0-->
+        INNER JOIN dic_material_type matt ON matt.mat_type_code = mat.mat_type_code
+       	 	AND matt.is_delete = 0
+            AND mat.mat_code = #{matCode}
+            AND mat.is_delete = 0
+        INNER JOIN dic_unit u ON u.unit_code = mat.unit_code
+        	AND u.is_delete = 0
+        INNER JOIN dic_unit uw ON uw.unit_code = mat.unit_weight
+        	AND uw.is_delete = 0
+		ORDER BY mat.create_time DESC , mat.mat_code
+		LIMIT 1
+  </select>
+  <!-- 查询入参中的冻结物料 返回冻结物料code -->
+  <select id="selectFreezeMatreial" parameterType="java.util.List" resultType="java.lang.String">
+    select
+    	mat_code
+    from dic_material
+    where
+    <choose>
+    	<when test="list!=null and list.size()>0">
+    		mat_code in
+    		<foreach collection="list" open="(" separator="," close=")" item="item" index="index">
+    			#{item}
+    		</foreach>
+    		and freeze = 1
+    	</when>
+    	<otherwise>
+    		1=0
+    	</otherwise>
+    </choose>
+  </select>
+
+  <select id="selectAllMatCode" resultType="java.lang.String">
+    select mat_code
+    from dic_material
+  </select>
+
+  <select id="selectByMatCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dic_material
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+  </select>
+
+  <select id="checkMatCode" parameterType="java.util.List" resultType="java.lang.String" >
+  	select
+    	mat_code
+    from dic_material
+    where mat_code in
+    <foreach collection="list" open="(" close=")" index="index" item="item" separator=",">
+    	#{item}
+    </foreach>
+  </select>
+
+</mapper>

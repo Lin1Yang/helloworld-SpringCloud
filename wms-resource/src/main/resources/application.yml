@@ -1,0 +1,141 @@
+server:
+  #port: 8080
+  port: 8080
+  servlet:
+    context-path: /wms/web
+
+spring:
+  profiles:
+    active: local
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
+  mvc:
+    static-path-pattern: /**
+    view:
+      prefix: /
+      suffix: .html
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+  jms:
+    # 配置消息的类型,如果是true则表示topic消息,如果为false表示queue消息,这个是值默认是false
+    pub-sub-domain: false
+  activemq:
+    packages:
+      trust-all: false
+      # trusted:
+      #  com.inossem.wms.model
+    # 消息组件的连接主机信息,使用springboot自带的activemq时不要配置
+    # broker-url: tcp://127.0.0.1:61616 
+    # in-memory: false
+  redis:
+    databases:
+      shiro: 0
+      business: 1
+    host: 127.0.0.1
+    port: 6379
+    # timeout属性，单位： 毫秒
+    timeout: 3000
+    password:
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 20
+        min-idle: 2
+        # max-wait属性，单位： 毫秒
+        max-wait: 10000
+
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+#  mail:
+#    host: smtp.163.com #邮箱通道   注意企业邮箱和个人邮箱不同
+#    username: shuo_fu@163.com   #发送的邮箱
+#    password: FS18342847983  #授权码
+#    default-encoding: utf-8
+
+  mail:
+    host:  smtp-mail.outlook.com #邮箱通道   注意企业邮箱和个人邮箱不同
+    username: instock_testing@hotmail.com   #发送的邮箱
+    password: instock123456  #授权码
+    port: 587
+    default-encoding: utf-8
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            fallback: true
+          auth: true #授权
+          starttls:
+            enable: true
+            required: true
+
+    # logging:
+  # level:
+    # root: debug
+mybatis:
+  mapper-locations: classpath*:mapper/*/*.xml,classpath*:mapper/*/*/*.xml
+  type-aliases-package: com.inossem.wms.model;com.inossem.workflow.entity
+  configuration:
+    # 配置项：开启下划线到驼峰的自动转换. 作用：将数据库字段根据驼峰规则自动注入到对象属性。
+    map-underscore-to-camel-case: true
+  mybatis-plus:
+    mapper-locations: classpath*:mybatis-config/mybatis-config.xml
+
+# wms 自定义配置
+wms:
+  login:
+    # 登录过期时间，单位：秒
+    expire: 1800
+  # aop日志
+  syslog:
+    # 启用标识  启用true, 关闭false
+    active: false
+    # 日志级别 [all|trace|debug|info|warn|error|off] 当前未开发完毕，该配置不生效
+    level: debug
+scc:
+  ip: 192.168.3.123
+  port: 8081
+  prefix: /scc/web
+
+# 标签打印/导出文件的暂存路径
+
+appKey: 6e8a2b2c42df997054035d5ed31aff79
+appSecret: 35973abb7339
+serverUrl: https://api.netease.im/sms/ #调用短信服务接口
+
+storage:
+  path: static/pdf/
+  # 打印时查询数据的wms服务ip地址
+  host: 127.0.0.1
+
+#定时任务
+QuartzCofing:
+  #日志定期清除配置
+  log:
+     #删除的频率设置  对应参数为"秒 分 时 日 月 星期 年份"
+     corn : "0 0 12 * * ?"
+     #删除month个月内的日志(注意值为负数)
+     month : -3
+
+ipas:
+  #IPAS token 过期时间 ms
+  token-time: 1800000
+  user-name: user1
+  password: 123456
+  command:
+    postingPO: cmd_posting_purchase_orders
+    postingSO: cmd_posting_sales
+    postingTakeStocks: cmd_posting_take_stocks
+    stockStatus: cmd_stock_status
+
+integration:
+  email:
+    hostname: localhost                               # hostname to identfy for sending email to notification
+    notification: 411fe46f.inossem.com@apac.teams.ms  # formal notification
+    test: 94877247.inossem.com@apac.teams.ms          # for development testing
+    active: true                                      # true for sending or false for not sending

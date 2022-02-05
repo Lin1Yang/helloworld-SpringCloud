@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inossem.wms.dao.wf.WfReceiptMapper" >
+ <!-- <resultMap id="BaseResultMap" type="com.inossem.wms.vo.wf.WfReceiptVo" >
+    <id column="receipt_type" property="receiptType" jdbcType="INTEGER" />
+    <id column="receipt_code" property="receiptCode" jdbcType="VARCHAR" />
+    <result column="pi_id" property="piId" jdbcType="VARCHAR" />
+    <result column="receipt_user_id" property="receiptUserId" jdbcType="VARCHAR" />
+    <result column="approve_status" property="approveStatus" jdbcType="TINYINT" />
+    <result column="approve_opinion" jdbcType="VARCHAR" property="approveOpinion" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="RealTimeNodeResultMap" type="com.inossem.workflow.entity.node.RealTimeNode">
+    <id column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="node_name" jdbcType="VARCHAR" property="nodeName" />
+    <result column="node_order" jdbcType="INTEGER" property="nodeOrder" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="task_status" jdbcType="VARCHAR" property="taskStatus" />
+    <result column="procIns_id" jdbcType="VARCHAR" property="procinsId" />
+    <result column="approve_opinion" jdbcType="VARCHAR" property="approveOpinion" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+  </resultMap>
+  <resultMap id="WfNodeResultMap" type="com.inossem.wms.vo.wf.WfNodeVo">
+    <id column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="node_name" jdbcType="VARCHAR" property="nodeName" />
+    <result column="node_order" jdbcType="INTEGER" property="nodeOrder" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="task_status" jdbcType="VARCHAR" property="taskStatus" />
+    <result column="procIns_id" jdbcType="VARCHAR" property="procinsId" />
+    <result column="approve_opinion" jdbcType="VARCHAR" property="approveOpinion" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+  </resultMap>
+  <resultMap id="SelectTaskBySearchInfoResultMap" type="com.inossem.wms.vo.wf.WfProcTaskSearchVo">
+    <id column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="task_status" jdbcType="VARCHAR" property="taskStatus" />
+    <result column="procIns_id" jdbcType="VARCHAR" property="procInsId" />
+    <result column="procdef_id" jdbcType="VARCHAR" property="procdefId" />
+    <result column="nodedef_id" jdbcType="VARCHAR" property="nodedefId" />
+    <result column="from_route_id" jdbcType="VARCHAR" property="fromRouteId" />
+    <result column="receipt_code" jdbcType="VARCHAR" property="receiptCode" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="receipt_type" jdbcType="INTEGER" property="receiptType" />
+    <result column="receipt_type_name" jdbcType="VARCHAR" property="receiptTypeName" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+  </resultMap>
+
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    receipt_type, receipt_code, pi_id, receipt_user_id, approve_status, create_time,
+    modify_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.inossem.wms.model.wf.WfReceiptExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wf_receipt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectTaskStartTime" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    create_time
+    from wf_proc_task
+    where procIns_id = #{procInsId,jdbcType=VARCHAR}
+    order by create_time ASC
+    limit 1
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.inossem.wms.model.wf.WfReceiptKey" >
+    select
+    <include refid="Base_Column_List" />
+    from wf_receipt
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+    and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.wf.WfReceiptKey" >
+    delete from wf_receipt
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+    and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.inossem.wms.model.wf.WfReceiptExample" >
+    delete from wf_receipt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.wf.WfReceipt" >
+    insert into wf_receipt (receipt_type, receipt_code, pi_id,
+    receipt_user_id, approve_status, create_time,
+    modify_time)
+    values (#{receiptType,jdbcType=INTEGER}, #{receiptCode,jdbcType=VARCHAR}, #{piId,jdbcType=VARCHAR},
+    #{receiptUserId,jdbcType=VARCHAR}, #{approveStatus,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
+    #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.wf.WfReceipt" >
+    insert into wf_receipt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="receiptType != null" >
+        receipt_type,
+      </if>
+      <if test="receiptCode != null" >
+        receipt_code,
+      </if>
+      <if test="piId != null" >
+        pi_id,
+      </if>
+      <if test="receiptUserId != null" >
+        receipt_user_id,
+      </if>
+      <if test="approveStatus != null" >
+        approve_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="receiptType != null" >
+        #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null" >
+        #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="piId != null" >
+        #{piId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptUserId != null" >
+        #{receiptUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null" >
+        #{approveStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.inossem.wms.model.wf.WfReceiptExample" resultType="java.lang.Integer" >
+    select count(*) from wf_receipt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wf_receipt
+    <set >
+      <if test="record.receiptType != null" >
+        receipt_type = #{record.receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="record.receiptCode != null" >
+        receipt_code = #{record.receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.piId != null" >
+        pi_id = #{record.piId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiptUserId != null" >
+        receipt_user_id = #{record.receiptUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveStatus != null" >
+        approve_status = #{record.approveStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wf_receipt
+    set receipt_type = #{record.receiptType,jdbcType=INTEGER},
+    receipt_code = #{record.receiptCode,jdbcType=VARCHAR},
+    pi_id = #{record.piId,jdbcType=VARCHAR},
+    receipt_user_id = #{record.receiptUserId,jdbcType=VARCHAR},
+    approve_status = #{record.approveStatus,jdbcType=TINYINT},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP},
+    modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.wf.WfReceipt" >
+    update wf_receipt
+    <set >
+      <if test="piId != null" >
+        pi_id = #{piId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptUserId != null" >
+        receipt_user_id = #{receiptUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null" >
+        approve_status = #{approveStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+    and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.wf.WfReceipt" >
+    update wf_receipt
+    set pi_id = #{piId,jdbcType=VARCHAR},
+    receipt_user_id = #{receiptUserId,jdbcType=VARCHAR},
+    approve_status = #{approveStatus,jdbcType=TINYINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where receipt_type = #{receiptType,jdbcType=INTEGER}
+    and receipt_code = #{receiptCode,jdbcType=VARCHAR}
+  </update>
+  <select id="selectSelective" resultMap="BaseResultMap" parameterType="com.inossem.wms.co.wf.WfReceiptCo" >
+    select
+    <include refid="Base_Column_List" />
+    from wf_receipt
+    where 1=1
+    <if test="piId != null" >
+      and pi_id = #{piId,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptUserId != null" >
+      and receipt_user_id = #{receiptUserId,jdbcType=VARCHAR}
+    </if>
+    <if test="approveStatus != null" >
+      and approve_status = #{approveStatus,jdbcType=TINYINT}
+    </if>
+    <if test="createTime != null" >
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="modifyTime != null" >
+      and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    </if>
+
+  </select>
+    <select id="selectRealTimeNodeByProcId"  resultMap="WfNodeResultMap">
+      SELECT
+	n.node_id,
+	n.node_name,
+	n.node_order,
+	s.user_id,
+	s.user_name,
+	s.update_time,
+	s.task_status,
+	s.procIns_id,
+  	s.approve_opinion,
+  	s.comment,
+  	s.dept_name
+FROM
+	wf_node_def n
+LEFT JOIN (
+	SELECT
+		t1.nodedef_id AS node_id,
+		t1.procIns_id AS procIns_id,
+		t1.procdef_id AS procdef_id,
+		t1.update_time AS update_time,
+		t1.user_id AS user_id,
+		u.user_name AS user_name,
+		dept.dept_name,
+		t1.task_status AS task_status,
+    	t1.approve_opinion AS approve_opinion,
+    	t1.approve_opinion AS comment
+	FROM
+		wf_proc_task t1
+	LEFT JOIN wf_flow_user u ON t1.user_id = u.user_id
+	join sys_user su on t1.user_id = su.user_id
+	LEFT JOIN dic_dept dept ON su.dept_code = dept.dept_code
+	WHERE
+		t1.procIns_id = #{procinsId,jdbcType=VARCHAR}
+	AND t1.task_status != '3'
+	ORDER BY
+		t1.nodedef_id,
+		t1.procIns_id,
+		t1.user_id,
+		t1.task_status,
+		t1.update_time DESC #LIMIT 0,1
+) s ON n.node_id = s.node_id
+WHERE
+	n.procdef_id = (
+		SELECT
+			procdef_id
+		FROM
+			wf_proc_instance
+		WHERE
+			procIns_id = #{procinsId,jdbcType=VARCHAR})
+		and s.procIns_id != ''
+		GROUP BY
+			n.node_id,
+			n.node_name,
+			n.node_order,
+			s.user_id,
+			s.user_name,
+			s.update_time,
+			s.task_status,
+			s.procIns_id,
+      		s.approve_opinion,
+      		s.comment,
+      		s.dept_name
+		ORDER BY
+			n.node_order
+    </select>
+    <select id="selectTaskBySearchInfoOnPaging"  parameterType="com.inossem.wms.co.wf.WfReceiptCo" resultMap="SelectTaskBySearchInfoResultMap">
+      select
+      task_id, task_name, su.user_id as user_id, wpt.create_time as create_time, update_time, task_status, procIns_id,procdef_id, nodedef_id, from_route_id,wr.receipt_code as receipt_code,su.user_name as user_name,dd.dept_name as dept_name,
+      wr.receipt_type
+      from wf_proc_task wpt
+      join wf_receipt wr on  wpt.procIns_id = wr.pi_id
+      join sys_user su on wr.receipt_user_id = su.user_id
+      LEFT join dic_dept dd on su.dept_code = dd.dept_code
+      <where> 
+        <if test ="procinsId != null and procinsId != ''">
+          AND procIns_id = #{procinsId,jdbcType=VARCHAR}
+        </if>
+        <if test ="nodedefId != null and nodedefId != ''">
+          AND nodedef_id = #{nodedefId,jdbcType=VARCHAR}
+        </if>
+        <if test ="taskStatus != null and taskStatus != ''">
+          AND task_status = #{taskStatus,jdbcType=VARCHAR}
+        </if>
+        <if test ="userId != null and userId != ''">
+          AND wpt.user_id = #{userId,jdbcType=VARCHAR}
+        </if>
+        <if test ="startUpTime != null and startUpTime != ''">
+          AND update_time <![CDATA[ >=]]> #{startUpTime,jdbcType=VARCHAR}
+        </if>
+        <if test ="endUpTime != null and endUpTime != ''">
+          AND update_time <![CDATA[< ]]> #{endUpTime,jdbcType=VARCHAR}
+        </if>
+        <if test="receiptTypeList != null and receiptTypeList.size()>0">
+	    and wr.receipt_type in
+		<foreach collection="receiptTypeList" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>						
+	</if> 
+      </where>
+      ORDER by update_time desc
+    </select>
+
+    <insert id="saveOrUpdate" parameterType="com.inossem.wms.co.wf.WfReceiptCo"  >
+    insert into wf_receipt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="receiptType != null" >
+        receipt_type,
+      </if>
+      <if test="receiptCode != null" >
+        receipt_code,
+      </if>
+      <if test="piId != null" >
+        pi_id,
+      </if>
+      <if test="receiptUserId != null" >
+        receipt_user_id,
+      </if>
+      <if test="approveOpinion != null" >
+        approve_opinion,
+      </if>
+      <if test="approveStatus != null" >
+        approve_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="receiptType != null" >
+        #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null" >
+        #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="piId != null" >
+        #{piId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptUserId != null" >
+        #{receiptUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveOpinion != null" >
+        #{approveOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null" >
+        #{approveStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    ON DUPLICATE KEY UPDATE
+    <trim prefix=" " suffix=" " suffixOverrides=",">
+      <if test="piId != null" >
+        pi_id = #{piId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptUserId != null" >
+        receipt_user_id = #{receiptUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveOpinion != null" >
+        approve_opinion = #{approveOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null" >
+        approve_status = #{approveStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+	<select id="selectAgencyTaskList"  parameterType="com.inossem.wms.co.wf.WfReceiptCo" resultMap="SelectTaskBySearchInfoResultMap">
+      select
+      count(wr.receipt_code) num,
+      wpt.user_id
+      from wf_proc_task wpt
+      join wf_receipt wr on  wpt.procIns_id = wr.pi_id
+      join sys_user su on wr.receipt_user_id = su.user_id
+      where task_status = '0'
+      <if test ="piId != null and piId != ''">
+          AND wpt.procIns_id = #{piId,jdbcType=VARCHAR}
+      </if>
+      group by wpt.user_id
+      order by wpt.user_id desc
+    </select>-->
+</mapper>

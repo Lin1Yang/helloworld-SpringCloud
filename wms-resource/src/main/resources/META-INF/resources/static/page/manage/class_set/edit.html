@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html style="background-color: #FFFFFF;">
+<head>
+	<meta charset="UTF-8">
+	<title>新建流程分类</title>
+	<link href="../../../part/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../../../css/common.css" rel="stylesheet" />
+	<link href="../../../css/inossem.grid.css" rel="stylesheet"/>
+	<script src="../../../js/jquery-1.11.0.min.js"></script>
+	<script src="../../../js/common.js"></script>
+	<script src="../../../part/layer/layer.js"></script>
+	<script src="../../../part/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../../js/jquery.inossem.grid.js"></script>
+	<script>
+        var obj1={groupName:"",parentId:"",userId:""}
+        var obj2={groupName:"",groupId:""}
+        var selectData=null;
+        //			查询流程分类下拉内容
+        function querySelect(){
+            ajax("../../../../category/listCategory",'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    console.log(data)
+                    if(data.body!=null||data.body!=""){
+                        selectData=data.body;
+                        init();
+                    }
+                }
+            );
+        }
+
+        //			显示修改信息
+        function slow(){
+            if(GetQueryString("groupid")!=null){
+                ajax("../../../../category/query?groupId="+GetQueryString("groupid"),'get',null,
+                    function(data){
+                		data = JSON.parse(data);
+                        layer.close(indexloading);
+                        if(data!=null||data!=""){
+//							        给父分类设置禁止修改
+                            $m("flowParent").attr("disabled","disabled");
+                            var groupId=parent.pId;
+                            $m("flowParent").val(groupId);
+                            $m("flowName").val(data.body.groupName);
+                        }
+                    }
+                );
+            }
+        }
+        //			渲染下拉框
+        function init(){
+            $.each(selectData, function(i,item){
+                $(".select").append("<option value='"+item.groupId+"'>"+item.groupName+"</option>")
+            });
+//				判断显示修改信息
+            slow();
+        }
+
+        //			点击事件方法
+        function clickMethod(){
+//				点击保存
+            $(".btn-lay-blue").click(function(){
+//					验证是否为空
+                var isChecked=true;
+//					if($m("flowParent").val()==""){layersMoretips("必填项",$m("flowParent"));isChecked=false;}
+                if($m("flowName").val()==""){layersMoretips("必填项",$m("flowName"));isChecked=false;}
+                if(isChecked==false) return false;
+//					获取新增值
+                obj1.parentId=$m("flowParent").val();
+                obj1.groupName=$m("flowName").val();
+                obj1.userId="1";
+
+//					获取修改值
+                obj2.groupId=$m("flowParent").val();
+                obj2.groupName=$m("flowName").val();
+//					判断新增还是修改
+                if(GetQueryString("groupid")==null){
+                    var url='../../../../category/save';
+                    var str="新建完成";
+                    var way='post';
+                    var obj=obj1;
+                }else{
+                    var url='../../../../category/update';
+                    var str="修改完成";
+                    var way='put';
+                    var obj=obj2
+                }
+
+                ajax(url,way,obj,
+                    function(data){
+						data = JSON.parse(data);
+                        if(data.head.status){
+                            layer.alert(str, {
+                                title: "消息",
+                                end: function(index, layero) {
+                                    window.parent.queryTree();
+                                    window.parent.query();
+                                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                    parent.layer.close(index); //再执行关闭
+                                }
+                            });
+                        }
+                    }
+                );
+            });
+
+            $(".btn-default").click(function(){
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                parent.layer.close(index); //再执行关闭
+            });
+
+        }
+
+        $(function(){
+            clickMethod();
+            querySelect();
+            slow();
+        });
+
+	</script>
+</head>
+<body style="overflow-x: hidden;padding-right:100px;">
+<div class="col-xs-12">&nbsp;</div>
+<div class="form-search">
+	<div class="form-con">
+		<div class="col-xs-12 row" >
+			<div class="col-xs-4 div-group">
+				<div class="input-group">
+					<span class="input-group-addon"><span></span>&nbsp;流程父分类</span>
+					<select class="form-control  select" c-model="flowParent">
+						<option value=""></option>
+					</select>
+					<!--<span>为空则为一级分类</span>-->
+				</div>
+			</div>
+		</div>
+		<!--<div class="col-xs-12 row">
+            <div class="col-xs-4 div-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span>*</span>&nbsp;流程分类排序</span>
+                    <input type="text" class="form-control" c-model="flowSort">
+                </div>
+            </div>
+        </div>-->
+		<div class="col-xs-12 row">
+			<div class="col-xs-4 div-group">
+				<div class="input-group">
+					<span class="input-group-addon"><span>*</span>&nbsp;流程分类名称</span>
+					<input type="text" class="form-control" c-model="flowName">
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 row">
+			<div class="col-xs-6 div-group"><hr /></div>
+		</div>
+	</div>
+	<div class="form-sub">
+		<div class="col-xs-12 row">
+			<div class="col-lg-3 col-xs-4 div-group">
+				<div class="input-group">
+					<span class="input-group-addon">&nbsp;</span>
+					<a href="javascript:void(0)" class="btn-lay-blue">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="javascript:void(0)" class="btn-lay-default btn_iframe_close_window">取消</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.rel.RelUnitMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.rel.RelUnit">
+    <id column="fty_code" jdbcType="VARCHAR" property="ftyCode" />
+    <id column="source_unit_code" jdbcType="VARCHAR" property="sourceUnitCode" />
+    <id column="target_unit_code" jdbcType="VARCHAR" property="targetUnitCode" />
+    <id column="mat_code" jdbcType="VARCHAR" property="matCode" />
+    <result column="source_qty" jdbcType="DECIMAL" property="sourceQty" />
+    <result column="target_qty" jdbcType="DECIMAL" property="targetQty" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="rel_unit_ext0" jdbcType="VARCHAR" property="relUnitExt0" />
+    <result column="rel_unit_ext1" jdbcType="VARCHAR" property="relUnitExt1" />
+    <result column="rel_unit_ext2" jdbcType="VARCHAR" property="relUnitExt2" />
+    <result column="rel_unit_ext3" jdbcType="VARCHAR" property="relUnitExt3" />
+    <result column="rel_unit_ext4" jdbcType="VARCHAR" property="relUnitExt4" />
+    <result column="rel_unit_ext5" jdbcType="VARCHAR" property="relUnitExt5" />
+    <result column="rel_unit_ext6" jdbcType="VARCHAR" property="relUnitExt6" />
+    <result column="rel_unit_ext7" jdbcType="VARCHAR" property="relUnitExt7" />
+    <result column="rel_unit_ext8" jdbcType="VARCHAR" property="relUnitExt8" />
+    <result column="rel_unit_ext9" jdbcType="VARCHAR" property="relUnitExt9" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMapVo" type="com.inossem.wms.vo.rel.RelUnitVo" extends="BaseResultMap">   	  	  	  	
+  	<result column="mat_name" jdbcType="VARCHAR" property="matName" />
+  	<result column="fty_name" jdbcType="VARCHAR" property="ftyName" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    fty_code, source_unit_code, target_unit_code, mat_code, source_qty, target_qty, is_delete, 
+    create_time, modify_time, create_user_id, modify_user_id, rel_unit_ext0, rel_unit_ext1, 
+    rel_unit_ext2, rel_unit_ext3, rel_unit_ext4, rel_unit_ext5, rel_unit_ext6, rel_unit_ext7, 
+    rel_unit_ext8, rel_unit_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.rel.RelUnitKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rel_unit
+    where fty_code = #{ftyCode,jdbcType=VARCHAR}
+      and source_unit_code = #{sourceUnitCode,jdbcType=VARCHAR}
+      and target_unit_code = #{targetUnitCode,jdbcType=VARCHAR}
+      and mat_code = #{matCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.rel.RelUnitKey">
+    delete from rel_unit
+    where fty_code = #{ftyCode,jdbcType=VARCHAR}
+      and source_unit_code = #{sourceUnitCode,jdbcType=VARCHAR}
+      and target_unit_code = #{targetUnitCode,jdbcType=VARCHAR}
+      and mat_code = #{matCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.rel.RelUnit">
+    insert into rel_unit (fty_code, source_unit_code, target_unit_code, 
+      mat_code, source_qty, target_qty, 
+      is_delete, create_time, modify_time, 
+      create_user_id, modify_user_id, rel_unit_ext0, 
+      rel_unit_ext1, rel_unit_ext2, rel_unit_ext3, 
+      rel_unit_ext4, rel_unit_ext5, rel_unit_ext6, 
+      rel_unit_ext7, rel_unit_ext8, rel_unit_ext9
+      )
+    values (#{ftyCode,jdbcType=VARCHAR}, #{sourceUnitCode,jdbcType=VARCHAR}, #{targetUnitCode,jdbcType=VARCHAR}, 
+      #{matCode,jdbcType=VARCHAR}, #{sourceQty,jdbcType=DECIMAL}, #{targetQty,jdbcType=DECIMAL}, 
+      #{isDelete,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, #{relUnitExt0,jdbcType=VARCHAR}, 
+      #{relUnitExt1,jdbcType=VARCHAR}, #{relUnitExt2,jdbcType=VARCHAR}, #{relUnitExt3,jdbcType=VARCHAR}, 
+      #{relUnitExt4,jdbcType=VARCHAR}, #{relUnitExt5,jdbcType=VARCHAR}, #{relUnitExt6,jdbcType=VARCHAR}, 
+      #{relUnitExt7,jdbcType=VARCHAR}, #{relUnitExt8,jdbcType=VARCHAR}, #{relUnitExt9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.rel.RelUnit">
+    insert into rel_unit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ftyCode != null">
+        fty_code,
+      </if>
+      <if test="sourceUnitCode != null">
+        source_unit_code,
+      </if>
+      <if test="targetUnitCode != null">
+        target_unit_code,
+      </if>
+      <if test="matCode != null">
+        mat_code,
+      </if>
+      <if test="sourceQty != null">
+        source_qty,
+      </if>
+      <if test="targetQty != null">
+        target_qty,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="relUnitExt0 != null">
+        rel_unit_ext0,
+      </if>
+      <if test="relUnitExt1 != null">
+        rel_unit_ext1,
+      </if>
+      <if test="relUnitExt2 != null">
+        rel_unit_ext2,
+      </if>
+      <if test="relUnitExt3 != null">
+        rel_unit_ext3,
+      </if>
+      <if test="relUnitExt4 != null">
+        rel_unit_ext4,
+      </if>
+      <if test="relUnitExt5 != null">
+        rel_unit_ext5,
+      </if>
+      <if test="relUnitExt6 != null">
+        rel_unit_ext6,
+      </if>
+      <if test="relUnitExt7 != null">
+        rel_unit_ext7,
+      </if>
+      <if test="relUnitExt8 != null">
+        rel_unit_ext8,
+      </if>
+      <if test="relUnitExt9 != null">
+        rel_unit_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ftyCode != null">
+        #{ftyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceUnitCode != null">
+        #{sourceUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="targetUnitCode != null">
+        #{targetUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="matCode != null">
+        #{matCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceQty != null">
+        #{sourceQty,jdbcType=DECIMAL},
+      </if>
+      <if test="targetQty != null">
+        #{targetQty,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="relUnitExt0 != null">
+        #{relUnitExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt1 != null">
+        #{relUnitExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt2 != null">
+        #{relUnitExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt3 != null">
+        #{relUnitExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt4 != null">
+        #{relUnitExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt5 != null">
+        #{relUnitExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt6 != null">
+        #{relUnitExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt7 != null">
+        #{relUnitExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt8 != null">
+        #{relUnitExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt9 != null">
+        #{relUnitExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.rel.RelUnit">
+    update rel_unit
+    <set>
+      <if test="sourceQty != null">
+        source_qty = #{sourceQty,jdbcType=DECIMAL},
+      </if>
+      <if test="targetQty != null">
+        target_qty = #{targetQty,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="relUnitExt0 != null">
+        rel_unit_ext0 = #{relUnitExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt1 != null">
+        rel_unit_ext1 = #{relUnitExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt2 != null">
+        rel_unit_ext2 = #{relUnitExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt3 != null">
+        rel_unit_ext3 = #{relUnitExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt4 != null">
+        rel_unit_ext4 = #{relUnitExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt5 != null">
+        rel_unit_ext5 = #{relUnitExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt6 != null">
+        rel_unit_ext6 = #{relUnitExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt7 != null">
+        rel_unit_ext7 = #{relUnitExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt8 != null">
+        rel_unit_ext8 = #{relUnitExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="relUnitExt9 != null">
+        rel_unit_ext9 = #{relUnitExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fty_code = #{ftyCode,jdbcType=VARCHAR}
+      and source_unit_code = #{sourceUnitCode,jdbcType=VARCHAR}
+      and target_unit_code = #{targetUnitCode,jdbcType=VARCHAR}
+      and mat_code = #{matCode,jdbcType=VARCHAR}
+  </update>
+  <!-- <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.rel.RelUnit">
+    update rel_unit
+    set source_qty = #{sourceQty,jdbcType=DECIMAL},
+      target_qty = #{targetQty,jdbcType=DECIMAL},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      rel_unit_ext0 = #{relUnitExt0,jdbcType=VARCHAR},
+      rel_unit_ext1 = #{relUnitExt1,jdbcType=VARCHAR},
+      rel_unit_ext2 = #{relUnitExt2,jdbcType=VARCHAR},
+      rel_unit_ext3 = #{relUnitExt3,jdbcType=VARCHAR},
+      rel_unit_ext4 = #{relUnitExt4,jdbcType=VARCHAR},
+      rel_unit_ext5 = #{relUnitExt5,jdbcType=VARCHAR},
+      rel_unit_ext6 = #{relUnitExt6,jdbcType=VARCHAR},
+      rel_unit_ext7 = #{relUnitExt7,jdbcType=VARCHAR},
+      rel_unit_ext8 = #{relUnitExt8,jdbcType=VARCHAR},
+      rel_unit_ext9 = #{relUnitExt9,jdbcType=VARCHAR}
+    where fty_code = #{ftyCode,jdbcType=VARCHAR}
+      and source_unit_code = #{sourceUnitCode,jdbcType=VARCHAR}
+      and target_unit_code = #{targetUnitCode,jdbcType=VARCHAR}
+      and mat_code = #{matCode,jdbcType=VARCHAR}
+  </update> -->
+  <select id="selectAllRelUnitList" parameterType="com.inossem.wms.model.rel.RelUnitKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rel_unit
+    where is_delete = 0
+  </select>
+  
+  <!-- 查询单位换算列表（分页） -->
+  <select id="selectRelUnitListOnPaging" parameterType="com.inossem.wms.co.rel.RelUnitCo" resultMap="BaseResultMapVo">
+   	SELECT
+		rel.fty_code,
+		rel.source_unit_code,
+		rel.target_unit_code,
+		rel.mat_code,
+		rel.source_qty,
+		rel.target_qty,
+		rel.is_delete,
+		rel.create_time,
+		rel.modify_time,
+		rel.create_user_id,
+		rel.modify_user_id,
+		rel.rel_unit_ext0,
+		rel.rel_unit_ext1,
+		rel.rel_unit_ext2,
+		rel.rel_unit_ext3,
+		rel.rel_unit_ext4,
+		rel.rel_unit_ext5,
+		rel.rel_unit_ext6,
+		rel.rel_unit_ext7,
+		rel.rel_unit_ext8,
+		rel.rel_unit_ext9,
+		fty.fty_name,
+		mat.mat_name
+	FROM
+		rel_unit rel
+	INNER JOIN dic_factory fty ON rel.fty_code = fty.fty_code
+	INNER JOIN dic_material mat ON rel.mat_code = mat.mat_code
+	INNER JOIN dic_material_name dmn ON mat.mat_name = dmn.tid and dmn.lang_code = #{langCode,jdbcType=VARCHAR}
+	WHERE
+		rel.is_delete = 0
+	<if test="condition !=null and condition != ''">
+		AND (rel.mat_code LIKE concat('%',#{condition},'%')
+		or dmn.mat_name LIKE concat('%',#{condition},'%') )
+	</if>  
+  </select>
+  
+  <!-- 查询未删除的单位换算信息 -->
+  <select id="selectRelUnitView" parameterType="com.inossem.wms.model.rel.RelUnitKey" resultMap="BaseResultMapVo">
+   	SELECT
+		rel.fty_code,
+		rel.source_unit_code,
+		rel.target_unit_code,
+		rel.mat_code,
+		rel.source_qty,
+		rel.target_qty,
+		rel.is_delete,
+		rel.create_time,
+		rel.modify_time,
+		rel.create_user_id,
+		rel.modify_user_id,
+		rel.rel_unit_ext0,
+		rel.rel_unit_ext1,
+		rel.rel_unit_ext2,
+		rel.rel_unit_ext3,
+		rel.rel_unit_ext4,
+		rel.rel_unit_ext5,
+		rel.rel_unit_ext6,
+		rel.rel_unit_ext7,
+		rel.rel_unit_ext8,
+		rel.rel_unit_ext9,
+		fty.fty_name,
+		mat.mat_name
+	FROM
+		rel_unit rel
+	INNER JOIN dic_factory fty ON rel.fty_code = fty.fty_code
+	INNER JOIN dic_material mat ON rel.mat_code = mat.mat_code
+	WHERE
+		rel.is_delete = 0
+	  and rel.fty_code = #{ftyCode,jdbcType=VARCHAR}
+      and rel.source_unit_code = #{sourceUnitCode,jdbcType=VARCHAR}
+      and rel.target_unit_code = #{targetUnitCode,jdbcType=VARCHAR}
+      and rel.mat_code = #{matCode,jdbcType=VARCHAR}
+  </select>
+  <!-- 删除 -->
+  <update id="deleteRelUnit" parameterType="com.inossem.wms.model.rel.RelUnit" >
+	UPDATE rel_unit
+		SET is_delete = 1,
+		modify_user_id = #{modifyUserId,jdbcType=INTEGER}
+	WHERE
+  		fty_code = #{ftyCode,jdbcType=VARCHAR}
+    and source_unit_code = #{sourceUnitCode,jdbcType=VARCHAR}
+    and target_unit_code = #{targetUnitCode,jdbcType=VARCHAR}
+    and mat_code = #{matCode,jdbcType=VARCHAR}  
+  </update>
+  
+    <!-- 主数据删除校验 是否存在未删除的单位换算关系 -->
+   <select id="selectByDicDeleteCheckCo" parameterType="com.inossem.wms.model.dic.DicDeleteCheckCo" resultMap="BaseResultMap">
+ 		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			rel_unit 
+		<where>
+		 	is_delete = 0	
+	      <if test="ftyCode != null">
+	        and fty_code = #{ftyCode,jdbcType=VARCHAR}
+	      </if>
+	      <if test="matCode != null">
+	        and mat_code = #{matCode,jdbcType=VARCHAR}
+	      </if>
+	      <if test="unitCode != null">
+	        and (source_unit_code = #{unitCode,jdbcType=VARCHAR} or target_unit_code = #{unitCode,jdbcType=VARCHAR})
+	      </if>
+	   </where>	  
+	   limit 1 
+  </select>
+
+    <!-- 物料同步批量新增或修改 -->
+    <insert id="insertOrUpdateList" parameterType="java.util.List">
+    insert into rel_unit (fty_code, source_unit_code, target_unit_code,
+      mat_code, source_qty, target_qty,
+      is_delete
+      )
+    values
+    <foreach collection="list" open="" close="" separator="," item="item">
+      (#{item.ftyCode,jdbcType=VARCHAR}, #{item.sourceUnitCode,jdbcType=VARCHAR}, #{item.targetUnitCode,jdbcType=VARCHAR},
+      #{item.matCode,jdbcType=VARCHAR}, #{item.sourceQty,jdbcType=DECIMAL}, #{item.targetQty,jdbcType=DECIMAL},
+      #{item.isDelete,jdbcType=TINYINT}
+      )
+      </foreach>
+    ON  DUPLICATE  KEY  UPDATE
+        fty_code = values(fty_code),
+        source_unit_code = values(source_unit_code),
+        target_unit_code = values(target_unit_code),
+        mat_code = values(mat_code),
+        source_qty = values(source_qty),
+        target_qty = values(target_qty),
+        is_delete = values(is_delete)
+  </insert>
+</mapper>

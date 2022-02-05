@@ -1,0 +1,1083 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inossem.wms.dao.sinobec.SinobecBizTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.sinobec.SinobecBizTask" >
+    <id column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="task_type" property="taskType" jdbcType="INTEGER" />
+    <result column="receipt_code" property="receiptCode" jdbcType="VARCHAR" />
+    <result column="receipt_rid" property="receiptRid" jdbcType="VARCHAR" />
+    <result column="receipt_bid" property="receiptBid" jdbcType="VARCHAR" />
+    <result column="receipt_type" property="receiptType" jdbcType="INTEGER" />
+    <result column="receipt_status" property="receiptStatus" jdbcType="TINYINT" />
+    <result column="mat_code" property="matCode" jdbcType="VARCHAR" />
+    <result column="unit_code" property="unitCode" jdbcType="VARCHAR" />
+    <result column="bundle_code" property="bundleCode" jdbcType="VARCHAR" />
+    <result column="shipping_ref" property="shippingRef" jdbcType="VARCHAR" />
+    <result column="heat_code" property="heatCode" jdbcType="VARCHAR" />
+    <result column="skid_code" property="skidCode" jdbcType="VARCHAR" />
+    <result column="corp_code" property="corpCode" jdbcType="VARCHAR" />
+    <result column="item_numb" property="itemNumb" jdbcType="VARCHAR" />
+    <result column="lot_numb" property="lotNumb" jdbcType="VARCHAR" />
+    <result column="wh_code" property="whCode" jdbcType="VARCHAR" />
+    <result column="source_type_code" property="sourceTypeCode" jdbcType="VARCHAR" />
+    <result column="source_bin_code" property="sourceBinCode" jdbcType="VARCHAR" />
+    <result column="source_stock_id" property="sourceStockId" jdbcType="VARCHAR" />
+    <result column="target_type_code" property="targetTypeCode" jdbcType="VARCHAR" />
+    <result column="target_bin_code" property="targetBinCode" jdbcType="VARCHAR" />
+    <result column="receipt_qty" property="receiptQty" jdbcType="DECIMAL" />
+    <result column="receipt_unit_code" property="receiptUnitCode" jdbcType="VARCHAR" />
+    <result column="weight_unit_code" property="weightUnitCode" jdbcType="VARCHAR" />
+    <result column="weight_qty" property="weightQty" jdbcType="DECIMAL" />
+    <result column="stock_status" property="stockStatus" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+    <result column="write_off" property="writeOff" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+    <result column="modify_user_id" property="modifyUserId" jdbcType="INTEGER" />
+    <result column="vendor_code" property="vendorCode" jdbcType="VARCHAR"/>
+	<result column="vendor_name" property="vendorName" jdbcType="VARCHAR"/>
+    <result column="is_recount" property="isRecount" jdbcType="TINYINT" />
+	<result column="ext0" property="ext0" jdbcType="VARCHAR"/>
+	<result column="ext1" property="ext1" jdbcType="VARCHAR"/>
+	<result column="ext2" property="ext2" jdbcType="VARCHAR"/>
+    <result column="ext3" property="ext3" jdbcType="VARCHAR"/>
+    <result column="ext4" property="ext4" jdbcType="VARCHAR"/>
+    <result column="ext5" property="ext5" jdbcType="VARCHAR"/>
+    <result column="ext6" property="ext6" jdbcType="VARCHAR"/>
+    <result column="ext7" property="ext7" jdbcType="VARCHAR"/>
+    <result column="ext8" property="ext8" jdbcType="VARCHAR"/>
+    <result column="ext9" property="ext9" jdbcType="VARCHAR"/>
+    <result column="ext10" property="ext10" jdbcType="VARCHAR"/>
+    <result column="ext11" property="ext11" jdbcType="VARCHAR"/>
+    <result column="ext12" property="ext12" jdbcType="VARCHAR"/>
+    <result column="ext13" property="ext13" jdbcType="VARCHAR"/>
+    <result column="ext14" property="ext14" jdbcType="VARCHAR"/>
+    <result column="ext15" property="ext15" jdbcType="VARCHAR"/>
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    task_id, task_type, receipt_code, receipt_rid, receipt_bid, receipt_type, receipt_status, mat_code,
+    unit_code, bundle_code, shipping_ref, heat_code, skid_code, corp_code, item_numb,
+    lot_numb, wh_code, source_type_code, source_bin_code,source_stock_id, target_type_code, target_bin_code,
+    receipt_unit_code,weight_unit_code,weight_qty,
+    receipt_qty, stock_status, is_delete, write_off, create_time, modify_time,
+    create_user_id, modify_user_id,vendor_code,vendor_name,is_recount,
+    ext0,ext1,ext2,ext3,ext4,ext5,ext6,ext7,ext8,ext9,ext10,ext11,ext12,ext13,ext14,ext15
+  </sql>
+
+
+  <resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.inossem.wms.model.sinobec.unload.UnLoadShelfDaoVo" >
+    <!--其他参数-->
+  </resultMap>
+
+  <select id="queryInfoByStatusCount"  resultType="integer"  >
+    select count(*)
+    from sinobec_biz_task
+    where is_delete=0
+    and receipt_status=#{receiptStatus}
+    and  receipt_code =#{co.soCode}
+  </select>
+
+  <select id="queryInfoByGp" resultMap="BaseResultMapVo"  >
+    select
+    	t.task_id, t.task_type, t.receipt_code, t.receipt_rid, t.receipt_bid, t.receipt_type, t.receipt_status, t.mat_code,
+	    t.unit_code, t.bundle_code, t.shipping_ref, t.heat_code, t.skid_code, t.corp_code, t.item_numb,
+	    t.lot_numb, t.wh_code, t.source_type_code, t.source_bin_code,t.source_stock_id, t.target_type_code, t.target_bin_code,
+	    t.receipt_unit_code,t.weight_unit_code,t.weight_qty,
+	    t.receipt_qty, stock_status, t.is_delete, t.write_off, t.create_time, t.modify_time,
+	    t.create_user_id, t.modify_user_id,t.vendor_code,t.vendor_name,m.mat_name,m.mat_ext1,
+	    t.ext0,t.ext1,t.ext2,t.ext3,t.ext4,t.ext5,t.ext6,t.ext7,t.ext8,t.ext9,
+	    t.ext10,t.ext11,t.ext12,t.ext13,t.ext14,t.ext15
+    from sinobec_biz_task t
+    inner join dic_material m on t.mat_code = m.mat_code
+    where t.is_delete=0 and write_off=0
+      and receipt_status=#{receiptStatus}
+      and  receipt_code = #{receiptCode}
+  </select>
+
+  <select id="queryInfoByInfo" resultMap="BaseResultMapVo"  >
+    select
+    t.task_id, t.task_type, t.receipt_code, t.receipt_rid, t.receipt_bid, t.receipt_type, t.receipt_status, t.mat_code,
+    t.unit_code, t.bundle_code, t.shipping_ref, t.heat_code, t.skid_code, t.corp_code, t.item_numb,
+    t.lot_numb, t.wh_code, t.source_type_code, t.source_bin_code,t.source_stock_id, t.target_type_code, t.target_bin_code,
+    t.receipt_unit_code,t.weight_unit_code,t.weight_qty,
+    t.receipt_qty, t.stock_status, t.is_delete, t.write_off, t.create_time, t.modify_time,
+    t.create_user_id, t.modify_user_id,t.vendor_code,t.vendor_name ,m.mat_name,m.mat_ext1,
+    t.ext0,t.ext1,t.ext2,t.ext3,t.ext4,t.ext5,t.ext6,t.ext7,t.ext8,t.ext9,
+    t.ext10,t.ext11,t.ext12,t.ext13,t.ext14,t.ext15
+    from sinobec_biz_task t inner join dic_material m on t.mat_code = m.mat_code
+    where t.is_delete=0
+    <if test="unLoadShelfQueryCo.soCode != null" >
+      and  t.receipt_code=#{unLoadShelfQueryCo.soCode}
+    </if>
+    <if test="receiptStatus !=null">
+      and t.receipt_status = #{receiptStatus}
+    </if>
+    <if test="unLoadShelfQueryCo.whCode != null and unLoadShelfQueryCo.whCode != ''" >
+      and  t.wh_code=#{unLoadShelfQueryCo.whCode}
+    </if>
+  </select>
+
+
+
+  <select id="checkInfoByGp"  resultType="integer" >
+  select count(*)
+  from sinobec_biz_task
+  where is_delete=0 and write_off=1
+  and receipt_code = #{receiptCode}
+</select>
+  <select id="checkInfoByInfos"  resultType="integer" >
+    select count(*)
+    from sinobec_biz_task
+    where is_delete=0 and write_off=1
+    and  receipt_code = #{receiptCode}
+  </select>
+
+  <select id="selectCountByStatus"  resultType="integer" >
+    select count(*)
+    from sinobec_biz_output
+    where is_delete=0 and write_off=0
+    and receipt_status=#{receiptStatus}
+      and  receipt_code =#{co.soCode}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from sinobec_biz_task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sinobec_biz_task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="unLoadTaskDelete">
+    delete from sinobec_biz_task
+    where receipt_status = 20
+    and task_id in
+    (
+    <foreach collection="list" separator="," item="item" index="index">
+      #{item.taskId,jdbcType=INTEGER}
+    </foreach>
+    )
+  </delete>
+
+  <delete id="unLoadTaskDeleteByReceiptCode" parameterType="java.lang.String">
+    delete from sinobec_biz_task
+    where receipt_status = 110
+    and receipt_code = #{receiptCode}
+  </delete>
+
+  <insert id="insert" parameterType="com.inossem.wms.model.sinobec.SinobecBizTask" >
+    insert into sinobec_biz_task (task_id, task_type, receipt_code, receipt_rid,
+      receipt_bid, receipt_type, receipt_status,
+      mat_code, unit_code, bundle_code,
+      shipping_ref, heat_code, skid_code,
+      corp_code, item_numb, lot_numb,
+      wh_code, source_type_code, source_bin_code, source_stock_id,
+      target_type_code, target_bin_code, receipt_qty,
+     stock_status, is_delete,
+      write_off, create_time, modify_time,
+      create_user_id, modify_user_id,receipt_unit_code,weight_unit_code,weight_qty)
+    values (#{taskId,jdbcType=INTEGER}, #{taskType,jdbcType=INTEGER},#{receiptCode,jdbcType=VARCHAR}, #{receiptRid,jdbcType=VARCHAR},
+      #{receiptBid,jdbcType=VARCHAR}, #{receiptType,jdbcType=INTEGER}, #{receiptStatus,jdbcType=TINYINT},
+      #{matCode,jdbcType=VARCHAR}, #{unitCode,jdbcType=VARCHAR}, #{bundleCode,jdbcType=VARCHAR},
+      #{shippingRef,jdbcType=VARCHAR}, #{heatCode,jdbcType=VARCHAR}, #{skidCode,jdbcType=VARCHAR},
+      #{corpCode,jdbcType=VARCHAR}, #{itemNumb,jdbcType=VARCHAR}, #{lotNumb,jdbcType=VARCHAR},
+      #{whCode,jdbcType=VARCHAR}, #{sourceTypeCode,jdbcType=VARCHAR}, #{sourceBinCode,jdbcType=VARCHAR}, #{sourcestockid,jdbcType=VARCHAR},
+            #{targetTypeCode,jdbcType=VARCHAR}, #{targetBinCode,jdbcType=VARCHAR}, #{receiptQty,jdbcType=DECIMAL},
+       #{stockStatus,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT},
+      #{writeOff,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP},
+      #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}
+      , #{receiptUnitCode,jdbcType=VARCHAR}, #{weightUnitCode,jdbcType=VARCHAR}, #{weightQty,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertList" parameterType="list" >
+    insert into sinobec_biz_task (task_id, task_type, receipt_code, receipt_rid,
+                                  receipt_bid, receipt_type, receipt_status,
+                                  mat_code, unit_code, bundle_code,
+                                  shipping_ref, heat_code, skid_code,
+                                  corp_code, item_numb, lot_numb,
+                                  wh_code, source_type_code, source_bin_code,source_stock_id,
+                                  target_type_code, target_bin_code, receipt_qty,
+                                  stock_status, is_delete,
+                                  write_off,
+                                  create_user_id, modify_user_id,receipt_unit_code,weight_unit_code,weight_qty,
+                                  vendor_code,vendor_name,
+                                  ext0,ext1,ext2,ext3,ext4,ext5,ext6,ext7,ext8,ext9,
+                                  ext10,ext11,ext12,ext13,ext14,ext15
+                                  )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+   (
+      #{item.taskId,jdbcType=INTEGER},
+      ifnull(#{item.taskType,jdbcType=INTEGER},0),
+      #{item.receiptCode,jdbcType=VARCHAR},
+      #{item.receiptRid,jdbcType=VARCHAR},
+      ifnull(#{item.receiptBid},""),
+      #{item.receiptType,jdbcType=INTEGER},
+      #{item.receiptStatus,jdbcType=TINYINT},
+      ifnull(#{item.matCode,jdbcType=VARCHAR},""),
+      ifnull(#{item.unitCode,jdbcType=VARCHAR},""),
+      ifnull(#{item.bundleCode,jdbcType=VARCHAR},""),
+      ifnull( #{item.shippingRef,jdbcType=VARCHAR},""),
+      ifnull(#{item.heatCode,jdbcType=VARCHAR},""),
+      ifnull(#{item.skidCode,jdbcType=VARCHAR},""),
+      ifnull(#{item.corpCode,jdbcType=VARCHAR},""),  ifnull(#{item.itemNumb,jdbcType=VARCHAR},""),  ifnull(#{item.lotNumb,jdbcType=VARCHAR},""),
+      ifnull(#{item.whCode,jdbcType=VARCHAR},""),  ifnull(#{item.sourceTypeCode,jdbcType=VARCHAR},""),  ifnull(#{item.sourceBinCode,jdbcType=VARCHAR},""),ifnull(#{item.sourceStockId,jdbcType=VARCHAR},""),
+      ifnull(#{item.targetTypeCode,jdbcType=VARCHAR},""),  ifnull(#{item.targetBinCode,jdbcType=VARCHAR},""),  ifnull(#{item.receiptQty,jdbcType=DECIMAL},"0.000"),
+      ifnull(#{item.stockStatus,jdbcType=VARCHAR},""),  ifnull(#{item.isDelete,jdbcType=TINYINT},"0"),
+      ifnull(#{item.writeOff,jdbcType=TINYINT},"0"),
+
+      ifnull(#{item.createUserId,jdbcType=INTEGER},"0"),  ifnull(#{item.modifyUserId,jdbcType=INTEGER},"0"),
+      ifnull(#{item.receiptUnitCode,jdbcType=VARCHAR},""),  ifnull(#{item.weightUnitCode,jdbcType=VARCHAR},""), ifnull(#{item.weightQty,jdbcType=DECIMAL},"0.000"),
+      ifnull(#{item.vendorCode,jdbcType=VARCHAR},""),
+      ifnull(#{item.vendorName,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext0,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext1,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext2,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext3,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext4,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext5,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext6,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext7,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext8,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext9,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext10,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext11,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext12,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext13,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext14,jdbcType=VARCHAR},""),
+      ifnull(#{item.ext15,jdbcType=VARCHAR},"")
+           )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.sinobec.SinobecBizTask" >
+    insert into sinobec_biz_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="taskType != null" >
+        task_type ,
+      </if>
+      <if test="receiptCode != null" >
+        receipt_code,
+      </if>
+      <if test="receiptRid != null" >
+        receipt_rid,
+      </if>
+      <if test="receiptBid != null" >
+        receipt_bid,
+      </if>
+      <if test="receiptType != null" >
+        receipt_type,
+      </if>
+      <if test="receiptStatus != null" >
+        receipt_status,
+      </if>
+      <if test="matCode != null" >
+        mat_code,
+      </if>
+      <if test="unitCode != null" >
+        unit_code,
+      </if>
+      <if test="bundleCode != null" >
+        bundle_code,
+      </if>
+      <if test="shippingRef != null" >
+        shipping_ref,
+      </if>
+      <if test="heatCode != null" >
+        heat_code,
+      </if>
+      <if test="skidCode != null" >
+        skid_code,
+      </if>
+      <if test="corpCode != null" >
+        corp_code,
+      </if>
+      <if test="itemNumb != null" >
+        item_numb,
+      </if>
+      <if test="lotNumb != null" >
+        lot_numb,
+      </if>
+      <if test="whCode != null" >
+        wh_code,
+      </if>
+      <if test="sourceTypeCode != null" >
+        source_type_code,
+      </if>
+      <if test="sourceBinCode != null" >
+        source_bin_code,
+      </if>
+      <if test="sourceStockId != null" >
+        source_stock_id,
+      </if>
+      <if test="targetTypeCode != null" >
+        target_type_code,
+      </if>
+      <if test="targetBinCode != null" >
+        target_bin_code,
+      </if>
+      <if test="receiptQty != null" >
+        receipt_qty,
+      </if>
+      <if test="stockStatus != null" >
+        stock_status,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="writeOff != null" >
+        write_off,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null" >
+        modify_user_id,
+      </if>
+
+      <if test="receiptUnitCode != null" >
+        receipt_unit_code,
+      </if>
+      <if test="weightUnitCode != null" >
+        weight_unit_code,
+      </if>
+      <if test="weightQty != null" >
+        weight_qty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskType != null" >
+        #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null" >
+        #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptRid != null" >
+        #{receiptRid,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptBid != null" >
+        #{receiptBid,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptType != null" >
+        #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptStatus != null" >
+        #{receiptStatus,jdbcType=TINYINT},
+      </if>
+      <if test="matCode != null" >
+        #{matCode,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCode != null" >
+        #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bundleCode != null" >
+        #{bundleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingRef != null" >
+        #{shippingRef,jdbcType=VARCHAR},
+      </if>
+      <if test="heatCode != null" >
+        #{heatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="skidCode != null" >
+        #{skidCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null" >
+        #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNumb != null" >
+        #{itemNumb,jdbcType=VARCHAR},
+      </if>
+      <if test="lotNumb != null" >
+        #{lotNumb,jdbcType=VARCHAR},
+      </if>
+      <if test="whCode != null" >
+        #{whCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceTypeCode != null" >
+        #{sourceTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBinCode != null" >
+        #{sourceBinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceStockId != null" >
+        #{sourceStockId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetTypeCode != null" >
+        #{targetTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="targetBinCode != null" >
+        #{targetBinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptQty != null" >
+        #{receiptQty,jdbcType=DECIMAL},
+      </if>
+      <if test="stockStatus != null" >
+        #{stockStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="writeOff != null" >
+        #{writeOff,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null" >
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptUnitCode != null" >
+        #{receiptUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="weightUnitCode != null" >
+        #{weightUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="weightQty != null" >
+        #{weightQty,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByInsDoc"  parameterType="java.util.List">
+    update sinobec_biz_task a
+    inner join (
+    <foreach collection="list" item="item" index="index" separator="UNION ALL" >
+      select #{item.referReceiptCode} receipt_code,
+      #{item.referReceiptRid} receipt_rid,
+      #{item.referReceiptBid} receipt_bid,
+      #{item.stockId} source_stock_id,
+      #{item.bundleCode} bundle_code
+    </foreach> )t on a.receipt_code = t.receipt_code and a.receipt_rid = t.receipt_rid and a.receipt_bid = t.receipt_bid <!-- and a.bundle_code = t.bundle_code -->
+    set
+    a.source_stock_id = t.source_stock_id
+  </update>
+
+  <update id="updateStockId">
+    update sinobec_biz_task
+    set source_stock_id = #{targetId}
+    where receipt_code = #{receiptCode} and source_stock_id = #{originId}
+  </update>
+
+   <update id="updateBundleCodebyRid"  parameterType="map">
+    update sinobec_biz_task
+    set bundle_code = #{bundleCode,jdbcType=VARCHAR}
+    where receipt_rid = #{soRid,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByReceiptCode" parameterType="com.inossem.wms.model.sinobec.SinobecBizTask" >
+  update sinobec_biz_task
+    <set>
+      <if test="receiptStatus != null" >
+        receipt_status = #{receiptStatus,jdbcType=TINYINT},
+      </if>
+      <if test="writeOff != null" >
+        write_off = #{writeOff,jdbcType=TINYINT},
+      </if>
+    </set>
+    where receipt_code = #{receiptCode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.sinobec.SinobecBizTask" >
+    update sinobec_biz_task
+    <set >
+      <if test="taskType != null" >
+        task_type = #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null" >
+        receipt_code = #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptRid != null" >
+        receipt_rid = #{receiptRid,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptBid != null" >
+        receipt_bid = #{receiptBid,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptType != null" >
+        receipt_type = #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptStatus != null" >
+        receipt_status = #{receiptStatus,jdbcType=TINYINT},
+      </if>
+      <if test="matCode != null" >
+        mat_code = #{matCode,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCode != null" >
+        unit_code = #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bundleCode != null" >
+        bundle_code = #{bundleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingRef != null" >
+        shipping_ref = #{shippingRef,jdbcType=VARCHAR},
+      </if>
+      <if test="heatCode != null" >
+        heat_code = #{heatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="skidCode != null" >
+        skid_code = #{skidCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null" >
+        corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNumb != null" >
+        item_numb = #{itemNumb,jdbcType=VARCHAR},
+      </if>
+      <if test="lotNumb != null" >
+        lot_numb = #{lotNumb,jdbcType=VARCHAR},
+      </if>
+      <if test="whCode != null" >
+        wh_code = #{whCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceTypeCode != null" >
+        source_type_code = #{sourceTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBinCode != null" >
+        source_bin_code = #{sourceBinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceStockId != null" >
+        source_stock_id = #{sourceStockId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetTypeCode != null" >
+        target_type_code = #{targetTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="targetBinCode != null" >
+        target_bin_code = #{targetBinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptQty != null" >
+        receipt_qty = #{receiptQty,jdbcType=DECIMAL},
+      </if>
+      <if test="stockStatus != null" >
+        stock_status = #{stockStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="writeOff != null" >
+        write_off = #{writeOff,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null" >
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptUnitCode != null" >
+        receipt_unit_code= #{receiptUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="weightUnitCode != null" >
+        weight_unit_code= #{weightUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="weightQty != null" >
+        weight_qty= #{weightQty,jdbcType=DECIMAL},
+      </if>
+      <if test="vendorCode != null" >
+        vendor_code= #{vendorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorName != null" >
+        vendor_name= #{vendorName,jdbcType=VARCHAR},
+      </if>
+      <if test="isRecount != null" >
+        is_recount = #{isRecount,jdbcType=TINYINT},
+      </if>
+      <if test="ext0 != null" >
+        ext0= #{ext0,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        ext1= #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2= #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        ext3= #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        ext4= #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        ext5= #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        ext6= #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null" >
+        ext7= #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null" >
+        ext8= #{ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="ext9 != null" >
+        ext9= #{ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="ext10 != null" >
+        ext10= #{ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="ext11 != null" >
+        ext11= #{ext11,jdbcType=VARCHAR},
+      </if>
+      <if test="ext12 != null" >
+        ext12= #{ext12,jdbcType=VARCHAR},
+      </if>
+      <if test="ext13 != null" >
+        ext13= #{ext13,jdbcType=VARCHAR},
+      </if>
+      <if test="ext14 != null" >
+        ext14= #{ext14,jdbcType=VARCHAR},
+      </if>
+      <if test="ext15 != null" >
+        ext15= #{ext15,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+
+
+  <update id="updateByReceiptCodeBath" parameterType="com.inossem.wms.model.sinobec.SinobecBizTask" >
+    update sinobec_biz_task
+    <set >
+      <if test="taskType != null" >
+        task_type = #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null" >
+        receipt_code = #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptRid != null" >
+        receipt_rid = #{receiptRid,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptBid != null" >
+        receipt_bid = #{receiptBid,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptType != null" >
+        receipt_type = #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptStatus != null" >
+        receipt_status = #{receiptStatus,jdbcType=TINYINT},
+      </if>
+      <if test="matCode != null" >
+        mat_code = #{matCode,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCode != null" >
+        unit_code = #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bundleCode != null" >
+        bundle_code = #{bundleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingRef != null" >
+        shipping_ref = #{shippingRef,jdbcType=VARCHAR},
+      </if>
+      <if test="heatCode != null" >
+        heat_code = #{heatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="skidCode != null" >
+        skid_code = #{skidCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null" >
+        corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNumb != null" >
+        item_numb = #{itemNumb,jdbcType=VARCHAR},
+      </if>
+      <if test="lotNumb != null" >
+        lot_numb = #{lotNumb,jdbcType=VARCHAR},
+      </if>
+      <if test="whCode != null" >
+        wh_code = #{whCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceTypeCode != null" >
+        source_type_code = #{sourceTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBinCode != null" >
+        source_bin_code = #{sourceBinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceStockId != null" >
+        source_stock_id = #{sourceStockId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetTypeCode != null" >
+        target_type_code = #{targetTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="targetBinCode != null" >
+        target_bin_code = #{targetBinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptQty != null" >
+        receipt_qty = #{receiptQty,jdbcType=DECIMAL},
+      </if>
+      <if test="stockStatus != null" >
+        stock_status = #{stockStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="writeOff != null" >
+        write_off = #{writeOff,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null" >
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptUnitCode != null" >
+        receipt_unit_code= #{receiptUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="weightUnitCode != null" >
+        weight_unit_code= #{weightUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="weightQty != null" >
+        weight_qty= #{weightQty,jdbcType=DECIMAL},
+      </if>
+      <if test="vendorCode != null" >
+        vendor_code= #{vendorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorName != null" >
+        vendor_name= #{vendorName,jdbcType=VARCHAR},
+      </if>
+      <if test="isRecount != null" >
+        is_recount = #{isRecount,jdbcType=TINYINT},
+      </if>
+      <if test="ext0 != null" >
+        ext0= #{ext0,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        ext1= #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2= #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        ext3= #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        ext4= #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        ext5= #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        ext6= #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null" >
+        ext7= #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null" >
+        ext8= #{ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="ext9 != null" >
+        ext9= #{ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="ext10 != null" >
+        ext10= #{ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="ext11 != null" >
+        ext11= #{ext11,jdbcType=VARCHAR},
+      </if>
+      <if test="ext12 != null" >
+        ext12= #{ext12,jdbcType=VARCHAR},
+      </if>
+      <if test="ext13 != null" >
+        ext13= #{ext13,jdbcType=VARCHAR},
+      </if>
+      <if test="ext14 != null" >
+        ext14= #{ext14,jdbcType=VARCHAR},
+      </if>
+      <if test="ext15 != null" >
+        ext15= #{ext15,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bundle_code = #{bundleCode,jdbcType=VARCHAR} and lot_numb = #{lotNumb,jdbcType=VARCHAR}
+  </update>
+
+
+
+  <select id="getTaskListOnPaging" resultType="com.inossem.wms.model.sinobec.task.SinobecTaskVo"  >
+    select
+          t.task_id, t.task_type, t.receipt_code, t.receipt_rid, t.receipt_bid, t.receipt_type, t.receipt_status, t.mat_code,
+          t.unit_code, t.bundle_code, t.shipping_ref, t.heat_code, t.skid_code, t.corp_code, t.item_numb,
+          t.lot_numb, t.wh_code, t.source_type_code, t.source_bin_code,t.source_stock_id, t.target_type_code, t.target_bin_code,
+          t.receipt_unit_code,t.weight_unit_code,t.weight_qty,
+          t.receipt_qty, t.stock_status, t.is_delete, t.write_off, t.create_time, t.modify_time,
+          t.create_user_id, t.modify_user_id,t.vendor_code,t.vendor_name ,
+          t.ext0, t.ext1, t.ext2, t.ext3, t.ext4, t.ext5, t.ext6, t.ext7, t.ext8, t.ext9,
+          t.ext10,t.ext11,t.ext12,t.ext13,t.ext14,t.ext15,
+          m.mat_name,m.mat_ext1
+    from sinobec_biz_task t inner join dic_material m on t.mat_code = m.mat_code
+    where t.is_delete = 0
+    <if test="receiptStatus !=null ">
+    	and t.receipt_status = #{receiptStatus}
+    </if>
+    <if test="taskType !=null ">
+    	and t.task_type = #{taskType}
+    </if>
+    <if test="receiptCode != null and receiptCode != '' ">
+    	and t.receipt_code = #{receiptCode}
+    </if>
+    <if test="receiptType !=null ">
+    	and t.receipt_type = #{receiptType}
+    </if>
+    <if test="bundleCode != null and bundleCode != '' ">
+    	and t.bundle_code = #{bundleCode}
+    </if>
+    <if test="shippingRef != null and shippingRef != '' ">
+    	and t.shipping_ref = #{shippingRef}
+    </if>
+    <if test="startTime !=null ">
+    	and t.create_time <![CDATA[>=]]> #{startTime}
+    </if>
+    <if test="endTime !=null ">
+    	and t.create_time <![CDATA[<=]]> #{endTime}
+    </if>
+    <if test="receiptStatusList !=null and receiptStatusList.size()>0 ">
+    	and t.receipt_status in (
+    	<foreach collection="receiptStatusList" item="item" index= "index" separator =",">
+    		#{item}
+    	</foreach>
+    	)
+    </if>
+    <if test="whCode != null and whCode != '' ">
+      and t.wh_code = #{whCode}
+    </if>
+  </select>
+  <select id="getDeliveryList" resultType="com.inossem.wms.model.sinobec.task.SinobecTaskVo"  >
+    select
+          t.task_id, t.task_type, t.receipt_code, t.receipt_rid, t.receipt_bid, t.receipt_type, t.receipt_status, t.mat_code,
+          t.unit_code, t.bundle_code, t.shipping_ref, t.heat_code, t.skid_code, t.corp_code, t.item_numb,
+          t.lot_numb, t.wh_code, t.source_type_code, t.source_bin_code,t.source_stock_id, t.target_type_code, t.target_bin_code,
+          t.receipt_unit_code,t.weight_unit_code,t.weight_qty,
+          t.receipt_qty, t.stock_status, t.is_delete, t.write_off, t.create_time, t.modify_time,
+          t.create_user_id, t.modify_user_id,t.vendor_code,t.vendor_name ,m.mat_name
+    from sinobec_biz_task t
+    inner join dic_material m on t.mat_code = m.mat_code
+    left join sinobec_biz_output bo on bo.receipt_code = t.receipt_code and bo.mat_code= t.mat_code
+    where t.is_delete = 0 and bo.mat_code is null
+    <if test="receiptStatus !=null ">
+    	and t.receipt_status = #{receiptStatus}
+    </if>
+    <if test="taskType !=null ">
+    	and t.task_type = #{taskType}
+    </if>
+    <if test="receiptCode != null and receiptCode != '' ">
+    	and t.receipt_code = #{receiptCode}
+    </if>
+    <if test="receiptType !=null ">
+    	and t.receipt_type = #{receiptType}
+    </if>
+    <if test="bundleCode != null and bundleCode != '' ">
+    	and t.bundle_code = #{bundleCode}
+    </if>
+    <if test="shippingRef != null and shippingRef != '' ">
+    	and t.shipping_ref = #{shippingRef}
+    </if>
+    <if test="startTime !=null ">
+    	and t.create_time <![CDATA[>=]]> #{startTime}
+    </if>
+    <if test="endTime !=null ">
+    	and t.create_time <![CDATA[<=]]> #{endTime}
+    </if>
+    <if test="receiptStatusList !=null and receiptStatusList.size()>0 ">
+    	and t.receipt_status in (
+    	<foreach collection="receiptStatusList" item="item" index= "index" separator =",">
+    		#{item}
+    	</foreach>
+    	)
+    </if>
+  </select>
+  <select id="getDeliveryListUncompleted" resultType="com.inossem.wms.model.sinobec.task.SinobecTaskVo"  >
+    select
+          t.task_id, t.task_type, t.receipt_code, t.receipt_rid, t.receipt_bid, t.receipt_type, t.receipt_status, t.mat_code,
+          t.unit_code, t.bundle_code, t.shipping_ref, t.heat_code, t.skid_code, t.corp_code, t.item_numb,
+          t.lot_numb, t.wh_code, t.source_type_code, t.source_bin_code,t.source_stock_id, t.target_type_code, t.target_bin_code,
+          t.receipt_unit_code,t.weight_unit_code,t.weight_qty,
+          t.receipt_qty, t.stock_status, t.is_delete, t.write_off, t.create_time, t.modify_time,
+          t.create_user_id, t.modify_user_id,t.vendor_code,t.vendor_name ,m.mat_name
+    from sinobec_biz_task t
+    inner join dic_material m on t.mat_code = m.mat_code
+    left join sinobec_biz_output bo on bo.receipt_code = t.receipt_code and bo.mat_code= t.mat_code
+    where t.is_delete = 0 and bo.mat_code is null
+    <if test="receiptStatus !=null ">
+    	and t.receipt_status = #{receiptStatus}
+    </if>
+    <if test="taskType !=null ">
+    	and t.task_type = #{taskType}
+    </if>
+    <if test="receiptCode != null and receiptCode != '' ">
+    	and t.receipt_code = #{receiptCode}
+    </if>
+    <if test=" receiptTypeString != null and receiptTypeString !='' ">
+    	<if test="receiptTypeString.indexOf(',') != -1">
+		    and (
+			<foreach item="item" index="index" collection="receiptTypeString.split(',')"  open="" separator="or" close="">
+				t.receipt_type like CONCAT('%',#{item},'%')
+			</foreach>
+			)
+		</if>
+		<if test="receiptTypeString.indexOf(',') == -1">
+				and  (t.receipt_type like CONCAT('%',#{receiptTypeString},'%'))
+		</if>
+    </if>
+    <if test="bundleCode != null and bundleCode != '' ">
+    	and t.bundle_code = #{bundleCode}
+    </if>
+    <if test="shippingRef != null and shippingRef != '' ">
+    	and t.shipping_ref = #{shippingRef}
+    </if>
+    <if test="startTime !=null ">
+    	and t.create_time <![CDATA[>=]]> #{startTime}
+    </if>
+    <if test="endTime !=null ">
+    	and t.create_time <![CDATA[<=]]> #{endTime}
+    </if>
+    <if test="receiptStatusList !=null and receiptStatusList.size()>0 ">
+    	and t.receipt_status in (
+    	<foreach collection="receiptStatusList" item="item" index= "index" separator =",">
+    		#{item}
+    	</foreach>
+    	)
+    </if>
+  </select>
+
+  <delete id="deleteByReceiptCode" >
+    delete from sinobec_biz_task
+    where receipt_code = #{receiptCode}
+  </delete>
+
+  <select id="getReceiptStatus"  resultType="java.lang.Byte" >
+    select receipt_status
+    from sinobec_biz_task
+    where is_delete=0
+      and  receipt_code =#{receiptCode}
+      limit 1
+  </select>
+
+  <select id="getReceiptListOnPaging" resultType="com.inossem.wms.model.sinobec.task.SinobecTaskVo"
+  	parameterType="com.inossem.wms.model.sinobec.task.SinobecTaskQueryCo">
+    select
+    	any_value(bt.task_type) task_type,
+    	any_value(bt.receipt_code) receipt_code,
+    	any_value(bt.receipt_status) receipt_status,
+    	any_value(bt.create_time) create_time,
+	    any_value(bt.create_user_id) create_user_id,
+	    any_value(su.user_name) create_user_name
+	    from sinobec_biz_task bt
+	    inner join sys_user su on bt.create_user_id = su.user_id
+    where bt.is_delete = 0
+    <if test="receiptStatus !=null ">
+    	and bt.receipt_status = #{receiptStatus}
+    </if>
+    <if test="taskType !=null ">
+    	and bt.task_type = #{taskType}
+    </if>
+    <if test="receiptCode != null and receiptCode != '' ">
+    	and bt.receipt_code = #{receiptCode}
+    </if>
+    <if test="receiptType !=null ">
+    	and bt.receipt_type = #{receiptType}
+    </if>
+    <if test="bundleCode != null and bundleCode != '' ">
+    	and bt.bundle_code = #{bundleCode}
+    </if>
+    <if test="shippingRef != null and shippingRef != '' ">
+    	and bt.shipping_ref = #{shippingRef}
+    </if>
+    <if test="startTime !=null ">
+    	and bt.create_time <![CDATA[>=]]> #{startTime}
+    </if>
+    <if test="endTime !=null ">
+    	and bt.create_time <![CDATA[<=]]> #{endTime}
+    </if>
+    <if test="whCode != null and whCode != '' ">
+    	and bt.wh_code = #{whCode}
+    </if>
+    <if test="receiptStatusList !=null and receiptStatusList.size()>0 ">
+    	and bt.receipt_status in (
+    	<foreach collection="receiptStatusList" item="item" index= "index" separator =",">
+    		#{item}
+    	</foreach>
+    	)
+    </if>
+    <if test="whCode !=null and whCode != ''">
+      and bt.wh_code = #{whCode}
+    </if>
+    group by bt.receipt_code
+    order by create_time desc
+  </select>
+  <select id="getReceiptItemList" resultType="com.inossem.wms.model.sinobec.task.SinobecTaskVo"  >
+    select
+    	bt.task_id, bt.task_type, bt.receipt_code, bt.receipt_rid, bt.receipt_bid, bt.receipt_type, bt.receipt_status, bt.mat_code,
+    	bt.unit_code, bt.bundle_code, bt.shipping_ref, bt.heat_code, bt.skid_code, bt.corp_code, bt.item_numb,
+    	bt.lot_numb, bt.wh_code, bt.source_type_code, bt.source_bin_code,bt.source_stock_id, bt.target_type_code, bt.target_bin_code,
+    	bt.receipt_unit_code,bt.weight_unit_code,bt.weight_qty,
+    	bt.receipt_qty, bt.stock_status, bt.is_delete, bt.write_off, bt.create_time, bt.modify_time,
+    	bt.create_user_id, bt.modify_user_id,
+    	bt.ext0, bt.ext1, bt.ext2,
+    	bt.ext3, bt.ext4, bt.ext5,
+    	bt.ext6, bt.ext7, bt.ext8,
+    	bt.ext9, bt.ext10, bt.ext11,
+    	bt.ext12, bt.ext13, bt.ext14,
+    	bt.ext15,
+    	su.user_name create_user_name,
+    	st.type_name source_type_name,
+    	ifnull(tt.type_name,'') target_type_name, dm.mat_name
+    from sinobec_biz_task bt
+    inner join sys_user su on bt.create_user_id = su.user_id
+    inner join dic_wh_storage_type st on bt.wh_code = st.wh_code and bt.source_type_code = st.type_code
+    inner join dic_material dm on bt.mat_code = dm.mat_code
+    left join dic_wh_storage_type tt on bt.wh_code = tt.wh_code and bt.target_type_code = tt.type_code
+    where bt.is_delete = 0
+	and bt.task_type = #{taskType}
+	and bt.receipt_code = #{receiptCode}
+
+  </select>
+
+  <select id="getTaskListByReceiptCode" resultType="com.inossem.wms.model.sinobec.task.SinobecTaskVo"  >
+    select
+    	bt.task_id, bt.task_type, bt.receipt_code, bt.receipt_rid, bt.receipt_bid, bt.receipt_type, bt.receipt_status, bt.mat_code,
+    	bt.unit_code, bt.bundle_code, bt.shipping_ref, bt.heat_code, bt.skid_code, bt.corp_code, bt.item_numb,
+    	bt.lot_numb, bt.wh_code, bt.source_type_code, bt.source_bin_code,bt.source_stock_id, bt.target_type_code, bt.target_bin_code,
+    	bt.receipt_unit_code,bt.weight_unit_code,bt.weight_qty,
+    	bt.receipt_qty, bt.stock_status, bt.is_delete, bt.write_off, bt.create_time, bt.modify_time,
+    	bt.create_user_id, bt.modify_user_id,
+    	bt.ext0, bt.ext1, bt.ext2,
+    	bt.ext3, bt.ext4, bt.ext5,
+    	bt.ext6, bt.ext7, bt.ext8,
+    	bt.ext9, bt.ext10, bt.ext11,
+    	bt.ext12, bt.ext13, bt.ext14,
+    	bt.ext15
+    from sinobec_biz_task bt
+    where bt.receipt_code = #{receiptCode} and bt.target_type_code = 'OB' and  bt.target_bin_code = 'OB'
+
+  </select>
+
+
+</mapper>

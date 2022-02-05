@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inossem.wms.dao.actor.ActorGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.inossem.wms.vo.actor.ActorGroupVo" >
+    <id column="group_code" property="groupCode" jdbcType="VARCHAR" />
+    <result column="corp_code" property="corpCode" jdbcType="VARCHAR" />
+    <result column="corp_name" property="corpName" jdbcType="VARCHAR" />
+    <result column="receipt_type" property="receiptType" jdbcType="INTEGER" />
+    <result column="receipt_type_name" property="receiptTypeName" jdbcType="VARCHAR" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="TINYINT" />
+    <result column="group_type" property="groupType" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+    <result column="modify_user_id" property="modifyUserId" jdbcType="INTEGER" />
+    <result column="group_ext0" property="groupExt0" jdbcType="VARCHAR" />
+    <result column="group_ext1" property="groupExt1" jdbcType="VARCHAR" />
+    <result column="group_ext2" property="groupExt2" jdbcType="VARCHAR" />
+    <result column="group_ext3" property="groupExt3" jdbcType="VARCHAR" />
+    <result column="group_ext4" property="groupExt4" jdbcType="VARCHAR" />
+    <result column="group_ext5" property="groupExt5" jdbcType="VARCHAR" />
+    <result column="group_ext6" property="groupExt6" jdbcType="VARCHAR" />
+    <result column="group_ext7" property="groupExt7" jdbcType="VARCHAR" />
+    <result column="group_ext8" property="groupExt8" jdbcType="VARCHAR" />
+    <result column="group_ext9" property="groupExt9" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    group_code, corp_code, receipt_type, group_name, create_user_name, is_default, group_type, 
+    is_delete, create_time, modify_time, create_user_id, modify_user_id, group_ext0, 
+    group_ext1, group_ext2, group_ext3, group_ext4, group_ext5, group_ext6, group_ext7, 
+    group_ext8, group_ext9
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from actor_group
+    where group_code = #{groupCode,jdbcType=VARCHAR} and is_delete = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from actor_group
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.actor.ActorGroup" >
+    insert into actor_group (group_code, corp_code, receipt_type, 
+      group_name, create_user_name, is_default, 
+      group_type, is_delete, create_time, 
+      modify_time, create_user_id, modify_user_id, 
+      group_ext0, group_ext1, group_ext2, 
+      group_ext3, group_ext4, group_ext5, 
+      group_ext6, group_ext7, group_ext8, 
+      group_ext9)
+    values (#{groupCode,jdbcType=VARCHAR}, #{corpCode,jdbcType=VARCHAR}, #{receiptType,jdbcType=INTEGER}, 
+      #{groupName,jdbcType=VARCHAR}, #{createUserName,jdbcType=VARCHAR}, #{isDefault,jdbcType=TINYINT}, 
+      #{groupType,jdbcType=INTEGER}, #{isDelete,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, 
+      #{groupExt0,jdbcType=VARCHAR}, #{groupExt1,jdbcType=VARCHAR}, #{groupExt2,jdbcType=VARCHAR}, 
+      #{groupExt3,jdbcType=VARCHAR}, #{groupExt4,jdbcType=VARCHAR}, #{groupExt5,jdbcType=VARCHAR}, 
+      #{groupExt6,jdbcType=VARCHAR}, #{groupExt7,jdbcType=VARCHAR}, #{groupExt8,jdbcType=VARCHAR}, 
+      #{groupExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.actor.ActorGroup" >
+    insert into actor_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupCode != null" >
+        group_code,
+      </if>
+      <if test="corpCode != null" >
+        corp_code,
+      </if>
+      <if test="receiptType != null" >
+        receipt_type,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="groupType != null" >
+        group_type,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null" >
+        modify_user_id,
+      </if>
+      <if test="groupExt0 != null" >
+        group_ext0,
+      </if>
+      <if test="groupExt1 != null" >
+        group_ext1,
+      </if>
+      <if test="groupExt2 != null" >
+        group_ext2,
+      </if>
+      <if test="groupExt3 != null" >
+        group_ext3,
+      </if>
+      <if test="groupExt4 != null" >
+        group_ext4,
+      </if>
+      <if test="groupExt5 != null" >
+        group_ext5,
+      </if>
+      <if test="groupExt6 != null" >
+        group_ext6,
+      </if>
+      <if test="groupExt7 != null" >
+        group_ext7,
+      </if>
+      <if test="groupExt8 != null" >
+        group_ext8,
+      </if>
+      <if test="groupExt9 != null" >
+        group_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupCode != null" >
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null" >
+        #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptType != null" >
+        #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="groupType != null" >
+        #{groupType,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null" >
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="groupExt0 != null" >
+        #{groupExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt1 != null" >
+        #{groupExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt2 != null" >
+        #{groupExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt3 != null" >
+        #{groupExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt4 != null" >
+        #{groupExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt5 != null" >
+        #{groupExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt6 != null" >
+        #{groupExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt7 != null" >
+        #{groupExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt8 != null" >
+        #{groupExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt9 != null" >
+        #{groupExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.actor.ActorGroup" >
+    update actor_group
+    <set >
+      <if test="corpCode != null" >
+        corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptType != null" >
+        receipt_type = #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        create_user_name = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="groupType != null" >
+        group_type = #{groupType,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null" >
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="groupExt0 != null" >
+        group_ext0 = #{groupExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt1 != null" >
+        group_ext1 = #{groupExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt2 != null" >
+        group_ext2 = #{groupExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt3 != null" >
+        group_ext3 = #{groupExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt4 != null" >
+        group_ext4 = #{groupExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt5 != null" >
+        group_ext5 = #{groupExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt6 != null" >
+        group_ext6 = #{groupExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt7 != null" >
+        group_ext7 = #{groupExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt8 != null" >
+        group_ext8 = #{groupExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt9 != null" >
+        group_ext9 = #{groupExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.actor.ActorGroup" >
+    update actor_group
+    set corp_code = #{corpCode,jdbcType=VARCHAR},
+      receipt_type = #{receiptType,jdbcType=INTEGER},
+      group_name = #{groupName,jdbcType=VARCHAR},
+      create_user_name = #{createUserName,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=TINYINT},
+      group_type = #{groupType,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      group_ext0 = #{groupExt0,jdbcType=VARCHAR},
+      group_ext1 = #{groupExt1,jdbcType=VARCHAR},
+      group_ext2 = #{groupExt2,jdbcType=VARCHAR},
+      group_ext3 = #{groupExt3,jdbcType=VARCHAR},
+      group_ext4 = #{groupExt4,jdbcType=VARCHAR},
+      group_ext5 = #{groupExt5,jdbcType=VARCHAR},
+      group_ext6 = #{groupExt6,jdbcType=VARCHAR},
+      group_ext7 = #{groupExt7,jdbcType=VARCHAR},
+      group_ext8 = #{groupExt8,jdbcType=VARCHAR},
+      group_ext9 = #{groupExt9,jdbcType=VARCHAR}
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--自定义方法-->
+  <!--添加或更新岗位组信息-->
+  <insert id="insertOrUpdate" parameterType="com.inossem.wms.model.actor.ActorGroup" >
+    insert into actor_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupCode != null" >
+        group_code,
+      </if>
+      <if test="corpCode != null" >
+        corp_code,
+      </if>
+      <if test="receiptType != null" >
+        receipt_type,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="groupType != null" >
+        group_type,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null" >
+        modify_user_id,
+      </if>
+      <if test="groupExt0 != null" >
+        group_ext0,
+      </if>
+      <if test="groupExt1 != null" >
+        group_ext1,
+      </if>
+      <if test="groupExt2 != null" >
+        group_ext2,
+      </if>
+      <if test="groupExt3 != null" >
+        group_ext3,
+      </if>
+      <if test="groupExt4 != null" >
+        group_ext4,
+      </if>
+      <if test="groupExt5 != null" >
+        group_ext5,
+      </if>
+      <if test="groupExt6 != null" >
+        group_ext6,
+      </if>
+      <if test="groupExt7 != null" >
+        group_ext7,
+      </if>
+      <if test="groupExt8 != null" >
+        group_ext8,
+      </if>
+      <if test="groupExt9 != null" >
+        group_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupCode != null" >
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="corpCode != null" >
+        #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptType != null" >
+        #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="groupType != null" >
+        #{groupType,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null" >
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="groupExt0 != null" >
+        #{groupExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt1 != null" >
+        #{groupExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt2 != null" >
+        #{groupExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt3 != null" >
+        #{groupExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt4 != null" >
+        #{groupExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt5 != null" >
+        #{groupExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt6 != null" >
+        #{groupExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt7 != null" >
+        #{groupExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt8 != null" >
+        #{groupExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt9 != null" >
+        #{groupExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    ON DUPLICATE KEY UPDATE
+    <trim prefix=" " suffix=" " suffixOverrides=",">
+      <if test="corpCode != null" >
+        corp_code = #{corpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptType != null" >
+        receipt_type = #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        create_user_name = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="groupType != null" >
+        group_type = #{groupType,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="modifyUserId != null" >
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="groupExt0 != null" >
+        group_ext0 = #{groupExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt1 != null" >
+        group_ext1 = #{groupExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt2 != null" >
+        group_ext2 = #{groupExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt3 != null" >
+        group_ext3 = #{groupExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt4 != null" >
+        group_ext4 = #{groupExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt5 != null" >
+        group_ext5 = #{groupExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt6 != null" >
+        group_ext6 = #{groupExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt7 != null" >
+        group_ext7 = #{groupExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt8 != null" >
+        group_ext8 = #{groupExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="groupExt9 != null" >
+        group_ext9 = #{groupExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!--根据传入参数进行查找-->
+  <select id="selectByParamsSelectiveOnPaging" resultMap="BaseResultMap" >
+    select
+	    ag.group_code, ag.corp_code, ag.receipt_type as receipt_type, 
+	    ag.group_name, ag.create_user_name, ag.is_default, ag.group_type,
+	    ag.is_delete, ag.create_time, ag.modify_time, ag.create_user_id, 
+	    ag.modify_user_id, ag.group_ext0, ag.group_ext1, ag.group_ext2, 
+	    ag.group_ext3, ag.group_ext4, ag.group_ext5, ag.group_ext6, 
+	    ag.group_ext7,ag.group_ext8, ag.group_ext9,	    
+	    dc.corp_name
+    FROM actor_group ag
+    INNER join dic_corp dc ON ag.corp_code = dc.corp_code AND dc.is_delete = 0
+    	AND ag.is_delete= 0   	
+   	  <if test="groupCodeList != null and groupCodeList.size()>0 ">  		
+	   		AND ag.group_code in
+	      <foreach collection="groupCodeList" item="item" open="(" separator="," close=")">
+	        #{item}
+	      </foreach>
+   	  </if>
+	  <if test="condition != null and condition != '' ">  
+        AND (ag.group_code LIKE  CONCAT('%',#{condition},'%' )
+        OR ag.group_name LIKE  CONCAT('%',#{condition},'%' ))
+  	  </if>
+      <if test="groupCode != null and groupCode != ''">
+        AND ag.group_code = #{groupCode, jdbcType=VARCHAR}
+      </if>
+      <if test="corpCode != null" >
+        AND ag.corp_code = #{corpCode,jdbcType=VARCHAR}
+      </if>
+      <if test="receiptType != null" >
+        AND ag.receipt_type = #{receiptType,jdbcType=INTEGER}
+      </if>
+      <if test="groupName != null and groupName != ''" >
+        AND ag.group_name = #{groupName,jdbcType=VARCHAR}
+      </if>
+      <if test="createUserName != null" >
+        AND ag.create_user_name = #{createUserName,jdbcType=VARCHAR}
+      </if>
+      <if test="isDefault != null" >
+        AND ag.is_default = #{isDefault,jdbcType=TINYINT}
+      </if>
+      <if test="groupType != null" >
+        AND ag.group_type = #{groupType,jdbcType=INTEGER}
+      </if>
+      <if test="isDelete != null" >
+        AND ag.is_delete = #{isDelete,jdbcType=TINYINT}
+      </if>
+      <if test="createTime != null" >
+        AND ag.create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="modifyTime != null" >
+        AND ag.modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createUserId != null" >
+        AND ag.create_user_id = #{createUserId,jdbcType=INTEGER}
+      </if>
+      <if test="modifyUserId != null" >
+        AND ag.modify_user_id = #{modifyUserId,jdbcType=INTEGER}
+      </if>
+      <if test="groupExt0 != null" >
+        AND ag.group_ext0 = #{groupExt0,jdbcType=VARCHAR}
+      </if>
+      <if test="groupExt1 != null" >
+        AND ag.group_ext1 = #{groupExt1,jdbcType=VARCHAR}
+      </if>
+      <if test="groupExt2 != null" >
+        AND ag.group_ext2 = #{groupExt2,jdbcType=VARCHAR}
+      </if>
+      <if test="groupExt3 != null" >
+        AND ag.group_ext3 = #{groupExt3,jdbcType=VARCHAR}
+      </if>
+      <if test="groupExt4 != null" >
+        AND ag.group_ext4 = #{groupExt4,jdbcType=VARCHAR}
+      </if>
+      <if test="groupExt5 != null" >
+        AND ag.group_ext5 = #{groupExt5,jdbcType=VARCHAR}
+      </if>
+      <if test="groupExt6 != null" >
+        AND ag.group_ext6 = #{groupExt6,jdbcType=VARCHAR}
+      </if>
+      <if test="groupExt7 != null" >
+        AND ag.group_ext7 = #{groupExt7,jdbcType=VARCHAR}
+      </if>
+      <if test="groupExt8 != null" >
+        AND ag.group_ext8 = #{groupExt8,jdbcType=VARCHAR}
+      </if>
+      <if test="groupExt9 != null" >
+        AND ag.group_ext9 = #{groupExt9,jdbcType=VARCHAR}
+      </if>
+      ORDER BY receipt_type,ag.create_time DESC
+  </select>
+  
+  <update id="updateNoneDefaultByParam" parameterType="com.inossem.wms.model.actor.ActorGroup" >
+    update actor_group
+    <set >
+      is_default = 0,
+    </set>
+    where
+    1=1
+    <if test="groupCode != null and groupCode != ''">
+      and group_code = #{groupCode, jdbcType=VARCHAR}
+    </if>
+    <if test="corpCode != null" >
+      and corp_code = #{corpCode,jdbcType=VARCHAR}
+    </if>
+    <if test="receiptType != null" >
+      and receipt_type = #{receiptType,jdbcType=INTEGER}
+    </if>
+    <if test="groupName != null and groupName != ''" >
+      and group_name = #{groupName,jdbcType=VARCHAR}
+    </if>
+    <if test="createUserName != null" >
+      and create_user_name = #{createUserName,jdbcType=VARCHAR}
+    </if>
+    <if test="isDefault != null" >
+      and is_default = #{isDefault,jdbcType=TINYINT}
+    </if>
+    <if test="groupType != null" >
+      and group_type = #{groupType,jdbcType=INTEGER}
+    </if>
+    <if test="isDelete != null" >
+      and is_delete = #{isDelete,jdbcType=TINYINT}
+    </if>
+    <if test="createTime != null" >
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="modifyTime != null" >
+      and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="createUserId != null" >
+      and create_user_id = #{createUserId,jdbcType=INTEGER}
+    </if>
+    <if test="modifyUserId != null" >
+      and modify_user_id = #{modifyUserId,jdbcType=INTEGER}
+    </if>
+    <if test="groupExt0 != null" >
+      and group_ext0 = #{groupExt0,jdbcType=VARCHAR}
+    </if>
+    <if test="groupExt1 != null" >
+      and group_ext1 = #{groupExt1,jdbcType=VARCHAR}
+    </if>
+    <if test="groupExt2 != null" >
+      and group_ext2 = #{groupExt2,jdbcType=VARCHAR}
+    </if>
+    <if test="groupExt3 != null" >
+      and group_ext3 = #{groupExt3,jdbcType=VARCHAR}
+    </if>
+    <if test="groupExt4 != null" >
+      and group_ext4 = #{groupExt4,jdbcType=VARCHAR}
+    </if>
+    <if test="groupExt5 != null" >
+      and group_ext5 = #{groupExt5,jdbcType=VARCHAR}
+    </if>
+    <if test="groupExt6 != null" >
+      and group_ext6 = #{groupExt6,jdbcType=VARCHAR}
+    </if>
+    <if test="groupExt7 != null" >
+      and group_ext7 = #{groupExt7,jdbcType=VARCHAR}
+    </if>
+    <if test="groupExt8 != null" >
+      and group_ext8 = #{groupExt8,jdbcType=VARCHAR}
+    </if>
+    <if test="groupExt9 != null" >
+      and group_ext9 = #{groupExt9,jdbcType=VARCHAR}
+    </if>
+
+  </update>
+  
+  <update id="updateDefaultActorGroup">
+  	UPDATE actor_group 
+  	SET
+  	is_default = #{isDefault,jdbcType=TINYINT}
+  	WHERE group_code = #{groupCode, jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectActorGroupByCorpCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from actor_group
+    where  is_delete = 0 and corp_code = #{corpCode,jdbcType=VARCHAR}   
+  </select>
+
+</mapper>

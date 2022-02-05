@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicMaterialWhStorageTypeMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicMaterialWhStorageType">
+    <id column="mat_code" jdbcType="VARCHAR" property="matCode" />
+    <id column="wh_code" jdbcType="VARCHAR" property="whCode" />
+    <id column="storage_type_code" jdbcType="VARCHAR" property="storageTypeCode" />
+    <result column="storage_bin_code" jdbcType="VARCHAR" property="storageBinCode" />
+    <result column="strategy_shelf_load" jdbcType="VARCHAR" property="strategyShelfLoad" />
+    <result column="strategy_shelf_unload" jdbcType="VARCHAR" property="strategyShelfUnload" />
+    <result column="stock_bin_max" jdbcType="DECIMAL" property="stockBinMax" />
+    <result column="stock_bin_min" jdbcType="DECIMAL" property="stockBinMin" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="mat_wh_storage_type_ext0" jdbcType="VARCHAR" property="matWhStorageTypeExt0" />
+    <result column="mat_wh_storage_type_ext1" jdbcType="VARCHAR" property="matWhStorageTypeExt1" />
+    <result column="mat_wh_storage_type_ext2" jdbcType="VARCHAR" property="matWhStorageTypeExt2" />
+    <result column="mat_wh_storage_type_ext3" jdbcType="VARCHAR" property="matWhStorageTypeExt3" />
+    <result column="mat_wh_storage_type_ext4" jdbcType="VARCHAR" property="matWhStorageTypeExt4" />
+    <result column="mat_wh_storage_type_ext5" jdbcType="VARCHAR" property="matWhStorageTypeExt5" />
+    <result column="mat_wh_storage_type_ext6" jdbcType="VARCHAR" property="matWhStorageTypeExt6" />
+    <result column="mat_wh_storage_type_ext7" jdbcType="VARCHAR" property="matWhStorageTypeExt7" />
+    <result column="mat_wh_storage_type_ext8" jdbcType="VARCHAR" property="matWhStorageTypeExt8" />
+    <result column="mat_wh_storage_type_ext9" jdbcType="VARCHAR" property="matWhStorageTypeExt9" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mat_code, wh_code, storage_type_code, storage_bin_code, strategy_shelf_load, strategy_shelf_unload, 
+    stock_bin_max, stock_bin_min, is_delete, create_time, modify_time, create_user_id, 
+    modify_user_id, mat_wh_storage_type_ext0, mat_wh_storage_type_ext1, mat_wh_storage_type_ext2, 
+    mat_wh_storage_type_ext3, mat_wh_storage_type_ext4, mat_wh_storage_type_ext5, mat_wh_storage_type_ext6, 
+    mat_wh_storage_type_ext7, mat_wh_storage_type_ext8, mat_wh_storage_type_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialWhStorageTypeKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_material_wh_storage_type
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and wh_code = #{whCode,jdbcType=VARCHAR}
+      and storage_type_code = #{storageTypeCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialWhStorageTypeVo">
+    delete from dic_material_wh_storage_type
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and wh_code = #{whCode,jdbcType=VARCHAR}
+      and storage_type_code in
+      <foreach collection="storageTypeCodes" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicMaterialWhStorageType">
+    insert into dic_material_wh_storage_type (mat_code, wh_code, storage_type_code, 
+      storage_bin_code, strategy_shelf_load, strategy_shelf_unload, 
+      stock_bin_max, stock_bin_min, is_delete, 
+      create_time, modify_time, create_user_id, 
+      modify_user_id, mat_wh_storage_type_ext0, mat_wh_storage_type_ext1, 
+      mat_wh_storage_type_ext2, mat_wh_storage_type_ext3, 
+      mat_wh_storage_type_ext4, mat_wh_storage_type_ext5, 
+      mat_wh_storage_type_ext6, mat_wh_storage_type_ext7, 
+      mat_wh_storage_type_ext8, mat_wh_storage_type_ext9
+      )
+    values (#{matCode,jdbcType=VARCHAR}, #{whCode,jdbcType=VARCHAR}, #{storageTypeCode,jdbcType=VARCHAR}, 
+      #{storageBinCode,jdbcType=VARCHAR}, #{strategyShelfLoad,jdbcType=VARCHAR}, #{strategyShelfUnload,jdbcType=VARCHAR}, 
+      #{stockBinMax,jdbcType=DECIMAL}, #{stockBinMin,jdbcType=DECIMAL}, #{isDelete,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{matWhStorageTypeExt0,jdbcType=VARCHAR}, #{matWhStorageTypeExt1,jdbcType=VARCHAR}, 
+      #{matWhStorageTypeExt2,jdbcType=VARCHAR}, #{matWhStorageTypeExt3,jdbcType=VARCHAR}, 
+      #{matWhStorageTypeExt4,jdbcType=VARCHAR}, #{matWhStorageTypeExt5,jdbcType=VARCHAR}, 
+      #{matWhStorageTypeExt6,jdbcType=VARCHAR}, #{matWhStorageTypeExt7,jdbcType=VARCHAR}, 
+      #{matWhStorageTypeExt8,jdbcType=VARCHAR}, #{matWhStorageTypeExt9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicMaterialWhStorageType">
+    insert into dic_material_wh_storage_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="matCode != null">
+        mat_code,
+      </if>
+      <if test="whCode != null">
+        wh_code,
+      </if>
+      <if test="storageTypeCode != null">
+        storage_type_code,
+      </if>
+      <if test="storageBinCode != null">
+        storage_bin_code,
+      </if>
+      <if test="strategyShelfLoad != null">
+        strategy_shelf_load,
+      </if>
+      <if test="strategyShelfUnload != null">
+        strategy_shelf_unload,
+      </if>
+      <if test="stockBinMax != null">
+        stock_bin_max,
+      </if>
+      <if test="stockBinMin != null">
+        stock_bin_min,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="matWhStorageTypeExt0 != null">
+        mat_wh_storage_type_ext0,
+      </if>
+      <if test="matWhStorageTypeExt1 != null">
+        mat_wh_storage_type_ext1,
+      </if>
+      <if test="matWhStorageTypeExt2 != null">
+        mat_wh_storage_type_ext2,
+      </if>
+      <if test="matWhStorageTypeExt3 != null">
+        mat_wh_storage_type_ext3,
+      </if>
+      <if test="matWhStorageTypeExt4 != null">
+        mat_wh_storage_type_ext4,
+      </if>
+      <if test="matWhStorageTypeExt5 != null">
+        mat_wh_storage_type_ext5,
+      </if>
+      <if test="matWhStorageTypeExt6 != null">
+        mat_wh_storage_type_ext6,
+      </if>
+      <if test="matWhStorageTypeExt7 != null">
+        mat_wh_storage_type_ext7,
+      </if>
+      <if test="matWhStorageTypeExt8 != null">
+        mat_wh_storage_type_ext8,
+      </if>
+      <if test="matWhStorageTypeExt9 != null">
+        mat_wh_storage_type_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="matCode != null">
+        #{matCode,jdbcType=VARCHAR},
+      </if>
+      <if test="whCode != null">
+        #{whCode,jdbcType=VARCHAR},
+      </if>
+      <if test="storageTypeCode != null">
+        #{storageTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="storageBinCode != null">
+        #{storageBinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyShelfLoad != null">
+        #{strategyShelfLoad,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyShelfUnload != null">
+        #{strategyShelfUnload,jdbcType=VARCHAR},
+      </if>
+      <if test="stockBinMax != null">
+        #{stockBinMax,jdbcType=DECIMAL},
+      </if>
+      <if test="stockBinMin != null">
+        #{stockBinMin,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="matWhStorageTypeExt0 != null">
+        #{matWhStorageTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt1 != null">
+        #{matWhStorageTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt2 != null">
+        #{matWhStorageTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt3 != null">
+        #{matWhStorageTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt4 != null">
+        #{matWhStorageTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt5 != null">
+        #{matWhStorageTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt6 != null">
+        #{matWhStorageTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt7 != null">
+        #{matWhStorageTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt8 != null">
+        #{matWhStorageTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt9 != null">
+        #{matWhStorageTypeExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <insert id="insertBatchDicMaterialWhStorageType" parameterType="java.util.List">
+   insert into dic_material_wh_storage_type (
+   	  mat_code, wh_code, storage_type_code, 
+      storage_bin_code, strategy_shelf_load, strategy_shelf_unload, 
+      stock_bin_max, stock_bin_min,create_time, modify_time, 
+      create_user_id, modify_user_id, 
+      mat_wh_storage_type_ext0, mat_wh_storage_type_ext1, 
+      mat_wh_storage_type_ext2, mat_wh_storage_type_ext3, 
+      mat_wh_storage_type_ext4, mat_wh_storage_type_ext5, 
+      mat_wh_storage_type_ext6, mat_wh_storage_type_ext7, 
+      mat_wh_storage_type_ext8, mat_wh_storage_type_ext9
+      )
+      
+    values 
+    <foreach collection="list" item="item" index= "index" separator =","> 
+     (
+      ifnull(#{item.matCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.whCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.storageTypeCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.storageBinCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.strategyShelfLoad,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.strategyShelfUnload,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.stockBinMax,jdbcType=DECIMAL}, "0.000"),
+      ifnull(#{item.stockBinMin,jdbcType=DECIMAL}, "0.000"),
+      #{item.createTime,jdbcType=TIMESTAMP},
+      #{item.modifyTime,jdbcType=TIMESTAMP},
+      ifnull(#{item.createUserId,jdbcType=INTEGER}, "0"),
+      ifnull(#{item.modifyUserId,jdbcType=INTEGER}, "0"),
+      ifnull(#{item.matWhStorageTypeExt0,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt1,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt2,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt3,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt4,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt5,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt6,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt7,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt8,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt9,jdbcType=VARCHAR}, "")
+      )
+    </foreach>
+     ON DUPLICATE KEY UPDATE
+      mat_code = values(mat_code), 
+      wh_code = values(wh_code), 
+      storage_type_code = values(storage_type_code), 
+      storage_bin_code = values(storage_bin_code), 
+      strategy_shelf_load = values(strategy_shelf_load), 
+      strategy_shelf_unload = values(strategy_shelf_unload), 
+      stock_bin_max = values(stock_bin_max), 
+      stock_bin_min = values(stock_bin_min),
+      create_time = values(create_time), 
+      modify_time = values(modify_time), 
+      create_user_id = values(create_user_id), 
+      modify_user_id = values(modify_user_id), 
+      mat_wh_storage_type_ext0 = values(mat_wh_storage_type_ext0), 
+      mat_wh_storage_type_ext1 = values(mat_wh_storage_type_ext1), 
+      mat_wh_storage_type_ext2 = values(mat_wh_storage_type_ext2), 
+      mat_wh_storage_type_ext3 = values(mat_wh_storage_type_ext3), 
+      mat_wh_storage_type_ext4 = values(mat_wh_storage_type_ext4), 
+      mat_wh_storage_type_ext5 = values(mat_wh_storage_type_ext5), 
+      mat_wh_storage_type_ext6 = values(mat_wh_storage_type_ext6), 
+      mat_wh_storage_type_ext7 = values(mat_wh_storage_type_ext7), 
+      mat_wh_storage_type_ext8 = values(mat_wh_storage_type_ext8), 
+      mat_wh_storage_type_ext9 = values(mat_wh_storage_type_ext9)
+  </insert>
+  
+   <insert id="insertBatchDicMaterialWhStorageType1" parameterType="java.util.List">
+    insert into dic_material_wh_storage_type (
+      mat_code, wh_code, storage_type_code, 
+      storage_bin_code, strategy_shelf_load, strategy_shelf_unload, 
+      stock_bin_max, stock_bin_min,create_time,
+      modify_time, create_user_id, modify_user_id, 
+      mat_wh_storage_type_ext0, mat_wh_storage_type_ext1, 
+      mat_wh_storage_type_ext2, mat_wh_storage_type_ext3, 
+      mat_wh_storage_type_ext4, mat_wh_storage_type_ext5, 
+      mat_wh_storage_type_ext6, mat_wh_storage_type_ext7, 
+      mat_wh_storage_type_ext8, mat_wh_storage_type_ext9
+      )
+    values 
+    <foreach collection="list" item="item" index= "index" separator =","> 
+     (
+      ifnull(#{item.matCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.whCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.storageTypeCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.storageBinCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.strategyShelfLoad,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.strategyShelfUnload,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.stockBinMax,jdbcType=DECIMAL}, "0.000"),
+      ifnull(#{item.stockBinMin,jdbcType=DECIMAL}, "0.000"),
+      #{item.createTime,jdbcType=TIMESTAMP},
+      #{item.modifyTime,jdbcType=TIMESTAMP},
+      ifnull(#{item.createUserId,jdbcType=INTEGER}, "0"),
+      ifnull(#{item.modifyUserId,jdbcType=INTEGER}, "0"),
+      ifnull(#{item.matWhStorageTypeExt0,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt1,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt2,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt3,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt4,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt5,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt6,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt7,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt8,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matWhStorageTypeExt9,jdbcType=VARCHAR}, "")
+      )
+    </foreach>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicMaterialWhStorageType">
+    update dic_material_wh_storage_type
+    <set>
+      <if test="storageBinCode != null">
+        storage_bin_code = #{storageBinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyShelfLoad != null">
+        strategy_shelf_load = #{strategyShelfLoad,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyShelfUnload != null">
+        strategy_shelf_unload = #{strategyShelfUnload,jdbcType=VARCHAR},
+      </if>
+      <if test="stockBinMax != null">
+        stock_bin_max = #{stockBinMax,jdbcType=DECIMAL},
+      </if>
+      <if test="stockBinMin != null">
+        stock_bin_min = #{stockBinMin,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="matWhStorageTypeExt0 != null">
+        mat_wh_storage_type_ext0 = #{matWhStorageTypeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt1 != null">
+        mat_wh_storage_type_ext1 = #{matWhStorageTypeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt2 != null">
+        mat_wh_storage_type_ext2 = #{matWhStorageTypeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt3 != null">
+        mat_wh_storage_type_ext3 = #{matWhStorageTypeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt4 != null">
+        mat_wh_storage_type_ext4 = #{matWhStorageTypeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt5 != null">
+        mat_wh_storage_type_ext5 = #{matWhStorageTypeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt6 != null">
+        mat_wh_storage_type_ext6 = #{matWhStorageTypeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt7 != null">
+        mat_wh_storage_type_ext7 = #{matWhStorageTypeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt8 != null">
+        mat_wh_storage_type_ext8 = #{matWhStorageTypeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="matWhStorageTypeExt9 != null">
+        mat_wh_storage_type_ext9 = #{matWhStorageTypeExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and wh_code = #{whCode,jdbcType=VARCHAR}
+      and storage_type_code = #{storageTypeCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialWhStorageType">
+    update dic_material_wh_storage_type
+    set storage_bin_code = #{storageBinCode,jdbcType=VARCHAR},
+      strategy_shelf_load = #{strategyShelfLoad,jdbcType=VARCHAR},
+      strategy_shelf_unload = #{strategyShelfUnload,jdbcType=VARCHAR},
+      stock_bin_max = #{stockBinMax,jdbcType=DECIMAL},
+      stock_bin_min = #{stockBinMin,jdbcType=DECIMAL},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      mat_wh_storage_type_ext0 = #{matWhStorageTypeExt0,jdbcType=VARCHAR},
+      mat_wh_storage_type_ext1 = #{matWhStorageTypeExt1,jdbcType=VARCHAR},
+      mat_wh_storage_type_ext2 = #{matWhStorageTypeExt2,jdbcType=VARCHAR},
+      mat_wh_storage_type_ext3 = #{matWhStorageTypeExt3,jdbcType=VARCHAR},
+      mat_wh_storage_type_ext4 = #{matWhStorageTypeExt4,jdbcType=VARCHAR},
+      mat_wh_storage_type_ext5 = #{matWhStorageTypeExt5,jdbcType=VARCHAR},
+      mat_wh_storage_type_ext6 = #{matWhStorageTypeExt6,jdbcType=VARCHAR},
+      mat_wh_storage_type_ext7 = #{matWhStorageTypeExt7,jdbcType=VARCHAR},
+      mat_wh_storage_type_ext8 = #{matWhStorageTypeExt8,jdbcType=VARCHAR},
+      mat_wh_storage_type_ext9 = #{matWhStorageTypeExt9,jdbcType=VARCHAR}
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and wh_code = #{whCode,jdbcType=VARCHAR}
+      and storage_type_code = #{storageTypeCode,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByWh" parameterType="com.inossem.wms.model.dic.DicMaterialWhStorageTypeKey">
+    delete from dic_material_wh_storage_type
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and wh_code = #{whCode,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="getList" parameterType="com.inossem.wms.model.dic.DicMaterialWhKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_material_wh_storage_type
+    where mat_code = #{matCode,jdbcType=VARCHAR}
+      and wh_code = #{whCode,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

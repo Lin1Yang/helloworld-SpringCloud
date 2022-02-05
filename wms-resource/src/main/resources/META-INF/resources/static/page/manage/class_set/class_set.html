@@ -1,0 +1,239 @@
+<!doctype html>
+<html class="scorll">
+<head>
+	<meta charset="utf-8">
+	<title>审批分类设置</title>
+	<link href="../../../part/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../../../css/common.css" rel="stylesheet" />
+	<link href="../../../css/inossem.grid.css" rel="stylesheet"/>
+	<script src="../../../js/jquery-1.11.0.min.js"></script>
+	<script src="../../../js/common.js"></script>
+	<script src="../../../part/layer/layer.js"></script>
+	<script src="../../../part/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../../js/jquery.inossem.grid.js"></script>
+	<script>
+        loadcompleted=function(){
+            $("ol.breadcrumb").append("<span style='color: white;padding: 0px 12px;font-weight: 600;'>审批流程设置</span>");
+            $("div.search a.home").remove();
+            $("div.search a.search").remove();
+            $("div.search a.advanced").remove();
+            $("div.searchbox").remove();
+            $("div.baseinfo a.btnMenuSet").remove();
+            $("div.baseinfo a.btnToDo").remove();
+        }
+	</script>
+	<script>
+        var g=null;
+        var groupId=null;
+        var pId=null;
+        var parentName=null;
+        //绑定树
+        function bindTree(data){
+            $(".ulClassFlow").empty();
+//	    	遍历一级
+            $.each(data, function(i,item) {
+                if(item.subProcGroup.length>0){
+                    $(".ulClassFlow").append("<li class='liFirst'><div><span>▶</span><label data-id='"+item.groupId+"' data-parentId='"+item.parentId+"' data-name='"+item.groupName+"' data-sort='"+item.groupSort+"'>"+item.groupName+"</label></div></li>")
+                }else{
+                    $(".ulClassFlow").append("<li class='liFirst'><div><span></span><label data-id='"+item.groupId+"' data-parentId='"+item.parentId+"' data-name='"+item.groupName+"' data-sort='"+item.groupSort+"'>"+item.groupName+"</label></div></li>")
+                }
+                $(".ulClassFlow li:last").data("data",item.subProcGroup);
+            });
+//	        遍历二级
+            $.each($(".ulClassFlow .liFirst"),function(i,item){
+                var cur=$(this);
+                var secData=cur.data("data");
+                if(secData.length>0){
+                    cur.append("<ul class='second'></ul>");
+                }
+                $.each(secData,function(j,jItem){
+                    if(jItem.subProcGroup.length>0){
+                        cur.find("ul.second").append("<li class='liSecond'><div><span>▶</span><label data-id='"+jItem.groupId+"' data-parentId='"+jItem.parentId+"' data-name='"+item.groupName+"' data-sort='"+jItem.groupSort+"'>"+jItem.groupName+"</label></div></li>")
+                    }else{
+                        cur.find("ul.second").append("<li class='liSecond'><div><span></span><label data-id='"+jItem.groupId+"' data-parentId='"+jItem.parentId+"' data-name='"+item.groupName+"' data-sort='"+jItem.groupSort+"'>"+jItem.groupName+"</label></div></li>")
+                    }
+                    $(".ulClassFlow li.liSecond:last").data("data",jItem.subProcGroup);
+                });
+            });
+
+//			$.each($(".ulClassFlow .liSecond"),function(i,item){
+//				var cur=$(this);
+//				var thirdData=cur.data("data");
+//			})
+            //点击三角符号实现显示隐藏
+            $(".ulClassFlow span").click(function(){
+                var curSpan=$(this);
+                var curUl=curSpan.parent().next();
+                if(curUl.is(":visible")){
+                    curUl.hide();
+                    curSpan.html("▶");
+                }else{
+                    curUl.show();
+                    curSpan.html("▼");
+                }
+            });
+
+//			根据点击分类名称查询
+            $(".ulClassFlow .liFirst label").click(function(){
+                groupId=$(this).attr('data-Id');
+                console.log(groupId)
+                query();
+            })
+        }
+
+        //		绑定表格
+        function binddata(data){
+            $(".picture").remove();
+            $("#inossemgrid").show();
+            g =$("#inossemgrid").iGrid({
+                columns: [
+                    { th: '分类名称', col: 'groupName',width:300 },
+                    { th: '创建人', col: '',width:150},
+                    { th: '创建时间', col: 'createTime',width:200 },
+                    { th: '操作', col: 'opt',type:"imagebutton",list:[
+                            {command:"edit",width:20,url:"../../../img/u1335.svg",hoverurl:"../../../img/u1335_mouseOver.svg",describe:"修改",visible:true},
+                            {command:"del",width:20,url:"../../../img/u17849.svg",hoverurl:"../../../img/u17849_mouseOver.svg",describe:"删除",visible:true},
+                        ],width:150}
+                ],
+                data: data,
+                checkbox:false,
+                skin:"tablestyle4",
+                sortable:false,
+                imagebutton:function(a,b,c,d){
+                    if(d=="edit"){
+                        pId=c.groupId;
+                        layer.open({
+                            type: 2,
+                            title: '编辑流程分类',
+                            shadeClose: false,
+                            shade: 0.8,
+                            area: ['470px', '245px'],
+                            content: "edit.html?groupid="+c.groupId
+                        });
+                    }else if(d=="del"){
+                        showloading();
+//	                		删除
+                        layer.close(indexloading);
+                        layer.confirm('确认删除？删除后不可恢复！', {
+                                btn: ['确认','取消'] //按钮
+                            }, function(){
+                                ajax("../../../../category/delete?groupId="+c.groupId,'delete',null,
+                                    function(data){
+                                		data = JSON.parse(data);
+                                        console.log(c.parentId)
+                                        if(data.head.msg=="success"){
+                                            layer.msg('删除成功');
+                                            queryTree();
+                                            groupId=c.parentId;
+                                            query()
+                                        }else{
+//						            		layer.msg(data.head.msg);
+                                        }
+                                    }
+                                );
+                            },function(){
+                                layer.close();
+                            }
+                        );
+                    }
+                }
+            });
+
+        }
+
+        //		查询树
+        function queryTree(){
+            ajax("../../../../category/listCategoryTreeGrid",'get',null,
+                function(data){
+            	data = JSON.parse(data);
+                    layer.close(indexloading);
+                    bindTree(data);
+                }
+            );
+        }
+        //		查询树
+        function query(){
+            ajax("../../../../category/querySubProcGroup?groupId="+groupId,'get',null,
+                function(data){
+					data = JSON.parse(data);
+                    if(data.body.length==0){
+                        layer.close(indexloading);
+                        $("#inossemgrid").hide();
+                        $(".picture").show();
+                    }else{
+                        layer.close(indexloading);
+                        binddata(data.body);
+                    }
+                }
+            );
+        }
+
+        //		跳转新建流程分类页
+        function add(){
+            layer.open({
+                type: 2,
+                title: '新建流程分类',
+                shadeClose: false,
+                shade: 0.8,
+                area: ['470px', '245px'],
+                content: 'edit.html'
+            });
+        }
+
+        $(function(){
+            $(".picture").show();
+            queryTree();
+        });
+	</script>
+	<style>
+		.rolelist{border:1px solid #eee;background: rgb(249,251,252);padding-top:20px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+		.rolelist>ul{margin-left:-30px;}
+		.rolelist li{padding-left:40px;}
+		.ulcheckbox li,.ulcheckbox li div{line-height: 30px;}.ulcheckbox li div{height:30px}
+		.ulcheckbox span{margin: -10px 0 0 0;width: 14px;height:30px;overflow:hidden;float: left;line-height: 45px;cursor:pointer;}
+		.ulcheckbox span:hover{color:#3BA6F4}
+		ul.second,ul.third{display:none;}
+		.ulchkMaterial label{cursor:pointer;padding-left:15px;padding-right:15px;border-radius:2px;white-space: nowrap;overflow: hidden;text-overflow:ellipsis;}
+		.ulchkMaterial label.on{background-color:aquamarine;}
+		.blue .collight:hover{
+			color: #00A0F0;
+		}
+		.bgImg{
+			background: url(../../../img/u18318.svg) no-repeat left center;
+			padding-left: 22px;
+			background-size: 20px 20px;
+		}
+		.bgImg:hover{
+			background: url(../../../img/u18318_mouseOver.svg) no-repeat left center;
+			padding-left: 22px;
+			background-size: 20px 20px;
+		}
+		.picture{
+			display: none;
+			position: absolute;
+			top:50%;
+			left: 50%;
+			margin-top: 260px;
+			margin-left: -86px;
+		}
+	</style>
+</head>
+<body>
+<div i-template="head"></div>
+<div i-template="toolbar">
+	<a class="btn bgImg" id="sortName" href="javascript:void(0)" onclick="add()">新建流程分类</a>
+</div>
+<div class="container article">
+	<div class="col-xs-3 rolelist">
+		<p>选择分类流程</p>
+		<ul id="treeGrid" class="ulcheckbox ulClassFlow">
+
+		</ul>
+	</div>
+	<div class="col-xs-9 row">
+		<!--<img class="picture" src="../../../img/u20203.png"/>-->
+		<div id="inossemgrid"></div>
+	</div>
+</div>
+</body>
+</html>

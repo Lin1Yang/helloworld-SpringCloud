@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inossem.wms.dao.sinobec.take.SinobecBizStockTakeMapper" >
+  <!--查询列表-->
+  <select id="getStockTakeListOnPaging" parameterType="com.inossem.wms.co.biz.BizStockTakeCo" resultType="com.inossem.wms.vo.take.BizStockTakeHeadVo">
+    select ANY_VALUE(take.stock_take_code) stock_take_code,
+    ANY_VALUE(take.stock_take_type) stock_take_type,
+    ANY_VALUE(take.wh_code) wh_code,
+    ANY_VALUE(dw.wh_name) wh_name,
+    ANY_VALUE(take.stock_take_date) stock_take_date,
+    ANY_VALUE(take.create_user_id) create_user_id,
+    ANY_VALUE(csy.user_name) create_user_name,
+    ANY_VALUE(take.create_time) create_time,
+    MIN(take.receipt_status) receipt_status,
+    ANY_VALUE(take.doc_num) doc_num
+    from sinobec_biz_stock_take take
+    inner join dic_wh dw on dw.wh_code = take.wh_code
+    inner join sys_user csy on csy.user_id = take.create_user_id
+    where take.is_delete=0
+    <if test="statusList != null and statusList.size()>0">
+      and take.receipt_status in
+      <foreach collection="statusList" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    <if test="stockTakeCode != null">
+      and take.stock_take_code like CONCAT('%', #{stockTakeCode, jdbcType=VARCHAR}, '%')
+    </if>
+    group by take.stock_take_code
+    order by take.stock_take_code desc
+  </select>
+  <!--查询盘点明细-->
+  <select id="getStockTakeInfo" parameterType="com.inossem.wms.co.biz.BizStockTakeCo" resultType="com.inossem.wms.vo.take.BizStockTakeItemVo">
+    select
+    take.stock_take_rid,
+    take.wh_code,
+    take.type_code,
+    take.bin_code,
+    take.stock_take_type,
+    take.stock_take_mode,
+    take.stock_take_user,
+    take.stock_take_date,
+    take.move_date,
+    take.receipt_type,
+    take.receipt_status,
+    take.item_status,
+    take.freeze_stock_take,
+    take.is_delete,
+    take.create_time,
+    take.modify_time,
+    take.create_user_id,
+    take.modify_user_id,
+    take.doc_num,
+    take.is_recount,
+    type.type_name,
+    wh.wh_name,
+    sys.user_name,
+    case when stb.bin_code is null then 0 else 1 end used
+    from sinobec_biz_stock_take take
+    INNER JOIN dic_wh wh ON wh.wh_code = take.wh_code
+    INNER JOIN dic_wh_storage_type type ON type.type_code = take.type_code and type.wh_code = take.wh_code
+    INNER JOIN dic_wh_storage_bin bin ON bin.type_code = take.type_code and bin.wh_code = take.wh_code and bin.bin_code = take.bin_code
+    LEFT JOIN sys_user sys on sys.user_id = take.create_user_id
+    LEFT JOIN (SELECT sb.wh_code, sb.type_code, sb.bin_code FROM sinobec_stock sb INNER JOIN sinobec_biz_stock_take bst
+    ON sb.type_code = bst.type_code and sb.wh_code = bst.wh_code and sb.bin_code = bst.bin_code and bst.stock_take_code=#{stockTakeCode,jdbcType=VARCHAR} LIMIT 1)  stb
+    on stb.type_code = take.type_code and stb.wh_code = take.wh_code and stb.bin_code = take.bin_code
+    where take.stock_take_code= #{stockTakeCode,jdbcType=VARCHAR}
+    <if test="whCode != null">
+      AND take.wh_code = #{whCode,jdbcType=VARCHAR}
+    </if>
+    <if test="typeCode != null">
+      AND take.type_code = #{typeCode,jdbcType=VARCHAR}
+    </if>
+    <if test="binCode != null">
+      AND take.bin_code = #{binCode,jdbcType=VARCHAR}
+    </if>
+    order by take.bin_code ASC
+  </select>
+
+  <!-- 删除盘点单 -->
+  <delete id="delete" parameterType="java.lang.String">
+ 	 delete from sinobec_biz_stock_take where stock_take_code = #{stockTakeCode,jdbcType=VARCHAR}
+  </delete>
+
+  <!--批量插入-->
+  <insert id="insertBizStockTake" parameterType="com.inossem.wms.model.sinobec.take.SinobecBizStockTake">
+    insert into sinobec_biz_stock_take ( stock_take_code, stock_take_rid,
+    wh_code, type_code, bin_code,
+    stock_take_type, stock_take_mode, stock_take_user,
+    stock_take_date, receipt_type, receipt_status,
+    item_status, freeze_stock_take, is_delete,
+    create_time, modify_time, create_user_id,
+    modify_user_id, move_date, doc_num)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      ( #{item.stockTakeCode,jdbcType=VARCHAR}, #{item.stockTakeRid,jdbcType=VARCHAR},
+      #{item.whCode,jdbcType=VARCHAR}, #{item.typeCode,jdbcType=VARCHAR}, #{item.binCode,jdbcType=VARCHAR},
+      #{item.stockTakeType,jdbcType=TINYINT}, #{item.stockTakeMode,jdbcType=TINYINT}, #{item.stockTakeUser,jdbcType=VARCHAR},
+      #{item.stockTakeDate,jdbcType=TIMESTAMP}, #{item.receiptType,jdbcType=INTEGER}, #{item.receiptStatus,jdbcType=TINYINT},
+      #{item.itemStatus,jdbcType=TINYINT}, #{item.freezeStockTake,jdbcType=TINYINT}, ifnull(#{item.isDelete,jdbcType=TINYINT},'0'),
+      #{item.createTime,jdbcType=TIMESTAMP}, #{item.modifyTime,jdbcType=TIMESTAMP}, #{item.createUserId,jdbcType=INTEGER},
+      #{item.modifyUserId,jdbcType=INTEGER}, #{item.moveDate,jdbcType=TIMESTAMP},
+      #{item.documentNumber,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <!--修改状态-->
+  <update id="updateAllStatusByStockTakeCode" parameterType="com.inossem.wms.co.biz.BizStockTakeCo">
+    update sinobec_biz_stock_take set receipt_status = #{receiptStatus}, item_status = #{receiptStatus},
+    is_recount = #{isReCount}
+    where stock_take_code = #{stockTakeCode,jdbcType=VARCHAR}
+    <if test="takeIdList != null and takeIdList.size()>0 ">
+      AND stock_take_id in
+      <foreach collection="takeIdList" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- 获取当前登录人获取对应的rid -->
+  <select id="getStockTakeRid" parameterType="com.inossem.wms.co.biz.BizStockTakeCo" resultType="com.inossem.wms.vo.take.BizStockTakeItemVo">
+  	select
+	    stock_take_rid
+    from sinobec_biz_stock_take
+    where stock_take_code= #{stockTakeCode,jdbcType=VARCHAR}
+    AND stock_take_user = #{stockTakeUser,jdbcType=VARCHAR}
+  </select>
+
+  <!-- 更新盘点单行项目状态 -->
+  <update id="updateStatusByStockTakeCode" parameterType="com.inossem.wms.co.biz.BizStockTakeCo">
+    update sinobec_biz_stock_take set
+    item_status = #{receiptStatus}
+    where stock_take_code = #{stockTakeCode,jdbcType=VARCHAR}
+    <if test="list != null and list.size()>0 ">
+      AND stock_take_rid in
+      <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+        #{item.stockTakeRid,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+    <if test="takeIdList != null and takeIdList.size()>0 ">
+      AND stock_take_id in
+      <foreach collection="takeIdList" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </update>
+  <!--修改整单单据状态-->
+  <update id="updateOrderStatusByStockTakeCode" parameterType="com.inossem.wms.co.biz.BizStockTakeCo">
+    update sinobec_biz_stock_take set
+    receipt_status = #{receiptStatus}
+    where stock_take_code = #{stockTakeCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

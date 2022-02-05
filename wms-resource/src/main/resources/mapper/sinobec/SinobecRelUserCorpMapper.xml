@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inossem.wms.dao.sinobec.SinobecRelUserCorpMapper" >
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.sinobec.SinobecRelUserCorp" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="corp_code" property="corpCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectCorpByUser" parameterType="java.lang.Integer" resultType="com.inossem.wms.vo.dic.DicCorpVo">
+    SELECT
+      dc.corp_code,
+      dc.corp_name,
+      rc.user_id
+    FROM
+	    sinobec_rel_user_corp rc
+	INNER JOIN dic_corp dc ON rc.corp_code = dc.corp_code
+	AND dc.is_delete = 0
+	and rc.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+    <select id="selectCorpByUserNotRel" parameterType="java.lang.Integer" resultType="com.inossem.wms.vo.dic.DicCorpVo">
+        select dc.corp_code,
+                dc.corp_name
+        from dic_corp dc
+        where is_delete = 0
+        and corp_code NOT IN (
+            select corp_code
+            from sinobec_rel_user_corp
+            where user_id = #{userId,jdbcType=INTEGER}
+        )
+    </select>
+
+    <delete id="deleteByUser" parameterType="java.lang.Integer" >
+        delete from sinobec_rel_user_corp
+        where user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insertRelUserCorp" parameterType="java.util.List">
+        insert into sinobec_rel_user_corp (user_id, corp_code)
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.userId},#{item.corpCode})
+        </foreach>
+    </insert>
+</mapper>

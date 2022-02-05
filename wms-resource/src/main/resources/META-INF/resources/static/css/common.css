@@ -1,0 +1,565 @@
+/* CSS Document */
+
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #666;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+a{
+    outline: none;
+    text-decoration: none;
+}
+a:hover{
+    outline: none;
+    text-decoration: none;
+}
+label {
+    font-weight: normal;
+}
+ul, li {
+    list-style:none;
+}
+table {
+    border-collapse:collapse;
+}
+html.scorll {
+    overflow-y:scroll;
+}
+html::-webkit-scrollbar {
+    width: 8px;
+    height:8px;
+}
+
+html::-webkit-scrollbar-track {
+    background-color:#808080;
+}
+html::-webkit-scrollbar-thumb {
+    background-color:#c0c0c0;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius:2em;
+}
+body{
+	min-width:1340px;
+	background: rgba(242, 242, 242, 1);
+}
+.layui-layer-hui .layui-layer-content{color:#fff;}
+.input-group .form-control{z-index:0;}
+/*头部*/
+div.wrapper{
+	position:fixed;
+	top: 0px;
+	left: 0px;
+	height:210px;
+	width: 100%;
+	min-width: 1340px;
+	z-index: 1;
+}
+div.baseinfo{
+	height:40px;
+	line-height:40px;
+	background-color: rgba(242, 242, 242, 1);
+}
+div.baseinfo a.btnToDo::after{
+	background-image:url(../img/baseinfo.png);
+	background-repeat: no-repeat;
+}
+div.baseinfo a.btnMenuSet,div.baseinfo a.btnToDo{
+	float:left;
+	display: block;
+	padding:0px 10px;
+	height:40px;
+	color: #666;
+	margin-right: 30px;
+	text-decoration: none;
+}
+div.baseinfo a.btnMenuSet:hover,div.baseinfo a.btnToDo:hover,div.btnManager button:hover span{
+	color:#27a9e3;
+}
+/*主数据设置前面的小电脑图标*/
+a.btnMenuSet::before{
+	content: '';
+	height:40px;
+	width: 25px;
+	display: block;
+	float: left;
+	background-image:url(../img/glsz.svg);
+	background-repeat: no-repeat;
+	background-size: 20px 40px;
+}
+a.btnMenuSet:hover::before{
+	background-image:url(../img/glsz-hover.svg);
+	background-repeat: no-repeat;
+	background-size: 20px 40px;
+}
+/*主数据设置后面的三角号图标*/
+a.btnMenuSet::after{
+	content: '';
+	height:40px;
+	width: 17px;
+	display: block;
+	float: right;
+	background: url(../img/u226.png) no-repeat ;
+	background-position:5px 17px;
+}
+a.btnMenuSet:hover::after{
+	background: url(../img/u418_mouseOver.png) no-repeat;
+	background-position:5px 17px;
+}
+/*待办事项前的消息图标*/
+div.baseinfo a.btnToDo{
+	padding-right: 25px;
+	position: relative;
+}
+a.btnToDo::before{
+	content: ' ';
+	height:40px;
+	width: 25px;
+	display: block;
+	float: left;
+	background-image:url(../img/message.svg);
+	background-repeat: no-repeat;
+	background-size: 20px 40px;
+}
+a.btnToDo:hover::before{
+	background-image:url(../img/message-hover.svg);
+	background-repeat: no-repeat;
+	background-size: 20px 40px;
+}
+/*待办事项后的消息数量图标*/
+a.btnToDo::after{
+	content: '99+';
+	background-color:#cc0000;
+	color: #fff;
+	border-radius: 11px;
+	padding: 0px 5px;
+	float: right;
+	font-size:80%;
+	min-width:21px;
+	height:21px;
+	display: block;
+	position:absolute;
+	top: 10px;
+	right: 0px;
+	line-height: 21px;
+	background-position: -1000px -1000px;
+}
+div.btnManager button,div.btnManager button:hover{
+	background-color: transparent;
+	border: 0px none;
+}
+/*个人中心图标*/
+div.btnManager .i-ico-user{
+	content: ' ';
+	height:18px;
+	width: 20px;
+	display: inline-block;
+	background-image:url(../img/grzx.svg);
+	background-repeat: no-repeat;
+	background-size: 18px 20px;
+}
+div.btnManager button:hover .i-ico-user{
+	background-image:url(../img/grzx-hover.svg);
+	background-repeat: no-repeat;
+	background-size: 18px 20px;
+}
+
+div.menubox{
+	height: 284px;
+	width: 100%;
+	position: absolute;
+	top: 40px;
+	left: 0px;
+	background: #fff;
+	border-bottom: 1px solid #999;
+	box-shadow: 0px 5px 5px #ccc;
+	z-index: 1;
+	display:none;
+	padding: 0px 15px;
+}
+div.menubox ul{
+	width: 165px;
+	margin-right: 10px;
+	border-right: 1px solid #999;
+	float: left;
+}
+div.menubox ul li{
+	height: 40px;
+	line-height: 40px;
+	padding-left: 15px;
+}
+div.menubox ul li a{
+	display: block;
+	color: #333;
+	height: 40px;
+	line-height: 40px;
+	text-decoration: none;
+}
+div.menubox ul li:hover,div.menubox ul li:hover a{
+	background-color: rgba(39, 169, 227, 1);
+	color:#fff;
+}
+
+div.search{
+	height: 80px;
+	background-color: rgba(255, 255, 255, 1);
+}
+div.search a.home{
+	width:195px;
+	height:80px;
+	float:left;
+	line-height: 80px;
+	font-size:16px;
+	color:#333;
+	font-weight:bold;
+	text-decoration: none;
+	padding-left: 40px;
+	background: url(../img/u30.png) no-repeat left center;
+	background-size: 32px 32px;
+}
+div.searchbox{
+	height:38px;
+	width:630px;
+	border: 1px solid #999;
+	float:left;
+	margin-top: 21px;
+}
+div.searchbox div.btn-group{
+	height:37px;
+	width:138px;
+	border-right:1px solid #999;
+	float: left;
+}
+div.searchbox .btn-default {
+	width:100%;
+	height: 36px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+	border: 0px none;
+}
+div.searchbox input{
+	width: 490px;
+    float: left;
+    padding: 8px 15px;
+    border: 0px none;
+}
+div.search a.search{
+	height:38px;
+	width:100px;
+	text-align:center;
+	line-height:39px;
+	background-color: rgba(39, 169, 227, 1);
+	color:#fff;
+	float:left;
+	margin-top: 21px;
+	cursor: pointer;
+	text-decoration: none;
+}
+div.search a.search:hover{
+	background-color: #00A0F0;
+}
+div.search a.advanced{
+	height:40px;
+	width:100px;
+	text-align:center;
+	line-height:40px;
+	float:left;
+	margin-top: 20px;
+	color: #666666;
+	cursor: pointer;
+}
+div.search a.advanced:hover{
+
+	color: #337ab7;
+	text-decoration: none;
+}
+div.advancedsearch{position:absolute;background:#eee;height:350px;padding-top:20px;display:none;z-index:1;}
+div.advancedsearch div{height:40px;}
+div.advancedsearch div.col-xs-12{height:20px;}
+div.advancedsearch div.col-xs-4{text-align:right;padding-right:0px;line-height:35px;}
+div.advancedsearch div.inputitem div.col-xs-5:first-child,div.advancedsearch div.inputitem2 div.col-xs-5:first-child{padding-right:0px;}
+div.advancedsearch div.inputitem div.col-xs-5:last-child{padding-left:0px;}
+div.advancedsearch a.btnCloseSearch{margin-top:10px;float:left;}
+div.advancedsearch .form-control[readonly]{background:#fff;}
+div.crumbs{
+	height: 40px;
+	background-color: rgba(46, 54, 63, 1);
+}
+.breadcrumb{
+	background-color: transparent;
+	margin-bottom: 0px;
+}
+.breadcrumb>li+li:before {
+	padding: 0 10px;
+    content: ">";
+}
+.breadcrumb li a{
+	color:#999;
+	text-decoration: none;
+}
+.breadcrumb li a:hover{
+	color:#FFFFFF;
+}
+.breadcrumb li.active a{
+	color:#fff;
+	font-weight:bold;
+}
+div.crumbs .pull-right{
+	text-align:right;
+	color: #fff;
+	overflow-y: hidden;
+	height: 40px;
+}
+div.crumbs .pull-right a,div.crumbs .pull-right span{
+	color:#fff;
+}
+div.crumbs .pull-right a.type{
+	width:40px;
+	height:40px;
+	background:#42485B;
+	display:inline-block;
+}
+div.crumbs .pull-right a.type:hover{
+	width:40px;
+	height:40px;
+	background:#27A9E3;
+	display:inline-block;
+}
+div.crumbs .pull-right a.type-img1{
+	background: url(../../img/slt-hover.svg) no-repeat center #42485B;
+	background-size: 20px 20px;
+}
+div.crumbs .pull-right a.type-img1:hover,div.crumbs .pull-right a.type-img1.on{
+	background: url(../../img/slt.svg) no-repeat center #27A9E3;
+	background-size: 20px 20px;
+}
+div.crumbs .pull-right a.type-img2{
+	background: url(../../img/text-hover.svg) no-repeat center #42485B;
+	background-size: 20px 20px;
+}
+div.crumbs .pull-right a.type-img2:hover,div.crumbs .pull-right a.type-img2.on{
+	background: url(../../img/text.svg) no-repeat center #27A9E3;
+	background-size: 20px 20px;
+}
+div.crumbs .pull-right a.type-img3{
+	background: url(../../img/datu-hover.svg) no-repeat center #42485B;
+	background-size: 20px 20px;
+}
+div.crumbs .pull-right a.type-img3:hover,div.crumbs .pull-right a.type-img3.on{
+	background: url(../../img/datu.svg) no-repeat center #27A9E3;
+	background-size: 20px 20px;
+}
+div.crumbs .pull-right span.crumbspager{
+	position: relative;
+    top: -15px;
+	color: #fff;
+	display:inline-block;
+}
+div.toolbar{
+	clear: both;
+	height: 48px;
+	border-bottom:1px solid #999;
+	background-color: #fff;
+	padding-top: 6px;
+}
+div.toolbar .btn,div.toolbar .dropdown{
+	float: left;
+	border-color: #fff;
+	color: #666666;
+}
+div.toolbar .btn:hover,div.toolbar .dropdown:hover{
+	color: #337ab7;
+}
+div.toolbar .btn:hover,div.toolbar .dropdown:hover{
+	background-color: transparent;
+}
+div.toolbar .btn:active,div.toolbar .dropdown:active{
+	background-color: transparent;
+}
+div.toolbar .btn-default.active, div.toolbar .btn-default:active, div.toolbar .open>.dropdown-toggle.btn-default {
+    color: #333;
+    
+}
+ul.ulsearchtext{position:absolute;background:#fff;border:1px solid #DBDBDB;box-shadow:1px 1px 1px #ddd;z-index:200;}
+ul.ulsearchtext li{height:40px;line-height:40px;text-indent:20px;}
+ul.ulsearchtext li.on{background:#ddd;}
+div.searchbox span.searchselect{
+	float: left;
+}
+div.searchbox span.caret{
+	float: right;
+    margin-top: 7px;
+}
+/*头部结束*/
+div.container{
+	width: 1310px;
+}
+div.container.article{
+	background: #fff;
+	padding: 20px 15px 70px;
+	/*box-shadow: 0px 0px 5px 5px #eee;*/
+	position: relative;
+}
+div.bottom{
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+}
+div.bottom .btn{
+	min-width: 100px;
+	margin: 0px 10px;
+}
+div.bottom div.container{
+	background: #fff;
+	height: 100%;
+}
+div.bottom hr{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+/*查询时创建的，以后上面都以这个为标准*/
+.form-search .div-group{min-height:45px;}
+.form-search .input-group .form-control:last-child, 
+.form-search .input-group-addon:last-child, 
+.form-search .input-group-btn:first-child>.btn-group:not(:first-child)>.btn, 
+.form-search .input-group-btn:first-child>.btn:not(:first-child), 
+.form-search .input-group-btn:last-child>.btn, 
+.form-search .input-group-btn:last-child>.btn-group>.btn, 
+.form-search .input-group-btn:last-child>.dropdown-toggle,
+.form-search .input-group .form-control:not(:first-child):not(:last-child), 
+.form-search .input-group-addon:not(:first-child):not(:last-child), 
+.form-search .input-group-btn:not(:first-child):not(:last-child) {
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.form-search .input-group .form-control:first-child, 
+.form-search .input-group-addon:first-child, 
+.form-search .input-group-btn:first-child>.btn, 
+.form-search .input-group-btn:first-child>.btn-group>.btn, 
+.form-search .input-group-btn:first-child>.dropdown-toggle, 
+.form-search .input-group-btn:last-child>.btn-group:not(:last-child)>.btn, 
+.form-search .input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle) {
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+.form-search .input-group-addon {
+	text-align:right;
+	background-color: #fff;
+	border: 1px solid #fff;
+	min-width: 125px;
+	min-height:auto;
+}
+.form-search .input-group-addon span{
+	color:#f00;
+	font-size:24px;
+	float:left;
+	height: 15px;
+    overflow: hidden;
+}
+.form-search .divselectlitera{
+	padding:0px;
+	line-height:30px;
+}
+.form-search .input-group .form-control {
+	z-index: 0;
+}
+.form-search .input-group-text{
+	padding-top:4px;
+}
+.form-search .btn-lay-default,.form-search .btn-lay-blue {
+    height: 34px;
+    line-height: 31px;
+	min-width:auto;
+}
+.form-search .btn-primary {
+    background-color: #0088cc;
+    border-color: #0088cc;
+	opacity: .9;
+    filter: alpha(opacity=90);
+	z-index:0;
+}
+.form-search .btn-primary:hover {
+    background-color: #129fe6;
+}
+.form-search .btn-default {
+    background-color: #fff;
+    border-color: #0088cc;
+	opacity: .9;
+    filter: alpha(opacity=90);
+	z-index:0;
+}
+.form-search .btn-default:hover {
+    background-color: #fff;
+}
+
+.form-search input.form-control[disabled]{
+	border: 0px none #fff;
+	box-shadow: 0px 0px 0px #fff;
+	cursor:default;
+	padding: 0px;
+}
+/*Button*/
+.btn-lay-default {
+    display: inline-block;
+    height: 38px;
+    min-width:100px;
+    line-height: 35px;
+    padding: 0 18px;
+    background-color: #fff;
+    color: #0088cc;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #0088cc;
+    border-radius: 3px;
+    cursor: pointer;
+    opacity: .9;
+    filter: alpha(opacity=90);
+}
+.btn-lay-default:hover {
+    background-color: #0088cc;
+    color: #fff;
+}
+.btn-lay-blue {
+    display: inline-block;
+    height: 38px;
+    line-height: 35px;
+    min-width:100px;
+    padding: 0 18px;
+    background-color: #0088cc;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #0088cc;
+    border-radius: 3px;
+    cursor: pointer;
+    opacity: .9;
+    filter: alpha(opacity=90);
+}
+.btn-lay-blue:hover {
+    background-color: #129fe6;
+    color: #fff;
+}
+/*Pager*/
+.pagerbox {
+    text-align:right;
+    display:none;
+}
+.pagination{vertical-align: middle;margin:0px 10px;}
+.pagination input.form-control{width: 70px;text-align: center;}
+.jquery-bootstrap-pagination select.form-control{width: 88px;text-align: center;display: inline-block}
+/*Pager end*/

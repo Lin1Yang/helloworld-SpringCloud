@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicWhStorageSectionMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicWhStorageSection">
+    <id column="wh_code" jdbcType="VARCHAR" property="whCode" />
+    <id column="type_code" jdbcType="VARCHAR" property="typeCode" />
+    <id column="section_code" jdbcType="VARCHAR" property="sectionCode" />
+    <result column="section_name" jdbcType="VARCHAR" property="sectionName" />
+    <result column="section_mark_code" jdbcType="VARCHAR" property="sectionMarkCode" />
+    <result column="section_mark_name" jdbcType="VARCHAR" property="sectionMarkName" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="wh_storage_section_ext0" jdbcType="VARCHAR" property="whStorageSectionExt0" />
+    <result column="wh_storage_section_ext1" jdbcType="VARCHAR" property="whStorageSectionExt1" />
+    <result column="wh_storage_section_ext2" jdbcType="VARCHAR" property="whStorageSectionExt2" />
+    <result column="wh_storage_section_ext3" jdbcType="VARCHAR" property="whStorageSectionExt3" />
+    <result column="wh_storage_section_ext4" jdbcType="VARCHAR" property="whStorageSectionExt4" />
+    <result column="wh_storage_section_ext5" jdbcType="VARCHAR" property="whStorageSectionExt5" />
+    <result column="wh_storage_section_ext6" jdbcType="VARCHAR" property="whStorageSectionExt6" />
+    <result column="wh_storage_section_ext7" jdbcType="VARCHAR" property="whStorageSectionExt7" />
+    <result column="wh_storage_section_ext8" jdbcType="VARCHAR" property="whStorageSectionExt8" />
+    <result column="wh_storage_section_ext9" jdbcType="VARCHAR" property="whStorageSectionExt9" />
+  </resultMap>
+  <resultMap id="VoResultMap" type="com.inossem.wms.vo.dic.DicWhStorageSectionVo" extends="BaseResultMap">
+  	<result column="wh_name" jdbcType="VARCHAR" property="whName" />
+  	<result column="type_name" jdbcType="VARCHAR" property="typeName" />
+  	<result column="user_name" jdbcType="VARCHAR" property="createName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    wh_code, type_code, section_code, section_name, section_mark_code, section_mark_name, 
+    is_delete, create_time, modify_time, create_user_id, modify_user_id, wh_storage_section_ext0, 
+    wh_storage_section_ext1, wh_storage_section_ext2, wh_storage_section_ext3, wh_storage_section_ext4, 
+    wh_storage_section_ext5, wh_storage_section_ext6, wh_storage_section_ext7, wh_storage_section_ext8, 
+    wh_storage_section_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicWhStorageSectionKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dic_wh_storage_section
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+      and type_code = #{typeCode,jdbcType=VARCHAR}
+      and section_code = #{sectionCode,jdbcType=VARCHAR}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicWhStorageSectionKey">
+    delete from dic_wh_storage_section
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+      and type_code = #{typeCode,jdbcType=VARCHAR}
+      and section_code = #{sectionCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicWhStorageSection">
+    insert into dic_wh_storage_section (wh_code, type_code, section_code, 
+      section_name, section_mark_code, section_mark_name, 
+      create_user_id, modify_user_id, wh_storage_section_ext0, 
+      wh_storage_section_ext1, wh_storage_section_ext2, 
+      wh_storage_section_ext3, wh_storage_section_ext4, 
+      wh_storage_section_ext5, wh_storage_section_ext6, 
+      wh_storage_section_ext7, wh_storage_section_ext8, 
+      wh_storage_section_ext9)
+    values (#{whCode,jdbcType=VARCHAR}, #{typeCode,jdbcType=VARCHAR}, #{sectionCode,jdbcType=VARCHAR}, 
+      #{sectionName,jdbcType=VARCHAR}, #{sectionMarkCode,jdbcType=VARCHAR}, #{sectionMarkName,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, #{whStorageSectionExt0,jdbcType=VARCHAR}, 
+      #{whStorageSectionExt1,jdbcType=VARCHAR}, #{whStorageSectionExt2,jdbcType=VARCHAR}, 
+      #{whStorageSectionExt3,jdbcType=VARCHAR}, #{whStorageSectionExt4,jdbcType=VARCHAR}, 
+      #{whStorageSectionExt5,jdbcType=VARCHAR}, #{whStorageSectionExt6,jdbcType=VARCHAR}, 
+      #{whStorageSectionExt7,jdbcType=VARCHAR}, #{whStorageSectionExt8,jdbcType=VARCHAR}, 
+      #{whStorageSectionExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicWhStorageSection">
+    insert into dic_wh_storage_section
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        wh_code,
+      </if>
+      <if test="typeCode != null">
+        type_code,
+      </if>
+      <if test="sectionCode != null">
+        section_code,
+      </if>
+      <if test="sectionName != null">
+        section_name,
+      </if>
+      <if test="sectionMarkCode != null">
+        section_mark_code,
+      </if>
+      <if test="sectionMarkName != null">
+        section_mark_name,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="whStorageSectionExt0 != null">
+        wh_storage_section_ext0,
+      </if>
+      <if test="whStorageSectionExt1 != null">
+        wh_storage_section_ext1,
+      </if>
+      <if test="whStorageSectionExt2 != null">
+        wh_storage_section_ext2,
+      </if>
+      <if test="whStorageSectionExt3 != null">
+        wh_storage_section_ext3,
+      </if>
+      <if test="whStorageSectionExt4 != null">
+        wh_storage_section_ext4,
+      </if>
+      <if test="whStorageSectionExt5 != null">
+        wh_storage_section_ext5,
+      </if>
+      <if test="whStorageSectionExt6 != null">
+        wh_storage_section_ext6,
+      </if>
+      <if test="whStorageSectionExt7 != null">
+        wh_storage_section_ext7,
+      </if>
+      <if test="whStorageSectionExt8 != null">
+        wh_storage_section_ext8,
+      </if>
+      <if test="whStorageSectionExt9 != null">
+        wh_storage_section_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        upper(#{whCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="typeCode != null">
+        upper(#{typeCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="sectionCode != null">
+        upper(#{sectionCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="sectionName != null">
+        #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionMarkCode != null">
+        #{sectionMarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionMarkName != null">
+        #{sectionMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageSectionExt0 != null">
+        #{whStorageSectionExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt1 != null">
+        #{whStorageSectionExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt2 != null">
+        #{whStorageSectionExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt3 != null">
+        #{whStorageSectionExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt4 != null">
+        #{whStorageSectionExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt5 != null">
+        #{whStorageSectionExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt6 != null">
+        #{whStorageSectionExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt7 != null">
+        #{whStorageSectionExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt8 != null">
+        #{whStorageSectionExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt9 != null">
+        #{whStorageSectionExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicWhStorageSection">
+    update dic_wh_storage_section
+    <set>
+      <if test="sectionName != null">
+        section_name = #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionMarkCode != null">
+        section_mark_code = #{sectionMarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionMarkName != null">
+        section_mark_name = #{sectionMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageSectionExt0 != null">
+        wh_storage_section_ext0 = #{whStorageSectionExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt1 != null">
+        wh_storage_section_ext1 = #{whStorageSectionExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt2 != null">
+        wh_storage_section_ext2 = #{whStorageSectionExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt3 != null">
+        wh_storage_section_ext3 = #{whStorageSectionExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt4 != null">
+        wh_storage_section_ext4 = #{whStorageSectionExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt5 != null">
+        wh_storage_section_ext5 = #{whStorageSectionExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt6 != null">
+        wh_storage_section_ext6 = #{whStorageSectionExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt7 != null">
+        wh_storage_section_ext7 = #{whStorageSectionExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt8 != null">
+        wh_storage_section_ext8 = #{whStorageSectionExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt9 != null">
+        wh_storage_section_ext9 = #{whStorageSectionExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+      and type_code = #{typeCode,jdbcType=VARCHAR}
+      and section_code = #{sectionCode,jdbcType=VARCHAR}
+  </update>
+  <!-- <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicWhStorageSection">
+    update dic_wh_storage_section
+    set section_name = #{sectionName,jdbcType=VARCHAR},
+      section_mark_code = #{sectionMarkCode,jdbcType=VARCHAR},
+      section_mark_name = #{sectionMarkName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      wh_storage_section_ext0 = #{whStorageSectionExt0,jdbcType=VARCHAR},
+      wh_storage_section_ext1 = #{whStorageSectionExt1,jdbcType=VARCHAR},
+      wh_storage_section_ext2 = #{whStorageSectionExt2,jdbcType=VARCHAR},
+      wh_storage_section_ext3 = #{whStorageSectionExt3,jdbcType=VARCHAR},
+      wh_storage_section_ext4 = #{whStorageSectionExt4,jdbcType=VARCHAR},
+      wh_storage_section_ext5 = #{whStorageSectionExt5,jdbcType=VARCHAR},
+      wh_storage_section_ext6 = #{whStorageSectionExt6,jdbcType=VARCHAR},
+      wh_storage_section_ext7 = #{whStorageSectionExt7,jdbcType=VARCHAR},
+      wh_storage_section_ext8 = #{whStorageSectionExt8,jdbcType=VARCHAR},
+      wh_storage_section_ext9 = #{whStorageSectionExt9,jdbcType=VARCHAR}
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+      and type_code = #{typeCode,jdbcType=VARCHAR}
+      and section_code = #{sectionCode,jdbcType=VARCHAR}
+  </update> -->
+
+  <select id="selectAllSectionList" resultMap="VoResultMap">
+    select 
+    	section.wh_code, section.type_code, section.section_code, section.section_name, section.section_mark_code, section.section_mark_name, 
+	    section.is_delete, section.create_time, section.modify_time, section.create_user_id, section.modify_user_id, section.wh_storage_section_ext0, 
+	    section.wh_storage_section_ext1, section.wh_storage_section_ext2, section.wh_storage_section_ext3, section.wh_storage_section_ext4, 
+	    section.wh_storage_section_ext5, section.wh_storage_section_ext6, section.wh_storage_section_ext7, section.wh_storage_section_ext8, 
+	    section.wh_storage_section_ext9,
+	    wh.wh_name, type.type_name
+    from dic_wh_storage_section section
+    inner join dic_wh wh on section.wh_code = wh.wh_code
+    inner join dic_wh_storage_type type on section.type_code = type.type_code AND wh.wh_code = type.wh_code
+    and section.is_delete = 0 and wh.is_delete = 0 and type.is_delete = 0
+  </select>
+
+  <select id="selectByConditionOnPaging"  parameterType="com.inossem.wms.co.dic.DicWhStorageSectionCo" resultMap="VoResultMap">
+    SELECT
+    	section.wh_code, section.type_code, section.section_code, section.section_name, section.section_mark_code, section.section_mark_name,
+	    section.is_delete, section.create_time, section.modify_time, section.create_user_id, section.modify_user_id, section.wh_storage_section_ext0,
+	    section.wh_storage_section_ext1, section.wh_storage_section_ext2, section.wh_storage_section_ext3, section.wh_storage_section_ext4,
+	    section.wh_storage_section_ext5, section.wh_storage_section_ext6, section.wh_storage_section_ext7, section.wh_storage_section_ext8,
+	    section.wh_storage_section_ext9,
+	    wh.wh_name, type.type_name,
+	    sy.user_name
+    FROM dic_wh_storage_section section
+    INNER JOIN dic_wh wh ON section.wh_code = wh.wh_code
+    	AND section.is_delete = 0 AND wh.is_delete = 0
+    <if test="whCode!=null and whCode!=''">
+       	AND section.wh_code = #{whCode}
+    </if>
+    <if test="whName!=null and whName!=''">
+       	AND wh.wh_name = #{whName}
+    </if>
+    <if test="typeCode!=null and typeCode!=''">
+       	AND section.type_code = #{typeCode}
+    </if>
+     <if test="sectionCode!=null and sectionCode!=''">
+       	AND section.section_code = #{sectionCode}
+    </if>
+     <if test="sectionMarkCode!=null and sectionMarkCode!=''">
+      	AND section.section_mark_code = #{sectionMarkCode}
+    </if>
+     <if test="sectionMarkName!=null and sectionMarkName!=''">
+      	AND section.section_mark_name LIKE CONCAT('%',#{sectionMarkName},'%')
+    </if>
+    INNER JOIN dic_wh_storage_type type
+    	ON section.type_code = type.type_code
+    	AND section.wh_code = type.wh_code
+    	AND type.is_delete = 0
+    <if test="typeName!=null and typeName!=''">
+       	AND  type.type_name LIKE CONCAT('%',#{typeName},'%')
+    </if>
+    LEFT JOIN sys_user sy ON sy.user_id = section.create_user_id
+    ORDER BY section.create_time DESC
+  </select>
+
+  <select id="selectDetailByPrimaryKey" parameterType="com.inossem.wms.co.dic.DicWhStorageSectionCo" resultMap="VoResultMap">
+	select
+	section.wh_code, section.type_code, section.section_code, section.section_name,
+	section.section_mark_code, section.section_mark_name,
+	section.is_delete, section.create_time, section.modify_time,
+	section.create_user_id, section.modify_user_id,
+	section.wh_storage_section_ext0,
+	section.wh_storage_section_ext1, section.wh_storage_section_ext2, section.wh_storage_section_ext3,
+	section.wh_storage_section_ext4,
+	section.wh_storage_section_ext5, section.wh_storage_section_ext6, section.wh_storage_section_ext7,
+	section.wh_storage_section_ext8,
+	section.wh_storage_section_ext9,
+	wh.wh_name, type.type_name
+	from dic_wh_storage_section section
+	inner join dic_wh wh on section.wh_code = wh.wh_code
+	inner join dic_wh_storage_type type on section.type_code = type.type_code and section.wh_code=type.wh_code
+	where section.is_delete = 0 and wh.is_delete = 0 and type.is_delete = 0
+	and section.wh_code = #{whCode,jdbcType=VARCHAR}
+	and section.type_code = #{typeCode,jdbcType=VARCHAR}
+	and section.section_code = #{sectionCode,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAllWhStorageSectionList"  parameterType="com.inossem.wms.co.dic.DicWhStorageSectionCo" resultMap="VoResultMap">
+    select
+    	section.wh_code, section.type_code, section.section_code, section.section_name, section.section_mark_code, section.section_mark_name,
+	    section.is_delete, section.create_time, section.modify_time, section.create_user_id, section.modify_user_id, section.wh_storage_section_ext0,
+	    section.wh_storage_section_ext1, section.wh_storage_section_ext2, section.wh_storage_section_ext3, section.wh_storage_section_ext4,
+	    section.wh_storage_section_ext5, section.wh_storage_section_ext6, section.wh_storage_section_ext7, section.wh_storage_section_ext8,
+	    section.wh_storage_section_ext9,
+	    wh.wh_name, type.type_name,
+	    sy.user_name
+    from dic_wh_storage_section section
+    inner join dic_wh wh on section.wh_code = wh.wh_code
+    inner join dic_wh_storage_type type on section.type_code = type.type_code and section.wh_code=type.wh_code
+    inner join sys_user sy on sy.user_id = section.create_user_id
+    where section.is_delete = 0 and wh.is_delete = 0 and type.is_delete = 0
+    and section.wh_code = #{whCode,jdbcType=VARCHAR}
+    <if test="typeCode !=null and typeCode !=''">
+    and section.type_code = #{typeCode,jdbcType=VARCHAR}
+    </if>
+
+    order by section.create_time desc
+  </select>
+
+    <!-- 主数据删除校验 是否存在未删除的存储区 -->
+   <select id="selectByDicDeleteCheckCo" parameterType="com.inossem.wms.model.dic.DicDeleteCheckCo" resultMap="BaseResultMap">
+ 		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			dic_wh_storage_section
+		<where>
+		 	is_delete = 0
+	      <if test="whCode != null">
+	        and wh_code = #{whCode,jdbcType=VARCHAR}
+	      </if>
+	      <if test="typeCode != null">
+	        and type_code = #{typeCode,jdbcType=VARCHAR}
+	      </if>
+	   </where>
+	   limit 1
+  </select>
+
+  <insert id="insertOrUpdateSelective" parameterType="com.inossem.wms.co.dic.DicWhStorageSectionCo">
+  insert into dic_wh_storage_section
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        wh_code,
+      </if>
+      <if test="typeCode != null">
+        type_code,
+      </if>
+      <if test="sectionCode != null">
+        section_code,
+      </if>
+      <if test="sectionName != null">
+        section_name,
+      </if>
+      <if test="sectionMarkCode != null">
+        section_mark_code,
+      </if>
+      <if test="sectionMarkName != null">
+        section_mark_name,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="whStorageSectionExt0 != null">
+        wh_storage_section_ext0,
+      </if>
+      <if test="whStorageSectionExt1 != null">
+        wh_storage_section_ext1,
+      </if>
+      <if test="whStorageSectionExt2 != null">
+        wh_storage_section_ext2,
+      </if>
+      <if test="whStorageSectionExt3 != null">
+        wh_storage_section_ext3,
+      </if>
+      <if test="whStorageSectionExt4 != null">
+        wh_storage_section_ext4,
+      </if>
+      <if test="whStorageSectionExt5 != null">
+        wh_storage_section_ext5,
+      </if>
+      <if test="whStorageSectionExt6 != null">
+        wh_storage_section_ext6,
+      </if>
+      <if test="whStorageSectionExt7 != null">
+        wh_storage_section_ext7,
+      </if>
+      <if test="whStorageSectionExt8 != null">
+        wh_storage_section_ext8,
+      </if>
+      <if test="whStorageSectionExt9 != null">
+        wh_storage_section_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        upper(#{whCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="typeCode != null">
+        upper(#{typeCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="sectionCode != null">
+        upper(#{sectionCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="sectionName != null">
+        #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionMarkCode != null">
+        #{sectionMarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionMarkName != null">
+        #{sectionMarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageSectionExt0 != null">
+        #{whStorageSectionExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt1 != null">
+        #{whStorageSectionExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt2 != null">
+        #{whStorageSectionExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt3 != null">
+        #{whStorageSectionExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt4 != null">
+        #{whStorageSectionExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt5 != null">
+        #{whStorageSectionExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt6 != null">
+        #{whStorageSectionExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt7 != null">
+        #{whStorageSectionExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt8 != null">
+        #{whStorageSectionExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt9 != null">
+        #{whStorageSectionExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    ON DUPLICATE KEY UPDATE
+    <trim prefix=" " suffix=" " suffixOverrides=",">
+	  <if test="sectionName != null">
+	        section_name = #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionMarkCode != null">
+        section_mark_code = #{sectionMarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionMarkName != null">
+        section_mark_name = #{sectionMarkName,jdbcType=VARCHAR},
+      </if>
+      <!-- <if test="isDelete != null"> -->
+        is_delete = 0,
+      <!-- </if> -->
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whStorageSectionExt0 != null">
+        wh_storage_section_ext0 = #{whStorageSectionExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt1 != null">
+        wh_storage_section_ext1 = #{whStorageSectionExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt2 != null">
+        wh_storage_section_ext2 = #{whStorageSectionExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt3 != null">
+        wh_storage_section_ext3 = #{whStorageSectionExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt4 != null">
+        wh_storage_section_ext4 = #{whStorageSectionExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt5 != null">
+        wh_storage_section_ext5 = #{whStorageSectionExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt6 != null">
+        wh_storage_section_ext6 = #{whStorageSectionExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt7 != null">
+        wh_storage_section_ext7 = #{whStorageSectionExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt8 != null">
+        wh_storage_section_ext8 = #{whStorageSectionExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whStorageSectionExt9 != null">
+        wh_storage_section_ext9 = #{whStorageSectionExt9,jdbcType=VARCHAR},
+      </if>
+  </trim>
+
+  </insert>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.log.TimingDeleLogMapper">
+	
+	<delete id="deleLoginLog" parameterType="com.inossem.wms.model.log.BaseLogModel" >
+		DELETE FROM log_loginlog 
+		WHERE create_Date <![CDATA[ <= ]]>  #{createDate,jdbcType=TIMESTAMP}
+		
+	</delete>
+	<delete id="deleExceptionLog" parameterType="com.inossem.wms.model.log.BaseLogModel" >
+		DELETE FROM log_exceptionlog
+		WHERE create_Date <![CDATA[ <= ]]>  #{createDate,jdbcType=TIMESTAMP}
+		
+	</delete>
+	<delete id="deleSapLog" parameterType="com.inossem.wms.model.log.BaseLogModel" >
+		DELETE FROM log_saplog
+		WHERE create_Date <![CDATA[ <= ]]> #{createDate,jdbcType=TIMESTAMP}
+		
+	</delete>
+</mapper>

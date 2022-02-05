@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    name: wms
+    url: jdbc:mysql://medsup.canadacentral.cloudapp.azure.com:23366/db20200609233427?useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true&failOverReadOnly=false
+    username: inossem
+    password: 'Inossem@2021!'
+    driver-class-name: com.mysql.jdbc.Driver
+
+logging:
+  level:
+    com:
+      inossem:
+        wms: 
+          dao: debug

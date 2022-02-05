@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.conf.AppUpgradeMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.vo.conf.AppUpgradeVo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="os_type" jdbcType="TINYINT" property="osType" />
+    <result column="version_code" jdbcType="VARCHAR" property="versionCode" />
+    <result column="version_name" jdbcType="VARCHAR" property="versionName" />
+    <result column="version_description" jdbcType="VARCHAR" property="versionDescription" />
+    <result column="lang_code" jdbcType="VARCHAR" property="langCode" />
+    <result column="public_date" jdbcType="TIMESTAMP" property="publicDate" />
+    <result column="force_upgrade" jdbcType="TINYINT" property="forceUpgrade" />
+    <result column="md5_code" jdbcType="VARCHAR" property="md5Code" />
+    <result column="file_size" jdbcType="BIGINT" property="fileSize" />
+    <result column="effect_status" jdbcType="TINYINT" property="effectStatus" />
+    <!-- 
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId" />
+     -->
+  </resultMap>
+  
+  <resultMap id="FileResultMap" type="com.inossem.wms.vo.conf.AppUpgradeFileVo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_origin_name" jdbcType="VARCHAR" property="fileOriginName" />
+    <result column="file_ext" jdbcType="VARCHAR" property="fileExt" />
+    <result column="file_size" jdbcType="BIGINT" property="fileSize" />
+    <result column="file_path" jdbcType="TIMESTAMP" property="filePath" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, os_type, version_code, version_name,
+    public_date, force_upgrade, md5_code, file_size
+  </sql>
+  
+  <sql id="File_Column_List">
+    id, file_name, file_origin_name, file_ext, file_path,
+    public_date, force_upgrade, md5_code, file_size
+  </sql>
+  
+  <select id="selectFileInfoByPrimaryKey" parameterType="java.lang.Long" resultMap="FileResultMap">
+    select 
+    <include refid="File_Column_List" />
+    from conf_app_upgrade
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    update conf_app_upgrade set is_delete = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="deleteDesciptionByUpgradeId" parameterType="java.lang.Long">
+    update conf_app_upgrade_description set is_delete = 1
+    where upgrade_id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <insert id="insert" parameterType="com.inossem.wms.vo.conf.AppUpgradeVo" useGeneratedKeys="true" keyProperty="id">
+    insert into conf_app_upgrade (os_type, version_code, version_name, public_date, force_upgrade,
+      md5_code, file_size, file_name, file_origin_name, file_path)
+    values (#{osType,jdbcType=TINYINT}, #{versionCode,jdbcType=VARCHAR}, #{versionName,jdbcType=VARCHAR}, 
+      #{publicDate,jdbcType=TIMESTAMP}, #{forceUpgrade,jdbcType=TINYINT}, #{md5Code,jdbcType=VARCHAR},
+      #{fileSize,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileOriginName,jdbcType=VARCHAR},
+      #{filePath,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertDescription" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into conf_app_upgrade_description
+      (upgrade_id, lang_code, version_description, create_user_id)
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">
+		(
+			#{item.upgradeId},
+			#{item.langCode},
+			#{item.versionDescription},
+			#{item.createUserId}
+		)
+     </foreach>		
+  </insert>
+  
+  <select id="selectOnPaging" parameterType="com.inossem.wms.co.conf.AppUpgradeListCo" resultMap="BaseResultMap">
+    select 
+      <include refid="Base_Column_List" />
+    from conf_app_upgrade
+    <where>
+      is_delete = 0
+      and effect_status = 1
+	  <if test="createTimeStart != null and createTimeEnd != null">
+	    AND DATE(public_date) 
+	    BETWEEN #{createTimeStart, jdbcType=TIMESTAMP} AND #{createTimeEnd, jdbcType=TIMESTAMP}
+	  </if>
+	</where>
+	order by create_time desc
+  </select>
+  
+  <update id="updateEffectStatus" parameterType="com.inossem.wms.co.conf.AppUpgradeFileCo">
+    update conf_app_upgrade set effect_status = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectByCo" resultMap="BaseResultMap" parameterType="com.inossem.wms.co.conf.AppUpgradeCo">
+    select 
+      t1.id,
+      t1.os_type,
+      t1.version_code,
+      t1.version_name,
+      t2.version_description,
+      t2.lang_code,
+      t1.public_date,
+      t1.force_upgrade,
+      t1.md5_code,
+      t1.file_size
+    from conf_app_upgrade t1
+      join conf_app_upgrade_description t2
+      on t1.id = t2.upgrade_id
+    where
+      t1.is_delete = 0
+      and effect_status = 1
+      and CAST(t1.version_code AS SIGNED) &gt; #{currentVersionCode, jdbcType=VARCHAR}
+      and t2.lang_code = #{langCode, jdbcType=VARCHAR}
+      order by t1.create_time desc
+  </select>
+  <select id="getMaxVersionCode" resultType="java.lang.Integer" >
+    SELECT
+		MAX(CAST(version_code AS SIGNED))
+	FROM
+		conf_app_upgrade
+	WHERE
+		is_delete = 0
+	AND effect_status = 1
+  </select>
+  
+</mapper>

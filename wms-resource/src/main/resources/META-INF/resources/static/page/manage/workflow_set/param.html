@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html style="background-color: #FFFFFF;">
+	<head>
+		<meta charset="UTF-8">
+		<title>参数设置</title>
+		<link href="../../../part/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    	<link href="../../../css/common.css" rel="stylesheet" />
+		<link href="../../../css/inossem.grid.css" rel="stylesheet"/>
+		<script src="../../../js/jquery-1.11.0.min.js"></script>
+		<script src="../../../js/common.js"></script>
+		<script src="../../../part/layer/layer.js"></script>
+		<script src="../../../part/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../../../js/jquery.inossem.grid.js"></script>
+		<script>
+			var g=null;
+			$(function(){
+				binddata(null);
+			});
+			function binddata(data){
+				if(g==null){
+					g =$("#inossemgrid").iGrid({
+						columns: [
+							{ th: '参数名称', col: '',width:200,},
+							{ th: '条件', col: '',width:100 },
+							{ th: '值', col: '',width:150 },
+						],
+						data: null,
+						skin:"tablestyle4",
+						sortable:false,
+						checkbox:false,
+					});
+				}else{
+					g.showdata(data.body);
+				}
+			}
+		</script>
+	</head>
+	<body style="overflow-x: hidden;padding-right:100px;">
+		<div class="col-xs-12">&nbsp;</div>
+		<div class="form-search">
+			<div class="form-con">
+				<div class="col-xs-12 row">
+					<div class="col-xs-4 div-group">
+						<div id="inossemgrid"></div>
+					</div>
+				</div>
+				<div class="col-xs-12 row">
+					<div class="col-xs-6 div-group"><hr /></div>
+				</div>
+			</div>
+			<div class="form-sub">
+				<div class="col-xs-12 row">
+					<div class="input-group">
+					    <span class="input-group-addon" style="width: 180px;">&nbsp;</span>
+					    <a href="javascript:void(0)" class="btn-lay-blue">保存</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					    <a href="javascript:void(0)" class="btn-lay-default btn_iframe_close_window">关闭</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

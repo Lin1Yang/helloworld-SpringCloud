@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.conf.MqRetryMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.vo.conf.MqRetryVo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="destination" jdbcType="VARCHAR" property="destination" />
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+    <result column="msg_class_full_name" jdbcType="VARCHAR" property="msgClassFullName" />
+    <result column="msg_type" jdbcType="VARCHAR" property="msgType" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="retry_times" jdbcType="TINYINT" property="retryTimes" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="is_processed" jdbcType="TINYINT" property="isProcessed" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, destination, msg, msg_class_full_name, msg_type, 
+    reason, retry_times, create_time, modify_time, is_delete, is_processed
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from biz_mq_retry
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from biz_mq_retry
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.inossem.wms.vo.conf.MqRetryVo" useGeneratedKeys="true" keyProperty="id">
+    insert into biz_mq_retry (destination, msg, msg_class_full_name, msg_type, reason)
+    values (#{destination,jdbcType=VARCHAR}, #{msg,jdbcType=VARCHAR}, #{msgClassFullName,jdbcType=VARCHAR}, 
+      #{msgType,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateRetryTimes" parameterType="java.lang.Long">
+    update biz_mq_retry
+    set retry_times = retry_times + 1,
+    is_processed = 1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectOnPaging" parameterType="com.inossem.wms.co.conf.MqRetryCo" resultMap="BaseResultMap">
+    select 
+      <include refid="Base_Column_List" />
+    from biz_mq_retry
+    <where>
+	  <if test="searchKeywords != null and searchKeywords != '' ">
+	    AND msg LIKE CONCAT('%', #{searchKeywords, jdbcType=VARCHAR}, '%') 
+	  </if>
+	  <if test="isProcessed != null">
+	    AND is_processed = #{isProcessed, jdbcType=TINYINT}
+	  </if>
+	  <if test="createTimeStart != null and createTimeEnd != null">
+	    AND DATE(create_time) 
+	    BETWEEN #{createTimeStart, jdbcType=TIMESTAMP} AND #{createTimeEnd, jdbcType=TIMESTAMP}
+	  </if>
+	</where>
+	order by create_time desc
+  </select>
+</mapper>

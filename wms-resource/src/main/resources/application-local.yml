@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    name: wms
+    url: jdbc:mysql://localhost:3306/db20200609233427?useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useAffectedRows=true&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: "s5zf7416"
+    driver-class-name: com.mysql.jdbc.Driver
+
+logging:
+  level:
+    com:
+      inossem:
+        wms:
+          dao: debug

@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicMaterialWhMapper">
+    <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicMaterialWh">
+        <id column="wh_code" jdbcType="VARCHAR" property="whCode"/>
+        <id column="mat_code" jdbcType="VARCHAR" property="matCode"/>
+        <result column="mat_group_code" jdbcType="VARCHAR" property="matGroupCode"/>
+        <result column="storage_type_mark_code" jdbcType="VARCHAR" property="storageTypeMarkCode"/>
+        <result column="storage_type_mark_name" jdbcType="VARCHAR" property="storageTypeMarkName"/>
+        <result column="storage_section_mark_code" jdbcType="VARCHAR" property="storageSectionMarkCode"/>
+        <result column="storage_section_mark_name" jdbcType="VARCHAR" property="storageSectionMarkName"/>
+        <result column="wh_unit_code" jdbcType="VARCHAR" property="whUnitCode"/>
+        <result column="move_mark" jdbcType="VARCHAR" property="moveMark"/>
+        <result column="batch_specific_classify_code" jdbcType="VARCHAR" property="batchSpecificClassifyCode"/>
+        <result column="sn_enabled" jdbcType="TINYINT" property="snEnabled"/>
+        <result column="dangerous" jdbcType="TINYINT" property="dangerous"/>
+        <result column="stock_fit" jdbcType="DECIMAL" property="stockFit"/>
+        <result column="order_point" jdbcType="DECIMAL" property="orderPoint"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId"/>
+        <result column="mat_wh_ext0" jdbcType="VARCHAR" property="matWhExt0"/>
+        <result column="mat_wh_ext1" jdbcType="VARCHAR" property="matWhExt1"/>
+        <result column="mat_wh_ext2" jdbcType="VARCHAR" property="matWhExt2"/>
+        <result column="mat_wh_ext3" jdbcType="VARCHAR" property="matWhExt3"/>
+        <result column="mat_wh_ext4" jdbcType="VARCHAR" property="matWhExt4"/>
+        <result column="mat_wh_ext5" jdbcType="VARCHAR" property="matWhExt5"/>
+        <result column="mat_wh_ext6" jdbcType="VARCHAR" property="matWhExt6"/>
+        <result column="mat_wh_ext7" jdbcType="VARCHAR" property="matWhExt7"/>
+        <result column="mat_wh_ext8" jdbcType="VARCHAR" property="matWhExt8"/>
+        <result column="mat_wh_ext9" jdbcType="VARCHAR" property="matWhExt9"/>
+    </resultMap>
+    <resultMap id="VoBaseResultMap" type="com.inossem.wms.vo.dic.DicMaterialWhVo" extends="BaseResultMap">
+        <result column="mat_name" jdbcType="VARCHAR" property="matName"/>
+        <result column="mat_group_name" jdbcType="VARCHAR" property="matGroupName"/>
+        <result column="wh_name" jdbcType="VARCHAR" property="whName"/>
+        <result column="unit_code" jdbcType="VARCHAR" property="unitCode"/>
+        <result column="unit_name" jdbcType="VARCHAR" property="unitName"/>
+        <result column="wh_unit_name" jdbcType="VARCHAR" property="whUnitName"/>
+        <result column="batch_spec_classify_name" jdbcType="VARCHAR" property="batchSpecClassifyName"/>
+        <result column="is_add" jdbcType="INTEGER" property="isAdd"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    wh_code, mat_code, mat_group_code, storage_type_mark_code, storage_type_mark_name, 
+    storage_section_mark_code, storage_section_mark_name, wh_unit_code, move_mark, batch_specific_classify_code,
+    sn_enabled, dangerous, stock_fit, order_point, is_delete, create_time, modify_time, create_user_id, 
+    modify_user_id, mat_wh_ext0, mat_wh_ext1, mat_wh_ext2, mat_wh_ext3, mat_wh_ext4, 
+    mat_wh_ext5, mat_wh_ext6, mat_wh_ext7, mat_wh_ext8, mat_wh_ext9
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialWhKey"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from dic_material_wh
+        where wh_code = #{whCode,jdbcType=VARCHAR}
+        and mat_code = #{matCode,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialWhKey">
+    delete from dic_material_wh
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+      and mat_code = #{matCode,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.inossem.wms.model.dic.DicMaterialWh">
+    insert into dic_material_wh (wh_code, mat_code, mat_group_code, 
+      storage_type_mark_code, storage_type_mark_name, 
+      storage_section_mark_code, storage_section_mark_name, 
+      wh_unit_code, move_mark, batch_specific_classify_code,
+      sn_enabled, stock_fit, order_point, 
+      is_delete, create_time, modify_time, 
+      create_user_id, modify_user_id, mat_wh_ext0, 
+      mat_wh_ext1, mat_wh_ext2, mat_wh_ext3, 
+      mat_wh_ext4, mat_wh_ext5, mat_wh_ext6, 
+      mat_wh_ext7, mat_wh_ext8, mat_wh_ext9
+      )
+    values (#{whCode,jdbcType=VARCHAR}, #{matCode,jdbcType=VARCHAR}, #{matGroupCode,jdbcType=VARCHAR}, 
+      #{storageTypeMarkCode,jdbcType=VARCHAR}, #{storageTypeMarkName,jdbcType=VARCHAR}, 
+      #{storageSectionMarkCode,jdbcType=VARCHAR}, #{storageSectionMarkName,jdbcType=VARCHAR}, 
+      #{whUnitCode,jdbcType=VARCHAR}, #{moveMark,jdbcType=VARCHAR}, #{batchSpecificClassifyCode,jdbcType=VARCHAR},
+      #{snEnabled,jdbcType=TINYINT}, #{stockFit,jdbcType=DECIMAL}, #{orderPoint,jdbcType=DECIMAL}, 
+      #{isDelete,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, #{matWhExt0,jdbcType=VARCHAR}, 
+      #{matWhExt1,jdbcType=VARCHAR}, #{matWhExt2,jdbcType=VARCHAR}, #{matWhExt3,jdbcType=VARCHAR}, 
+      #{matWhExt4,jdbcType=VARCHAR}, #{matWhExt5,jdbcType=VARCHAR}, #{matWhExt6,jdbcType=VARCHAR}, 
+      #{matWhExt7,jdbcType=VARCHAR}, #{matWhExt8,jdbcType=VARCHAR}, #{matWhExt9,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicMaterialWh">
+        insert into dic_material_wh
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="whCode != null">
+                wh_code,
+            </if>
+            <if test="matCode != null">
+                mat_code,
+            </if>
+            <if test="matGroupCode != null">
+                mat_group_code,
+            </if>
+            <if test="storageTypeMarkCode != null">
+                storage_type_mark_code,
+            </if>
+            <if test="storageTypeMarkName != null">
+                storage_type_mark_name,
+            </if>
+            <if test="storageSectionMarkCode != null">
+                storage_section_mark_code,
+            </if>
+            <if test="storageSectionMarkName != null">
+                storage_section_mark_name,
+            </if>
+            <if test="whUnitCode != null">
+                wh_unit_code,
+            </if>
+            <if test="moveMark != null">
+                move_mark,
+            </if>
+            <if test="batchSpecificClassifyCode != null">
+                batch_specific_classify_code,
+            </if>
+            <if test="snEnabled != null">
+                sn_enabled,
+            </if>
+            <if test="dangerous != null">
+                dangerous,
+            </if>
+            <if test="stockFit != null">
+                stock_fit,
+            </if>
+            <if test="orderPoint != null">
+                order_point,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id,
+            </if>
+            <if test="matWhExt0 != null">
+                mat_wh_ext0,
+            </if>
+            <if test="matWhExt1 != null">
+                mat_wh_ext1,
+            </if>
+            <if test="matWhExt2 != null">
+                mat_wh_ext2,
+            </if>
+            <if test="matWhExt3 != null">
+                mat_wh_ext3,
+            </if>
+            <if test="matWhExt4 != null">
+                mat_wh_ext4,
+            </if>
+            <if test="matWhExt5 != null">
+                mat_wh_ext5,
+            </if>
+            <if test="matWhExt6 != null">
+                mat_wh_ext6,
+            </if>
+            <if test="matWhExt7 != null">
+                mat_wh_ext7,
+            </if>
+            <if test="matWhExt8 != null">
+                mat_wh_ext8,
+            </if>
+            <if test="matWhExt9 != null">
+                mat_wh_ext9,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="whCode != null">
+                #{whCode,jdbcType=VARCHAR},
+            </if>
+            <if test="matCode != null">
+                #{matCode,jdbcType=VARCHAR},
+            </if>
+            <if test="matGroupCode != null">
+                #{matGroupCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageTypeMarkCode != null">
+                #{storageTypeMarkCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageTypeMarkName != null">
+                #{storageTypeMarkName,jdbcType=VARCHAR},
+            </if>
+            <if test="storageSectionMarkCode != null">
+                #{storageSectionMarkCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageSectionMarkName != null">
+                #{storageSectionMarkName,jdbcType=VARCHAR},
+            </if>
+            <if test="whUnitCode != null">
+                #{whUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="moveMark != null">
+                #{moveMark,jdbcType=VARCHAR},
+            </if>
+            <if test="batchSpecificClassifyCode != null">
+                #{batchSpecificClassifyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="snEnabled != null">
+                #{snEnabled,jdbcType=TINYINT},
+            </if>
+            <if test="dangerous != null">
+                #{dangerous,jdbcType=TINYINT},
+            </if>
+            <if test="stockFit != null">
+                #{stockFit,jdbcType=DECIMAL},
+            </if>
+            <if test="orderPoint != null">
+                #{orderPoint,jdbcType=DECIMAL},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyUserId != null">
+                #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="matWhExt0 != null">
+                #{matWhExt0,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt1 != null">
+                #{matWhExt1,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt2 != null">
+                #{matWhExt2,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt3 != null">
+                #{matWhExt3,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt4 != null">
+                #{matWhExt4,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt5 != null">
+                #{matWhExt5,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt6 != null">
+                #{matWhExt6,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt7 != null">
+                #{matWhExt7,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt8 != null">
+                #{matWhExt8,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt9 != null">
+                #{matWhExt9,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicMaterialWh">
+        update dic_material_wh
+        <set>
+            <if test="matGroupCode != null">
+                mat_group_code = #{matGroupCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageTypeMarkCode != null">
+                storage_type_mark_code = #{storageTypeMarkCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageTypeMarkName != null">
+                storage_type_mark_name = #{storageTypeMarkName,jdbcType=VARCHAR},
+            </if>
+            <if test="storageSectionMarkCode != null">
+                storage_section_mark_code = #{storageSectionMarkCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageSectionMarkName != null">
+                storage_section_mark_name = #{storageSectionMarkName,jdbcType=VARCHAR},
+            </if>
+            <if test="whUnitCode != null">
+                wh_unit_code = #{whUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="moveMark != null">
+                move_mark = #{moveMark,jdbcType=VARCHAR},
+            </if>
+            <if test="batchSpecificClassifyCode != null">
+                batch_specific_classify_code = #{batchSpecificClassifyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="snEnabled != null">
+                sn_enabled = #{snEnabled,jdbcType=TINYINT},
+            </if>
+            <if test="dangerous != null">
+                dangerous = #{dangerous,jdbcType=TINYINT},
+            </if>
+            <if test="stockFit != null">
+                stock_fit = #{stockFit,jdbcType=DECIMAL},
+            </if>
+            <if test="orderPoint != null">
+                order_point = #{orderPoint,jdbcType=DECIMAL},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="matWhExt0 != null">
+                mat_wh_ext0 = #{matWhExt0,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt1 != null">
+                mat_wh_ext1 = #{matWhExt1,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt2 != null">
+                mat_wh_ext2 = #{matWhExt2,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt3 != null">
+                mat_wh_ext3 = #{matWhExt3,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt4 != null">
+                mat_wh_ext4 = #{matWhExt4,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt5 != null">
+                mat_wh_ext5 = #{matWhExt5,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt6 != null">
+                mat_wh_ext6 = #{matWhExt6,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt7 != null">
+                mat_wh_ext7 = #{matWhExt7,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt8 != null">
+                mat_wh_ext8 = #{matWhExt8,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt9 != null">
+                mat_wh_ext9 = #{matWhExt9,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where wh_code = #{whCode,jdbcType=VARCHAR}
+        and mat_code = #{matCode,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialWh">
+    update dic_material_wh
+    set mat_group_code = #{matGroupCode,jdbcType=VARCHAR},
+      storage_type_mark_code = #{storageTypeMarkCode,jdbcType=VARCHAR},
+      storage_type_mark_name = #{storageTypeMarkName,jdbcType=VARCHAR},
+      storage_section_mark_code = #{storageSectionMarkCode,jdbcType=VARCHAR},
+      storage_section_mark_name = #{storageSectionMarkName,jdbcType=VARCHAR},
+      wh_unit_code = #{whUnitCode,jdbcType=VARCHAR},
+      move_mark = #{moveMark,jdbcType=VARCHAR},
+      batch_specific_classify_code = #{batchSpecificClassifyCode,jdbcType=VARCHAR},
+      sn_enabled = #{snEnabled,jdbcType=TINYINT},
+      stock_fit = #{stockFit,jdbcType=DECIMAL},
+      order_point = #{orderPoint,jdbcType=DECIMAL},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      mat_wh_ext0 = #{matWhExt0,jdbcType=VARCHAR},
+      mat_wh_ext1 = #{matWhExt1,jdbcType=VARCHAR},
+      mat_wh_ext2 = #{matWhExt2,jdbcType=VARCHAR},
+      mat_wh_ext3 = #{matWhExt3,jdbcType=VARCHAR},
+      mat_wh_ext4 = #{matWhExt4,jdbcType=VARCHAR},
+      mat_wh_ext5 = #{matWhExt5,jdbcType=VARCHAR},
+      mat_wh_ext6 = #{matWhExt6,jdbcType=VARCHAR},
+      mat_wh_ext7 = #{matWhExt7,jdbcType=VARCHAR},
+      mat_wh_ext8 = #{matWhExt8,jdbcType=VARCHAR},
+      mat_wh_ext9 = #{matWhExt9,jdbcType=VARCHAR}
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+      and mat_code = #{matCode,jdbcType=VARCHAR}
+  </update>
+
+    <!-- 分页查询物料仓库储存类型  -->
+    <select id="selectDicMaterialWhOnPaging" parameterType="com.inossem.wms.co.dic.DicMaterialWhCo"
+            resultMap="VoBaseResultMap">
+        SELECT
+        m.mat_code, m.mat_name, c.wh_code, w.wh_name, m.unit_code, u.unit_name, m.mat_group_code, g.mat_group_name,
+        d.wh_unit_code, ud.unit_name wh_unit_name,
+        case when d.mat_code is null then c.storage_type_mark_code else d.storage_type_mark_code end
+        storage_type_mark_code,
+        case when d.mat_code is null then c.storage_type_mark_name else d.storage_section_mark_name end
+        storage_type_mark_name,
+        case when d.mat_code is null then c.storage_section_mark_code else d.storage_section_mark_code end
+        storage_section_mark_code,
+        case when d.mat_code is null then c.storage_section_mark_name else d.storage_section_mark_name end
+        storage_section_mark_name,
+        case when d.mat_code is null then c.stock_fit else d.stock_fit end stock_fit,
+        case when d.mat_code is null then c.order_point else d.order_point end order_point,
+        case when d.mat_code is null then c.batch_specific_classify_code else d.batch_specific_classify_code end
+        batch_specific_classify_code,
+        case when d.mat_code is null then c.sn_enabled else d.sn_enabled end sn_enabled,
+        case when d.mat_code is null then c.dangerous else d.dangerous end dangerous,
+        case when d.mat_code is null then c.move_mark else d.move_mark end move_mark,
+        case when d.mat_code is null then true else false end is_add
+        FROM conf_material_wh c
+        INNER JOIN dic_material m
+        LEFT JOIN dic_material_wh d ON d.wh_code = c.wh_code AND m.mat_code = d.mat_code
+        LEFT JOIN dic_wh w ON c.wh_code = w.wh_code
+        LEFT JOIN dic_unit u ON u.unit_code = m.unit_code
+        LEFT JOIN dic_unit ud ON ud.unit_code = d.wh_unit_code
+        LEFT JOIN dic_material_group g ON g.mat_group_code = m.mat_group_code
+        WHERE 1=1
+        <if test="whCode != null and whCode != '' ">
+            AND c.wh_code = #{whCode}
+        </if>
+        <if test="condition != null and condition != '' ">
+            AND (m.mat_code LIKE CONCAT('%',#{condition},'%' )
+            OR m.mat_name LIKE CONCAT('%',#{condition},'%' ))
+        </if>
+        ORDER BY c.wh_code, m.mat_code
+    </select>
+
+    <select id="selectDicMaterialWh" resultMap="BaseResultMap">
+
+        SELECT
+            wh_code,
+            storage_type_mark_code,
+            storage_type_mark_name,
+            storage_section_mark_code,
+            storage_section_mark_name,
+            move_mark,
+            batch_specific_classify_code,
+            sn_enabled,
+            dangerous,
+            stock_fit,
+            order_point,
+            is_delete,
+            create_time,
+            modify_time,
+            create_user_id,
+            modify_user_id,
+            mat_wh_ext0,
+            mat_wh_ext1,
+            mat_wh_ext2,
+            mat_wh_ext3,
+            mat_wh_ext4,
+            mat_wh_ext5,
+            mat_wh_ext6,
+            mat_wh_ext7,
+            mat_wh_ext8,
+            mat_wh_ext9
+        FROM conf_material_wh
+
+    </select>
+    <!-- 批量插入生成的兑换码 -->
+    <insert id="insertList" parameterType="java.util.List">
+
+        insert into conf_material_wh
+        (wh_code)
+        values
+        <foreach collection="list" item="cmw" index="index" separator=",">
+            (
+            #{cmw.whCode}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateSelective" parameterType="com.inossem.wms.model.dic.DicMaterialWh">
+        insert into dic_material_wh
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="whCode != null">
+                wh_code,
+            </if>
+            <if test="matCode != null">
+                mat_code,
+            </if>
+            <if test="matGroupCode != null">
+                mat_group_code,
+            </if>
+            <if test="storageTypeMarkCode != null">
+                storage_type_mark_code,
+            </if>
+            <if test="storageTypeMarkName != null">
+                storage_type_mark_name,
+            </if>
+            <if test="storageSectionMarkCode != null">
+                storage_section_mark_code,
+            </if>
+            <if test="storageSectionMarkName != null">
+                storage_section_mark_name,
+            </if>
+            <if test="whUnitCode != null">
+                wh_unit_code,
+            </if>
+            <if test="moveMark != null">
+                move_mark,
+            </if>
+            <if test="batchSpecificClassifyCode != null">
+                batch_specific_classify_code,
+            </if>
+            <if test="snEnabled != null">
+                sn_enabled,
+            </if>
+            <if test="dangerous != null">
+                dangerous,
+            </if>
+            <if test="stockFit != null">
+                stock_fit,
+            </if>
+            <if test="orderPoint != null">
+                order_point,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id,
+            </if>
+            <if test="matWhExt0 != null">
+                mat_wh_ext0,
+            </if>
+            <if test="matWhExt1 != null">
+                mat_wh_ext1,
+            </if>
+            <if test="matWhExt2 != null">
+                mat_wh_ext2,
+            </if>
+            <if test="matWhExt3 != null">
+                mat_wh_ext3,
+            </if>
+            <if test="matWhExt4 != null">
+                mat_wh_ext4,
+            </if>
+            <if test="matWhExt5 != null">
+                mat_wh_ext5,
+            </if>
+            <if test="matWhExt6 != null">
+                mat_wh_ext6,
+            </if>
+            <if test="matWhExt7 != null">
+                mat_wh_ext7,
+            </if>
+            <if test="matWhExt8 != null">
+                mat_wh_ext8,
+            </if>
+            <if test="matWhExt9 != null">
+                mat_wh_ext9,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="whCode != null">
+                #{whCode,jdbcType=VARCHAR},
+            </if>
+            <if test="matCode != null">
+                #{matCode,jdbcType=VARCHAR},
+            </if>
+            <if test="matGroupCode != null">
+                #{matGroupCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageTypeMarkCode != null">
+                #{storageTypeMarkCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageTypeMarkName != null">
+                #{storageTypeMarkName,jdbcType=VARCHAR},
+            </if>
+            <if test="storageSectionMarkCode != null">
+                #{storageSectionMarkCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageSectionMarkName != null">
+                #{storageSectionMarkName,jdbcType=VARCHAR},
+            </if>
+            <if test="whUnitCode != null">
+                #{whUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="moveMark != null">
+                #{moveMark,jdbcType=VARCHAR},
+            </if>
+            <if test="batchSpecificClassifyCode != null">
+                #{batchSpecificClassifyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="snEnabled != null">
+                #{snEnabled,jdbcType=TINYINT},
+            </if>
+            <if test="dangerous != null">
+                #{dangerous,jdbcType=TINYINT},
+            </if>
+            <if test="stockFit != null">
+                #{stockFit,jdbcType=DECIMAL},
+            </if>
+            <if test="orderPoint != null">
+                #{orderPoint,jdbcType=DECIMAL},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyUserId != null">
+                #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="matWhExt0 != null">
+                #{matWhExt0,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt1 != null">
+                #{matWhExt1,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt2 != null">
+                #{matWhExt2,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt3 != null">
+                #{matWhExt3,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt4 != null">
+                #{matWhExt4,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt5 != null">
+                #{matWhExt5,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt6 != null">
+                #{matWhExt6,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt7 != null">
+                #{matWhExt7,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt8 != null">
+                #{matWhExt8,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt9 != null">
+                #{matWhExt9,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        <trim prefix=" " suffix=" " suffixOverrides=",">
+            <if test="matGroupCode != null">
+                mat_group_code = #{matGroupCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageTypeMarkCode != null">
+                storage_type_mark_code = #{storageTypeMarkCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageTypeMarkName != null">
+                storage_type_mark_name = #{storageTypeMarkName,jdbcType=VARCHAR},
+            </if>
+            <if test="storageSectionMarkCode != null">
+                storage_section_mark_code = #{storageSectionMarkCode,jdbcType=VARCHAR},
+            </if>
+            <if test="storageSectionMarkName != null">
+                storage_section_mark_name = #{storageSectionMarkName,jdbcType=VARCHAR},
+            </if>
+            <if test="whUnitCode != null">
+                wh_unit_code = #{whUnitCode,jdbcType=VARCHAR},
+            </if>
+            <if test="moveMark != null">
+                move_mark = #{moveMark,jdbcType=VARCHAR},
+            </if>
+            <if test="batchSpecificClassifyCode != null">
+                batch_specific_classify_code = #{batchSpecificClassifyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="snEnabled != null">
+                sn_enabled = #{snEnabled,jdbcType=TINYINT},
+            </if>
+            <if test="dangerous != null">
+                dangerous = #{dangerous,jdbcType=TINYINT},
+            </if>
+            <if test="stockFit != null">
+                stock_fit = #{stockFit,jdbcType=DECIMAL},
+            </if>
+            <if test="orderPoint != null">
+                order_point = #{orderPoint,jdbcType=DECIMAL},
+            </if>
+            <!--<if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=TINYINT},
+            </if>-->
+            is_delete = 0,
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="matWhExt0 != null">
+                mat_wh_ext0 = #{matWhExt0,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt1 != null">
+                mat_wh_ext1 = #{matWhExt1,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt2 != null">
+                mat_wh_ext2 = #{matWhExt2,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt3 != null">
+                mat_wh_ext3 = #{matWhExt3,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt4 != null">
+                mat_wh_ext4 = #{matWhExt4,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt5 != null">
+                mat_wh_ext5 = #{matWhExt5,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt6 != null">
+                mat_wh_ext6 = #{matWhExt6,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt7 != null">
+                mat_wh_ext7 = #{matWhExt7,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt8 != null">
+                mat_wh_ext8 = #{matWhExt8,jdbcType=VARCHAR},
+            </if>
+            <if test="matWhExt9 != null">
+                mat_wh_ext9 = #{matWhExt9,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

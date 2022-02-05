@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicTextMapper">
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicText">
+    update dic_text
+    set text = #{text,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      text_ext0 = #{textExt0,jdbcType=VARCHAR},
+      text_ext1 = #{textExt1,jdbcType=VARCHAR},
+      text_ext2 = #{textExt2,jdbcType=VARCHAR},
+      text_ext3 = #{textExt3,jdbcType=VARCHAR},
+      text_ext4 = #{textExt4,jdbcType=VARCHAR},
+      text_ext5 = #{textExt5,jdbcType=VARCHAR},
+      text_ext6 = #{textExt6,jdbcType=VARCHAR},
+      text_ext7 = #{textExt7,jdbcType=VARCHAR},
+      text_ext8 = #{textExt8,jdbcType=VARCHAR},
+      text_ext9 = #{textExt9,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+      and lang_code = #{langCode,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicText">
+    <id column="tid" jdbcType="VARCHAR" property="tid" />
+    <id column="lang_code" jdbcType="VARCHAR" property="langCode" />
+    <result column="text" jdbcType="VARCHAR" property="text" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="text_ext0" jdbcType="VARCHAR" property="textExt0" />
+    <result column="text_ext1" jdbcType="VARCHAR" property="textExt1" />
+    <result column="text_ext2" jdbcType="VARCHAR" property="textExt2" />
+    <result column="text_ext3" jdbcType="VARCHAR" property="textExt3" />
+    <result column="text_ext4" jdbcType="VARCHAR" property="textExt4" />
+    <result column="text_ext5" jdbcType="VARCHAR" property="textExt5" />
+    <result column="text_ext6" jdbcType="VARCHAR" property="textExt6" />
+    <result column="text_ext7" jdbcType="VARCHAR" property="textExt7" />
+    <result column="text_ext8" jdbcType="VARCHAR" property="textExt8" />
+    <result column="text_ext9" jdbcType="VARCHAR" property="textExt9" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tid, lang_code, text, is_delete, create_time, modify_time, create_user_id, modify_user_id, 
+    text_ext0, text_ext1, text_ext2, text_ext3, text_ext4, text_ext5, text_ext6, text_ext7, 
+    text_ext8, text_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicTextKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_text
+    where tid = #{tid,jdbcType=VARCHAR}
+      and lang_code = #{langCode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByTid" parameterType="com.inossem.wms.model.dic.DicTextKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dic_text
+    where tid = #{tid,jdbcType=VARCHAR}
+    and is_delete = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicTextKey">
+    delete from dic_text
+    where tid = #{tid,jdbcType=VARCHAR}
+      and lang_code = #{langCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicText">
+    insert into dic_text (tid, lang_code, text, 
+      create_user_id, modify_user_id, text_ext0, 
+      text_ext1, text_ext2, text_ext3, 
+      text_ext4, text_ext5, text_ext6, 
+      text_ext7, text_ext8, text_ext9
+      )
+    values (#{tid,jdbcType=VARCHAR}, #{langCode,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, #{textExt0,jdbcType=VARCHAR}, 
+      #{textExt1,jdbcType=VARCHAR}, #{textExt2,jdbcType=VARCHAR}, #{textExt3,jdbcType=VARCHAR}, 
+      #{textExt4,jdbcType=VARCHAR}, #{textExt5,jdbcType=VARCHAR}, #{textExt6,jdbcType=VARCHAR}, 
+      #{textExt7,jdbcType=VARCHAR}, #{textExt8,jdbcType=VARCHAR}, #{textExt9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicText">
+    insert into dic_text
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="langCode != null">
+        lang_code,
+      </if>
+      <if test="text != null">
+        text,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="textExt0 != null">
+        text_ext0,
+      </if>
+      <if test="textExt1 != null">
+        text_ext1,
+      </if>
+      <if test="textExt2 != null">
+        text_ext2,
+      </if>
+      <if test="textExt3 != null">
+        text_ext3,
+      </if>
+      <if test="textExt4 != null">
+        text_ext4,
+      </if>
+      <if test="textExt5 != null">
+        text_ext5,
+      </if>
+      <if test="textExt6 != null">
+        text_ext6,
+      </if>
+      <if test="textExt7 != null">
+        text_ext7,
+      </if>
+      <if test="textExt8 != null">
+        text_ext8,
+      </if>
+      <if test="textExt9 != null">
+        text_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="langCode != null">
+        #{langCode,jdbcType=VARCHAR},
+      </if>
+      <if test="text != null">
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="textExt0 != null">
+        #{textExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt1 != null">
+        #{textExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt2 != null">
+        #{textExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt3 != null">
+        #{textExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt4 != null">
+        #{textExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt5 != null">
+        #{textExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt6 != null">
+        #{textExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt7 != null">
+        #{textExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt8 != null">
+        #{textExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt9 != null">
+        #{textExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    ON DUPLICATE KEY UPDATE
+    <trim prefix=" " suffix=" " suffixOverrides=",">
+      <if test="tid != null">
+        tid = #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="langCode != null">
+        lang_code = #{langCode,jdbcType=VARCHAR},
+      </if>
+      <if test="text != null">
+        text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="textExt0 != null">
+        text_ext0 = #{textExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt1 != null">
+        text_ext1 = #{textExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt2 != null">
+        text_ext2 = #{textExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt3 != null">
+        text_ext3 = #{textExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt4 != null">
+        text_ext4 = #{textExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt5 != null">
+        text_ext5 = #{textExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt6 != null">
+        text_ext6 = #{textExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt7 != null">
+        text_ext7 = #{textExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt8 != null">
+        text_ext8 = #{textExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt9 != null">
+        text_ext9 = #{textExt9,jdbcType=VARCHAR},
+      </if>
+      is_delete = 0;
+    </trim>
+  </insert>
+  
+    <insert id="insertBatchDicText" parameterType="java.util.List">
+    insert into dic_text (tid, lang_code, text, 
+      create_user_id, modify_user_id, text_ext0, 
+      text_ext1, text_ext2, text_ext3, 
+      text_ext4, text_ext5, text_ext6, 
+      text_ext7, text_ext8, text_ext9
+      )
+    values 
+    <foreach collection="list" item="item" index= "index" separator =","> 
+    (
+      ifnull(#{item.tid,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.langCode,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.text,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.createUserId,jdbcType=INTEGER},  ""),
+      ifnull(#{item.modifyUserId,jdbcType=INTEGER},  ""),
+      ifnull(#{item.textExt0,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.textExt1,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.textExt2,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.textExt3,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.textExt4,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.textExt5,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.textExt6,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.textExt7,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.textExt8,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.textExt9,jdbcType=VARCHAR},  "")
+      )
+    </foreach>  
+     ON DUPLICATE KEY UPDATE
+      tid = values(tid), 
+      lang_code = values(lang_code), 
+      text = values(text), 
+      create_user_id = values(create_user_id), 
+      modify_user_id = values(modify_user_id), 
+      text_ext0 = values(text_ext0), 
+      text_ext1 = values(text_ext1), 
+      text_ext2 = values(text_ext2), 
+      text_ext3 = values(text_ext3), 
+      text_ext4 = values(text_ext4), 
+      text_ext5 = values(text_ext5), 
+      text_ext6 = values(text_ext6), 
+      text_ext7 = values(text_ext7), 
+      text_ext8 = values(text_ext8), 
+      text_ext9 = values(text_ext9),
+      is_delete = 0
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicText">
+    update dic_text
+    <set>
+      <if test="text != null">
+        text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="textExt0 != null">
+        text_ext0 = #{textExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt1 != null">
+        text_ext1 = #{textExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt2 != null">
+        text_ext2 = #{textExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt3 != null">
+        text_ext3 = #{textExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt4 != null">
+        text_ext4 = #{textExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt5 != null">
+        text_ext5 = #{textExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt6 != null">
+        text_ext6 = #{textExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt7 != null">
+        text_ext7 = #{textExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt8 != null">
+        text_ext8 = #{textExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="textExt9 != null">
+        text_ext9 = #{textExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+      and lang_code = #{langCode,jdbcType=VARCHAR}
+  </update>
+<!--
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicText">
+    update dic_text
+    set text = #{text,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      text_ext0 = #{textExt0,jdbcType=VARCHAR},
+      text_ext1 = #{textExt1,jdbcType=VARCHAR},
+      text_ext2 = #{textExt2,jdbcType=VARCHAR},
+      text_ext3 = #{textExt3,jdbcType=VARCHAR},
+      text_ext4 = #{textExt4,jdbcType=VARCHAR},
+      text_ext5 = #{textExt5,jdbcType=VARCHAR},
+      text_ext6 = #{textExt6,jdbcType=VARCHAR},
+      text_ext7 = #{textExt7,jdbcType=VARCHAR},
+      text_ext8 = #{textExt8,jdbcType=VARCHAR},
+      text_ext9 = #{textExt9,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+      and lang_code = #{langCode,jdbcType=VARCHAR}
+  </update>
+ -->  
+<!-- 国际化缓存类使用 DictionaryTextComponent -->
+   <select id="select" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_text
+    where is_delete = 0
+      
+  </select>
+  
+  <select id="selectTidAndLangCodeIsExist" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_text
+    where is_delete = 0
+    and tid = #{tid,jdbcType=VARCHAR}
+    and lang_code = #{langCode,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="deleteByTid" parameterType="com.inossem.wms.model.dic.DicText">
+    update dic_text set is_delete = 1 where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectListByTid" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_text
+    where is_delete = 0
+    and tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectListByTids" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_text
+    where is_delete = 0
+    and tid IN
+    <foreach collection="list" open="(" separator="," close=")" item="item">
+        #{item}
+    </foreach>
+  </select>
+</mapper>

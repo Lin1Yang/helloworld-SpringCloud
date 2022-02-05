@@ -8,6 +8,12 @@
     <modules>
         <module>order-nacos</module>
         <module>stock-nacos</module>
+        <module>wms-auth</module>
+        <module>wms-dao</module>
+        <module>wms-common</module>
+        <module>wms-model</module>
+        <module>wms-service</module>
+        <module>wms-resource</module>
     </modules>
     <name>helloworld</name>
     <packaging>pom</packaging>
@@ -36,6 +42,12 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ibatis</groupId>
+            <artifactId>ibatis-core</artifactId>
+            <version>3.0</version>
         </dependency>
     </dependencies>
 

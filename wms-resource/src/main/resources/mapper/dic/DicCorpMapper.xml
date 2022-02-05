@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicCorpMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.vo.dic.DicCorpVo">
+    <id column="corp_code" jdbcType="VARCHAR" property="corpCode" />
+    <result column="corp_name" jdbcType="VARCHAR" property="corpName" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="board_code" jdbcType="INTEGER" property="boardCode" />
+    <result column="board_name" jdbcType="VARCHAR" property="boardName" />
+    <result column="corp_tax_no" jdbcType="VARCHAR" property="corpTaxNo" />
+    <result column="bank_of_deposit" jdbcType="VARCHAR" property="bankOfDeposit" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="corp_address" jdbcType="VARCHAR" property="corpAddress" />
+    <result column="corp_tel" jdbcType="VARCHAR" property="corpTel" />
+    <result column="is_account_period" jdbcType="TINYINT" property="isAccountPeriod" />
+    <result column="is_date_remind" jdbcType="TINYINT" property="isDateRemind" />
+    <result column="is_date_edit" jdbcType="TINYINT" property="isDateEdit" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="corp_ext0" jdbcType="VARCHAR" property="corpExt0" />
+    <result column="corp_ext1" jdbcType="VARCHAR" property="corpExt1" />
+    <result column="corp_ext2" jdbcType="VARCHAR" property="corpExt2" />
+    <result column="corp_ext3" jdbcType="VARCHAR" property="corpExt3" />
+    <result column="corp_ext4" jdbcType="VARCHAR" property="corpExt4" />
+    <result column="corp_ext5" jdbcType="VARCHAR" property="corpExt5" />
+    <result column="corp_ext6" jdbcType="VARCHAR" property="corpExt6" />
+    <result column="corp_ext7" jdbcType="VARCHAR" property="corpExt7" />
+    <result column="corp_ext8" jdbcType="VARCHAR" property="corpExt8" />
+    <result column="corp_ext9" jdbcType="VARCHAR" property="corpExt9" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    corp_code, corp_name, city, board_code, (select board_name from dic_board db where db.board_code = dic_corp.board_code)as board_name,corp_tax_no, bank_of_deposit, bank_account,
+    corp_address, corp_tel, is_account_period, is_date_remind ,is_date_edit ,is_delete, create_time, modify_time, create_user_id, modify_user_id,
+    corp_ext0, corp_ext1, corp_ext2, corp_ext3, corp_ext4, corp_ext5, corp_ext6, corp_ext7,
+    corp_ext8, corp_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dic_corp
+    where corp_code = #{corpCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dic_corp
+    where corp_code = #{corpCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicCorp">
+    insert into dic_corp (corp_code, corp_name, city,
+      board_code, corp_tax_no, bank_of_deposit,
+      bank_account, corp_address, corp_tel,
+      is_delete, create_time, modify_time,
+      create_user_id, modify_user_id, corp_ext0,
+      corp_ext1, corp_ext2, corp_ext3,
+      corp_ext4, corp_ext5, corp_ext6,
+      corp_ext7, corp_ext8, corp_ext9
+      )
+    values (#{corpCode,jdbcType=VARCHAR}, #{corpName,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+      #{boardCode,jdbcType=INTEGER}, #{corpTaxNo,jdbcType=VARCHAR}, #{bankOfDeposit,jdbcType=VARCHAR},
+      #{bankAccount,jdbcType=VARCHAR}, #{corpAddress,jdbcType=VARCHAR}, #{corpTel,jdbcType=VARCHAR},
+      #{isDelete,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP},
+      #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, #{corpExt0,jdbcType=VARCHAR},
+      #{corpExt1,jdbcType=VARCHAR}, #{corpExt2,jdbcType=VARCHAR}, #{corpExt3,jdbcType=VARCHAR},
+      #{corpExt4,jdbcType=VARCHAR}, #{corpExt5,jdbcType=VARCHAR}, #{corpExt6,jdbcType=VARCHAR},
+      #{corpExt7,jdbcType=VARCHAR}, #{corpExt8,jdbcType=VARCHAR}, #{corpExt9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicCorp">
+    insert into dic_corp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="corpCode != null">
+        corp_code,
+      </if>
+      <if test="corpName != null">
+        corp_name,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="boardCode != null">
+        board_code,
+      </if>
+      <if test="corpTaxNo != null">
+        corp_tax_no,
+      </if>
+      <if test="bankOfDeposit != null">
+        bank_of_deposit,
+      </if>
+      <if test="bankAccount != null">
+        bank_account,
+      </if>
+      <if test="corpAddress != null">
+        corp_address,
+      </if>
+      <if test="corpTel != null">
+        corp_tel,
+      </if>
+      <if test="isAccountPeriod != null">
+        is_account_period,
+      </if>
+      <if test="isDateRemind != null">
+        is_date_remind,
+      </if>
+      <if test="isDateEdit != null">
+        is_date_edit,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="corpExt0 != null">
+        corp_ext0,
+      </if>
+      <if test="corpExt1 != null">
+        corp_ext1,
+      </if>
+      <if test="corpExt2 != null">
+        corp_ext2,
+      </if>
+      <if test="corpExt3 != null">
+        corp_ext3,
+      </if>
+      <if test="corpExt4 != null">
+        corp_ext4,
+      </if>
+      <if test="corpExt5 != null">
+        corp_ext5,
+      </if>
+      <if test="corpExt6 != null">
+        corp_ext6,
+      </if>
+      <if test="corpExt7 != null">
+        corp_ext7,
+      </if>
+      <if test="corpExt8 != null">
+        corp_ext8,
+      </if>
+      <if test="corpExt9 != null">
+        corp_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="corpCode != null">
+        upper(#{corpCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="corpName != null">
+        #{corpName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="boardCode != null">
+        #{boardCode,jdbcType=INTEGER},
+      </if>
+      <if test="corpTaxNo != null">
+        #{corpTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankOfDeposit != null">
+        #{bankOfDeposit,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="corpAddress != null">
+        #{corpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="corpTel != null">
+        #{corpTel,jdbcType=VARCHAR},
+      </if>
+      <if test="isAccountPeriod != null">
+        #{isAccountPeriod,jdbcType=TINYINT},
+      </if>
+      <if test="isDateRemind != null">
+        #{isDateRemind,jdbcType=TINYINT},
+      </if>
+      <if test="isDateEdit != null">
+        #{isDateEdit,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="corpExt0 != null">
+        #{corpExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt1 != null">
+        #{corpExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt2 != null">
+        #{corpExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt3 != null">
+        #{corpExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt4 != null">
+        #{corpExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt5 != null">
+        #{corpExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt6 != null">
+        #{corpExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt7 != null">
+        #{corpExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt8 != null">
+        #{corpExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt9 != null">
+        #{corpExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicCorp">
+    update dic_corp
+    <set>
+      <if test="corpName != null">
+        corp_name = #{corpName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="boardCode != null">
+        board_code = #{boardCode,jdbcType=INTEGER},
+      </if>
+      <if test="corpTaxNo != null">
+        corp_tax_no = #{corpTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankOfDeposit != null">
+        bank_of_deposit = #{bankOfDeposit,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="corpAddress != null">
+        corp_address = #{corpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="corpTel != null">
+        corp_tel = #{corpTel,jdbcType=VARCHAR},
+      </if>
+      <if test="isAccountPeriod != null">
+        is_account_period = #{isAccountPeriod,jdbcType=TINYINT},
+      </if>
+      <if test="isDateRemind != null">
+        is_date_remind = #{isDateRemind,jdbcType=TINYINT},
+      </if>
+      <if test="isDateEdit != null">
+        is_date_edit = #{isDateEdit,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="corpExt0 != null">
+        corp_ext0 = #{corpExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt1 != null">
+        corp_ext1 = #{corpExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt2 != null">
+        corp_ext2 = #{corpExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt3 != null">
+        corp_ext3 = #{corpExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt4 != null">
+        corp_ext4 = #{corpExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt5 != null">
+        corp_ext5 = #{corpExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt6 != null">
+        corp_ext6 = #{corpExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt7 != null">
+        corp_ext7 = #{corpExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt8 != null">
+        corp_ext8 = #{corpExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt9 != null">
+        corp_ext9 = #{corpExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where corp_code = #{corpCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicCorp">
+    update dic_corp
+    set corp_name = #{corpName,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      board_code = #{boardCode,jdbcType=INTEGER},
+      corp_tax_no = #{corpTaxNo,jdbcType=VARCHAR},
+      bank_of_deposit = #{bankOfDeposit,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      corp_address = #{corpAddress,jdbcType=VARCHAR},
+      corp_tel = #{corpTel,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      corp_ext0 = #{corpExt0,jdbcType=VARCHAR},
+      corp_ext1 = #{corpExt1,jdbcType=VARCHAR},
+      corp_ext2 = #{corpExt2,jdbcType=VARCHAR},
+      corp_ext3 = #{corpExt3,jdbcType=VARCHAR},
+      corp_ext4 = #{corpExt4,jdbcType=VARCHAR},
+      corp_ext5 = #{corpExt5,jdbcType=VARCHAR},
+      corp_ext6 = #{corpExt6,jdbcType=VARCHAR},
+      corp_ext7 = #{corpExt7,jdbcType=VARCHAR},
+      corp_ext8 = #{corpExt8,jdbcType=VARCHAR},
+      corp_ext9 = #{corpExt9,jdbcType=VARCHAR}
+    where corp_code = #{corpCode,jdbcType=VARCHAR}
+  </update>
+	<!-- <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicCorp"> 
+		update dic_corp set corp_name = #{corpName,jdbcType=VARCHAR}, city 
+		= #{city,jdbcType=VARCHAR}, board_code = #{boardCode,jdbcType=INTEGER}, is_delete 
+		= #{isDelete,jdbcType=TINYINT}, create_time = #{createTime,jdbcType=TIMESTAMP}, 
+		modify_time = #{modifyTime,jdbcType=TIMESTAMP}, create_user_id = #{createUserId,jdbcType=INTEGER}, 
+		modify_user_id = #{modifyUserId,jdbcType=INTEGER}, corp_ext0 = #{corpExt0,jdbcType=VARCHAR}, 
+		corp_ext1 = #{corpExt1,jdbcType=VARCHAR}, corp_ext2 = #{corpExt2,jdbcType=VARCHAR}, 
+		corp_ext3 = #{corpExt3,jdbcType=VARCHAR}, corp_ext4 = #{corpExt4,jdbcType=VARCHAR}, 
+		corp_ext5 = #{corpExt5,jdbcType=VARCHAR}, corp_ext6 = #{corpExt6,jdbcType=VARCHAR}, 
+		corp_ext7 = #{corpExt7,jdbcType=VARCHAR}, corp_ext8 = #{corpExt8,jdbcType=VARCHAR}, 
+		corp_ext9 = #{corpExt9,jdbcType=VARCHAR} where corp_code = #{corpCode,jdbcType=VARCHAR} 
+		</update> -->
+	<!-- 非自动生成代码 , 根据条件参数对象查询公司主数据列表-->
+	<select id="selectSelectiveOnPaging" parameterType="com.inossem.wms.co.dic.DicCorpCo" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dic_corp
+		<where>
+			is_delete = 0
+			<if test="corpCode != null and corpCode != ''">
+				and corp_code = #{corpCode,jdbcType=VARCHAR}
+			</if>
+			<if test="corpName != null">
+				and corp_name = (select distinct tid from dic_text where dic_text.text = #{corpName,jdbcType=VARCHAR})
+			</if>
+          <if test="city != null">
+            and city = #{city,jdbcType=VARCHAR}
+          </if>
+          <if test="boardCode != null">
+            and board_code = #{boardCode,jdbcType=INTEGER}
+          </if>
+          <if test="corpTaxNo != null">
+            and corp_tax_no = #{corpTaxNo,jdbcType=VARCHAR}
+          </if>
+          <if test="bankOfDeposit != null">
+            and bank_of_deposit = #{bankOfDeposit,jdbcType=VARCHAR}
+          </if>
+          <if test="bankAccount != null">
+            and bank_account = #{bankAccount,jdbcType=VARCHAR}
+          </if>
+          <if test="corpAddress != null">
+            and corp_address = #{corpAddress,jdbcType=VARCHAR}
+          </if>
+          <if test="corpTel != null">
+            and corp_tel = #{corpTel,jdbcType=VARCHAR}
+          </if>
+          <if test="isDelete != null">
+            and is_delete = #{isDelete,jdbcType=TINYINT}
+          </if>
+          <if test="createTime != null">
+            and create_time = #{createTime,jdbcType=TIMESTAMP}
+          </if>
+          <if test="modifyTime != null">
+            and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+          </if>
+          <if test="createUserId != null">
+            and create_user_id = #{createUserId,jdbcType=INTEGER}
+          </if>
+          <if test="modifyUserId != null">
+            and modify_user_id = #{modifyUserId,jdbcType=INTEGER}
+          </if>
+          <if test="corpExt0 != null">
+            and corp_ext0 = #{corpExt0,jdbcType=VARCHAR}
+          </if>
+          <if test="corpExt1 != null">
+            and corp_ext1 = #{corpExt1,jdbcType=VARCHAR}
+          </if>
+          <if test="corpExt2 != null">
+            and corp_ext2 = #{corpExt2,jdbcType=VARCHAR}
+          </if>
+          <if test="corpExt3 != null">
+            and corp_ext3 = #{corpExt3,jdbcType=VARCHAR}
+          </if>
+          <if test="corpExt4 != null">
+            and corp_ext4 = #{corpExt4,jdbcType=VARCHAR}
+          </if>
+          <if test="corpExt5 != null">
+            and corp_ext5 = #{corpExt5,jdbcType=VARCHAR}
+          </if>
+          <if test="corpExt6 != null">
+            and corp_ext6 = #{corpExt6,jdbcType=VARCHAR}
+          </if>
+          <if test="corpExt7 != null">
+            and corp_ext7 = #{corpExt7,jdbcType=VARCHAR}
+          </if>
+          <if test="corpExt8 != null">
+            and corp_ext8 = #{corpExt8,jdbcType=VARCHAR}
+          </if>
+          <if test="corpExt9 != null">
+            and corp_ext9 = #{corpExt9,jdbcType=VARCHAR}
+          </if>
+
+        </where>
+      order by create_time desc
+	</select>
+<!--  &lt;!&ndash; 非自动生成代码 , 根据条件参数对象查询公司主数据列表&ndash;&gt;
+  <select id="selectSelectiveCount" parameterType="com.inossem.wms.co.dic.DicCorpCo" resultType="int">
+    select
+    count(corp_code)
+    from dic_corp
+    <where>
+      is_delete = 0
+      <if test="corpCode != null and corpCode != ''">
+        and corp_code = #{corpCode,jdbcType=VARCHAR}
+      </if>
+      <if test="corpName != null">
+        and corp_name = (select distinct tid from dic_text where dic_text.text = #{corpName,jdbcType=VARCHAR})
+      </if>
+    </where>
+  </select>-->
+
+
+  <select id="selectAllCorpList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dic_corp where	is_delete = 0 order by create_time desc
+	</select>
+
+<!--  <select id="selectAllCorpListCount"  resultType="int">
+    select
+    count(corp_code)
+    from dic_corp where	is_delete = 0
+  </select>-->
+  
+   <resultMap id="VoBaseResultMap" type="com.inossem.wms.vo.dic.DicCorpVo">
+    <id column="corp_code" jdbcType="VARCHAR" property="corpCode" />
+    <result column="corp_name" jdbcType="VARCHAR" property="corpName" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="board_code" jdbcType="INTEGER" property="boardCode" />
+    <result column="corp_tax_no" jdbcType="VARCHAR" property="corpTaxNo" />
+    <result column="bank_of_deposit" jdbcType="VARCHAR" property="bankOfDeposit" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="corp_address" jdbcType="VARCHAR" property="corpAddress" />
+    <result column="corp_tel" jdbcType="VARCHAR" property="corpTel" />
+    <result column="is_account_period" jdbcType="TINYINT" property="isAccountPeriod" />
+    <result column="is_date_remind" jdbcType="TINYINT" property="isDateRemind" />
+    <result column="is_date_edit" jdbcType="TINYINT" property="isDateEdit" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="corp_ext0" jdbcType="VARCHAR" property="corpExt0" />
+    <result column="corp_ext1" jdbcType="VARCHAR" property="corpExt1" />
+    <result column="corp_ext2" jdbcType="VARCHAR" property="corpExt2" />
+    <result column="corp_ext3" jdbcType="VARCHAR" property="corpExt3" />
+    <result column="corp_ext4" jdbcType="VARCHAR" property="corpExt4" />
+    <result column="corp_ext5" jdbcType="VARCHAR" property="corpExt5" />
+    <result column="corp_ext6" jdbcType="VARCHAR" property="corpExt6" />
+    <result column="corp_ext7" jdbcType="VARCHAR" property="corpExt7" />
+    <result column="corp_ext8" jdbcType="VARCHAR" property="corpExt8" />
+    <result column="corp_ext9" jdbcType="VARCHAR" property="corpExt9" />
+  </resultMap>
+  
+  <sql id="Base_Column_List_Vo">
+    corp_code, corp_name, city, board_code, corp_tax_no, bank_of_deposit, bank_account,
+    corp_address, corp_tel, is_account_period,is_date_remind,is_date_edit, is_delete, create_time, modify_time, create_user_id, modify_user_id,
+    corp_ext0, corp_ext1, corp_ext2, corp_ext3, corp_ext4, corp_ext5, corp_ext6, corp_ext7,
+    corp_ext8, corp_ext9
+  </sql>
+  
+  <!-- 所有公司拓展查询 -->
+  <select id="selectAllCorpVoList" resultMap="VoBaseResultMap">
+		select
+		<include refid="Base_Column_List_Vo" />
+		from dic_corp where	is_delete = 0
+  </select>
+
+  <insert id="insertOrUpdateSelective" parameterType="com.inossem.wms.model.dic.DicCorp">
+    insert into dic_corp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="corpCode != null">
+        corp_code,
+      </if>
+      <if test="corpName != null">
+        corp_name,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="boardCode != null">
+        board_code,
+      </if>
+      <if test="corpTaxNo != null">
+        corp_tax_no,
+      </if>
+      <if test="bankOfDeposit != null">
+        bank_of_deposit,
+      </if>
+      <if test="bankAccount != null">
+        bank_account,
+      </if>
+      <if test="corpAddress != null">
+        corp_address,
+      </if>
+      <if test="corpTel != null">
+        corp_tel,
+      </if>
+      <if test="isAccountPeriod != null">
+        is_account_period,
+      </if>
+      <if test="isDateRemind != null">
+        is_date_remind,
+      </if>
+      <if test="isDateEdit != null">
+        is_date_edit,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="corpExt0 != null">
+        corp_ext0,
+      </if>
+      <if test="corpExt1 != null">
+        corp_ext1,
+      </if>
+      <if test="corpExt2 != null">
+        corp_ext2,
+      </if>
+      <if test="corpExt3 != null">
+        corp_ext3,
+      </if>
+      <if test="corpExt4 != null">
+        corp_ext4,
+      </if>
+      <if test="corpExt5 != null">
+        corp_ext5,
+      </if>
+      <if test="corpExt6 != null">
+        corp_ext6,
+      </if>
+      <if test="corpExt7 != null">
+        corp_ext7,
+      </if>
+      <if test="corpExt8 != null">
+        corp_ext8,
+      </if>
+      <if test="corpExt9 != null">
+        corp_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="corpCode != null">
+        upper(#{corpCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="corpName != null">
+        #{corpName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="boardCode != null">
+        #{boardCode,jdbcType=INTEGER},
+      </if>
+      <if test="corpTaxNo != null">
+        #{corpTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankOfDeposit != null">
+        #{bankOfDeposit,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="corpAddress != null">
+        #{corpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="corpTel != null">
+        #{corpTel,jdbcType=VARCHAR},
+      </if>
+      <if test="isAccountPeriod != null">
+        #{isAccountPeriod,jdbcType=TINYINT},
+      </if>
+      <if test="isDateRemind != null">
+        #{isDateRemind,jdbcType=TINYINT},
+      </if>
+      <if test="isDateEdit != null">
+        #{isDateEdit,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="corpExt0 != null">
+        #{corpExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt1 != null">
+        #{corpExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt2 != null">
+        #{corpExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt3 != null">
+        #{corpExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt4 != null">
+        #{corpExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt5 != null">
+        #{corpExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt6 != null">
+        #{corpExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt7 != null">
+        #{corpExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt8 != null">
+        #{corpExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt9 != null">
+        #{corpExt9,jdbcType=VARCHAR},
+      </if>
+
+    </trim>
+    ON DUPLICATE KEY UPDATE
+    <trim prefix=" " suffix=" " suffixOverrides=",">
+      <if test="corpName != null">
+        corp_name = #{corpName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="boardCode != null">
+        board_code = #{boardCode,jdbcType=INTEGER},
+      </if>
+      <if test="corpTaxNo != null">
+        corp_tax_no = #{corpTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankOfDeposit != null">
+        bank_of_deposit = #{bankOfDeposit,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="corpAddress != null">
+        corp_address = #{corpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="corpTel != null">
+        corp_tel = #{corpTel,jdbcType=VARCHAR},
+      </if>
+      <if test="isAccountPeriod != null">
+        is_account_period = #{isAccountPeriod,jdbcType=TINYINT},
+      </if>
+      <if test="isDateRemind != null">
+        is_date_remind = #{isDateRemind,jdbcType=TINYINT},
+      </if>
+      <if test="isDateEdit != null">
+        is_date_edit = #{isDateEdit,jdbcType=TINYINT},
+      </if>
+      <!--<if test="isDelete != null">-->
+      is_delete = 0,
+      <!--</if>-->
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="corpExt0 != null">
+        corp_ext0 = #{corpExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt1 != null">
+        corp_ext1 = #{corpExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt2 != null">
+        corp_ext2 = #{corpExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt3 != null">
+        corp_ext3 = #{corpExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt4 != null">
+        corp_ext4 = #{corpExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt5 != null">
+        corp_ext5 = #{corpExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt6 != null">
+        corp_ext6 = #{corpExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt7 != null">
+        corp_ext7 = #{corpExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt8 != null">
+        corp_ext8 = #{corpExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="corpExt9 != null">
+        corp_ext9 = #{corpExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <select id="selectByBoardCode" parameterType="java.lang.Integer" resultMap="VoBaseResultMap">
+  		select
+			corp_code,corp_name
+		from dic_corp where	is_delete = 0 and board_code = #{boardCode,jdbcType=INTEGER} 
+  </select>
+
+</mapper>

@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.actor.ActorGroupPostUserMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.vo.actor.ActorGroupPostUserVo">
+    <id column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <id column="group_code" jdbcType="VARCHAR" property="groupCode" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="post_name" jdbcType="VARCHAR" property="postName" />
+    <result column="post_index" jdbcType="INTEGER" property="postIndex" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="gpu_ext0" jdbcType="VARCHAR" property="gpuExt0" />
+    <result column="gpu_ext1" jdbcType="VARCHAR" property="gpuExt1" />
+    <result column="gpu_ext2" jdbcType="VARCHAR" property="gpuExt2" />
+    <result column="gpu_ext3" jdbcType="VARCHAR" property="gpuExt3" />
+    <result column="gpu_ext4" jdbcType="VARCHAR" property="gpuExt4" />
+    <result column="gpu_ext5" jdbcType="VARCHAR" property="gpuExt5" />
+    <result column="gpu_ext6" jdbcType="VARCHAR" property="gpuExt6" />
+    <result column="gpu_ext7" jdbcType="VARCHAR" property="gpuExt7" />
+    <result column="gpu_ext8" jdbcType="VARCHAR" property="gpuExt8" />
+    <result column="gpu_ext9" jdbcType="VARCHAR" property="gpuExt9" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    post_code, user_id, (select user_name from sys_user su where su.user_id = actor_group_post_user.user_id) as user_name, (select post_name from actor_post ap where ap.post_code = actor_group_post_user.post_code)as post_name,group_code, post_index,is_delete, modify_time, create_user_id, modify_user_id,
+    create_time, gpu_ext0, gpu_ext1, gpu_ext2, gpu_ext3, gpu_ext4, gpu_ext5, gpu_ext6, 
+    gpu_ext7, gpu_ext8, gpu_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.actor.ActorGroupPostUserKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from actor_group_post_user
+    where post_code = #{postCode,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
+      and group_code = #{groupCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.actor.ActorGroupPostUserKey">
+    delete from actor_group_post_user
+    where post_code = #{postCode,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
+      and group_code = #{groupCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.actor.ActorGroupPostUser">
+    insert into actor_group_post_user (post_code, user_id, group_code, 
+      is_delete, modify_time, create_user_id, 
+      modify_user_id, create_time, gpu_ext0, 
+      gpu_ext1, gpu_ext2, gpu_ext3, 
+      gpu_ext4, gpu_ext5, gpu_ext6, 
+      gpu_ext7, gpu_ext8, gpu_ext9
+      )
+    values (#{postCode,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{groupCode,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=TINYINT}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{gpuExt0,jdbcType=VARCHAR}, 
+      #{gpuExt1,jdbcType=VARCHAR}, #{gpuExt2,jdbcType=VARCHAR}, #{gpuExt3,jdbcType=VARCHAR}, 
+      #{gpuExt4,jdbcType=VARCHAR}, #{gpuExt5,jdbcType=VARCHAR}, #{gpuExt6,jdbcType=VARCHAR}, 
+      #{gpuExt7,jdbcType=VARCHAR}, #{gpuExt8,jdbcType=VARCHAR}, #{gpuExt9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.actor.ActorGroupPostUser">
+    insert into actor_group_post_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="groupCode != null">
+        group_code,
+      </if>
+      <if test="postIndex != null">
+        post_index,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="gpuExt0 != null">
+        gpu_ext0,
+      </if>
+      <if test="gpuExt1 != null">
+        gpu_ext1,
+      </if>
+      <if test="gpuExt2 != null">
+        gpu_ext2,
+      </if>
+      <if test="gpuExt3 != null">
+        gpu_ext3,
+      </if>
+      <if test="gpuExt4 != null">
+        gpu_ext4,
+      </if>
+      <if test="gpuExt5 != null">
+        gpu_ext5,
+      </if>
+      <if test="gpuExt6 != null">
+        gpu_ext6,
+      </if>
+      <if test="gpuExt7 != null">
+        gpu_ext7,
+      </if>
+      <if test="gpuExt8 != null">
+        gpu_ext8,
+      </if>
+      <if test="gpuExt9 != null">
+        gpu_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupCode != null">
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postIndex != null">
+        #{postIndex,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpuExt0 != null">
+        #{gpuExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt1 != null">
+        #{gpuExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt2 != null">
+        #{gpuExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt3 != null">
+        #{gpuExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt4 != null">
+        #{gpuExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt5 != null">
+        #{gpuExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt6 != null">
+        #{gpuExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt7 != null">
+        #{gpuExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt8 != null">
+        #{gpuExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt9 != null">
+        #{gpuExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.actor.ActorGroupPostUser">
+    update actor_group_post_user
+    <set>
+      <if test="postIndex != null">
+        post_index = #{postIndex,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpuExt0 != null">
+        gpu_ext0 = #{gpuExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt1 != null">
+        gpu_ext1 = #{gpuExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt2 != null">
+        gpu_ext2 = #{gpuExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt3 != null">
+        gpu_ext3 = #{gpuExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt4 != null">
+        gpu_ext4 = #{gpuExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt5 != null">
+        gpu_ext5 = #{gpuExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt6 != null">
+        gpu_ext6 = #{gpuExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt7 != null">
+        gpu_ext7 = #{gpuExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt8 != null">
+        gpu_ext8 = #{gpuExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt9 != null">
+        gpu_ext9 = #{gpuExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where post_code = #{postCode,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
+      and group_code = #{groupCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.actor.ActorGroupPostUser">
+    update actor_group_post_user
+    set is_delete = #{isDelete,jdbcType=TINYINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      gpu_ext0 = #{gpuExt0,jdbcType=VARCHAR},
+      gpu_ext1 = #{gpuExt1,jdbcType=VARCHAR},
+      gpu_ext2 = #{gpuExt2,jdbcType=VARCHAR},
+      gpu_ext3 = #{gpuExt3,jdbcType=VARCHAR},
+      gpu_ext4 = #{gpuExt4,jdbcType=VARCHAR},
+      gpu_ext5 = #{gpuExt5,jdbcType=VARCHAR},
+      gpu_ext6 = #{gpuExt6,jdbcType=VARCHAR},
+      gpu_ext7 = #{gpuExt7,jdbcType=VARCHAR},
+      gpu_ext8 = #{gpuExt8,jdbcType=VARCHAR},
+      gpu_ext9 = #{gpuExt9,jdbcType=VARCHAR}
+    where post_code = #{postCode,jdbcType=VARCHAR}
+      and user_id = #{userId,jdbcType=VARCHAR}
+      and group_code = #{groupCode,jdbcType=VARCHAR}
+  </update>
+
+  <!--自定义方法-->
+  <insert id="insertOrUpdate" parameterType="com.inossem.wms.model.actor.ActorGroupPostUser">
+    insert into actor_group_post_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="groupCode != null">
+        group_code,
+      </if>
+      <if test="postIndex != null">
+        post_index,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="gpuExt0 != null">
+        gpu_ext0,
+      </if>
+      <if test="gpuExt1 != null">
+        gpu_ext1,
+      </if>
+      <if test="gpuExt2 != null">
+        gpu_ext2,
+      </if>
+      <if test="gpuExt3 != null">
+        gpu_ext3,
+      </if>
+      <if test="gpuExt4 != null">
+        gpu_ext4,
+      </if>
+      <if test="gpuExt5 != null">
+        gpu_ext5,
+      </if>
+      <if test="gpuExt6 != null">
+        gpu_ext6,
+      </if>
+      <if test="gpuExt7 != null">
+        gpu_ext7,
+      </if>
+      <if test="gpuExt8 != null">
+        gpu_ext8,
+      </if>
+      <if test="gpuExt9 != null">
+        gpu_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupCode != null">
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postIndex != null">
+        #{postIndex,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpuExt0 != null">
+        #{gpuExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt1 != null">
+        #{gpuExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt2 != null">
+        #{gpuExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt3 != null">
+        #{gpuExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt4 != null">
+        #{gpuExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt5 != null">
+        #{gpuExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt6 != null">
+        #{gpuExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt7 != null">
+        #{gpuExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt8 != null">
+        #{gpuExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt9 != null">
+        #{gpuExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    ON DUPLICATE KEY UPDATE
+    <trim prefix=" " suffix=" " suffixOverrides=",">
+      <if test="postIndex != null">
+        post_index = #{postIndex,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpuExt0 != null">
+        gpu_ext0 = #{gpuExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt1 != null">
+        gpu_ext1 = #{gpuExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt2 != null">
+        gpu_ext2 = #{gpuExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt3 != null">
+        gpu_ext3 = #{gpuExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt4 != null">
+        gpu_ext4 = #{gpuExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt5 != null">
+        gpu_ext5 = #{gpuExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt6 != null">
+        gpu_ext6 = #{gpuExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt7 != null">
+        gpu_ext7 = #{gpuExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt8 != null">
+        gpu_ext8 = #{gpuExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuExt9 != null">
+        gpu_ext9 = #{gpuExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <insert id="insertOrUpdateBatchActorGroupPostUserCo" parameterType="java.util.List">
+    insert into actor_group_post_user (post_code, user_id, group_code, 
+      is_delete, modify_time, create_user_id, 
+      modify_user_id, create_time, gpu_ext0, 
+      gpu_ext1, gpu_ext2, gpu_ext3, 
+      gpu_ext4, gpu_ext5, gpu_ext6, 
+      gpu_ext7, gpu_ext8, gpu_ext9
+      )
+    values 
+    <foreach collection="list" item="item" index= "index" separator =","> 
+    (
+      ifnull(#{item.postCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.userId,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.groupCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.isDelete,jdbcType=TINYINT}, "0"),
+      #{item.modifyTime,jdbcType=TIMESTAMP},
+      ifnull(#{item.createUserId,jdbcType=INTEGER}, "0"),
+      ifnull(#{item.modifyUserId,jdbcType=INTEGER}, "0"),
+      #{item.createTime,jdbcType=TIMESTAMP},
+      ifnull(#{item.gpuExt0,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.gpuExt1,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.gpuExt2,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.gpuExt3,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.gpuExt4,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.gpuExt5,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.gpuExt6,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.gpuExt7,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.gpuExt8,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.gpuExt9,jdbcType=VARCHAR}, "")
+      )
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+      post_code = values(post_code), 
+      user_id = values(user_id),
+      group_code = values(group_code), 
+      is_delete = values(is_delete), 
+      modify_time = values(modify_time), 
+      create_user_id = values(create_user_id), 
+      modify_user_id = values(modify_user_id), 
+      create_time = values(create_time), 
+      gpu_ext0 = values(gpu_ext0), 
+      gpu_ext1 = values(gpu_ext1), 
+      gpu_ext2 = values(gpu_ext2), 
+      gpu_ext3 = values(gpu_ext3), 
+      gpu_ext4 = values(gpu_ext4), 
+      gpu_ext5 = values(gpu_ext5), 
+      gpu_ext6 = values(gpu_ext6), 
+      gpu_ext7 = values(gpu_ext7), 
+      gpu_ext8 = values(gpu_ext8), 
+      gpu_ext9 = values(gpu_ext9)
+  </insert>
+  
+  <select id="selectByParamsSelective" parameterType="com.inossem.wms.co.actor.ActorGroupPostUserCo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from actor_group_post_user
+    where
+    is_delete = 0
+    <if test="postCode != null">
+      and post_code = #{postCode,jdbcType=TINYINT}
+    </if>
+    <if test="userId != null">
+      and user_id = #{userId,jdbcType=TINYINT}
+    </if>
+    <if test="groupCode != null">
+      and group_code = #{groupCode,jdbcType=TINYINT}
+    </if>
+    <if test="isDelete != null">
+      and is_delete = #{isDelete,jdbcType=TINYINT}
+    </if>
+    <if test="modifyTime != null">
+      and modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="createUserId != null">
+      and create_user_id = #{createUserId,jdbcType=INTEGER}
+    </if>
+    <if test="modifyUserId != null">
+      and modify_user_id = #{modifyUserId,jdbcType=INTEGER}
+    </if>
+    <if test="createTime != null">
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="gpuExt0 != null">
+      and gpu_ext0 = #{gpuExt0,jdbcType=VARCHAR}
+    </if>
+    <if test="gpuExt1 != null">
+      and gpu_ext1 = #{gpuExt1,jdbcType=VARCHAR}
+    </if>
+    <if test="gpuExt2 != null">
+      and gpu_ext2 = #{gpuExt2,jdbcType=VARCHAR}
+    </if>
+    <if test="gpuExt3 != null">
+      and gpu_ext3 = #{gpuExt3,jdbcType=VARCHAR}
+    </if>
+    <if test="gpuExt4 != null">
+      and gpu_ext4 = #{gpuExt4,jdbcType=VARCHAR}
+    </if>
+    <if test="gpuExt5 != null">
+      and gpu_ext5 = #{gpuExt5,jdbcType=VARCHAR}
+    </if>
+    <if test="gpuExt6 != null">
+      and gpu_ext6 = #{gpuExt6,jdbcType=VARCHAR}
+    </if>
+    <if test="gpuExt7 != null">
+      and gpu_ext7 = #{gpuExt7,jdbcType=VARCHAR}
+    </if>
+    <if test="gpuExt8 != null">
+      and gpu_ext8 = #{gpuExt8,jdbcType=VARCHAR}
+    </if>
+    <if test="gpuExt9 != null">
+      and gpu_ext9 = #{gpuExt9,jdbcType=VARCHAR}
+    </if>
+    order by modify_time 
+  </select>
+  
+  <update id="logicDeleteByGroupCode"  parameterType="java.lang.String">
+  
+  	update actor_group_post_user
+  		set is_delete = 1
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+  
+  </update>
+  
+</mapper>

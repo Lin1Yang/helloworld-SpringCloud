@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicNoticeMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicNotice">
+    <id column="notice_id" jdbcType="INTEGER" property="noticeId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="notice_ext0" jdbcType="VARCHAR" property="noticeExt0" />
+    <result column="notice_ext1" jdbcType="VARCHAR" property="noticeExt1" />
+    <result column="notice_ext2" jdbcType="VARCHAR" property="noticeExt2" />
+    <result column="notice_ext3" jdbcType="VARCHAR" property="noticeExt3" />
+    <result column="notice_ext4" jdbcType="VARCHAR" property="noticeExt4" />
+    <result column="notice_ext5" jdbcType="VARCHAR" property="noticeExt5" />
+    <result column="notice_ext6" jdbcType="VARCHAR" property="noticeExt6" />
+    <result column="notice_ext7" jdbcType="VARCHAR" property="noticeExt7" />
+    <result column="notice_ext8" jdbcType="VARCHAR" property="noticeExt8" />
+    <result column="notice_ext9" jdbcType="VARCHAR" property="noticeExt9" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    notice_id, title, content, create_user, status, is_delete, create_time, modify_time, 
+    create_user_id, modify_user_id, notice_ext0, notice_ext1, notice_ext2, notice_ext3, 
+    notice_ext4, notice_ext5, notice_ext6, notice_ext7, notice_ext8, notice_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_notice
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dic_notice
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicNotice">
+    insert into dic_notice (notice_id, title, content, 
+      create_user, status, is_delete, 
+      create_time, modify_time, create_user_id, 
+      modify_user_id, notice_ext0, notice_ext1, 
+      notice_ext2, notice_ext3, notice_ext4, 
+      notice_ext5, notice_ext6, notice_ext7, 
+      notice_ext8, notice_ext9)
+    values (#{noticeId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{noticeExt0,jdbcType=VARCHAR}, #{noticeExt1,jdbcType=VARCHAR}, 
+      #{noticeExt2,jdbcType=VARCHAR}, #{noticeExt3,jdbcType=VARCHAR}, #{noticeExt4,jdbcType=VARCHAR}, 
+      #{noticeExt5,jdbcType=VARCHAR}, #{noticeExt6,jdbcType=VARCHAR}, #{noticeExt7,jdbcType=VARCHAR}, 
+      #{noticeExt8,jdbcType=VARCHAR}, #{noticeExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicNotice">
+    insert into dic_notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="noticeId != null">
+        notice_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="noticeExt0 != null">
+        notice_ext0,
+      </if>
+      <if test="noticeExt1 != null">
+        notice_ext1,
+      </if>
+      <if test="noticeExt2 != null">
+        notice_ext2,
+      </if>
+      <if test="noticeExt3 != null">
+        notice_ext3,
+      </if>
+      <if test="noticeExt4 != null">
+        notice_ext4,
+      </if>
+      <if test="noticeExt5 != null">
+        notice_ext5,
+      </if>
+      <if test="noticeExt6 != null">
+        notice_ext6,
+      </if>
+      <if test="noticeExt7 != null">
+        notice_ext7,
+      </if>
+      <if test="noticeExt8 != null">
+        notice_ext8,
+      </if>
+      <if test="noticeExt9 != null">
+        notice_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="noticeId != null">
+        #{noticeId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeExt0 != null">
+        #{noticeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt1 != null">
+        #{noticeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt2 != null">
+        #{noticeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt3 != null">
+        #{noticeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt4 != null">
+        #{noticeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt5 != null">
+        #{noticeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt6 != null">
+        #{noticeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt7 != null">
+        #{noticeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt8 != null">
+        #{noticeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt9 != null">
+        #{noticeExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicNotice">
+    update dic_notice
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeExt0 != null">
+        notice_ext0 = #{noticeExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt1 != null">
+        notice_ext1 = #{noticeExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt2 != null">
+        notice_ext2 = #{noticeExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt3 != null">
+        notice_ext3 = #{noticeExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt4 != null">
+        notice_ext4 = #{noticeExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt5 != null">
+        notice_ext5 = #{noticeExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt6 != null">
+        notice_ext6 = #{noticeExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt7 != null">
+        notice_ext7 = #{noticeExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt8 != null">
+        notice_ext8 = #{noticeExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeExt9 != null">
+        notice_ext9 = #{noticeExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicNotice">
+    update dic_notice
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      notice_ext0 = #{noticeExt0,jdbcType=VARCHAR},
+      notice_ext1 = #{noticeExt1,jdbcType=VARCHAR},
+      notice_ext2 = #{noticeExt2,jdbcType=VARCHAR},
+      notice_ext3 = #{noticeExt3,jdbcType=VARCHAR},
+      notice_ext4 = #{noticeExt4,jdbcType=VARCHAR},
+      notice_ext5 = #{noticeExt5,jdbcType=VARCHAR},
+      notice_ext6 = #{noticeExt6,jdbcType=VARCHAR},
+      notice_ext7 = #{noticeExt7,jdbcType=VARCHAR},
+      notice_ext8 = #{noticeExt8,jdbcType=VARCHAR},
+      notice_ext9 = #{noticeExt9,jdbcType=VARCHAR}
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </update>
+	<!--   公告列表   -->
+   <sql id="Base_Column_List1">
+    notice_id noticeId, title, content, create_user createUser, status, is_delete isDelete, create_time createTime, 
+    modify_time modifyTime,  create_user_id createUserId, modify_user_id modifyUserId, notice_ext0 noticeExt0,
+    notice_ext1 noticeExt1, notice_ext2 noticeExt2, notice_ext3 noticeExt3,  notice_ext4 noticeExt4, notice_ext5 noticeExt5,
+    notice_ext6 noticeExt6, notice_ext7 noticeExt7, notice_ext8 noticeExt8, notice_ext9 noticeExt9
+  </sql>
+   <select id="selectAllNoticeOnPaging" parameterType="com.inossem.wms.co.dic.DicNoticeCo" resultType="com.inossem.wms.model.dic.DicNoticeVo">
+    select 
+      <include refid="Base_Column_List1"></include>
+    from dic_notice 
+    where  is_delete=0 
+    <if test="condition != null and condition !=''">
+    	and title like CONCAT('%',#{condition},'%')
+    </if>
+    <if test="status != null">
+    	and status =#{status}
+    </if>
+    order by create_time desc
+  </select>
+   <select id="selectNoDelAndFbNoticeList"  resultType="com.inossem.wms.model.dic.DicNoticeVo">
+    select 
+      <include refid="Base_Column_List1"></include>
+    from dic_notice 
+    where  is_delete=0 and status=1 order by notice_id desc
+  </select>
+   <select id="selectNewNoDelAndFbNotice"  resultType="com.inossem.wms.model.dic.DicNoticeVo">
+    select 
+      <include refid="Base_Column_List1"></include>
+    from dic_notice 
+    where notice_id=( select  max(notice_id) from dic_notice where is_delete=0 and status=1  )
+  </select>
+</mapper>

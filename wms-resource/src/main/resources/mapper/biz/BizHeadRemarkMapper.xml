@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.biz.BizHeadRemarkMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.biz.BizHeadRemark">
+    <id column="head_remark_id" jdbcType="INTEGER" property="headRemarkId" />
+    <result column="receipt_type" jdbcType="INTEGER" property="receiptType" />
+    <result column="receipt_code" jdbcType="VARCHAR" property="receiptCode" />
+    <result column="receipt_remark" jdbcType="VARCHAR" property="receiptRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    head_remark_id, receipt_type, receipt_code, receipt_remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from biz_head_remark
+    where head_remark_id = #{headRemarkId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from biz_head_remark
+    where head_remark_id = #{headRemarkId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.biz.BizHeadRemark">
+    insert into biz_head_remark (head_remark_id, receipt_type, receipt_code, 
+      receipt_remark)
+    values (#{headRemarkId,jdbcType=INTEGER}, #{receiptType,jdbcType=INTEGER}, #{receiptCode,jdbcType=VARCHAR}, 
+      #{receiptRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.biz.BizHeadRemark">
+    insert into biz_head_remark
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="headRemarkId != null">
+        head_remark_id,
+      </if>
+      <if test="receiptType != null">
+        receipt_type,
+      </if>
+      <if test="receiptCode != null">
+        receipt_code,
+      </if>
+      <if test="receiptRemark != null">
+        receipt_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="headRemarkId != null">
+        #{headRemarkId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptType != null">
+        #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null">
+        #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptRemark != null">
+        #{receiptRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.biz.BizHeadRemark">
+    update biz_head_remark
+    <set>
+      <if test="receiptType != null">
+        receipt_type = #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null">
+        receipt_code = #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptRemark != null">
+        receipt_remark = #{receiptRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where head_remark_id = #{headRemarkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.biz.BizHeadRemark">
+    update biz_head_remark
+    set receipt_type = #{receiptType,jdbcType=INTEGER},
+      receipt_code = #{receiptCode,jdbcType=VARCHAR},
+      receipt_remark = #{receiptRemark,jdbcType=VARCHAR}
+    where head_remark_id = #{headRemarkId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 以下是自定义方法  -->
+  
+  <!-- 根据单据类型和单号查询抬头备注 -->
+  <select id="selectRemark" parameterType="com.inossem.wms.model.biz.BizHeadRemark" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from biz_head_remark
+    where receipt_type = #{receiptType,jdbcType=INTEGER} 
+    		and    
+    	  receipt_code = #{receiptCode,jdbcType=VARCHAR}  
+  </select>
+ 
+  <!-- 根据单据类型和单号更新抬头备注 -->
+  <update id="updateReceiptRemark" parameterType="com.inossem.wms.model.biz.BizHeadRemark">
+    update biz_head_remark
+    set receipt_remark = #{receiptRemark,jdbcType=VARCHAR}    
+    where 
+        receipt_type = #{receiptType,jdbcType=INTEGER}
+      	and 
+        receipt_code = #{receiptCode,jdbcType=VARCHAR}      
+  </update>
+  <insert id="insertOrUpdate" parameterType="com.inossem.wms.model.biz.BizHeadRemark">
+    insert into biz_head_remark (receipt_type, receipt_code, 
+      receipt_remark)
+    values (#{receiptType,jdbcType=INTEGER}, #{receiptCode,jdbcType=VARCHAR}, 
+      #{receiptRemark,jdbcType=VARCHAR})
+    on duplicate key update receipt_remark = #{receiptRemark,jdbcType=VARCHAR}
+  </insert>
+</mapper>

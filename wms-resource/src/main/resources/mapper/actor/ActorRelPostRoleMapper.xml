@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.actor.ActorRelPostRoleMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.actor.ActorRelPostRole">
+    <id column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <id column="role_code" jdbcType="VARCHAR" property="roleCode" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="rpr_ext0" jdbcType="VARCHAR" property="rprExt0" />
+    <result column="rpr_ext1" jdbcType="VARCHAR" property="rprExt1" />
+    <result column="rpr_ext2" jdbcType="VARCHAR" property="rprExt2" />
+    <result column="rpr_ext3" jdbcType="VARCHAR" property="rprExt3" />
+    <result column="rpr_ext4" jdbcType="VARCHAR" property="rprExt4" />
+    <result column="rpr_ext5" jdbcType="VARCHAR" property="rprExt5" />
+    <result column="rpr_ext6" jdbcType="VARCHAR" property="rprExt6" />
+    <result column="rpr_ext7" jdbcType="VARCHAR" property="rprExt7" />
+    <result column="rpr_ext8" jdbcType="VARCHAR" property="rprExt8" />
+    <result column="rpr_ext9" jdbcType="VARCHAR" property="rprExt9" />
+  </resultMap>
+  
+  <resultMap id="VoBaseResultMap" type="com.inossem.wms.vo.actor.ActorRelPostRoleVo" extends="BaseResultMap">  
+   <result column="role_name" jdbcType="VARCHAR" property="roleName" />  
+  </resultMap>
+  <sql id="Base_Column_List">
+    post_code, role_code, is_delete, create_time, modify_time, create_user_id, modify_user_id, 
+    rpr_ext0, rpr_ext1, rpr_ext2, rpr_ext3, rpr_ext4, rpr_ext5, rpr_ext6, rpr_ext7, rpr_ext8, 
+    rpr_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.actor.ActorRelPostRoleKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from actor_rel_post_role
+    where post_code = #{postCode,jdbcType=VARCHAR}
+      and role_code = #{roleCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.actor.ActorRelPostRoleKey">
+    delete from actor_rel_post_role
+    where post_code = #{postCode,jdbcType=VARCHAR}
+      and role_code = #{roleCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.actor.ActorRelPostRole">
+    insert into actor_rel_post_role (post_code, role_code, is_delete, 
+      create_time, modify_time, create_user_id, 
+      modify_user_id, rpr_ext0, rpr_ext1, 
+      rpr_ext2, rpr_ext3, rpr_ext4, 
+      rpr_ext5, rpr_ext6, rpr_ext7, 
+      rpr_ext8, rpr_ext9)
+    values (#{postCode,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{rprExt0,jdbcType=VARCHAR}, #{rprExt1,jdbcType=VARCHAR}, 
+      #{rprExt2,jdbcType=VARCHAR}, #{rprExt3,jdbcType=VARCHAR}, #{rprExt4,jdbcType=VARCHAR}, 
+      #{rprExt5,jdbcType=VARCHAR}, #{rprExt6,jdbcType=VARCHAR}, #{rprExt7,jdbcType=VARCHAR}, 
+      #{rprExt8,jdbcType=VARCHAR}, #{rprExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.actor.ActorRelPostRole">
+    insert into actor_rel_post_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="roleCode != null">
+        role_code,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="rprExt0 != null">
+        rpr_ext0,
+      </if>
+      <if test="rprExt1 != null">
+        rpr_ext1,
+      </if>
+      <if test="rprExt2 != null">
+        rpr_ext2,
+      </if>
+      <if test="rprExt3 != null">
+        rpr_ext3,
+      </if>
+      <if test="rprExt4 != null">
+        rpr_ext4,
+      </if>
+      <if test="rprExt5 != null">
+        rpr_ext5,
+      </if>
+      <if test="rprExt6 != null">
+        rpr_ext6,
+      </if>
+      <if test="rprExt7 != null">
+        rpr_ext7,
+      </if>
+      <if test="rprExt8 != null">
+        rpr_ext8,
+      </if>
+      <if test="rprExt9 != null">
+        rpr_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="rprExt0 != null">
+        #{rprExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt1 != null">
+        #{rprExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt2 != null">
+        #{rprExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt3 != null">
+        #{rprExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt4 != null">
+        #{rprExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt5 != null">
+        #{rprExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt6 != null">
+        #{rprExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt7 != null">
+        #{rprExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt8 != null">
+        #{rprExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt9 != null">
+        #{rprExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.actor.ActorRelPostRole">
+    update actor_rel_post_role
+    <set>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="rprExt0 != null">
+        rpr_ext0 = #{rprExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt1 != null">
+        rpr_ext1 = #{rprExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt2 != null">
+        rpr_ext2 = #{rprExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt3 != null">
+        rpr_ext3 = #{rprExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt4 != null">
+        rpr_ext4 = #{rprExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt5 != null">
+        rpr_ext5 = #{rprExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt6 != null">
+        rpr_ext6 = #{rprExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt7 != null">
+        rpr_ext7 = #{rprExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt8 != null">
+        rpr_ext8 = #{rprExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt9 != null">
+        rpr_ext9 = #{rprExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where post_code = #{postCode,jdbcType=VARCHAR}
+      and role_code = #{roleCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.actor.ActorRelPostRole">
+    update actor_rel_post_role
+    set is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      rpr_ext0 = #{rprExt0,jdbcType=VARCHAR},
+      rpr_ext1 = #{rprExt1,jdbcType=VARCHAR},
+      rpr_ext2 = #{rprExt2,jdbcType=VARCHAR},
+      rpr_ext3 = #{rprExt3,jdbcType=VARCHAR},
+      rpr_ext4 = #{rprExt4,jdbcType=VARCHAR},
+      rpr_ext5 = #{rprExt5,jdbcType=VARCHAR},
+      rpr_ext6 = #{rprExt6,jdbcType=VARCHAR},
+      rpr_ext7 = #{rprExt7,jdbcType=VARCHAR},
+      rpr_ext8 = #{rprExt8,jdbcType=VARCHAR},
+      rpr_ext9 = #{rprExt9,jdbcType=VARCHAR}
+    where post_code = #{postCode,jdbcType=VARCHAR}
+      and role_code = #{roleCode,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertOrUpdate" parameterType="com.inossem.wms.model.actor.ActorRelPostRole">
+    insert into actor_rel_post_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="roleCode != null">
+        role_code,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="rprExt0 != null">
+        rpr_ext0,
+      </if>
+      <if test="rprExt1 != null">
+        rpr_ext1,
+      </if>
+      <if test="rprExt2 != null">
+        rpr_ext2,
+      </if>
+      <if test="rprExt3 != null">
+        rpr_ext3,
+      </if>
+      <if test="rprExt4 != null">
+        rpr_ext4,
+      </if>
+      <if test="rprExt5 != null">
+        rpr_ext5,
+      </if>
+      <if test="rprExt6 != null">
+        rpr_ext6,
+      </if>
+      <if test="rprExt7 != null">
+        rpr_ext7,
+      </if>
+      <if test="rprExt8 != null">
+        rpr_ext8,
+      </if>
+      <if test="rprExt9 != null">
+        rpr_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null">
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="rprExt0 != null">
+        #{rprExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt1 != null">
+        #{rprExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt2 != null">
+        #{rprExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt3 != null">
+        #{rprExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt4 != null">
+        #{rprExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt5 != null">
+        #{rprExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt6 != null">
+        #{rprExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt7 != null">
+        #{rprExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt8 != null">
+        #{rprExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt9 != null">
+        #{rprExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    ON DUPLICATE KEY UPDATE
+    <trim prefix=" " suffix=" " suffixOverrides=",">
+      <if test="postCode != null">
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null">
+        role_code = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="rprExt0 != null">
+        rpr_ext0 = #{rprExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt1 != null">
+        rpr_ext1 = #{rprExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt2 != null">
+        rpr_ext2 = #{rprExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt3 != null">
+        rpr_ext3 = #{rprExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt4 != null">
+        rpr_ext4 = #{rprExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt5 != null">
+        rpr_ext5 = #{rprExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt6 != null">
+        rpr_ext6 = #{rprExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt7 != null">
+        rpr_ext7 = #{rprExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt8 != null">
+        rpr_ext8 = #{rprExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="rprExt9 != null">
+        rpr_ext9 = #{rprExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <insert id="insertOrUpdateBatchActorRelPostRole" parameterType="java.util.List">
+    insert into actor_rel_post_role (post_code, role_code, is_delete, 
+      create_time, modify_time, create_user_id, 
+      modify_user_id, rpr_ext0, rpr_ext1, 
+      rpr_ext2, rpr_ext3, rpr_ext4, 
+      rpr_ext5, rpr_ext6, rpr_ext7, 
+      rpr_ext8, rpr_ext9)
+    values 
+    <foreach collection="list" item="item" index= "index" separator =","> 
+    ( 
+      ifnull(#{item.postCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.roleCode,jdbcType=VARCHAR},  ""), 
+      ifnull(#{item.isDelete,jdbcType=TINYINT},  "0"),
+      #{item.createTime,jdbcType=TIMESTAMP},
+      #{item.modifyTime,jdbcType=TIMESTAMP},
+      ifnull(#{item.createUserId,jdbcType=INTEGER},  "0"),
+      ifnull(#{item.modifyUserId,jdbcType=INTEGER},  "0"),
+      ifnull(#{item.rprExt0,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.rprExt1,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.rprExt2,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.rprExt3,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.rprExt4,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.rprExt5,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.rprExt6,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.rprExt7,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.rprExt8,jdbcType=VARCHAR},  ""),
+      ifnull(#{item.rprExt9,jdbcType=VARCHAR},  "")
+      )
+    </foreach>
+     ON DUPLICATE KEY UPDATE
+     post_code = values(post_code), 
+     role_code = values(role_code), 
+     is_delete = values(is_delete), 
+     create_time = values(create_time), 
+     modify_time = values(modify_time), 
+     create_user_id = values(create_user_id), 
+     modify_user_id = values(modify_user_id), 
+     rpr_ext0 = values(rpr_ext0), 
+     rpr_ext1 = values(rpr_ext1), 
+     rpr_ext2 = values(rpr_ext2), 
+     rpr_ext3 = values(rpr_ext3), 
+     rpr_ext4 = values(rpr_ext4), 
+     rpr_ext5 = values(rpr_ext5), 
+     rpr_ext6 = values(rpr_ext6), 
+     rpr_ext7 = values(rpr_ext7), 
+     rpr_ext8 = values(rpr_ext8), 
+     rpr_ext9 = values(rpr_ext9)
+  </insert>
+  
+  <!-- 根据角色编码修改岗位角色删除标识 -->
+  <update id="updateByRoleCode" parameterType="java.lang.String">
+    update actor_rel_post_role
+    set is_delete = 1
+    where role_code = #{roleCode}
+  </update>
+  
+  <select id="selectRoleListByPostCode" parameterType="java.lang.String" resultMap="VoBaseResultMap"> 
+  	select  	
+  	pr.post_code, pr.role_code, pr.is_delete, pr.create_time, pr.modify_time, pr.create_user_id, pr.modify_user_id, 
+    pr.rpr_ext0, pr.rpr_ext1, pr.rpr_ext2, pr.rpr_ext3, pr.rpr_ext4, pr.rpr_ext5, pr.rpr_ext6, pr.rpr_ext7, pr.rpr_ext8, 
+    pr.rpr_ext9,
+    sr.role_name   
+    from actor_rel_post_role pr 
+    inner join sys_role sr on pr.role_code = sr.role_code and pr.is_delete=0 
+    where pr.post_code = #{postCode}
+  </select>
+  
+   <select id="selectUserListByPostCode"  parameterType="com.inossem.wms.co.actor.ActorPostCo" resultType="com.inossem.wms.vo.sys.SysUserVo"> 
+  	SELECT
+	DISTINCT
+		su.user_id userId,
+		su.user_code userCode,
+		su.user_name userName,
+		su.dept_code deptCode,
+		dept.dept_name deptName
+	FROM
+		actor_rel_post_role pr
+	INNER JOIN sys_role sr ON pr.role_code = sr.role_code
+	AND pr.is_delete = 0 
+	INNER JOIN sys_rel_user_role srur ON sr.role_code = srur.role_code
+	INNER JOIN sys_user su ON srur.user_id = su.user_id
+	AND su.is_delete = 0
+	INNER JOIN dic_corp corp ON corp.corp_code = su.corp_code
+	AND corp.is_delete = 0
+	LEFT JOIN dic_dept dept ON dept.dept_code = su.dept_code
+	AND dept.corp_code = corp.corp_code
+	AND dept.is_delete = 0
+	WHERE
+	pr.post_code = #{postCode}
+	<if test="condition != null and condition != '' ">  
+	        AND (su.user_code LIKE CONCAT('%',#{condition},'%' )
+	        OR su.user_name LIKE  CONCAT('%',#{condition},'%' ))
+	</if>
+  </select> 
+  
+  <update id="updateRoleToDeleteByPostCode" parameterType="java.lang.String">
+  	update actor_rel_post_role
+  		set is_delete = 1
+  	where post_code = #{postCode}
+  </update>
+</mapper>

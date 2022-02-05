@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.biz.BizReceiptOperationLogMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.biz.BizReceiptOperationLog">
+    <id column="receipt_log_id" jdbcType="INTEGER" property="receiptLogId" />
+    <result column="receipt_type" jdbcType="INTEGER" property="receiptType" />
+    <result column="receipt_code" jdbcType="VARCHAR" property="receiptCode" />
+    <result column="receipt_operation_type" jdbcType="TINYINT" property="receiptOperationType" />
+    <result column="log_remark" jdbcType="VARCHAR" property="logRemark" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="create_user_code" jdbcType="VARCHAR" property="createUserCode" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="receipt_operation_log_ext0" jdbcType="VARCHAR" property="receiptOperationLogExt0" />
+    <result column="receipt_operation_log_ext1" jdbcType="VARCHAR" property="receiptOperationLogExt1" />
+    <result column="receipt_operation_log_ext2" jdbcType="VARCHAR" property="receiptOperationLogExt2" />
+    <result column="receipt_operation_log_ext3" jdbcType="VARCHAR" property="receiptOperationLogExt3" />
+    <result column="receipt_operation_log_ext4" jdbcType="VARCHAR" property="receiptOperationLogExt4" />
+    <result column="receipt_operation_log_ext5" jdbcType="VARCHAR" property="receiptOperationLogExt5" />
+    <result column="receipt_operation_log_ext6" jdbcType="VARCHAR" property="receiptOperationLogExt6" />
+    <result column="receipt_operation_log_ext7" jdbcType="VARCHAR" property="receiptOperationLogExt7" />
+    <result column="receipt_operation_log_ext8" jdbcType="VARCHAR" property="receiptOperationLogExt8" />
+    <result column="receipt_operation_log_ext9" jdbcType="VARCHAR" property="receiptOperationLogExt9" />        
+  </resultMap>
+   <resultMap id="BaseResultMapVo" type="com.inossem.wms.model.biz.BizReceiptOperationLogVo" extends="BaseResultMap">
+    	<result column="user_name" jdbcType="VARCHAR" property="createUserName" />
+    	<result column="receipt_type_name" jdbcType="VARCHAR" property="receiptTypeName" />
+    	<result column="receiptOperationTypeName" jdbcType="VARCHAR" property="receiptOperationTypeName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    receipt_log_id, receipt_type, receipt_code, receipt_operation_type, log_remark, is_delete, create_time, 
+    modify_time, create_user_id, modify_user_id, receipt_operation_log_ext0, receipt_operation_log_ext1, 
+    receipt_operation_log_ext2, receipt_operation_log_ext3, receipt_operation_log_ext4, 
+    receipt_operation_log_ext5, receipt_operation_log_ext6, receipt_operation_log_ext7, 
+    receipt_operation_log_ext8, receipt_operation_log_ext9
+  </sql>
+  <sql id="Base_Column_List_Vo">
+    receipt_log_id, t1.receipt_type, receipt_code, receipt_operation_type, log_remark, t1.is_delete, t1.create_time, 
+    t1.modify_time, t1.create_user_id, t1.modify_user_id, receipt_operation_log_ext0, receipt_operation_log_ext1, 
+    receipt_operation_log_ext2, receipt_operation_log_ext3, receipt_operation_log_ext4, 
+    receipt_operation_log_ext5, receipt_operation_log_ext6, receipt_operation_log_ext7, 
+    receipt_operation_log_ext8, receipt_operation_log_ext9,t2.user_name 
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from biz_receipt_operation_log
+    where receipt_log_id = #{receiptLogId,jdbcType=INTEGER}
+  </select>
+  <select id="selectReceiptByConditionOnPaging" parameterType="com.inossem.wms.co.biz.BizReceiptOperationLogCo" resultMap="BaseResultMapVo">
+	select
+	<include refid="Base_Column_List_Vo" />
+	from biz_receipt_operation_log t1
+	left join sys_user t2
+	on t1.create_user_id=t2.user_id 
+	left join dic_receipt_type t3
+	on t1.receipt_type=t3.receipt_type
+	where t1.is_delete=0
+    <if test="receiptType!=null and receiptType!=''">
+    	and t1.receipt_type=#{receiptType}
+    </if>
+    <if test="startTime!=null and startTime!=''">
+    	and t1.create_time &gt;=#{startTime}
+    </if>
+    <if test="endTime!=null and endTime!=''">
+    	and t1.create_time &lt;= #{endTime}
+    </if>
+    order by t1.create_time desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from biz_receipt_operation_log
+    where receipt_log_id = #{receiptLogId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.biz.BizReceiptOperationLog">
+    insert into biz_receipt_operation_log (receipt_log_id, receipt_type, receipt_code, 
+      receipt_operation_type, log_remark, is_delete, create_time, 
+      modify_time, create_user_id, modify_user_id, 
+      receipt_operation_log_ext0, receipt_operation_log_ext1, 
+      receipt_operation_log_ext2, receipt_operation_log_ext3, 
+      receipt_operation_log_ext4, receipt_operation_log_ext5, 
+      receipt_operation_log_ext6, receipt_operation_log_ext7, 
+      receipt_operation_log_ext8, receipt_operation_log_ext9
+      )
+    values (#{receiptLogId,jdbcType=INTEGER}, #{receiptType,jdbcType=INTEGER}, #{receiptCode,jdbcType=VARCHAR}, 
+      #{receiptOperationType,jdbcType=TINYINT}, #{logRemark,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, 
+      #{receiptOperationLogExt0,jdbcType=VARCHAR}, #{receiptOperationLogExt1,jdbcType=VARCHAR}, 
+      #{receiptOperationLogExt2,jdbcType=VARCHAR}, #{receiptOperationLogExt3,jdbcType=VARCHAR}, 
+      #{receiptOperationLogExt4,jdbcType=VARCHAR}, #{receiptOperationLogExt5,jdbcType=VARCHAR}, 
+      #{receiptOperationLogExt6,jdbcType=VARCHAR}, #{receiptOperationLogExt7,jdbcType=VARCHAR}, 
+      #{receiptOperationLogExt8,jdbcType=VARCHAR}, #{receiptOperationLogExt9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.biz.BizReceiptOperationLog">
+    insert into biz_receipt_operation_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="receiptLogId != null">
+        receipt_log_id,
+      </if>
+      <if test="receiptType != null">
+        receipt_type,
+      </if>
+      <if test="receiptCode != null">
+        receipt_code,
+      </if>
+      <if test="receiptOperationType != null">
+        receipt_operation_type,
+      </if>
+      <if test="logRemark != null">
+        log_remark,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="receiptOperationLogExt0 != null">
+        receipt_operation_log_ext0,
+      </if>
+      <if test="receiptOperationLogExt1 != null">
+        receipt_operation_log_ext1,
+      </if>
+      <if test="receiptOperationLogExt2 != null">
+        receipt_operation_log_ext2,
+      </if>
+      <if test="receiptOperationLogExt3 != null">
+        receipt_operation_log_ext3,
+      </if>
+      <if test="receiptOperationLogExt4 != null">
+        receipt_operation_log_ext4,
+      </if>
+      <if test="receiptOperationLogExt5 != null">
+        receipt_operation_log_ext5,
+      </if>
+      <if test="receiptOperationLogExt6 != null">
+        receipt_operation_log_ext6,
+      </if>
+      <if test="receiptOperationLogExt7 != null">
+        receipt_operation_log_ext7,
+      </if>
+      <if test="receiptOperationLogExt8 != null">
+        receipt_operation_log_ext8,
+      </if>
+      <if test="receiptOperationLogExt9 != null">
+        receipt_operation_log_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="receiptLogId != null">
+        #{receiptLogId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptType != null">
+        #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null">
+        #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationType != null">
+        #{receiptOperationType,jdbcType=TINYINT},
+      </if>
+      <if test="logRemark != null">
+        #{logRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptOperationLogExt0 != null">
+        #{receiptOperationLogExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt1 != null">
+        #{receiptOperationLogExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt2 != null">
+        #{receiptOperationLogExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt3 != null">
+        #{receiptOperationLogExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt4 != null">
+        #{receiptOperationLogExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt5 != null">
+        #{receiptOperationLogExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt6 != null">
+        #{receiptOperationLogExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt7 != null">
+        #{receiptOperationLogExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt8 != null">
+        #{receiptOperationLogExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt9 != null">
+        #{receiptOperationLogExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.biz.BizReceiptOperationLog">
+    update biz_receipt_operation_log
+    <set>
+      <if test="receiptType != null">
+        receipt_type = #{receiptType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCode != null">
+        receipt_code = #{receiptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationType != null">
+        receipt_operation_type = #{receiptOperationType,jdbcType=TINYINT},
+      </if>
+      <if test="logRemark != null">
+        log_remark = #{logRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptOperationLogExt0 != null">
+        receipt_operation_log_ext0 = #{receiptOperationLogExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt1 != null">
+        receipt_operation_log_ext1 = #{receiptOperationLogExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt2 != null">
+        receipt_operation_log_ext2 = #{receiptOperationLogExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt3 != null">
+        receipt_operation_log_ext3 = #{receiptOperationLogExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt4 != null">
+        receipt_operation_log_ext4 = #{receiptOperationLogExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt5 != null">
+        receipt_operation_log_ext5 = #{receiptOperationLogExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt6 != null">
+        receipt_operation_log_ext6 = #{receiptOperationLogExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt7 != null">
+        receipt_operation_log_ext7 = #{receiptOperationLogExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt8 != null">
+        receipt_operation_log_ext8 = #{receiptOperationLogExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptOperationLogExt9 != null">
+        receipt_operation_log_ext9 = #{receiptOperationLogExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where receipt_log_id = #{receiptLogId,jdbcType=INTEGER}
+  </update>
+  <!-- 
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.biz.BizReceiptOperationLog">
+    update biz_receipt_operation_log
+    set receipt_type = #{receiptType,jdbcType=INTEGER},
+      receipt_code = #{receiptCode,jdbcType=VARCHAR},
+      receipt_operation_type = #{receiptOperationType,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      receipt_operation_log_ext0 = #{receiptOperationLogExt0,jdbcType=VARCHAR},
+      receipt_operation_log_ext1 = #{receiptOperationLogExt1,jdbcType=VARCHAR},
+      receipt_operation_log_ext2 = #{receiptOperationLogExt2,jdbcType=VARCHAR},
+      receipt_operation_log_ext3 = #{receiptOperationLogExt3,jdbcType=VARCHAR},
+      receipt_operation_log_ext4 = #{receiptOperationLogExt4,jdbcType=VARCHAR},
+      receipt_operation_log_ext5 = #{receiptOperationLogExt5,jdbcType=VARCHAR},
+      receipt_operation_log_ext6 = #{receiptOperationLogExt6,jdbcType=VARCHAR},
+      receipt_operation_log_ext7 = #{receiptOperationLogExt7,jdbcType=VARCHAR},
+      receipt_operation_log_ext8 = #{receiptOperationLogExt8,jdbcType=VARCHAR},
+      receipt_operation_log_ext9 = #{receiptOperationLogExt9,jdbcType=VARCHAR}
+    where receipt_log_id = #{receiptLogId,jdbcType=INTEGER}
+  </update>
+  -->
+  <select id="selectByReceipt" parameterType="com.inossem.wms.common.ReceiptKey" resultMap="BaseResultMap">
+    SELECT 
+	    l.receipt_log_id, l.receipt_type, l.receipt_code, l.receipt_operation_type, l.log_remark, l.is_delete, 
+	    l.create_time, l.modify_time, 
+	    l.create_user_id, u.user_code create_user_code,u.user_name create_user_name,d.dept_code,d.dept_name,
+	    l.receipt_operation_log_ext0, l.receipt_operation_log_ext1, 
+	    l.receipt_operation_log_ext2, l.receipt_operation_log_ext3, l.receipt_operation_log_ext4, 
+	    l.receipt_operation_log_ext5, l.receipt_operation_log_ext6, l.receipt_operation_log_ext7, 
+	    l.receipt_operation_log_ext8, l.receipt_operation_log_ext9
+    FROM biz_receipt_operation_log l
+    LEFT JOIN sys_user u ON l.create_user_id = u.user_id
+    LEFT JOIN dic_dept d on u.dept_code = d.dept_code and d.is_delete = 0
+    WHERE l.receipt_type = #{receiptType,jdbcType=INTEGER}
+    AND l.receipt_code = #{receiptCode,jdbcType=VARCHAR}
+    AND l.is_delete = 0
+  </select>
+  
+  <update id="deleteByReceipt" parameterType="com.inossem.wms.common.ReceiptKey" >
+    UPDATE biz_receipt_operation_log set is_delete =1
+    WHERE receipt_type = #{receiptType,jdbcType=INTEGER}
+    AND receipt_code = #{receiptCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

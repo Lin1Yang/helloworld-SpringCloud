@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicWhMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicWh">
+    <id column="wh_code" jdbcType="VARCHAR" property="whCode" />
+    <result column="wh_name" jdbcType="VARCHAR" property="whName" />
+    <result column="wh_address" jdbcType="VARCHAR" property="whAddress" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="bin_enabled" jdbcType="TINYINT" property="binEnabled" />
+    <result column="cell_enabled" jdbcType="TINYINT" property="cellEnabled" />
+    <result column="picking_enabled" jdbcType="TINYINT" property="pickingEnabled" />
+    <result column="wave_input" jdbcType="TINYINT" property="waveInput" />
+    <result column="wave_output" jdbcType="TINYINT" property="waveOutput" />
+    <result column="task_input" jdbcType="TINYINT" property="taskInput" />
+    <result column="task_output" jdbcType="TINYINT" property="taskOutput" />
+    <result column="wcs_enabled" jdbcType="TINYINT" property="wcsEnabled" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="wh_ext0" jdbcType="VARCHAR" property="whExt0" />
+    <result column="wh_ext1" jdbcType="VARCHAR" property="whExt1" />
+    <result column="wh_ext2" jdbcType="VARCHAR" property="whExt2" />
+    <result column="wh_ext3" jdbcType="VARCHAR" property="whExt3" />
+    <result column="wh_ext4" jdbcType="VARCHAR" property="whExt4" />
+    <result column="wh_ext5" jdbcType="VARCHAR" property="whExt5" />
+    <result column="wh_ext6" jdbcType="VARCHAR" property="whExt6" />
+    <result column="wh_ext7" jdbcType="VARCHAR" property="whExt7" />
+    <result column="wh_ext8" jdbcType="VARCHAR" property="whExt8" />
+    <result column="wh_ext9" jdbcType="VARCHAR" property="whExt9" />
+  </resultMap>
+  <resultMap id="TreeVoBaseResultMap" type="com.inossem.wms.vo.auth.DicWhTreeVo">
+    <id column="wh_code" jdbcType="VARCHAR" property="whCode" />
+    <result column="wh_name" jdbcType="VARCHAR" property="whName" />
+    <result column="wh_address" jdbcType="VARCHAR" property="whAddress" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="bin_enabled" jdbcType="TINYINT" property="binEnabled" />
+    <result column="cell_enabled" jdbcType="TINYINT" property="cellEnabled" />
+    <result column="picking_enabled" jdbcType="TINYINT" property="pickingEnabled" />
+    <result column="wave_input" jdbcType="TINYINT" property="waveInput" />
+    <result column="wave_output" jdbcType="TINYINT" property="waveOutput" />
+    <result column="task_input" jdbcType="TINYINT" property="taskInput" />
+    <result column="task_output" jdbcType="TINYINT" property="taskOutput" />
+    <result column="wcs_enabled" jdbcType="TINYINT" property="wcsEnabled" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="wh_ext0" jdbcType="VARCHAR" property="whExt0" />
+    <result column="wh_ext1" jdbcType="VARCHAR" property="whExt1" />
+    <result column="wh_ext2" jdbcType="VARCHAR" property="whExt2" />
+    <result column="wh_ext3" jdbcType="VARCHAR" property="whExt3" />
+    <result column="wh_ext4" jdbcType="VARCHAR" property="whExt4" />
+    <result column="wh_ext5" jdbcType="VARCHAR" property="whExt5" />
+    <result column="wh_ext6" jdbcType="VARCHAR" property="whExt6" />
+    <result column="wh_ext7" jdbcType="VARCHAR" property="whExt7" />
+    <result column="wh_ext8" jdbcType="VARCHAR" property="whExt8" />
+    <result column="wh_ext9" jdbcType="VARCHAR" property="whExt9" />
+    <result column="lang_code" jdbcType="VARCHAR" property="langCode" />
+    <result column="text" jdbcType="VARCHAR" property="text" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    wh_code, wh_name, wh_address, country, city, bin_enabled, cell_enabled, picking_enabled, wave_input, 
+    wave_output, task_input, task_output, wcs_enabled, is_delete, create_time, modify_time, create_user_id, 
+    modify_user_id, wh_ext0, wh_ext1, wh_ext2, wh_ext3, wh_ext4, wh_ext5, wh_ext6, wh_ext7, 
+    wh_ext8, wh_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_wh
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dic_wh
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicWh">
+    insert into dic_wh (wh_code, wh_name, wh_address, 
+      country, city, bin_enabled, cell_enabled
+      picking_enabled, wave_input, wave_output, 
+      task_input, task_output, create_user_id, 
+      modify_user_id, wh_ext0, wh_ext1, 
+      wh_ext2, wh_ext3, wh_ext4, 
+      wh_ext5, wh_ext6, wh_ext7, 
+      wh_ext8, wh_ext9)
+    values (#{whCode,jdbcType=VARCHAR}, #{whName,jdbcType=VARCHAR}, #{whAddress,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{binEnabled,jdbcType=TINYINT},#{cellEnabled,jdbcType=TINYINT}, 
+      #{pickingEnabled,jdbcType=TINYINT}, #{waveInput,jdbcType=TINYINT}, #{waveOutput,jdbcType=TINYINT}, 
+      #{taskInput,jdbcType=TINYINT}, #{taskOutput,jdbcType=TINYINT}, #{createUserId,jdbcType=INTEGER}, 
+      #{modifyUserId,jdbcType=INTEGER}, #{whExt0,jdbcType=VARCHAR}, #{whExt1,jdbcType=VARCHAR}, 
+      #{whExt2,jdbcType=VARCHAR}, #{whExt3,jdbcType=VARCHAR}, #{whExt4,jdbcType=VARCHAR}, 
+      #{whExt5,jdbcType=VARCHAR}, #{whExt6,jdbcType=VARCHAR}, #{whExt7,jdbcType=VARCHAR}, 
+      #{whExt8,jdbcType=VARCHAR}, #{whExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicWh">
+    insert into dic_wh
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        wh_code,
+      </if>
+      <if test="whName != null">
+        wh_name,
+      </if>
+      <if test="whAddress != null">
+        wh_address,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="binEnabled != null">
+        bin_enabled,
+      </if>
+      <if test="cellEnabled != null">
+        cell_enabled,
+      </if>
+      <if test="pickingEnabled != null">
+        picking_enabled,
+      </if>
+      <if test="waveInput != null">
+        wave_input,
+      </if>
+      <if test="waveOutput != null">
+        wave_output,
+      </if>
+      <if test="taskInput != null">
+        task_input,
+      </if>
+      <if test="taskOutput != null">
+        task_output,
+      </if>
+      <if test="wcsEnabled != null">
+        wcs_enabled,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="whExt0 != null">
+        wh_ext0,
+      </if>
+      <if test="whExt1 != null">
+        wh_ext1,
+      </if>
+      <if test="whExt2 != null">
+        wh_ext2,
+      </if>
+      <if test="whExt3 != null">
+        wh_ext3,
+      </if>
+      <if test="whExt4 != null">
+        wh_ext4,
+      </if>
+      <if test="whExt5 != null">
+        wh_ext5,
+      </if>
+      <if test="whExt6 != null">
+        wh_ext6,
+      </if>
+      <if test="whExt7 != null">
+        wh_ext7,
+      </if>
+      <if test="whExt8 != null">
+        wh_ext8,
+      </if>
+      <if test="whExt9 != null">
+        wh_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        upper(#{whCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="whName != null">
+        #{whName,jdbcType=VARCHAR},
+      </if>
+      <if test="whAddress != null">
+        #{whAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="binEnabled != null">
+        #{binEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="cellEnabled != null">
+        #{cellEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="pickingEnabled != null">
+        #{pickingEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="waveInput != null">
+        #{waveInput,jdbcType=TINYINT},
+      </if>
+      <if test="waveOutput != null">
+        #{waveOutput,jdbcType=TINYINT},
+      </if>
+      <if test="taskInput != null">
+        #{taskInput,jdbcType=TINYINT},
+      </if>
+      <if test="taskOutput != null">
+        #{taskOutput,jdbcType=TINYINT},
+      </if>
+      <if test="wcsEnabled != null">
+        #{wcsEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whExt0 != null">
+        #{whExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt1 != null">
+        #{whExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt2 != null">
+        #{whExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt3 != null">
+        #{whExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt4 != null">
+        #{whExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt5 != null">
+        #{whExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt6 != null">
+        #{whExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt7 != null">
+        #{whExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt8 != null">
+        #{whExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt9 != null">
+        #{whExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicWh">
+    update dic_wh
+    <set>
+      <if test="whName != null">
+        wh_name = #{whName,jdbcType=VARCHAR},
+      </if>
+      <if test="whAddress != null">
+        wh_address = #{whAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="binEnabled != null">
+        bin_enabled = #{binEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="cellEnabled != null">
+        cell_enabled = #{cellEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="pickingEnabled != null">
+        picking_enabled = #{pickingEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="waveInput != null">
+        wave_input = #{waveInput,jdbcType=TINYINT},
+      </if>
+      <if test="waveOutput != null">
+        wave_output = #{waveOutput,jdbcType=TINYINT},
+      </if>
+      <if test="taskInput != null">
+        task_input = #{taskInput,jdbcType=TINYINT},
+      </if>
+      <if test="taskOutput != null">
+        task_output = #{taskOutput,jdbcType=TINYINT},
+      </if>
+      <if test="wcsEnabled != null">
+        wcs_enabled = #{wcsEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whExt0 != null">
+        wh_ext0 = #{whExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt1 != null">
+        wh_ext1 = #{whExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt2 != null">
+        wh_ext2 = #{whExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt3 != null">
+        wh_ext3 = #{whExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt4 != null">
+        wh_ext4 = #{whExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt5 != null">
+        wh_ext5 = #{whExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt6 != null">
+        wh_ext6 = #{whExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt7 != null">
+        wh_ext7 = #{whExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt8 != null">
+        wh_ext8 = #{whExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt9 != null">
+        wh_ext9 = #{whExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+  </update>
+  <!-- <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicWh">
+    update dic_wh
+    set wh_name = #{whName,jdbcType=VARCHAR},
+      address_name = #{addressName,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      bin_enabled = #{binEnabled,jdbcType=TINYINT},
+      picking_enabled = #{pickingEnabled,jdbcType=TINYINT},
+      wave_input = #{waveInput,jdbcType=TINYINT},
+      wave_output = #{waveOutput,jdbcType=TINYINT},
+      task_input = #{taskInput,jdbcType=TINYINT},
+      task_output = #{taskOutput,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      wh_ext0 = #{whExt0,jdbcType=VARCHAR},
+      wh_ext1 = #{whExt1,jdbcType=VARCHAR},
+      wh_ext2 = #{whExt2,jdbcType=VARCHAR},
+      wh_ext3 = #{whExt3,jdbcType=VARCHAR},
+      wh_ext4 = #{whExt4,jdbcType=VARCHAR},
+      wh_ext5 = #{whExt5,jdbcType=VARCHAR},
+      wh_ext6 = #{whExt6,jdbcType=VARCHAR},
+      wh_ext7 = #{whExt7,jdbcType=VARCHAR},
+      wh_ext8 = #{whExt8,jdbcType=VARCHAR},
+      wh_ext9 = #{whExt9,jdbcType=VARCHAR}
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+  </update> -->
+  
+  <select id="selectAllWhList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_wh
+    where is_delete = 0
+  </select>
+  <!-- 主键查询仓库的treevo -->
+  <select id="selectDicWhTreeVoByPrimaryKey" parameterType="java.lang.String" resultMap="TreeVoBaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM dic_wh
+    WHERE is_delete = 0 AND wh_code = #{whCode,jdbcType=VARCHAR}
+  </select>
+  <!-- 主键列表查询仓库的treevo列表 -->
+  <select id="selectDicWhTreeVoByPrimaryKeyList" parameterType="java.util.List" resultMap="TreeVoBaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM dic_wh
+    WHERE is_delete = 0 AND wh_code IN
+	    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+		    #{item}  
+	    </foreach>
+  </select>
+  
+  <!-- 仓库 查询仓库列表 -->
+  <select id="selectDicWhVo" parameterType="com.inossem.wms.co.dic.DicWhListCo" resultMap="TreeVoBaseResultMap">
+    select distinct
+	    wh.wh_code, 
+	    wh.wh_name, 
+	    wh.wh_address, 
+	    wh.country, 
+	    wh.city, 
+	    wh.bin_enabled, 
+	    wh.picking_enabled, 
+	    wh.wave_input, 
+	    wh.wave_output, 
+	    wh.task_input, 
+	    wh.task_output, 
+	    wh.wcs_enabled,
+	    wh.is_delete, 
+	    wh.create_time, 
+	    wh.modify_time, 
+	    wh.create_user_id, 
+	    wh.modify_user_id, 
+	    wh.wh_ext0, 
+	    wh.wh_ext1, 
+	    wh.wh_ext2, 
+	    wh.wh_ext3, 
+	    wh.wh_ext4, 
+	    wh.wh_ext5, 
+	    wh.wh_ext6, 
+	    wh.wh_ext7, 
+	    wh.wh_ext8, 
+	    wh.wh_ext9
+    from dic_wh wh
+     <if test="loginCode !=0 and loginCode !=null">
+     	inner join dic_stock_location stock on wh.wh_code = stock.wh_code
+		inner join (
+   			SELECT fty_code ,location_code from rel_user_stock_location where user_id = #{loginCode} and is_delete = 0 
+			UNION all  SELECT DISTINCT fty_code , '' from rel_user_stock_location where user_id = #{loginCode} and is_delete = 0 
+   		) rsl on 
+   		rsl.fty_code = stock.fty_code and rsl.location_code = stock.location_code
+  	</if>
+    where wh.is_delete = 0
+	<if test="whCode != null">
+     	and (wh.wh_code like concat('%', #{whCode,jdbcType=VARCHAR}, '%'))
+    </if>
+    <if test="binEnableFlag !=null">
+     	 AND wh.bin_enabled = #{binEnableFlag,jdbcType=VARCHAR}
+  	</if>
+	order by create_time,wh_code desc
+  </select>
+   <!-- 仓库 查询仓库列表 -->
+  <select id="selectWhListOnPaging" parameterType="com.inossem.wms.co.dic.DicWhListCo" resultMap="TreeVoBaseResultMap">
+    select DISTINCT
+	    wh_code, wh_name, wh_address, country, city, bin_enabled, cell_enabled, picking_enabled, wave_input, 
+	    wave_output, task_input, task_output, wcs_enabled,dw.is_delete, dw.create_time, dw.modify_time, dw.create_user_id, 
+	    dw.modify_user_id, wh_ext0, wh_ext1, wh_ext2, wh_ext3, wh_ext4, wh_ext5, wh_ext6, wh_ext7, 
+	    wh_ext8, wh_ext9
+    from dic_wh dw 
+    inner join dic_text dt on dw.wh_name = dt.tid 
+      and dw.is_delete = 0
+    <if test="whCode != null">
+     	and (wh_code = #{whCode,jdbcType=VARCHAR} or (dt.text like concat('%', #{whCode,jdbcType=VARCHAR}, '%') and dt.lang_code = #{langCode,jdbcType=VARCHAR}    ))
+    </if>
+	order by create_time desc,wh_code desc
+  </select>
+  <!-- 仓库 查询仓库号是否存在-->
+  <select id="getWhInfo" parameterType="com.inossem.wms.co.dic.DicWhListCo" resultMap="TreeVoBaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_wh
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+    and is_delete = 0
+  </select>
+  <!-- 仓库 查询仓库信息-->
+  <select id="selectWhCodeIsExist" parameterType="com.inossem.wms.co.dic.DicWhListCo" resultMap="TreeVoBaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_wh
+    where wh_code = #{whCode,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insertWh" parameterType="com.inossem.wms.model.dic.DicWh">
+    insert into dic_wh 
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="whCode != null">
+        wh_code,
+      </if>
+      <if test="whName != null">
+        wh_name,
+      </if>
+      <if test="whAddress != null">
+         wh_address, 
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="binEnabled != null">
+         bin_enabled, 
+      </if>
+      <if test="cellEnabled != null">
+         cell_enabled, 
+      </if>
+      <if test="pickingEnabled != null">
+        picking_enabled,
+      </if>
+      <if test="waveInput != null">
+         wave_input,
+      </if>
+      <if test="waveOutput != null">
+         wave_output, 
+      </if>
+      <if test="taskInput != null">
+      	task_input,
+      </if>
+      <if test="taskOutput != null">
+         task_output,
+      </if>
+      <if test="wcsEnabled != null">
+        wcs_enabled,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="whExt0 != null">
+        wh_ext0,
+      </if>
+      <if test="whExt1 != null">
+        wh_ext1,
+      </if>
+      <if test="whExt2 != null">
+        wh_ext2,
+      </if>
+      <if test="whExt3 != null">
+        wh_ext3,
+      </if>
+      <if test="whExt4 != null">
+        wh_ext4,
+      </if>
+      <if test="whExt5 != null">
+        wh_ext5,
+      </if>
+      <if test="whExt6 != null">
+        wh_ext6,
+      </if>
+      <if test="whExt7 != null">
+        wh_ext7,
+      </if>
+      <if test="whExt8 != null">
+        wh_ext8,
+      </if>
+      <if test="whExt9 != null">
+        wh_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="whCode != null">
+       upper(#{whCode,jdbcType=VARCHAR}),
+      </if>
+      <if test="whName != null">
+        #{whName,jdbcType=VARCHAR},
+      </if>
+      <if test="whAddress != null">
+         #{whAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="binEnabled != null">
+         #{binEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="cellEnabled != null">
+         #{cellEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="pickingEnabled != null">
+         #{pickingEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="waveInput != null">
+         #{waveInput,jdbcType=TINYINT},
+      </if>
+      <if test="waveOutput != null">
+         #{waveOutput,jdbcType=TINYINT},
+      </if>
+      <if test="taskInput != null">
+      	#{taskInput,jdbcType=TINYINT},
+      </if>
+      <if test="taskOutput != null">
+         #{taskOutput,jdbcType=TINYINT},
+      </if>
+      <if test="wcsEnabled != null">
+         #{wcsEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whExt0 != null">
+        #{whExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt1 != null">
+        #{whExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt2 != null">
+        #{whExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt3 != null">
+        #{whExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt4 != null">
+        #{whExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt5 != null">
+        #{whExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt6 != null">
+        #{whExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt7 != null">
+        #{whExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt8 != null">
+        #{whExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt9 != null">
+        #{whExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    
+  </insert>
+  <update id="updateWh" parameterType="com.inossem.wms.model.dic.DicWh">
+    update dic_wh set
+      <if test="whName != null">
+        wh_name = #{whName,jdbcType=VARCHAR},
+      </if>
+      <if test="whAddress != null">
+         wh_address = #{whAddress,jdbcType=VARCHAR}, 
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="binEnabled != null">
+         bin_enabled = #{binEnabled,jdbcType=TINYINT}, 
+      </if>
+      <if test="cellEnabled != null">
+         cell_enabled = #{cellEnabled,jdbcType=TINYINT}, 
+      </if>
+      <if test="pickingEnabled != null">
+        picking_enabled = #{pickingEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="waveInput != null">
+         wave_input = #{waveInput,jdbcType=TINYINT},
+      </if>
+      <if test="waveOutput != null">
+         wave_output = #{waveOutput,jdbcType=TINYINT},
+      </if>
+      <if test="taskInput != null">
+      	task_input = #{taskInput,jdbcType=TINYINT},
+      </if>
+      <if test="taskOutput != null">
+         task_output = #{taskOutput,jdbcType=TINYINT},
+      </if>
+      <if test="wcsEnabled != null">
+        wcs_enabled = #{wcsEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP}, 
+      </if>
+      <if test="createUserId != null">
+        create_user_id =  #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="whExt0 != null">
+        wh_ext0 = #{whExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt1 != null">
+        wh_ext1 = #{whExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt2 != null">
+        wh_ext2 = #{whExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt3 != null">
+        wh_ext3 = #{whExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt4 != null">
+        wh_ext4 = #{whExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt5 != null">
+        wh_ext5 = #{whExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt6 != null">
+        wh_ext6 = #{whExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt7 != null">
+        wh_ext7 = #{whExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt8 != null">
+        wh_ext8 = #{whExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="whExt9 != null">
+        wh_ext9 = #{whExt9,jdbcType=VARCHAR},
+      </if>
+      is_delete = '0'
+      where wh_code = #{whCode,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteWh" parameterType="com.inossem.wms.model.dic.DicWh">
+    update dic_wh set
+      is_delete = '1'
+      where wh_code = #{whCode,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectPrintIpByWhCode" parameterType="java.lang.String" resultType="com.inossem.wms.model.sinobec.SinobecRelWhPrint">
+    SELECT wh_code,print_ip,print_port
+    FROM sinobec_rel_wh_print
+    WHERE wh_code = #{whCode,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

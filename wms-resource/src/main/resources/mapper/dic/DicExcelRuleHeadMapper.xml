@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicExcelRuleHeadMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicExcelRuleHead">
+    <id column="excel_rule_head_id" jdbcType="INTEGER" property="excelRuleHeadId" />
+    <result column="enum_excel_type" jdbcType="VARCHAR" property="enumExcelType" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="operation_type" jdbcType="VARCHAR" property="operationType" />
+    <result column="model_name" jdbcType="VARCHAR" property="modelName" />
+    <result column="table_name" jdbcType="VARCHAR" property="tableName" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="excel_rule_head_ext0" jdbcType="VARCHAR" property="excelRuleHeadExt0" />
+    <result column="excel_rule_head_ext1" jdbcType="VARCHAR" property="excelRuleHeadExt1" />
+    <result column="excel_rule_head_ext2" jdbcType="VARCHAR" property="excelRuleHeadExt2" />
+    <result column="excel_rule_head_ext3" jdbcType="VARCHAR" property="excelRuleHeadExt3" />
+    <result column="excel_rule_head_ext4" jdbcType="VARCHAR" property="excelRuleHeadExt4" />
+    <result column="excel_rule_head_ext5" jdbcType="VARCHAR" property="excelRuleHeadExt5" />
+    <result column="excel_rule_head_ext6" jdbcType="VARCHAR" property="excelRuleHeadExt6" />
+    <result column="excel_rule_head_ext7" jdbcType="VARCHAR" property="excelRuleHeadExt7" />
+    <result column="excel_rule_head_ext8" jdbcType="VARCHAR" property="excelRuleHeadExt8" />
+    <result column="excel_rule_head_ext9" jdbcType="VARCHAR" property="excelRuleHeadExt9" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    excel_rule_head_id, enum_excel_type, title, operation_type, model_name, table_name, 
+    is_delete, create_time, modify_time, create_user_id, modify_user_id, excel_rule_head_ext0, 
+    excel_rule_head_ext1, excel_rule_head_ext2, excel_rule_head_ext3, excel_rule_head_ext4, 
+    excel_rule_head_ext5, excel_rule_head_ext6, excel_rule_head_ext7, excel_rule_head_ext8, 
+    excel_rule_head_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_excel_rule_head
+    where excel_rule_head_id = #{excelRuleHeadId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dic_excel_rule_head
+    where excel_rule_head_id = #{excelRuleHeadId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicExcelRuleHead">
+    insert into dic_excel_rule_head (excel_rule_head_id, enum_excel_type, title, 
+      operation_type, model_name, table_name, 
+      is_delete, create_time, modify_time, 
+      create_user_id, modify_user_id, excel_rule_head_ext0, 
+      excel_rule_head_ext1, excel_rule_head_ext2, excel_rule_head_ext3, 
+      excel_rule_head_ext4, excel_rule_head_ext5, excel_rule_head_ext6, 
+      excel_rule_head_ext7, excel_rule_head_ext8, excel_rule_head_ext9
+      )
+    values (#{excelRuleHeadId,jdbcType=INTEGER}, #{enumExcelType,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{operationType,jdbcType=VARCHAR}, #{modelName,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, #{excelRuleHeadExt0,jdbcType=VARCHAR}, 
+      #{excelRuleHeadExt1,jdbcType=VARCHAR}, #{excelRuleHeadExt2,jdbcType=VARCHAR}, #{excelRuleHeadExt3,jdbcType=VARCHAR}, 
+      #{excelRuleHeadExt4,jdbcType=VARCHAR}, #{excelRuleHeadExt5,jdbcType=VARCHAR}, #{excelRuleHeadExt6,jdbcType=VARCHAR}, 
+      #{excelRuleHeadExt7,jdbcType=VARCHAR}, #{excelRuleHeadExt8,jdbcType=VARCHAR}, #{excelRuleHeadExt9,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicExcelRuleHead">
+    insert into dic_excel_rule_head
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="excelRuleHeadId != null">
+        excel_rule_head_id,
+      </if>
+      <if test="enumExcelType != null">
+        enum_excel_type,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="operationType != null">
+        operation_type,
+      </if>
+      <if test="modelName != null">
+        model_name,
+      </if>
+      <if test="tableName != null">
+        table_name,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="excelRuleHeadExt0 != null">
+        excel_rule_head_ext0,
+      </if>
+      <if test="excelRuleHeadExt1 != null">
+        excel_rule_head_ext1,
+      </if>
+      <if test="excelRuleHeadExt2 != null">
+        excel_rule_head_ext2,
+      </if>
+      <if test="excelRuleHeadExt3 != null">
+        excel_rule_head_ext3,
+      </if>
+      <if test="excelRuleHeadExt4 != null">
+        excel_rule_head_ext4,
+      </if>
+      <if test="excelRuleHeadExt5 != null">
+        excel_rule_head_ext5,
+      </if>
+      <if test="excelRuleHeadExt6 != null">
+        excel_rule_head_ext6,
+      </if>
+      <if test="excelRuleHeadExt7 != null">
+        excel_rule_head_ext7,
+      </if>
+      <if test="excelRuleHeadExt8 != null">
+        excel_rule_head_ext8,
+      </if>
+      <if test="excelRuleHeadExt9 != null">
+        excel_rule_head_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="excelRuleHeadId != null">
+        #{excelRuleHeadId,jdbcType=INTEGER},
+      </if>
+      <if test="enumExcelType != null">
+        #{enumExcelType,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null">
+        #{operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="modelName != null">
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null">
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="excelRuleHeadExt0 != null">
+        #{excelRuleHeadExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt1 != null">
+        #{excelRuleHeadExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt2 != null">
+        #{excelRuleHeadExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt3 != null">
+        #{excelRuleHeadExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt4 != null">
+        #{excelRuleHeadExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt5 != null">
+        #{excelRuleHeadExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt6 != null">
+        #{excelRuleHeadExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt7 != null">
+        #{excelRuleHeadExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt8 != null">
+        #{excelRuleHeadExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt9 != null">
+        #{excelRuleHeadExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicExcelRuleHead">
+    update dic_excel_rule_head
+    <set>
+      <if test="enumExcelType != null">
+        enum_excel_type = #{enumExcelType,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null">
+        operation_type = #{operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="modelName != null">
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null">
+        table_name = #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="excelRuleHeadExt0 != null">
+        excel_rule_head_ext0 = #{excelRuleHeadExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt1 != null">
+        excel_rule_head_ext1 = #{excelRuleHeadExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt2 != null">
+        excel_rule_head_ext2 = #{excelRuleHeadExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt3 != null">
+        excel_rule_head_ext3 = #{excelRuleHeadExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt4 != null">
+        excel_rule_head_ext4 = #{excelRuleHeadExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt5 != null">
+        excel_rule_head_ext5 = #{excelRuleHeadExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt6 != null">
+        excel_rule_head_ext6 = #{excelRuleHeadExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt7 != null">
+        excel_rule_head_ext7 = #{excelRuleHeadExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt8 != null">
+        excel_rule_head_ext8 = #{excelRuleHeadExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="excelRuleHeadExt9 != null">
+        excel_rule_head_ext9 = #{excelRuleHeadExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where excel_rule_head_id = #{excelRuleHeadId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicExcelRuleHead">
+    update dic_excel_rule_head
+    set enum_excel_type = #{enumExcelType,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      operation_type = #{operationType,jdbcType=VARCHAR},
+      model_name = #{modelName,jdbcType=VARCHAR},
+      table_name = #{tableName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      excel_rule_head_ext0 = #{excelRuleHeadExt0,jdbcType=VARCHAR},
+      excel_rule_head_ext1 = #{excelRuleHeadExt1,jdbcType=VARCHAR},
+      excel_rule_head_ext2 = #{excelRuleHeadExt2,jdbcType=VARCHAR},
+      excel_rule_head_ext3 = #{excelRuleHeadExt3,jdbcType=VARCHAR},
+      excel_rule_head_ext4 = #{excelRuleHeadExt4,jdbcType=VARCHAR},
+      excel_rule_head_ext5 = #{excelRuleHeadExt5,jdbcType=VARCHAR},
+      excel_rule_head_ext6 = #{excelRuleHeadExt6,jdbcType=VARCHAR},
+      excel_rule_head_ext7 = #{excelRuleHeadExt7,jdbcType=VARCHAR},
+      excel_rule_head_ext8 = #{excelRuleHeadExt8,jdbcType=VARCHAR},
+      excel_rule_head_ext9 = #{excelRuleHeadExt9,jdbcType=VARCHAR}
+    where excel_rule_head_id = #{excelRuleHeadId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectExcelRuleByEnumExcelType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dic_excel_rule_head
+    where is_delete = 0 and operation_type = 'I' and enum_excel_type = #{enumExcelType,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectOutputExcelRuleByEnumExcelType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dic_excel_rule_head
+    where is_delete = 0 and operation_type = 'E' and enum_excel_type = #{enumExcelType,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

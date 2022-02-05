@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inossem.wms.dao.wf.WfProcDefMapper" >
+  <!--<resultMap id="BaseResultMap" type="com.inossem.wms.model.wf.WfProcDef" >
+    <id column="proc_id" property="procId" jdbcType="VARCHAR" />
+    <result column="proc_name" property="procName" jdbcType="VARCHAR" />
+    <result column="proc_category" property="procCategory" jdbcType="VARCHAR" />
+    <result column="proc_desp" property="procDesp" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="creater_id" property="createrId" jdbcType="VARCHAR" />
+    <result column="proc_status" property="procStatus" jdbcType="VARCHAR" />
+    <result column="proc_version" property="procVersion" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    proc_id, proc_name, proc_category, proc_desp, create_time, creater_id, proc_status, 
+    proc_version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wf_proc_def
+    where proc_id = #{procId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wf_proc_def
+    where proc_id = #{procId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.wf.WfProcDef" >
+    insert into wf_proc_def (proc_id, proc_name, proc_category, 
+      proc_desp, create_time, creater_id, 
+      proc_status, proc_version)
+    values (#{procId,jdbcType=VARCHAR}, #{procName,jdbcType=VARCHAR}, #{procCategory,jdbcType=VARCHAR}, 
+      #{procDesp,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createrId,jdbcType=VARCHAR}, 
+      #{procStatus,jdbcType=VARCHAR}, #{procVersion,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.wf.WfProcDef" >
+    insert into wf_proc_def
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="procId != null" >
+        proc_id,
+      </if>
+      <if test="procName != null" >
+        proc_name,
+      </if>
+      <if test="procCategory != null" >
+        proc_category,
+      </if>
+      <if test="procDesp != null" >
+        proc_desp,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createrId != null" >
+        creater_id,
+      </if>
+      <if test="procStatus != null" >
+        proc_status,
+      </if>
+      <if test="procVersion != null" >
+        proc_version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="procId != null" >
+        #{procId,jdbcType=VARCHAR},
+      </if>
+      <if test="procName != null" >
+        #{procName,jdbcType=VARCHAR},
+      </if>
+      <if test="procCategory != null" >
+        #{procCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="procDesp != null" >
+        #{procDesp,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createrId != null" >
+        #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="procStatus != null" >
+        #{procStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="procVersion != null" >
+        #{procVersion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.wf.WfProcDef" >
+    update wf_proc_def
+    <set >
+      <if test="procName != null" >
+        proc_name = #{procName,jdbcType=VARCHAR},
+      </if>
+      <if test="procCategory != null" >
+        proc_category = #{procCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="procDesp != null" >
+        proc_desp = #{procDesp,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createrId != null" >
+        creater_id = #{createrId,jdbcType=VARCHAR},
+      </if>
+      <if test="procStatus != null" >
+        proc_status = #{procStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="procVersion != null" >
+        proc_version = #{procVersion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where proc_id = #{procId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.wf.WfProcDef" >
+    update wf_proc_def
+    set proc_name = #{procName,jdbcType=VARCHAR},
+      proc_category = #{procCategory,jdbcType=VARCHAR},
+      proc_desp = #{procDesp,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      creater_id = #{createrId,jdbcType=VARCHAR},
+      proc_status = #{procStatus,jdbcType=VARCHAR},
+      proc_version = #{procVersion,jdbcType=VARCHAR}
+    where proc_id = #{procId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAllWfProcDef" resultMap="BaseResultMap">
+
+    select proc_id, proc_name, proc_category, proc_desp, create_time, creater_id, proc_status,
+    proc_version
+    from wf_proc_def
+  </select>-->
+</mapper>

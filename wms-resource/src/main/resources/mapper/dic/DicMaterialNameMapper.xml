@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicMaterialNameMapper">
+  <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicMaterialName">
+    <id column="tid" jdbcType="VARCHAR" property="tid" />
+    <id column="lang_code" jdbcType="VARCHAR" property="langCode" />
+    <result column="mat_name" jdbcType="VARCHAR" property="matName" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="material_name_text_ext0" jdbcType="VARCHAR" property="materialNameTextExt0" />
+    <result column="material_name_text_ext1" jdbcType="VARCHAR" property="materialNameTextExt1" />
+    <result column="material_name_text_ext2" jdbcType="VARCHAR" property="materialNameTextExt2" />
+    <result column="material_name_text_ext3" jdbcType="VARCHAR" property="materialNameTextExt3" />
+    <result column="material_name_text_ext4" jdbcType="VARCHAR" property="materialNameTextExt4" />
+    <result column="material_name_text_ext5" jdbcType="VARCHAR" property="materialNameTextExt5" />
+    <result column="material_name_text_ext6" jdbcType="VARCHAR" property="materialNameTextExt6" />
+    <result column="material_name_text_ext7" jdbcType="VARCHAR" property="materialNameTextExt7" />
+    <result column="material_name_text_ext8" jdbcType="VARCHAR" property="materialNameTextExt8" />
+    <result column="material_name_text_ext9" jdbcType="VARCHAR" property="materialNameTextExt9" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tid, lang_code, mat_name, is_delete, create_time, modify_time, create_user_id, modify_user_id, 
+    material_name_text_ext0, material_name_text_ext1, material_name_text_ext2, material_name_text_ext3, 
+    material_name_text_ext4, material_name_text_ext5, material_name_text_ext6, material_name_text_ext7, 
+    material_name_text_ext8, material_name_text_ext9
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialNameKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_material_name
+    where tid = #{tid,jdbcType=VARCHAR}
+      and lang_code = #{langCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialNameKey">
+    delete from dic_material_name
+    where tid = #{tid,jdbcType=VARCHAR}
+      and lang_code = #{langCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.inossem.wms.model.dic.DicMaterialName">
+    insert into dic_material_name (tid, lang_code, mat_name, 
+      create_user_id, modify_user_id, material_name_text_ext0, 
+      material_name_text_ext1, material_name_text_ext2, 
+      material_name_text_ext3, material_name_text_ext4, 
+      material_name_text_ext5, material_name_text_ext6, 
+      material_name_text_ext7, material_name_text_ext8, 
+      material_name_text_ext9)
+    values (#{tid,jdbcType=VARCHAR}, #{langCode,jdbcType=VARCHAR}, #{matName,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=INTEGER}, #{modifyUserId,jdbcType=INTEGER}, #{materialNameTextExt0,jdbcType=VARCHAR}, 
+      #{materialNameTextExt1,jdbcType=VARCHAR}, #{materialNameTextExt2,jdbcType=VARCHAR}, 
+      #{materialNameTextExt3,jdbcType=VARCHAR}, #{materialNameTextExt4,jdbcType=VARCHAR}, 
+      #{materialNameTextExt5,jdbcType=VARCHAR}, #{materialNameTextExt6,jdbcType=VARCHAR}, 
+      #{materialNameTextExt7,jdbcType=VARCHAR}, #{materialNameTextExt8,jdbcType=VARCHAR}, 
+      #{materialNameTextExt9,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.inossem.wms.model.dic.DicMaterialName">
+    insert into dic_material_name
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="langCode != null">
+        lang_code,
+      </if>
+      <if test="matName != null">
+        mat_name,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="materialNameTextExt0 != null">
+        material_name_text_ext0,
+      </if>
+      <if test="materialNameTextExt1 != null">
+        material_name_text_ext1,
+      </if>
+      <if test="materialNameTextExt2 != null">
+        material_name_text_ext2,
+      </if>
+      <if test="materialNameTextExt3 != null">
+        material_name_text_ext3,
+      </if>
+      <if test="materialNameTextExt4 != null">
+        material_name_text_ext4,
+      </if>
+      <if test="materialNameTextExt5 != null">
+        material_name_text_ext5,
+      </if>
+      <if test="materialNameTextExt6 != null">
+        material_name_text_ext6,
+      </if>
+      <if test="materialNameTextExt7 != null">
+        material_name_text_ext7,
+      </if>
+      <if test="materialNameTextExt8 != null">
+        material_name_text_ext8,
+      </if>
+      <if test="materialNameTextExt9 != null">
+        material_name_text_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="langCode != null">
+        #{langCode,jdbcType=VARCHAR},
+      </if>
+      <if test="matName != null">
+        #{matName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="materialNameTextExt0 != null">
+        #{materialNameTextExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt1 != null">
+        #{materialNameTextExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt2 != null">
+        #{materialNameTextExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt3 != null">
+        #{materialNameTextExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt4 != null">
+        #{materialNameTextExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt5 != null">
+        #{materialNameTextExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt6 != null">
+        #{materialNameTextExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt7 != null">
+        #{materialNameTextExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt8 != null">
+        #{materialNameTextExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt9 != null">
+        #{materialNameTextExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertBatchDicMaterialNames"   parameterType="java.util.List">
+    insert into dic_material_name (tid, lang_code, mat_name, 
+      create_user_id, modify_user_id, material_name_text_ext0, 
+      material_name_text_ext1, material_name_text_ext2, 
+      material_name_text_ext3, material_name_text_ext4, 
+      material_name_text_ext5, material_name_text_ext6, 
+      material_name_text_ext7, material_name_text_ext8, 
+      material_name_text_ext9)
+    values
+    <foreach collection="list" item="item" index= "index" separator =","> 
+    (
+      ifnull(#{item.tid,jdbcType=VARCHAR},""), 
+      ifnull(#{item.langCode,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.matName,jdbcType=VARCHAR},""), 
+      ifnull(#{item.createUserId,jdbcType=INTEGER}, ""),
+      ifnull(#{item.modifyUserId,jdbcType=INTEGER},""), 
+      ifnull(#{item.materialNameTextExt0,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.materialNameTextExt1,jdbcType=VARCHAR},""),
+      ifnull(#{item.materialNameTextExt2,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.materialNameTextExt3,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.materialNameTextExt4,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.materialNameTextExt5,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.materialNameTextExt6,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.materialNameTextExt7,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.materialNameTextExt8,jdbcType=VARCHAR}, ""),
+      ifnull(#{item.materialNameTextExt9,jdbcType=VARCHAR}, "")
+     )
+     </foreach>
+  </insert>
+  
+  
+  
+  <update id="updateBatchDicMaterialNamesByPrimaryKey"   parameterType="java.util.List">
+    <foreach collection="list" item="item" index= "index" separator =";"> 
+	    update dic_material_name
+	    <set>
+	      <if test="item.matName != null">
+	        mat_name = #{item.matName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.isDelete != null">
+	        is_delete = #{item.isDelete,jdbcType=TINYINT},
+	      </if>
+	      <if test="item.createUserId != null">
+	        create_user_id = #{item.createUserId,jdbcType=INTEGER},
+	      </if>
+	      <if test="item.modifyUserId != null">
+	        modify_user_id = #{item.modifyUserId,jdbcType=INTEGER},
+	      </if>
+	      <if test="item.materialNameTextExt0 != null">
+	        material_name_text_ext0 = #{item.materialNameTextExt0,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.materialNameTextExt1 != null">
+	        material_name_text_ext1 = #{item.materialNameTextExt1,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.materialNameTextExt2 != null">
+	        material_name_text_ext2 = #{item.materialNameTextExt2,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.materialNameTextExt3 != null">
+	        material_name_text_ext3 = #{item.materialNameTextExt3,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.materialNameTextExt4 != null">
+	        material_name_text_ext4 = #{item.materialNameTextExt4,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.materialNameTextExt5 != null">
+	        material_name_text_ext5 = #{item.materialNameTextExt5,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.materialNameTextExt6 != null">
+	        material_name_text_ext6 = #{item.materialNameTextExt6,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.materialNameTextExt7 != null">
+	        material_name_text_ext7 = #{item.materialNameTextExt7,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.materialNameTextExt8 != null">
+	        material_name_text_ext8 = #{item.materialNameTextExt8,jdbcType=VARCHAR},
+	      </if>
+	      <if test="item.materialNameTextExt9 != null">
+	        material_name_text_ext9 = #{item.materialNameTextExt9,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where tid = #{item.tid,jdbcType=VARCHAR}
+	      and lang_code = #{item.langCode,jdbcType=VARCHAR}
+	 </foreach>     
+  </update>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.inossem.wms.model.dic.DicMaterialName">
+    update dic_material_name
+    <set>
+      <if test="matName != null">
+        mat_name = #{matName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="materialNameTextExt0 != null">
+        material_name_text_ext0 = #{materialNameTextExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt1 != null">
+        material_name_text_ext1 = #{materialNameTextExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt2 != null">
+        material_name_text_ext2 = #{materialNameTextExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt3 != null">
+        material_name_text_ext3 = #{materialNameTextExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt4 != null">
+        material_name_text_ext4 = #{materialNameTextExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt5 != null">
+        material_name_text_ext5 = #{materialNameTextExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt6 != null">
+        material_name_text_ext6 = #{materialNameTextExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt7 != null">
+        material_name_text_ext7 = #{materialNameTextExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt8 != null">
+        material_name_text_ext8 = #{materialNameTextExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNameTextExt9 != null">
+        material_name_text_ext9 = #{materialNameTextExt9,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+      and lang_code = #{langCode,jdbcType=VARCHAR}
+  </update>
+  
+<!-- 
+  <update id="updateByPrimaryKey" parameterType="com.inossem.wms.model.dic.DicMaterialName">
+    update dic_material_name
+    set mat_name = #{matName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      material_name_text_ext0 = #{materialNameTextExt0,jdbcType=VARCHAR},
+      material_name_text_ext1 = #{materialNameTextExt1,jdbcType=VARCHAR},
+      material_name_text_ext2 = #{materialNameTextExt2,jdbcType=VARCHAR},
+      material_name_text_ext3 = #{materialNameTextExt3,jdbcType=VARCHAR},
+      material_name_text_ext4 = #{materialNameTextExt4,jdbcType=VARCHAR},
+      material_name_text_ext5 = #{materialNameTextExt5,jdbcType=VARCHAR},
+      material_name_text_ext6 = #{materialNameTextExt6,jdbcType=VARCHAR},
+      material_name_text_ext7 = #{materialNameTextExt7,jdbcType=VARCHAR},
+      material_name_text_ext8 = #{materialNameTextExt8,jdbcType=VARCHAR},
+      material_name_text_ext9 = #{materialNameTextExt9,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+      and lang_code = #{langCode,jdbcType=VARCHAR}
+  </update>
+ -->
+ 
+ 
+ 
+ 
+  <select id="select" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_material_name
+    where is_delete = 0
+  </select>
+  
+  
+  <!-- 物料主数据详情  -->
+  <select id="selectDicMaterialNameByMatCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT 
+		    matn.tid,
+		    matn.lang_code,
+		    matn.mat_name,
+		    matn.is_delete,
+		    matn.create_time,
+		    matn.modify_time,
+		    matn.create_user_id,
+		    matn.modify_user_id,
+		    matn.material_name_text_ext0,
+		    matn.material_name_text_ext1,
+		    matn.material_name_text_ext2,
+		    matn.material_name_text_ext3,
+		    matn.material_name_text_ext4,
+		    matn.material_name_text_ext5,
+		    matn.material_name_text_ext6,
+		    matn.material_name_text_ext7,
+		    matn.material_name_text_ext8,
+		    matn.material_name_text_ext9
+		FROM
+		    dic_material_name matn
+		        INNER JOIN
+		    dic_material mat ON mat.mat_name = matn.tid
+		        AND mat.mat_code = #{matCode}
+		        AND matn.is_delete = 0
+		        AND mat.is_delete = 0     
+  </select>
+  
+  
+  <update id="deleteByTid" parameterType="java.lang.String">
+    update dic_material_name
+    set is_delete = 1
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+</mapper>

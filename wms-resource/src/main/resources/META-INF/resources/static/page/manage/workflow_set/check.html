@@ -1,0 +1,263 @@
+<!doctype html>
+<html class="scorll">
+<head>
+	<meta charset="utf-8">
+	<title>步骤列表</title>
+	<link href="../../../part/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../../../css/common.css" rel="stylesheet" />
+	<link href="../../../css/inossem.grid.css" rel="stylesheet"/>
+	<script src="../../../js/jquery-1.11.0.min.js"></script>
+	<script src="../../../js/common.js"></script>
+	<script src="../../../part/layer/layer.js"></script>
+	<script src="../../../part/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../../js/jquery.inossem.grid.js"></script>
+	<script>
+		loadcompleted=function(){
+			$("ol.breadcrumb").append("<span style='color: white;padding: 0px 12px;font-weight: 600;'>审批流程设置</span>");
+            $("div.search a.home").remove();
+            $("div.search a.search").remove();
+            $("div.search a.advanced").remove();
+            $("div.searchbox").remove();
+            $("div.baseinfo a.btnMenuSet").remove();
+            $("div.baseinfo a.btnToDo").remove();
+		}
+	</script>
+	<script>
+		var g=null;
+		var nodeData = [];
+		//var active = true; //基本设置、经办设置、条件参数是否可点击
+		var setUpNum = 0; //基本设置、经办设置、条件参数 0 1 2
+		var selectDate = {};
+		$(document).on("click",".layui-layer-close",function(){
+			query("", "#00A0F0","setUp(this)");
+		})
+		$(function(){
+			query("text","#00A0F0","setUp(this)");
+			//新增步骤
+			$("#add").click(function(){
+				var order = $(".body .tablestyle4 tr").size();
+				/*$.each(nodeData,function(i,item){
+					item.unsigned="<span style='margin-right: 15px;color: rgb(153, 153, 153);'>基本设置</span><span style='margin-right: 15px;color: rgb(153, 153, 153);'>经办设置</span><span style='color: rgb(153, 153, 153);'>条件参数</span>";
+					//item.isNew = 0;
+				})*/
+				nodeData.push({nodeOrder:++order,procdefId:GetQueryString('procId'),unsigned:"<span style='margin-right: 15px;color: rgb(153, 153, 153);'>基本设置</span><span style='margin-right: 15px;color: rgb(153, 153, 153);'>经办设置</span><span style='color: rgb(153, 153, 153);'>条件参数</span>",isNew:true});
+				//active = false;
+				binddata(nodeData,"text");
+			})
+			//保存
+			$("#save").click(function(){
+				if(nodeData.length>0){
+					var isChecked = true;
+					$.each(nodeData,function(i,item){
+						if(item.nodeName==undefined||item.nodeName==""){
+							layer.msg("流程名称不能为空");
+							isChecked = false;
+							return false;
+						}
+						delete item.unsigned;
+						delete item.routes;
+						delete item.routeStr;
+						delete item.privatefixedcode;
+					})
+					if(isChecked){
+						ajax("../../../../node/saveNodeInfo",'post',nodeData,
+							function(data){
+								data=JSON.parse(data);
+								if(data.head.msg=="success"){
+									//active = true;
+									query("", "#00A0F0","setUp(this)")
+								}else{
+									layer.msg(data.head.msg);
+								}
+							}
+						);
+						//
+						/*$.each(nodeData,function(i,item){
+							item.unsigned="<span style='margin-right: 15px;color: #00A0F0;' onclick='setUp()'>基本设置</span><span style='margin-right: 15px;color: #00A0F0;' onclick='setUp()'>经办设置</span><span style='color: #00A0F0;' onclick='setUp()'>条件参数</span>";
+							//item.isNew = 0;
+						})*/
+					}
+
+
+				}
+
+			})
+
+		});
+		function binddata(data,type){
+		//	if(g==null){
+				g =$("#inossemgrid").iGrid({
+					columns: [
+						{ th: '步骤名称', col: 'nodeName',width:200,type:"text",disabled:"isdisabled"},
+						{ th: '下一步', col: 'routeStr',width:350 },
+						{ th: '编辑步骤属性', col: 'unsigned',width:450 },
+						{ th: '操作', col: '',type:"imagebutton",list:[
+							{command:"del",width:20,url:"../../../img/u17849.svg",hoverurl:"../../img/u17849_mouseOver.svg",describe:"删除",visible:true}
+						],width:150}
+					],
+					data: data,
+					skin:"tablestyle4",
+					sortable:false,
+					checkbox:false,
+					imagebutton:function(a,b,c,d){
+						console.log(c);
+						if(d=="del"){
+							if(!!c.isNew||c.isNew){
+								layer.confirm('你确定要删除？', {
+									btn: ['确定','取消'] //按钮
+								}, function(){
+									nodeData=nodeData.delete(c.privatefixedcode-1);
+									g.showdata(nodeData);
+									layer.close(layer.index);
+								}, function(){
+
+								});
+							}else{
+								console.log(a);
+								console.log(b);
+								console.log(c);
+								console.log(d);
+								layer.confirm('你确定要删除？', {
+									btn: ['确定','取消'] //按钮
+								}, function(){
+									ajax("../../../../node/deleteNodeInfo?nodeId="+c.nodeId,'post',null,
+											function(data){
+												data=JSON.parse(data);
+												if(data.head.msg!="success"){
+													layer.msg(data.head.msg);
+												}
+												/*if(active){
+													query("delete", "#00A0F0","setUp(this)");
+												}else{
+													query("delete","rgb(153, 153, 153)");
+												}*/
+												query("delete", "#00A0F0","setUp(this)");
+												layer.close(layer.index);
+											}
+									);
+								}, function(){
+
+								});
+							}
+						}
+					},
+					loadcomplete:function(a){
+						$(".tablestyle4 td[colnum='0']").click(function(){
+							var index=$(".tablestyle4 td[colnum='0']").index(this);
+							data[index].isdisabled=false;
+							binddata(data,null);
+						});
+					}
+				});
+		//	}else{
+		//		g.showdata(data);
+		//	}
+		}
+		function query(type, color,func){
+			ajax("../../../../node/nodeDefListInfo?processId="+GetQueryString('procId'),'get',null,
+				function(data){
+					data = JSON.parse(data);
+					if(type=="delete"){
+						var oldNodeData= nodeData;
+						nodeData = data.body;
+						$.each(oldNodeData,function(i,item){
+							if(!!item.isNew){
+								nodeData.push(item);
+							}
+						})
+					}else{
+						nodeData = data.body;
+					}
+					$.each(nodeData,function(i,item){
+						if(!!item.isNew){
+							item.unsigned="<span style='margin-right: 15px;color: rgb(153, 153, 153)' data-num='0'>基本设置</span><span style='margin-right: 15px;color: rgb(153, 153, 153)' data-num='1'>经办设置</span><span style='color: rgb(153, 153, 153)' data-num='2'>条件参数</span>";
+						}else{
+							item.unsigned="<span style='margin-right: 15px;color: #00A0F0' data-num='0' onclick='setUp(this)'>基本设置</span><span style='margin-right: 15px;color: #00A0F0' data-num='1' onclick='setUp(this)'>经办设置</span><span style='color: #00A0F0' data-num='2' onclick='setUp(this)'>条件参数</span>";
+						}
+						//item.unsigned="<span style='margin-right: 15px;color: "+color+"' data-num='0' onclick='"+func+"'>基本设置</span><span style='margin-right: 15px;color: "+color+"' data-num='1' onclick='"+func+"'>经办设置</span><span style='color: "+color+"' data-num='2' onclick='"+func+"'>条件参数</span>";
+						item.routeStr="";
+						if(!!item.routes){
+							$.each(item.routes,function(j,jitem){
+								item.routes.length == j+1?item.routeStr+=jitem.routeName:item.routeStr+=jitem.routeName+"#"
+							})
+						}
+						if(!item.isNew){
+							item.isdisabled=true;
+						}
+						//item.isNew = 0;
+					})
+					/*$.each(nodeData,function(i,item){
+
+					})*/
+					//nodeData[2].isdisabled=false;
+					binddata(nodeData,null);
+				}
+			);
+		}
+		//新建流程页
+	    function param(){
+	    	layer.open({
+				type: 2,
+				title: '参数设置',
+				shadeClose: false,
+				shade: 0.8,
+				area: ['510px','450px'],
+				content: 'param.html'
+			});
+	    }
+		//基础设置、经办设置、条件设置
+		function setUp(that){
+			setUpNum = $(that).data("num");
+			var num = $(that).parents("tr").data("index");
+			selectDate = nodeData[num];
+			layer.open({
+				type: 2,
+				title: '参数设置',
+				shadeClose: false,
+				shade: 0.8,
+				area: ['1024px','900px'],
+				content: 'step.html'
+			});
+		}
+
+
+	</script>
+	<style>
+		/*.rolelist{border:1px solid #eee;background: rgb(249,251,252);padding-top:20px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+		.rolelist>ul{margin-left:-30px;}
+		.rolelist li{padding-left:40px;}
+		.ulcheckbox li,.ulcheckbox li div{line-height: 30px;}.ulcheckbox li div{height:30px}
+		.ulcheckbox span{margin: -10px 0 0 0;width: 14px;height:30px;overflow:hidden;float: left;line-height: 45px;cursor:pointer;}
+		.ulcheckbox span:hover{color:#3BA6F4}
+		ul.second,ul.third{display:none;}
+		.ulchkMaterial label{cursor:pointer;padding-left:15px;padding-right:15px;border-radius:2px;white-space: nowrap;overflow: hidden;text-overflow:ellipsis;}
+		.ulchkMaterial label.on{background-color:aquamarine;}*/
+	</style>
+	<style>
+		.bgImg{
+			background: url(../../../img/param.svg) no-repeat left center;
+			padding-left: 22px;
+			background-size: 20px 20px;
+		}
+		.bgImg:hover{
+			background: url(../../../img/param_mouseOver.svg) no-repeat left center;
+			padding-left: 22px;
+			background-size: 20px 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div i-template="head"></div>
+	<!--<div i-template="toolbar">
+		&lt;!&ndash;<a class="btn bgImg" id="sortName" href="javascript:void(0)" onclick="param()">参数设置</a>&ndash;&gt;
+	</div>-->
+	<div class="container article">
+		<div class="" style="margin-bottom: 20px;">
+			<a href="javascript:void(0)" class="btn btn-primary" style="width: 80px;margin-right: 10px;" id="add">新增步骤</a>
+   			<a href="javascript:void(0)" class="btn btn-primary" style="width: 80px;margin-right: 10px;" id="save">保存</a>
+		</div>
+		<div id="inossemgrid"></div>
+	</div>
+</body>
+</html>

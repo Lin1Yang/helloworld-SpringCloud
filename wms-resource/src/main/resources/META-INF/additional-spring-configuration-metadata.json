@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "spring.redis.databases.shiro",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.redis.databases.shiro'"
+  },
+  {
+    "name": "spring.redis.databases.business",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.redis.databases.business'"
+  }
+]}

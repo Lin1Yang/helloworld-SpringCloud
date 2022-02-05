@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inossem.wms.dao.dic.DicFreezeReasonMapper">
+    <resultMap id="BaseResultMap" type="com.inossem.wms.model.dic.DicFreezeReason">
+    <id column="reason_code" jdbcType="VARCHAR" property="reasonCode" />
+    <result column="reason_name" jdbcType="VARCHAR" property="reasonName" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+    <result column="freeze_reason_ext0" jdbcType="VARCHAR" property="freezeReasonExt0" />
+    <result column="freeze_reason_ext1" jdbcType="VARCHAR" property="freezeReasonExt1" />
+    <result column="freeze_reason_ext2" jdbcType="VARCHAR" property="freezeReasonExt2" />
+    <result column="freeze_reason_ext3" jdbcType="VARCHAR" property="freezeReasonExt3" />
+    <result column="freeze_reason_ext4" jdbcType="VARCHAR" property="freezeReasonExt4" />
+    <result column="freeze_reason_ext5" jdbcType="VARCHAR" property="freezeReasonExt5" />
+    <result column="freeze_reason_ext6" jdbcType="VARCHAR" property="freezeReasonExt6" />
+    <result column="freeze_reason_ext7" jdbcType="VARCHAR" property="freezeReasonExt7" />
+    <result column="freeze_reason_ext8" jdbcType="VARCHAR" property="freezeReasonExt8" />
+    <result column="freeze_reason_ext9" jdbcType="VARCHAR" property="freezeReasonExt9" />
+  </resultMap>
+  <insert id="insertFreezeReason" parameterType="com.inossem.wms.model.dic.DicFreezeReason">
+    insert into dic_freeze_reason
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="reasonCode != null">
+        reason_code,
+      </if>
+      <if test="reasonName != null">
+        reason_name,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+      <if test="freezeReasonExt0 != null">
+        freeze_reason_ext0,
+      </if>
+      <if test="freezeReasonExt1 != null">
+        freeze_reason_ext1,
+      </if>
+      <if test="freezeReasonExt2 != null">
+        freeze_reason_ext2,
+      </if>
+      <if test="freezeReasonExt3 != null">
+        freeze_reason_ext3,
+      </if>
+      <if test="freezeReasonExt4 != null">
+        freeze_reason_ext4,
+      </if>
+      <if test="freezeReasonExt5 != null">
+        freeze_reason_ext5,
+      </if>
+      <if test="freezeReasonExt6 != null">
+        freeze_reason_ext6,
+      </if>
+      <if test="freezeReasonExt7 != null">
+        freeze_reason_ext7,
+      </if>
+      <if test="freezeReasonExt8 != null">
+        freeze_reason_ext8,
+      </if>
+      <if test="freezeReasonExt9 != null">
+        freeze_reason_ext9,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="reasonCode != null">
+        #{reasonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonName != null">
+        #{reasonName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="freezeReasonExt0 != null">
+        #{freezeReasonExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt1 != null">
+        #{freezeReasonExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt2 != null">
+        #{freezeReasonExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt3 != null">
+        #{freezeReasonExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt4 != null">
+        #{freezeReasonExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt5 != null">
+        #{freezeReasonExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt6 != null">
+        #{freezeReasonExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt7 != null">
+        #{freezeReasonExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt8 != null">
+        #{freezeReasonExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt9 != null">
+        #{freezeReasonExt9,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    
+  </insert>
+  <update id="updateFreezeReason" parameterType="com.inossem.wms.model.dic.DicFreezeReason">
+    update dic_freeze_reason set
+      <if test="reasonName != null">
+        reason_name = #{reasonName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP}, 
+      </if>
+      <if test="createUserId != null">
+        create_user_id =  #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="freezeReasonExt0 != null">
+        freeze_reason_ext0 = #{freezeReasonExt0,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt1 != null">
+        freeze_reason_ext1 = #{freezeReasonExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt2 != null">
+        freeze_reason_ext2 = #{freezeReasonExt2,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt3 != null">
+        freeze_reason_ext3 = #{freezeReasonExt3,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt4 != null">
+        freeze_reason_ext4 = #{freezeReasonExt4,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt5 != null">
+        freeze_reason_ext5 = #{freezeReasonExt5,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt6 != null">
+        freeze_reason_ext6 = #{freezeReasonExt6,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt7 != null">
+        freeze_reason_ext7 = #{freezeReasonExt7,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt8 != null">
+        freeze_reason_ext8 = #{freezeReasonExt8,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeReasonExt9 != null">
+        freeze_reason_ext9 = #{freezeReasonExt9,jdbcType=VARCHAR},
+      </if>
+      is_delete = '0'
+      where reason_code = #{reasonCode,jdbcType=VARCHAR}
+  </update>
+   <!-- 仓位 查询冻结原因信息-->
+  <select id="selectFreezeReasonIsExist" parameterType="com.inossem.wms.model.dic.DicFreezeReason" resultMap="BaseResultMap">
+    select 
+    reason_code
+    from dic_freeze_reason
+    where reason_code = #{reasonCode,jdbcType=VARCHAR}
+  </select>
+</mapper>

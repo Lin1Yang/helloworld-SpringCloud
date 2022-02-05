@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF">
+	<properties>
+		<!-- 日志目录默认输出到tomcat的根目录下级logs目录中，${sys:catalina.home}代表tomcat根目录 -->
+		<!-- 当 ${sys:catalina.home}为空时（即springboot以jar形式独立启动时），日志输出到相对目录../logs/下 -->
+		<property name="fileDirPath">${sys:catalina.home:-..}/logs</property>
+	</properties>
+	<Appenders>
+		<!-- 控制台输出 -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg #[%F-%L] %n" />
+			<Filters>
+				<ThresholdFilter level="DEBUG" />
+				<!-- <ThresholdFilter level="WARN" /> -->
+				<!-- <ThresholdFilter level="ERROR" /> -->
+			</Filters>
+		</Console>
+		<!-- 控制台输出（以滚动文件方式处理） -->
+		<RollingFile name="RollingFile-Console"
+			fileName="${fileDirPath}/console.log"
+			filePattern="${fileDirPath}/debug/$${date:yyyy-MM}/web-%d{yyyy-MM-dd}-%i.log">
+			<ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="50MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="30" />
+		</RollingFile>
+
+		<!-- 各个业务模块的日志输出 -->
+		<!-- 出库 -->
+		<RollingFile name="RollingFile-Output"
+			fileName="${fileDirPath}/output.log"
+			filePattern="${fileDirPath}/$${date:yyyy-MM-dd}/output-%d{yyyy-MM-dd}-%i.log.gz">
+			<ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout
+				pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%t] %-5level - %msg  #[%F-%L] %n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<SizeBasedTriggeringPolicy size="2MB" />
+			</Policies>
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+		<RollingFile name="RollingFile-csv"
+			fileName="${fileDirPath}/csv/csv.log"
+			filePattern="${fileDirPath}/csv/csv-%d{yyyy-MM-dd}-%i.log">
+			<ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout pattern="%msg" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<SizeBasedTriggeringPolicy size="10KB" />
+			</Policies>
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+			<DefaultRolloverStrategy max="2000" />
+		</RollingFile>
+		<!-- 推送 -->
+		<RollingFile name="RollingFile-PushMessage"
+			fileName="${fileDirPath}/push_message.log"
+			filePattern="${fileDirPath}/$${date:yyyy-MM-dd}/push_message-%d{yyyy-MM-dd}-%i.log.gz">
+			<ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout
+				pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%t] %-5level - %msg  #[%F-%L] %n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="2MB" />
+			</Policies>
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+		<!-- MQ日志 -->
+		<RollingFile name="RollingFile-ActiveMQ"
+			fileName="${fileDirPath}/active_mq.log"
+			filePattern="${fileDirPath}/$${date:yyyy-MM-dd}/active_mq-%d{yyyy-MM-dd}-%i.log.gz">
+			<ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout
+				pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%t] %-5level - %msg  #[%F-%L] %n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="2MB" />
+			</Policies>
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+		<!-- SAP-REST-API日志 -->
+		<RollingFile name="RollingFile-SapRestApi"
+			fileName="${fileDirPath}/sap_rest_api.log"
+			filePattern="${fileDirPath}/$${date:yyyy-MM-dd}/sap_rest_api-%d{yyyy-MM-dd}-%i.log.gz">
+			<ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout
+				pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%t] %-5level - %msg  #[%F-%L] %n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="2MB" />
+			</Policies>
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+		<!-- Integration Inbound日志 -->
+		<RollingFile name="RollingFile-IntegrationInbound"
+			fileName="${fileDirPath}/integration_inbound.log"
+			filePattern="${fileDirPath}/$${date:yyyy-MM-dd}/integration_inbound-%d{yyyy-MM-dd}-%i.log.gz">
+			<ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout
+				pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%t] %-5level - %msg  #[%F-%L] %n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="2MB" />
+			</Policies>
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+		<!-- Integration Outbound日志 -->
+		<RollingFile name="RollingFile-IntegrationOutbound"
+			fileName="${fileDirPath}/integration_outbound.log"
+			filePattern="${fileDirPath}/$${date:yyyy-MM-dd}/integration_outbound-%d{yyyy-MM-dd}-%i.log.gz">
+			<ThresholdFilter level="DEBUG" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout
+				pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%t] %-5level - %msg  #[%F-%L] %n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="2MB" />
+			</Policies>
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>		
+<!-- 		<JDBC name="loginlog" tableName="log_loginlog"> -->
+<!-- 			<ConnectionFactory class="com.inossem.wms.config.log.LoggerConnectionFactory" method="getDatabaseConnection" /> -->
+<!-- 			<Column name="user_id" pattern="%X{userId}" /> -->
+<!-- 			<Column name="user_name" pattern="%X{userName}" /> -->
+<!-- 			<Column name="request_url" pattern="%X{requestUrl}" /> -->
+<!-- 			<Column name="request_source" pattern="%X{requestSource}" /> -->
+<!-- 			<Column name="exception_name" pattern="%X{exceptionName}" /> -->
+<!-- 			<Column name="equipment_number" pattern="%X{equipmentNumber}" /> -->
+<!-- 			<Column name="operation_type" pattern="%X{operationType}" /> -->
+<!-- 			<Column name="param_map" pattern="%X{paramMap}" /> -->
+<!-- 			<Column name="create_Date" pattern="%d{yyyy-MM-dd}" /> -->
+<!-- 			<Column name="create_Time" pattern="%d{HH:mm:ss.SSS}" /> -->
+<!-- 			<Column name="exec_status" pattern="%X{execStatus}" /> -->
+<!-- 			<Column name="exec_code" pattern="%X{execCode}" /> -->
+<!-- 			<Column name="stack_trace" pattern="%X{stackTrace}" /> -->
+<!-- 			<Column name="exec_description" pattern="%X{execDescription}" /> -->
+<!-- 		 </JDBC> -->
+<!-- 		 <JDBC name="exceptionlog" tableName="log_exceptionlog"> -->
+<!-- 			<ConnectionFactory class="com.inossem.wms.config.log.LoggerConnectionFactory" method="getDatabaseConnection" /> -->
+<!-- 			<Column name="user_id" pattern="%X{userId}" /> -->
+<!-- 			<Column name="user_name" pattern="%X{userName}" /> -->
+<!-- 			<Column name="request_url" pattern="%X{requestUrl}" /> -->
+<!-- 			<Column name="exception_message" pattern="%X{exceptionMessage}" /> -->
+<!-- 			<Column name="stack_trace" pattern="%X{stackTrace}" /> -->
+<!-- 			<Column name="create_Date" pattern="%d{yyyy-MM-dd}" /> -->
+<!-- 			<Column name="create_Time" pattern="%d{HH:mm:ss.SSS}" /> -->
+<!-- 			<Column name="exec_status" pattern="%X{execStatus}" /> -->
+<!-- 			<Column name="exec_code" pattern="%X{execCode}" /> -->
+<!-- 			<Column name="exec_description" pattern="%X{execDescription}" /> -->
+<!-- 		 </JDBC> -->
+<!-- 		  <JDBC name="saplog" tableName="log_saplog"> -->
+<!-- 			<ConnectionFactory class="com.inossem.wms.config.log.LoggerConnectionFactory" method="getDatabaseConnection" /> -->
+<!-- 			<Column name="sap_result" pattern="%X{result}" /> -->
+<!-- 			<Column name="return_msg" pattern="%X{returnMsg}" /> -->
+<!-- 			<Column name="request_source" pattern="%X{requestSource}" /> -->
+<!-- 			<Column name="interface_type" pattern="%X{interfaceType}" /> -->
+<!-- 			<Column name="equipment_number" pattern="%X{equipmentNumber}" /> -->
+<!-- 			<Column name="receipt_code" pattern="%X{receiptCode}" /> -->
+<!-- 			<Column name="data_flow_direction" pattern="%X{dataFlowDirection}" /> -->
+<!-- 			<Column name="url" pattern="%X{url}" /> -->
+<!-- 			<Column name="in_param" pattern="%X{inParam}" /> -->
+<!-- 			<Column name="out_param" pattern="%X{outParam}" /> -->
+<!-- 			<Column name="user_name" pattern="%X{userName}" /> -->
+<!-- 			<Column name="request_type" pattern="%X{requestType}" /> -->
+<!-- 			<Column name="create_Date" pattern="%d{yyyy-MM-dd}" /> -->
+<!-- 			<Column name="create_Time" pattern="%d{HH:mm:ss.SSS}" /> -->
+<!-- 			<Column name="exec_status" pattern="%X{execStatus}" /> -->
+<!-- 			<Column name="exec_code" pattern="%X{execCode}" /> -->
+<!-- 			<Column name="exec_description" pattern="%X{execDescription}" /> -->
+<!-- 		 </JDBC> -->
+
+        <!-- tcp 传输日志到 logstash -->
+<!--        <Socket name="Socket" protocol="TCP" host="192.168.1.61" port="5044">-->
+<!--            <JsonLayout compact="true" eventEol="true" />-->
+<!--            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %ex%msg%n"/>-->
+<!--        </Socket>-->
+    </Appenders>
+
+	<Loggers>
+		<Root level="ERROR">
+			<!-- 由于Console Appender没有配置文件滚动，生产环境应该予以禁用 -->
+			<Appender-ref ref="Console" />
+<!--            <Appender-ref ref="Socket" />-->
+			<Appender-ref ref="RollingFile-Console" />
+		</Root>
+		<logger name="org.springframework" level="WARN"></logger>
+		<logger name="org.quartz" level="WARN"></logger>
+		<Logger name="output" level="DEBUG" additivity="true">
+			<Appender-ref ref="RollingFile-Output" />
+		</Logger>
+		<Logger name="pushMessage" level="DEBUG" additivity="false">
+			<Appender-ref ref="RollingFile-PushMessage" />
+		</Logger>
+		<Logger name="activeMQ" level="DEBUG" additivity="true">
+			<Appender-ref ref="RollingFile-ActiveMQ" />
+		</Logger>
+		<Logger name="sapRestApi" level="DEBUG" additivity="true">
+			<Appender-ref ref="RollingFile-SapRestApi" />
+		</Logger>
+		<Logger name="integrationInbound" level="DEBUG" additivity="true">
+			<Appender-ref ref="RollingFile-IntegrationInbound" />
+		</Logger>
+		<Logger name="integrationOutbound" level="DEBUG" additivity="true">
+			<Appender-ref ref="RollingFile-IntegrationOutbound" />
+		</Logger>		
+		<Logger name="csv" level="DEBUG" additivity="true">
+			<Appender-ref ref="RollingFile-csv" />
+			</Logger>
+<!-- 		<Logger name="com.inossem.wms.service.log.impl.LoginLogService" level="INFO" additivity="false"> -->
+<!-- 			<Appender-ref ref="loginlog" /> -->
+<!-- 		</Logger> -->
+
+<!-- 		<Logger name="com.inossem.wms.service.log.impl.ExceptionLogService" level="INFO" additivity="false"> -->
+<!-- 			<Appender-ref ref="exceptionlog" /> -->
+<!-- 		</Logger> -->
+<!-- 		<Logger name="com.inossem.wms.service.log.impl.SapLogService" level="INFO" additivity="false"> -->
+<!-- 			<Appender-ref ref="saplog" /> -->
+<!-- 		</Logger> -->
+
+
+	</Loggers>
+</Configuration>
